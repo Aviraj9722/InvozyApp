@@ -28,7 +28,10 @@ namespace eOrderTouchApp.Controllers
         }
         public async Task<IActionResult> Index(int OrgId=0)
         {
-
+            if (User.FindFirst("OrgId")!=null)
+            {
+                OrgId = Convert.ToInt32(User.FindFirst("OrgId")?.Value);
+            }
             TempData["OrgId"] = OrgId;
             var users = await _context.TblUsers.Where(w=>w.BussinessId == OrgId).ToListAsync();
             var org = await _context.TblBusinesses.Where(w=>w.Id == OrgId).FirstOrDefaultAsync();
