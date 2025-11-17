@@ -1,0 +1,183 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+}
+  @if (User.FindFirst("Role")?.Value != "Admin")
+{
+    <div class="container-fluid py-4">
+        <h3 class="text-center fw-bold text-primary mb-4">Invozy Dashboard</h3>
+
+        <div class="row justify-content-center g-3">
+
+            <!-- New Order -->
+            <div class="col-4 col-md-4 col-lg-4">
+                <a asp-controller="Order" asp-action="Create" class="text-decoration-none">
+                    <div class="dashboard-card text-center shadow-sm border-0">
+                        <div class="card-body p-3">
+                            <i class="fas fa-cart-plus fa-2x text-primary mb-2"></i>
+                            <h6 class="fw-semibold text-dark mb-0">New Order</h6>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Products -->
+            <div class="col-4 col-md-4 col-lg-4">
+                <a asp-controller="Product" asp-action="Index" class="text-decoration-none">
+                    <div class="dashboard-card text-center shadow-sm border-0">
+                        <div class="card-body p-3">
+                            <i class="fas fa-chart-line fa-2x text-success mb-2"></i>
+                            <h6 class="fw-semibold text-dark mb-0">Products</h6>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Product Stock -->
+            <div class="col-4 col-md-4 col-lg-4">
+                <a asp-controller="Product" asp-action="Index" class="text-decoration-none">
+                    <div class="dashboard-card text-center shadow-sm border-0">
+                        <div class="card-body p-3">
+                            <i class="fas fa-box-open fa-2x text-warning mb-2"></i>
+                            <h6 class="fw-semibold text-dark mb-0">Product Stock</h6>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Categories -->
+            <div class="col-4 col-md-4 col-lg-4">
+                <a asp-controller="Category" asp-action="Index" class="text-decoration-none">
+                    <div class="dashboard-card text-center shadow-sm border-0">
+                        <div class="card-body p-3">
+                            <i class="fas fa-tags fa-2x text-danger mb-2"></i>
+                            <h6 class="fw-semibold text-dark mb-0">Categories</h6>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Users -->
+            <div class="col-4 col-md-4 col-lg-4">
+                <a asp-controller="User" asp-action="UserList" class="text-decoration-none">
+                    <div class="dashboard-card text-center shadow-sm border-0">
+                        <div class="card-body p-3">
+                            <i class="fas fa-users fa-2x text-info mb-2"></i>
+                            <h6 class="fw-semibold text-dark mb-0">Users</h6>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Stock -->
+            <div class="col-4 col-md-4 col-lg-4">
+                <a asp-controller="Stock" asp-action="Index" class="text-decoration-none">
+                    <div class="dashboard-card text-center shadow-sm border-0">
+                        <div class="card-body p-3">
+                            <i class="fas fa-warehouse fa-2x text-secondary mb-2"></i>
+                            <h6 class="fw-semibold text-dark mb-0">Stock</h6>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Settings -->
+            <div class="col-4 col-md-4 col-lg-4">
+                <a asp-controller="Settings" asp-action="Index" class="text-decoration-none">
+                    <div class="dashboard-card text-center shadow-sm border-0">
+                        <div class="card-body p-3">
+                            <i class="fas fa-cogs fa-2x text-dark mb-2"></i>
+                            <h6 class="fw-semibold text-dark mb-0">Settings</h6>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- UOM -->
+            <div class="col-4 col-md-4 col-lg-4">
+                <a asp-controller="UOM" asp-action="Index" class="text-decoration-none">
+                    <div class="dashboard-card text-center shadow-sm border-0">
+                        <div class="card-body p-3">
+                            <i class="fas fa-ruler-combined fa-2x text-primary mb-2"></i>
+                            <h6 class="fw-semibold text-dark mb-0">UOM</h6>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Feedback -->
+            <div class="col-4 col-md-4 col-lg-4">
+                <a asp-controller="Feedback" asp-action="Index" class="text-decoration-none">
+                    <div class="dashboard-card text-center shadow-sm border-0">
+                        <div class="card-body p-3">
+                            <i class="fas fa-comment-dots fa-2x text-primary mb-2"></i>
+                            <h6 class="fw-semibold text-dark mb-0">Feedback</h6>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <!-- Order Report -->
+            <div class="col-4 col-md-4 col-lg-4">
+                <a asp-controller="Order" asp-action="Report" class="text-decoration-none">
+                    <div class="dashboard-card text-center shadow-sm border-0">
+                        <div class="card-body p-3">
+                            <i class="fas fa-chart-line fa-2x text-success mb-2"></i>
+                            <h6 class="fw-semibold text-dark mb-0">Order Report</h6>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <!-- Logout -->
+            <div class="col-4 col-md-4 col-lg-4">
+                <a asp-controller="Account" asp-action="Logout" class="text-decoration-none">
+                    <div class="dashboard-card text-center shadow-sm border-0">
+                        <div class="card-body p-3">
+                            <i class="fas fa-sign-out-alt fa-2x text-danger mb-2"></i>
+                            <h6 class="fw-semibold text-dark mb-0">Logout</h6>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+        </div>
+    </div>
+}
+<!-- Dashboard Styling -->
+<style>
+    .dashboard-card {
+        border-radius: 15px;
+        background: #fff;
+        transition: all 0.25s ease-in-out;
+    }
+
+        .dashboard-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+    h6 {
+        font-size: 0.9rem;
+    }
+
+    @@media (max-width: 768px) {
+        .col-4 {
+            width: 33.33%;
+            flex: 0 0 33.33%;
+            max-width: 33.33%;
+        }
+
+        i {
+            font-size: 1.4rem !important;
+        }
+
+        h6 {
+            font-size: 0.75rem;
+        }
+
+        .dashboard-card {
+            padding: 0.5rem !important;
+        }
+    }
+</style>
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />

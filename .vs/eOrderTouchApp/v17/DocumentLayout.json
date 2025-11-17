@@ -1,0 +1,233 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "E:\\GIT\\Code\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{81C78084-C52F-3E5D-9B96-6A4F796DEF09}|eOrderTouchApp.csproj|e:\\git\\code\\views\\order\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{81C78084-C52F-3E5D-9B96-6A4F796DEF09}|eOrderTouchApp.csproj|solutionrelative:views\\order\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{81C78084-C52F-3E5D-9B96-6A4F796DEF09}|eOrderTouchApp.csproj|e:\\git\\code\\controllers\\ordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{81C78084-C52F-3E5D-9B96-6A4F796DEF09}|eOrderTouchApp.csproj|solutionrelative:controllers\\ordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{81C78084-C52F-3E5D-9B96-6A4F796DEF09}|eOrderTouchApp.csproj|e:\\git\\code\\views\\product\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{81C78084-C52F-3E5D-9B96-6A4F796DEF09}|eOrderTouchApp.csproj|solutionrelative:views\\product\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{81C78084-C52F-3E5D-9B96-6A4F796DEF09}|eOrderTouchApp.csproj|e:\\git\\code\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{81C78084-C52F-3E5D-9B96-6A4F796DEF09}|eOrderTouchApp.csproj|solutionrelative:controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{81C78084-C52F-3E5D-9B96-6A4F796DEF09}|eOrderTouchApp.csproj|e:\\git\\code\\controllers\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{81C78084-C52F-3E5D-9B96-6A4F796DEF09}|eOrderTouchApp.csproj|solutionrelative:controllers\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{81C78084-C52F-3E5D-9B96-6A4F796DEF09}|eOrderTouchApp.csproj|e:\\git\\code\\views\\home\\dashboard.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{81C78084-C52F-3E5D-9B96-6A4F796DEF09}|eOrderTouchApp.csproj|solutionrelative:views\\home\\dashboard.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{81C78084-C52F-3E5D-9B96-6A4F796DEF09}|eOrderTouchApp.csproj|e:\\git\\code\\controllers\\uomcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{81C78084-C52F-3E5D-9B96-6A4F796DEF09}|eOrderTouchApp.csproj|solutionrelative:controllers\\uomcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{81C78084-C52F-3E5D-9B96-6A4F796DEF09}|eOrderTouchApp.csproj|e:\\git\\code\\controllers\\userlicensecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{81C78084-C52F-3E5D-9B96-6A4F796DEF09}|eOrderTouchApp.csproj|solutionrelative:controllers\\userlicensecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{81C78084-C52F-3E5D-9B96-6A4F796DEF09}|eOrderTouchApp.csproj|e:\\git\\code\\controllers\\businessescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{81C78084-C52F-3E5D-9B96-6A4F796DEF09}|eOrderTouchApp.csproj|solutionrelative:controllers\\businessescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{81C78084-C52F-3E5D-9B96-6A4F796DEF09}|eOrderTouchApp.csproj|e:\\git\\code\\views\\businesses\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{81C78084-C52F-3E5D-9B96-6A4F796DEF09}|eOrderTouchApp.csproj|solutionrelative:views\\businesses\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{81C78084-C52F-3E5D-9B96-6A4F796DEF09}|eOrderTouchApp.csproj|e:\\git\\code\\models\\tblbusiness.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{81C78084-C52F-3E5D-9B96-6A4F796DEF09}|eOrderTouchApp.csproj|solutionrelative:models\\tblbusiness.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{81C78084-C52F-3E5D-9B96-6A4F796DEF09}|eOrderTouchApp.csproj|e:\\git\\code\\models\\eordertouchcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{81C78084-C52F-3E5D-9B96-6A4F796DEF09}|eOrderTouchApp.csproj|solutionrelative:models\\eordertouchcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{81C78084-C52F-3E5D-9B96-6A4F796DEF09}|eOrderTouchApp.csproj|e:\\git\\code\\views\\order\\report.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{81C78084-C52F-3E5D-9B96-6A4F796DEF09}|eOrderTouchApp.csproj|solutionrelative:views\\order\\report.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 5,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{74946827-37a0-11d2-a273-00c04f8ef4ff}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Dashboard.cshtml",
+              "DocumentMoniker": "E:\\GIT\\Code\\Views\\Home\\Dashboard.cshtml",
+              "RelativeDocumentMoniker": "Views\\Home\\Dashboard.cshtml",
+              "ToolTip": "E:\\GIT\\Code\\Views\\Home\\Dashboard.cshtml",
+              "RelativeToolTip": "Views\\Home\\Dashboard.cshtml",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAABsAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-16T18:36:31.298Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "E:\\GIT\\Code\\Views\\Product\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Product\\Index.cshtml",
+              "ToolTip": "E:\\GIT\\Code\\Views\\Product\\Index.cshtml",
+              "RelativeToolTip": "Views\\Product\\Index.cshtml",
+              "ViewState": "AgIAAEIAAAAAAAAAAAAAAEgAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-16T18:34:16.766Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "UomController.cs",
+              "DocumentMoniker": "E:\\GIT\\Code\\Controllers\\UomController.cs",
+              "RelativeDocumentMoniker": "Controllers\\UomController.cs",
+              "ToolTip": "E:\\GIT\\Code\\Controllers\\UomController.cs",
+              "RelativeToolTip": "Controllers\\UomController.cs",
+              "ViewState": "AgIAACEAAAAAAAAAAAAYwDMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-16T18:30:01.668Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "UserLicenseController.cs",
+              "DocumentMoniker": "E:\\GIT\\Code\\Controllers\\UserLicenseController.cs",
+              "RelativeDocumentMoniker": "Controllers\\UserLicenseController.cs",
+              "ToolTip": "E:\\GIT\\Code\\Controllers\\UserLicenseController.cs",
+              "RelativeToolTip": "Controllers\\UserLicenseController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-16T14:41:20.586Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "E:\\GIT\\Code\\Views\\Order\\Create.cshtml",
+              "RelativeDocumentMoniker": "Views\\Order\\Create.cshtml",
+              "ToolTip": "E:\\GIT\\Code\\Views\\Order\\Create.cshtml",
+              "RelativeToolTip": "Views\\Order\\Create.cshtml",
+              "ViewState": "AgIAAMECAAAAAAAAAAAAANECAAC+AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-16T17:27:30.713Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "CategoryController.cs",
+              "DocumentMoniker": "E:\\GIT\\Code\\Controllers\\CategoryController.cs",
+              "RelativeDocumentMoniker": "Controllers\\CategoryController.cs",
+              "ToolTip": "E:\\GIT\\Code\\Controllers\\CategoryController.cs",
+              "RelativeToolTip": "Controllers\\CategoryController.cs",
+              "ViewState": "AgIAACYAAAAAAAAAAAAgwDkAAABvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-16T18:43:41.686Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ProductController.cs",
+              "DocumentMoniker": "E:\\GIT\\Code\\Controllers\\ProductController.cs",
+              "RelativeDocumentMoniker": "Controllers\\ProductController.cs",
+              "ToolTip": "E:\\GIT\\Code\\Controllers\\ProductController.cs",
+              "RelativeToolTip": "Controllers\\ProductController.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAxwBcAAABkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-16T18:47:05.222Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "BusinessesController.cs",
+              "DocumentMoniker": "E:\\GIT\\Code\\Controllers\\BusinessesController.cs",
+              "RelativeDocumentMoniker": "Controllers\\BusinessesController.cs",
+              "ToolTip": "E:\\GIT\\Code\\Controllers\\BusinessesController.cs",
+              "RelativeToolTip": "Controllers\\BusinessesController.cs",
+              "ViewState": "AgIAAGoAAAAAAAAAAAD4v4cAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-16T18:18:05.487Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "E:\\GIT\\Code\\Views\\Businesses\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Businesses\\Index.cshtml",
+              "ToolTip": "E:\\GIT\\Code\\Views\\Businesses\\Index.cshtml",
+              "RelativeToolTip": "Views\\Businesses\\Index.cshtml",
+              "ViewState": "AgIAAOwAAAAAAAAAAAAvwAEBAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-16T18:12:37.942Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "eOrderTouchContext.cs",
+              "DocumentMoniker": "E:\\GIT\\Code\\Models\\eOrderTouchContext.cs",
+              "RelativeDocumentMoniker": "Models\\eOrderTouchContext.cs",
+              "ToolTip": "E:\\GIT\\Code\\Models\\eOrderTouchContext.cs",
+              "RelativeToolTip": "Models\\eOrderTouchContext.cs",
+              "ViewState": "AgIAADYAAAAAAAAAAIAwwDoAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-16T18:04:01.244Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "TblBusiness.cs",
+              "DocumentMoniker": "E:\\GIT\\Code\\Models\\TblBusiness.cs",
+              "RelativeDocumentMoniker": "Models\\TblBusiness.cs",
+              "ToolTip": "E:\\GIT\\Code\\Models\\TblBusiness.cs",
+              "RelativeToolTip": "Models\\TblBusiness.cs",
+              "ViewState": "AgIAABwAAAAAAAAAAIAzwCkAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-16T18:03:20.151Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Report.cshtml",
+              "DocumentMoniker": "E:\\GIT\\Code\\Views\\Order\\Report.cshtml",
+              "RelativeDocumentMoniker": "Views\\Order\\Report.cshtml",
+              "ToolTip": "E:\\GIT\\Code\\Views\\Order\\Report.cshtml",
+              "RelativeToolTip": "Views\\Order\\Report.cshtml",
+              "ViewState": "AgIAACMAAAAAAAAAAIAwwDkAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-16T17:44:37.378Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "OrderController.cs",
+              "DocumentMoniker": "E:\\GIT\\Code\\Controllers\\OrderController.cs",
+              "RelativeDocumentMoniker": "Controllers\\OrderController.cs",
+              "ToolTip": "E:\\GIT\\Code\\Controllers\\OrderController.cs",
+              "RelativeToolTip": "Controllers\\OrderController.cs",
+              "ViewState": "AgIAACAAAAAAAAAAAAAgwCgAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-16T17:16:30.731Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

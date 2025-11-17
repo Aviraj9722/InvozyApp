@@ -1,0 +1,139 @@
+﻿@model IEnumerable<eOrderTouchApp.Models.TblUser>
+
+<h3>Manage Users -<u>@ViewBag.OrgName</u> </h3>
+<br />
+
+<div class="row">
+    <!-- Left Side: Form (30%) -->
+    <div class="col-md-4">
+        <h4 id="formTitle">Add User</h4>
+        <form id="userForm">
+            <input type="hidden" id="userId" />
+            <div class="form-group mb-2">
+                <label>Name</label>
+                <input type="text" id="name" class="form-control" required />
+            </div>
+            <div class="form-group mb-2">
+                <label>Email</label>
+                <input type="text" id="emailid" class="form-control" required />
+            </div>
+            <div class="form-group mb-2">
+                <label>Mobile No.</label>
+                <input type="text" id="mobilenumber" class="form-control" required />
+            </div>
+            <div class="form-group mb-2">
+                <label>Is Active?</label>
+                <input type="checkbox" id="isactive" class="form-check-control"  />
+            </div>
+            <div class="form-group mb-2">
+                <label>UserName</label>
+                <input type="text" id="username" class="form-control" required />
+            </div>
+            <div class="form-group mb-2">
+                <label>Password</label>
+                <input type="password" id="password" class="form-control" required />
+            </div>
+
+
+            <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+    </div>
+
+    <!-- Right Side: Table (70%) -->
+    <div class="col-md-8">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>EmailId</th>
+                    <th>Mobile Number</th>
+                    <th>Is Active?</th>
+                    <th>UserName</th>
+                    <th>Password</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="userTableBody">
+                @foreach (var user in Model)
+                {
+                    <tr data-id="@user.Id">
+                        <td>@user.Name</td>
+                        <td>@user.EmailId</td>
+                        <td>@user.MobileNumber</td>
+                        <td>@user.IsActive</td>
+                   
+                        <td>@user.UserName</td>
+                        <td>@user.Password</td>
+                        <td>
+                            <button class="btn btn-warning btn-sm editUser">Edit</button>
+                            <button class="btn btn-danger btn-sm deleteUser">Delete</button>
+                            @Html.ActionLink("Licenses", "Index", "UserLicense", new { id = user.Id }, new { @class = "btn btn-success" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $('#userForm').submit(function (e) {
+            e.preventDefault();
+              
+            let user = {
+                Id: $('#userId').val() || 0,
+                Name: $('#name').val(),
+                EmailId: $('#emailid').val(),
+                MobileNumber: $('#mobilenumber').val(),
+                IsActive: $("#isactive").is(":checked"),
+                UserName: $('#username').val(),
+                Password: $('#password').val()
+            };
+            console.log(user);
+            let url = user.Id == 0 ? '/User/Create' : '/User/Edit';
+
+            $.ajax({
+                url: url,
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(user),
+                success: function (res) {
+                    if (res.success) {
+                        location.reload();
+                    } else {
+                        alert(res.message);
+                    }
+                }
+            });
+        });
+
+        $('.editUser').click(function () {
+            let row = $(this).closest('tr');
+            $('#formTitle').text('Edit User');
+            $('#userId').val(row.data('id'));
+               $('#name').val(row.find('td:eq(0)').text());
+              $('#emailid').val(row.find('td:eq(1)').text());
+            $('#mobilenumber').val(row.find('td:eq(2)').text());
+            $('#isactive').prop("checked",row.find('td:eq(3)').text());
+         
+            $('#username').val(row.find('td:eq(4)').text());
+            $('#password').val(row.find('td:eq(5)').text());
+        });
+
+        $('.deleteUser').click(function () {
+            if (!confirm('Delete this user?')) return;
+
+            let id = $(this).closest('tr').data('id');
+
+            $.post('/User/Delete', { id: id }, function (res) {
+                if (res.success) {
+                    location.reload();
+                } else {
+                    alert(res.message);
+                }
+            });
+        });
+    </script>
+}

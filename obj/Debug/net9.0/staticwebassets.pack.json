@@ -1,0 +1,377 @@
+{
+  "Files": [
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\obj\\Debug\\net9.0\\scopedcss\\projectbundle\\eOrderTouchApp.bundle.scp.css",
+      "PackagePath": "staticwebassets\\eOrderTouchApp.7p3msbnans.bundle.scp.css"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\css\\site.css",
+      "PackagePath": "staticwebassets\\css\\site.css"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\favicon.ico",
+      "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\js\\site.js",
+      "PackagePath": "staticwebassets\\js\\site.js"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\lib\\bootstrap\\LICENSE",
+      "PackagePath": "staticwebassets\\lib\\bootstrap"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css.map"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js.map"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\lib\\jquery-validation-unobtrusive\\dist\\jquery.validate.unobtrusive.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\dist\\jquery.validate.unobtrusive.js"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\lib\\jquery-validation-unobtrusive\\dist\\jquery.validate.unobtrusive.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\dist\\jquery.validate.unobtrusive.min.js"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\LICENSE.md"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.js"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.min.js"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.js"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.min.js"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\lib\\jquery\\LICENSE.txt",
+      "PackagePath": "staticwebassets\\lib\\jquery\\LICENSE.txt"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\lib\\jquery\\dist\\jquery.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.js"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.js"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\lib\\jquery\\dist\\jquery.slim.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.slim.js"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\lib\\jquery\\dist\\jquery.slim.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.slim.min.js"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\lib\\jquery\\dist\\jquery.slim.min.map",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.slim.min.map"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\uploads\\06ac876e-5d3e-434e-9b74-1285fae6914a.webp",
+      "PackagePath": "staticwebassets\\uploads\\06ac876e-5d3e-434e-9b74-1285fae6914a.webp"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\uploads\\1d3d47dd-73f1-4a2b-845e-4d3d82890f87.webp",
+      "PackagePath": "staticwebassets\\uploads\\1d3d47dd-73f1-4a2b-845e-4d3d82890f87.webp"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\uploads\\1d4c4cc4-2e24-42ef-a3e6-2cdecec1dc3d.jpg",
+      "PackagePath": "staticwebassets\\uploads\\1d4c4cc4-2e24-42ef-a3e6-2cdecec1dc3d.jpg"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\uploads\\2f3ec08e-03c0-46f5-90f7-c735067af8f5.webp",
+      "PackagePath": "staticwebassets\\uploads\\2f3ec08e-03c0-46f5-90f7-c735067af8f5.webp"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\uploads\\33084139-f349-42bd-a7f1-9353d443f429.jpg",
+      "PackagePath": "staticwebassets\\uploads\\33084139-f349-42bd-a7f1-9353d443f429.jpg"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\uploads\\3ad36164-91b9-4fcb-8417-fbe6da474f7a.jpg",
+      "PackagePath": "staticwebassets\\uploads\\3ad36164-91b9-4fcb-8417-fbe6da474f7a.jpg"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\uploads\\46445ef2-40ff-469b-9db3-112124d1108e.webp",
+      "PackagePath": "staticwebassets\\uploads\\46445ef2-40ff-469b-9db3-112124d1108e.webp"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\uploads\\5fd75757-94ce-498f-8b31-f5d0d2b24b5c.webp",
+      "PackagePath": "staticwebassets\\uploads\\5fd75757-94ce-498f-8b31-f5d0d2b24b5c.webp"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\uploads\\7c9474d1-0565-40c9-a9e3-3a6e1b9e8c25.jpg",
+      "PackagePath": "staticwebassets\\uploads\\7c9474d1-0565-40c9-a9e3-3a6e1b9e8c25.jpg"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\uploads\\82a66868-b338-4f06-b988-6232f36e8b78.webp",
+      "PackagePath": "staticwebassets\\uploads\\82a66868-b338-4f06-b988-6232f36e8b78.webp"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\uploads\\835f8db3-3bce-44a0-bce6-21c808bfaeaa.jpg",
+      "PackagePath": "staticwebassets\\uploads\\835f8db3-3bce-44a0-bce6-21c808bfaeaa.jpg"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\uploads\\ac34af64-8e48-46bd-ae6c-a230e6c4abac.webp",
+      "PackagePath": "staticwebassets\\uploads\\ac34af64-8e48-46bd-ae6c-a230e6c4abac.webp"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\uploads\\b1740b56-51da-45b8-90ee-76ea21687fde.webp",
+      "PackagePath": "staticwebassets\\uploads\\b1740b56-51da-45b8-90ee-76ea21687fde.webp"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\uploads\\b26b5c70-1ca7-4913-9695-cba49e60f2ca.webp",
+      "PackagePath": "staticwebassets\\uploads\\b26b5c70-1ca7-4913-9695-cba49e60f2ca.webp"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\uploads\\bdd2cc32-6506-4fd7-9026-d2ea6ccbd4dc.jpg",
+      "PackagePath": "staticwebassets\\uploads\\bdd2cc32-6506-4fd7-9026-d2ea6ccbd4dc.jpg"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\uploads\\c0f47c0a-4646-417a-a9c3-38f882615f1d.webp",
+      "PackagePath": "staticwebassets\\uploads\\c0f47c0a-4646-417a-a9c3-38f882615f1d.webp"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\uploads\\c9bea03e-97bd-48e2-9df3-dcfece6e56e4.jpg",
+      "PackagePath": "staticwebassets\\uploads\\c9bea03e-97bd-48e2-9df3-dcfece6e56e4.jpg"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\uploads\\cbbfd587-087d-4246-88cc-db65d3e878b9.webp",
+      "PackagePath": "staticwebassets\\uploads\\cbbfd587-087d-4246-88cc-db65d3e878b9.webp"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\uploads\\d9001fd4-623d-4ba4-8ffe-4d39d1475989.webp",
+      "PackagePath": "staticwebassets\\uploads\\d9001fd4-623d-4ba4-8ffe-4d39d1475989.webp"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\uploads\\dae212f8-e02c-49c5-aa8f-f151004f5e51.webp",
+      "PackagePath": "staticwebassets\\uploads\\dae212f8-e02c-49c5-aa8f-f151004f5e51.webp"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\uploads\\e93585a8-500f-4a53-8776-b7daa97fd974.webp",
+      "PackagePath": "staticwebassets\\uploads\\e93585a8-500f-4a53-8776-b7daa97fd974.webp"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\uploads\\f35294a6-153c-41a8-85d6-1c6f8956c8f2.webp",
+      "PackagePath": "staticwebassets\\uploads\\f35294a6-153c-41a8-85d6-1c6f8956c8f2.webp"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\uploads\\f6faf742-464b-4116-a768-7affbe4280c7.webp",
+      "PackagePath": "staticwebassets\\uploads\\f6faf742-464b-4116-a768-7affbe4280c7.webp"
+    },
+    {
+      "Id": "D:\\Aviraj Innovations Pvt Ltd\\eOrderTouch\\eOrderTouchApp\\wwwroot\\uploads\\fcea8986-3126-4a68-b1c1-15123e5db0a3.webp",
+      "PackagePath": "staticwebassets\\uploads\\fcea8986-3126-4a68-b1c1-15123e5db0a3.webp"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.build.eOrderTouchApp.props",
+      "PackagePath": "build\\eOrderTouchApp.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.buildMultiTargeting.eOrderTouchApp.props",
+      "PackagePath": "buildMultiTargeting\\eOrderTouchApp.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.buildTransitive.eOrderTouchApp.props",
+      "PackagePath": "buildTransitive\\eOrderTouchApp.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.eOrderTouchApp.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.eOrderTouchApp.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

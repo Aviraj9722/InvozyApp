@@ -1,0 +1,97 @@
+﻿@model IEnumerable<eOrderTouchApp.Models.TblOrderMaster>
+
+@{
+    ViewData["Title"] = "Report";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Order report</h1>
+<form asp-action="Report2" class="d-flex align-items-center gap-2">
+    <label for="fromDT" class="me-2 mb-0">From Date:</label>
+    <input type="date" id="fromDT" name="fromDT" class="form-control" style="max-width: 250px;" />
+
+    <label for="toDT" class="ms-3 me-2 mb-0">To Date:</label>
+    <input type="date" id="toDT" name="toDT" class="form-control" style="max-width: 250px;" />
+
+    <button type="submit" class="btn btn-success ms-3">Generate</button>
+</form>
+<br />
+<table class="table table table-striped table-bordered table-group-divider">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerName)
+            </th>
+           
+           
+            <th>
+               Ordered Items
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GrandTotal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateOfOrder)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TableDetails)
+            </th>
+          @*   <th>
+                @Html.DisplayNameFor(model => model.Printed)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserId)
+            </th> *@
+         @*    <th></th> *@
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerName)
+            </td>
+         
+            <td>
+                    @{
+                        var details = item.TblOrderDetails.ToList();
+                        string data = "";
+                        foreach (var prod in details)
+                        {
+                            var material =  ((List<TblProduct>)ViewBag.Materials).Where( w=>w.Id== prod.ProductId).FirstOrDefault();
+                            data = data + $"{material.Name}  <b>₹</b> {prod.Price} <b>Qty:</b> {prod.Qty}   <b>₹</b>{prod.Total}<BR>";
+                        }
+                    }
+                    @Html.Raw(data)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GrandTotal)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateOfOrder)
+                </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.TableDetails)
+            </td>
+           @*  <td>
+                @Html.DisplayFor(modelItem => item.Printed)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserId)
+            </td> *@
+           @*  <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td> *@
+        </tr>
+}
+    </tbody>
+</table>

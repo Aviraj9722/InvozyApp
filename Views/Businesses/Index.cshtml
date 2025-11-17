@@ -1,0 +1,303 @@
+﻿@model IEnumerable<eOrderTouchApp.Models.TblBusiness>
+
+<div class="row mt-4">
+
+    <!-- LEFT SIDE FORM (40%) -->
+    <div class="col-md-4">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h5 id="form-title">Add Business</h5>
+            </div>
+
+            <div class="card-body">
+                <form id="businessForm" enctype="multipart/form-data">
+
+                    <input type="hidden" id="Id" name="Id" />
+
+                    <!-- Business Name -->
+                    <div class="mb-3">
+                        <label>Business Name</label>
+                        <input type="text" id="BusinessName" name="BusinessName" class="form-control" required />
+                    </div>
+
+                    <!-- Business Type -->
+                    <div class="mb-3">
+                        <label>Business Type</label>
+                        <select id="BusinessTypeId" name="BusinessTypeId" class="form-control" required>
+                            <option value="">-- Select --</option>
+                            @foreach (var x in ViewBag.BusinessTypes)
+                            {
+                                <option value="@x.Id">@x.BusinessTypeName</option>
+                            }
+                        </select>
+                    </div>
+
+                    <!-- Owner Name -->
+                    <div class="mb-3">
+                        <label>Owner Name</label>
+                        <input type="text" id="OwnerName" name="OwnerName" class="form-control" required />
+                    </div>
+
+                    <!-- GSTIN -->
+                    <div class="mb-3">
+                        <label>GSTIN</label>
+                        <input type="text" id="GSTIN" name="GSTIN" class="form-control" />
+                    </div>
+
+                    <!-- Email -->
+                    <div class="mb-3">
+                        <label>Email</label>
+                        <input type="email" id="Email" name="Email" class="form-control" required />
+                    </div>
+                    <!-- Mobile -->
+                    <div class="mb-3">
+                        <label>Mobile No</label>
+                        <input type="number" id="MobileNo" name="MobileNo" class="form-control" required />
+                    </div>
+
+                    <!-- Address -->
+                    <div class="mb-3">
+                        <label>Address</label>
+                        <textarea id="Address" name="Address" class="form-control"></textarea>
+                    </div>
+
+                    <!-- City -->
+                    <div class="mb-3">
+                        <label>City</label>
+                        <input type="text" id="City" name="City" class="form-control" />
+                    </div>
+
+                    <!-- Printer Size -->
+                    <div class="mb-3">
+                        <label>Printer Size</label>
+                        <select id="PrinterSizeId" name="PrinterSizeId" class="form-control">
+                            <option value="">-- Select --</option>
+                            @foreach (var x in ViewBag.PrinterSizes)
+                            {
+                                <option value="@x.Id">@x.PrinterSize</option>
+                            }
+                        </select>
+                    </div>
+
+                    <!-- GST Applicable -->
+                    <div class="mb-3">
+                        <label>GST Applicable?</label>
+                        <select id="IsGSTApplicable" name="IsGSTApplicable" class="form-control">
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+
+                    <!-- Hide Customer Field -->
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="HideCustomerField" name="HideCustomerField" />
+                        <label class="form-check-label">Hide Customer Field</label>
+                    </div>
+
+                    <!-- Hide Table Dropdown -->
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="HideTableDropDown" name="HideTableDropDown" />
+                        <label class="form-check-label">Hide Table Dropdown</label>
+                    </div>
+
+                    <!-- Logo Upload -->
+                    <div class="mb-3">
+                        <label>Logo</label>
+                        <input type="file" id="Logo" name="LogoFile" class="form-control" accept="image/*" />
+                        <img id="PreviewLogo" src="" class="img-fluid mt-2" style="max-height:80px;" />
+                    </div>
+
+                    <!-- QR Code Upload -->
+                    <div class="mb-3">
+                        <label>QR Code</label>
+                        <input type="file" id="QRCode" name="QRCodeFile" class="form-control" accept="image/*" />
+                        <img id="PreviewQR" src="" class="img-fluid mt-2" style="max-height:80px;" />
+                    </div>
+
+                    <!-- Active -->
+                        <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="IsActive" name="IsActive" />
+                        <label class="form-check-label">Is Active</label>
+                      
+                      
+                        </div>
+
+                    <button type="button" class="btn btn-success w-100" id="btnSave">Save</button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- RIGHT SIDE GRID (60%) -->
+    <div class="col-md-8">
+      
+
+            <div class="card-body" id="gridContainer" style="overflow: scroll;">
+                <table class="table table-bordered" id="gridTable">
+                    <thead class="table-dark">
+                        <tr>
+                            <th width="140">Action</th>
+                            <th>Logo</th>
+                            <th>QR</th>                          
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Owner</th>
+                            <th>City</th>
+                            <th>Email</th>
+                            <th>GSTN</th>
+                            <th>Printer</th>
+                            <th>Is GST Applicable?</th>
+                            <td>Customer Field</td>
+                            <td>Table LOV</td>
+                            <th>Active</th>                          
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <button class="btn btn-sm btn-primary" onclick="editRecord(@item.Id)">Edit</button>
+                                    <button class="btn btn-sm btn-danger" onclick="deleteRecord(@item.Id)">Delete</button>
+                                    @Html.ActionLink("Users", "Index", "user", new { OrgId = item.Id }, new {@class= "btn btn-sm btn-info"})
+                                
+                                </td>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(item.Logo))
+                                    {
+                                        <img src="~/Uploads/@item.Logo" width="50" />
+                                    }
+                                </td>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(item.Qrcode))
+                                    {
+                                        <img src="~/Uploads/@item.Qrcode" width="50" />
+                                    }
+                                </td>
+                                <td>@item.Id</td>
+                                <td>@item.BusinessName</td>
+                                <td>@item.OwnerName</td>
+                                <td>@item.City</td>
+                                <td>@item.Email</td>
+                                <td>@item.Gstin</td>
+                                <td>@item.PrinterSize</td>
+                                <td>@item.HideCustomerField</td>
+                                <td>@item.HideTableDropDown</td>
+                                <td>@(item.IsActive == true ? "Yes" : "No")</td>
+                               
+
+                               
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        
+    </div>
+
+</div>
+@section Scripts{
+    <script>
+
+        // FORM VALIDATION
+        function validateForm() {
+            if ($("#BusinessName").val().trim() === "") { alert("Business Name required"); return false; }
+            if ($("#OwnerName").val().trim() === "") { alert("Owner Name required"); return false; }
+            if ($("#Email").val().trim() === "") { alert("Email required"); return false; }
+            return true;
+        }
+
+        // SAVE / UPDATE
+        $("#btnSave").click(function () {
+
+            if (!validateForm()) return;
+
+            var formData = new FormData(document.getElementById("businessForm"));
+
+            var url = ($("#Id").val() == "" || $("#Id").val() == "0")
+                ? "/Businesses/Create"
+                : "/Businesses/Update";
+
+            formData.set("IsActive", $("#IsActive").is(":checked"));
+            formData.set("HideCustomerField", $("#HideCustomerField").is(":checked"));
+            formData.set("HideTableDropDown", $("#HideTableDropDown").is(":checked"));
+           // formData.set("IsGstapplicable", $("#IsGstapplicable").is(":checked"));
+            $.ajax({
+                url: url,
+                type: "POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function () {
+                    loadGrid();
+                    clearForm();
+                }
+            });
+        });
+
+        // LOAD GRID
+        function loadGrid(page = 1) {
+            $("#gridContainer").load("/Businesses/Index?page=" + page + " #gridTable");
+        }
+
+        // EDIT
+        function editRecord(id) {
+
+            $.get("/Businesses/Edit/" + id, function (data) {
+                debugger;
+                $("#Id").val(data.id);
+                $("#BusinessName").val(data.businessName);
+                $("#OwnerName").val(data.ownerName);
+                $("#City").val(data.city);
+                $("#Email").val(data.email);
+                $("#Address").val(data.address);
+                $("#GSTIN").val(data.gstin);
+                $("#IsActive").prop('checked', data.isActive);
+                $("#MobileNo").val(data.mobileNo);
+                $("#form-title").text("Edit Business");
+
+                $("#BusinessTypeId").val(data.businessTypeId);
+                $("#PrinterSizeId").val(data.printerSizeId);
+                $("#IsGSTApplicable").val(data.isGstApplicable.toString());
+
+                 $("#HideCustomerField").prop('checked', data.hideCustomerField);
+                $("#HideTableDropDown").prop('checked', data.hideTableDropDown);
+
+                $("#btnSave").text("Update");
+            });
+        }
+
+        // DELETE
+        function deleteRecord(id) {
+            if (confirm("Are you sure?")) {
+                $.post("/Businesses/Delete", { id: id }, function () {
+                    loadGrid();
+                });
+            }
+        }
+
+        // CLEAR FORM
+        function clearForm() {
+            $("#businessForm")[0].reset();
+            $("#Id").val("");
+             $("#MobileNo").val("");
+            $("#form-title").text("Add Business");
+            $("#btnSave").text("Save");
+            $("#PreviewLogo").attr("src", "");
+            $("#PreviewQR").attr("src", "");
+
+
+           $("#IsActive").prop("checked",false)
+             $("#HideCustomerField").prop("checked",false)
+               $("#HideTableDropDown").prop("checked",false)
+          
+        }
+
+    </script>
+
+
+
+
+}

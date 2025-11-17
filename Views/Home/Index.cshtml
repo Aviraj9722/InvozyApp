@@ -1,0 +1,221 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+
+@{
+    ViewData["Title"] = "Home";
+}
+
+<!-- ================= HERO SECTION ================= -->
+<section class="hero-section text-center text-white d-flex align-items-center justify-content-center flex-column"
+         style="background: url('/images/pos_billing.jpg') center center/cover no-repeat; min-height: 70vh; position: relative; padding-top: 60px; padding-bottom: 40px;">
+
+    <!-- Overlay for better text visibility -->
+    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+                background: rgba(0, 0, 0, 0.55); z-index: 1;"></div>
+
+    <div class="container position-relative" style="z-index: 2;">
+        <h1 class="display-5 fw-bold animate-fade">Welcome to <span class="text-info">Invozy</span></h1>
+        <p class="lead mt-3 mb-4 animate-fade-delay">
+            Smart Billing. Simplified. <br /> Empowering businesses with effortless invoicing and reports.
+        </p>
+        <a href="/Account/Login" class="btn btn-light btn-lg fw-semibold shadow-sm animate-bounce">
+            Access Your Account
+        </a>
+    </div>
+</section>
+
+<style>
+    /* ========== Responsive Hero Adjustments ========== */
+    @@media (max-width: 768px) {
+        .hero-section
+
+    {
+        min-height: 60vh; /* reduced height for mobile */
+        padding-top: 40px;
+        padding-bottom: 30px;
+    }
+
+    .hero-section h1 {
+        font-size: 1.8rem; /* smaller heading */
+    }
+
+    .hero-section p {
+        font-size: 1rem;
+        line-height: 1.4;
+    }
+
+    .hero-section .btn {
+        font-size: 1rem;
+        padding: 10px 24px;
+    }
+
+    }
+
+    @@media (max-width: 480px) {
+        .hero-section
+
+    {
+        min-height: 55vh;
+        padding-top: 30px;
+    }
+
+    .hero-section h1 {
+        font-size: 1.6rem;
+    }
+
+    .hero-section p {
+        font-size: 0.95rem;
+    }
+
+    }
+</style>
+
+
+<style>
+    @@media (max-width: 768px) {
+        .hero-section
+
+    {
+        padding-top: 70px; /* more upward shift on mobile */
+        min-height: 85vh;
+    }
+
+    .hero-section h1 {
+        font-size: 1.8rem;
+    }
+
+    .hero-section p {
+        font-size: 1rem;
+    }
+
+    }
+</style>
+
+<!-- ================= FEATURES SECTION ================= -->
+<section class="container py-5">
+    <h2 class="text-center fw-bold mb-5 text-primary">Our Key Features</h2>
+    <div class="row text-center">
+        <div class="col-md-4 mb-4 animate-slide-up">
+            <i class="bi bi-speedometer2 fs-1 text-primary"></i>
+            <h5 class="fw-bold">Smart Dashboard</h5>
+            <p class="text-muted">Monitor your billing operations and sales insights in one simple view.</p>
+        </div>
+        <div class="col-md-4 mb-4 animate-slide-up">
+            <i class="bi-receipt-cutoff fs-1 text-primary"></i>
+            <h5 class="fw-bold">Instant Invoices</h5>
+            <p class="text-muted">Generate and print professional invoices instantly — anytime, anywhere.</p>
+        </div>
+        <div class="col-md-4 mb-4 animate-slide-up">
+            <i class="bi-bar-chart-line fs-1 text-primary"></i>
+            <h5 class="fw-bold">Reports & Analytics</h5>
+            <p class="text-muted">Get real-time insights on sales and performance with beautiful reports.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ================= ABOUT SECTION ================= -->
+<section class="bg-primary text-white py-5 animate-fade">
+    <div class="container text-center">
+        <h2 class="fw-bold mb-4">Why Choose Invozy?</h2>
+        <p class="lead mb-0">
+            Invozy is built to make your billing faster, simpler, and more accurate.
+            Whether you own a café, store, or service business,
+            Invozy handles everything — so you can focus on growth.
+        </p>
+    </div>
+</section>
+
+<!-- ================= CALL TO ACTION ================= -->
+<section class="py-5 text-center">
+    <div class="container animate-fade-delay">
+        <h3 class="fw-bold text-dark">Start Smart Billing Today!</h3>
+        <p class="text-muted mb-4">Join hundreds of happy businesses powered by Invozy.</p>
+        <a href="/Account/Register" class="btn btn-outline-primary btn-lg px-5 shadow-sm">Sent enquiry for purchasing our Services</a>
+    </div>
+</section>
+
+<!-- ================= CUSTOM ANIMATION STYLES ================= -->
+<style>
+    /* ========== Animation Effects ========== */
+    .animate-fade {
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInUp 1s ease forwards;
+    }
+
+    .animate-fade-delay {
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fadeInUp 1.2s ease forwards;
+        animation-delay: 0.3s;
+    }
+
+    .animate-slide-up {
+        opacity: 0;
+        transform: translateY(50px);
+        animation: fadeInUp 1s ease forwards;
+    }
+
+    .animate-bounce {
+        animation: bounce 2s infinite;
+    }
+
+    @@keyframes fadeInUp {
+        from
+
+    {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    }
+
+    @@keyframes bounce {
+        0%, 20%, 50%, 80%, 100%
+
+    {
+        transform: translateY(0);
+    }
+
+    40% {
+        transform: translateY(-8px);
+    }
+
+    60% {
+        transform: translateY(-4px);
+    }
+
+    }
+
+    /* ========== Hero Section Styling ========== */
+    .hero-section {
+        background: linear-gradient(135deg, #0078d7, #00a3ff);
+        color: #fff;
+        text-shadow: 0px 1px 3px rgba(0,0,0,0.2);
+    }
+
+    /* ========== Button Hover ========== */
+    .btn-light:hover {
+        background-color: #f8f9fa;
+        transform: scale(1.05);
+        transition: all 0.3s ease;
+    }
+
+    .btn-outline-primary:hover {
+        background-color: #0078d7;
+        color: #fff;
+        transform: translateY(-2px);
+        transition: all 0.3s ease;
+    }
+
+    /* ========== Section Spacing ========== */
+    section {
+        scroll-margin-top: 80px;
+    }
+</style>

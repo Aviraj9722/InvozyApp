@@ -1,0 +1,144 @@
+﻿@{
+    var users = ViewBag.Users as List<eOrderTouchApp.Models.TblUserLicense>;
+}
+
+<h2>User License Management</h2>
+
+<div class="row">
+
+    <!-- 40% FORM -->
+    <div class="col-md-4">
+        <div class="card p-3 shadow">
+            <h4 id="formTitle">Add License</h4>
+            <form id="frmLicense">
+                <input type="hidden" id="Id" name="Id" />
+
+            <div class="form-group mb-2">
+                <label>License Key</label>
+                    <input id="LicenseKey" name="LicenseKey"  class="form-control" />
+            </div>
+
+            <div class="form-group mb-2">
+                <label>Start Date</label>
+                    <input type="date" id="StartDate" name="StartDate" class="form-control" />
+            </div>
+
+            <div class="form-group mb-2">
+                <label>End Date</label>
+                <input type="date" id="EndDate" name="EndDate" class="form-control" />
+            </div>
+
+            <button type="button" class="btn btn-primary mt-2" onclick="saveLicense()">Save</button>
+                <button type="button" class="btn btn-secondary mt-2" onclick="clearForm()">Clear</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 60% GRID -->
+    <div class="col-md-8">
+        <div class="card p-3 shadow">
+            <h4>License List</h4>
+
+            <table class="table table-bordered" id="tblData">
+                <thead>
+                    <tr>
+                        
+                        <th>License Key</th>
+                        <th>Start</th>
+                        <th>End</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        loadTable();
+
+        async function loadTable() {
+            const res = await fetch('/UserLicense/GetAll');
+            const data = await res.json();
+
+            let rows = "";
+            data.forEach(x => {
+                rows += `
+                    <tr>
+                      
+                        <td>${x.licenseKey}</td>
+                        <td>${x.startDate?.substring(0,10) ?? ""}</td>
+                        <td>${x.endDate?.substring(0,10) ?? ""}</td>
+                        <td>
+                            <button class="btn btn-sm btn-info" onclick="edit(${x.id})">Edit</button>
+                            <button class="btn btn-sm btn-danger" onclick="remove(${x.id})">Delete</button>
+                        </td>
+                    </tr>
+                `;
+            });
+
+            document.querySelector("#tblData tbody").innerHTML = rows;
+        }
+
+        function clearForm() {
+            document.getElementById("Id").value = "";
+            document.getElementById("LicenseKey").value = "";
+            document.getElementById("StartDate").value = "";
+            document.getElementById("EndDate").value = "";
+            document.getElementById("formTitle").innerText = "Add License";
+        }
+
+        async function saveLicense() {
+            debugger;
+       
+            let url = document.getElementById("Id").value ? '/UserLicense/Update' : '/UserLicense/Create';
+
+           var formData = new FormData(document.getElementById("frmLicense"));
+
+         
+
+           
+            $.ajax({
+                url: url,
+                type: "POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (result) {
+                       
+                        alert(result.message);
+                     loadTable();
+                      clearForm();
+          
+                }
+            });
+       
+        }
+
+        async function edit(id) {
+            const res = await fetch('/UserLicense/GetAll');
+            const data = await res.json();
+            const row = data.find(x => x.id === id);
+
+            document.getElementById("Id").value = row.id;      
+            document.getElementById("LicenseKey").value = row.licenseKey;
+            document.getElementById("StartDate").value = row.startDate?.substring(0, 10);
+            document.getElementById("EndDate").value = row.endDate?.substring(0, 10);
+            document.getElementById("formTitle").innerText = "Edit License";
+        }
+
+        async function remove(id) {
+            if (!confirm("Delete this record?")) return;
+
+            const res = await fetch('/UserLicense/Delete?id=' + id, { method: "POST" });
+
+            const result = await res.json();
+            if (result.success) {
+                loadTable();
+            }
+        }
+    </script>
+}

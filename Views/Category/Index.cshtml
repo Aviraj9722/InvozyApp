@@ -1,0 +1,93 @@
+﻿@model IEnumerable<eOrderTouchApp.Models.TblCategory>
+
+<h2>Manage Categories</h2>
+
+<div class="row">
+    <!-- Left Form -->
+    <div class="col-md-4">
+        <h4 id="formTitle">Add Category</h4>
+        <form id="categoryForm">
+            <input type="hidden" id="categoryId" />
+            <div class="mb-2">
+                <label>Category Name</label>
+                <input type="text" id="categoryName" class="form-control" required />
+            </div>
+            <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+    </div>
+
+    <!-- Right Table -->
+    <div class="col-md-8">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Category Name</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="categoryTableBody">
+                @foreach (var cat in Model)
+                {
+                    <tr data-id="@cat.Id">
+                        <td>@cat.Name</td>
+                        <td>
+                            <button class="btn btn-warning btn-sm editCategory">Edit</button>
+                            <button class="btn btn-danger btn-sm deleteCategory">Delete</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $('#categoryForm').submit(function (e) {
+            e.preventDefault();
+
+            let category = {
+                Id: $('#categoryId').val() || 0,
+                Name: $('#categoryName').val()
+            };
+
+            let url = category.Id == 0 ? '/Category/Create' : '/Category/Edit';
+
+            $.ajax({
+                url: url,
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(category),
+                success: function (res) {
+                    if (res.success) {
+                        location.reload();
+                    } else {
+                        alert(res.message || 'Error occurred');
+                    }
+                }
+            });
+        });
+
+        $('.editCategory').click(function () {
+            let row = $(this).closest('tr');
+            $('#formTitle').text('Edit Category');
+            $('#categoryId').val(row.data('id'));
+            $('#categoryName').val(row.find('td:eq(0)').text());
+        });
+
+        $('.deleteCategory').click(function () {
+            if (!confirm('Are you sure you want to delete this category?')) return;
+
+            let id = $(this).closest('tr').data('id');
+
+            $.post('/Category/Delete', { id: id }, function (res) {
+                if (res.success) {
+                    location.reload();
+                } else {
+                    alert('Error deleting category');
+                }
+            });
+        });
+    </script>
+}

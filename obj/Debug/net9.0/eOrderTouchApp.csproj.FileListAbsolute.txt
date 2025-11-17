@@ -1,0 +1,1583 @@
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\appsettings.Development.json
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\appsettings.json
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\eOrderTouchApp.staticwebassets.runtime.json
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\eOrderTouchApp.staticwebassets.endpoints.json
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\eOrderTouchApp.exe
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\eOrderTouchApp.deps.json
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\eOrderTouchApp.runtimeconfig.json
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\eOrderTouchApp.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\eOrderTouchApp.pdb
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\Azure.Core.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\Azure.Identity.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\Humanizer.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Bcl.AsyncInterfaces.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Build.Locator.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\Microsoft.CodeAnalysis.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\Microsoft.CodeAnalysis.CSharp.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\Microsoft.CodeAnalysis.Workspaces.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\Microsoft.CodeAnalysis.Workspaces.MSBuild.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Data.SqlClient.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.Design.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.Relational.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Extensions.Caching.Abstractions.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Extensions.Caching.Memory.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Extensions.Configuration.Abstractions.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Extensions.DependencyInjection.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Extensions.DependencyModel.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Extensions.Logging.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Extensions.Logging.Abstractions.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Extensions.Options.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Extensions.Primitives.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Identity.Client.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Identity.Client.Extensions.Msal.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\Microsoft.IdentityModel.Abstractions.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\Microsoft.IdentityModel.Logging.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\Microsoft.IdentityModel.Tokens.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\Microsoft.SqlServer.Server.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Win32.SystemEvents.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\Mono.TextTemplating.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\System.ClientModel.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\System.CodeDom.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\System.Composition.AttributedModel.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\System.Composition.Convention.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\System.Composition.Hosting.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\System.Composition.Runtime.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\System.Composition.TypedParts.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\System.Configuration.ConfigurationManager.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\System.Drawing.Common.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\System.Formats.Asn1.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\System.IdentityModel.Tokens.Jwt.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\System.Memory.Data.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\System.Runtime.Caching.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\System.Security.Cryptography.ProtectedData.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\System.Security.Permissions.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\System.Text.Json.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\System.Windows.Extensions.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.resources.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.resources.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.resources.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.resources.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.resources.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.resources.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.resources.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.resources.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.resources.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.resources.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.resources.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\runtimes\unix\lib\net6.0\Microsoft.Data.SqlClient.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\runtimes\win\lib\net6.0\Microsoft.Data.SqlClient.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\bin\Debug\net9.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\eOrderTouchApp.csproj.AssemblyReference.cache
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\eOrderTouchApp.GeneratedMSBuildEditorConfig.editorconfig
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\eOrderTouchApp.AssemblyInfoInputs.cache
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\eOrderTouchApp.AssemblyInfo.cs
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\eOrderTouchApp.csproj.CoreCompileInputs.cache
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\eOrderTouchApp.MvcApplicationPartsAssemblyInfo.cache
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\eOrderTouchApp.RazorAssemblyInfo.cache
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\eOrderTouchApp.RazorAssemblyInfo.cs
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\scopedcss\bundle\eOrderTouchApp.styles.css
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\scopedcss\projectbundle\eOrderTouchApp.bundle.scp.css
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\compressed\9nrionsugr-61n19gt1b8.gz
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\compressed\95awqjf7dm-xtxxf3hu2r.gz
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\compressed\8xuzvq6y1e-bqjiyaj88i.gz
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\compressed\8umv4gmjcy-c2jlpeoesf.gz
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\compressed\clpf4gp7mn-erw9l3u2r3.gz
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\compressed\gqiuqf751z-aexeepp0ev.gz
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\compressed\tnknkl0mh3-d7shbmvgxk.gz
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\compressed\s9u8na0hqw-ausgxo2sd3.gz
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\compressed\t1bzlvytim-k8d9w2qqmf.gz
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\compressed\aw3b4xolwo-cosvhxvwiu.gz
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\compressed\au4hce251h-ub07r2b239.gz
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\compressed\ajc7u8o6dp-fvhpjtyr6v.gz
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\compressed\k5cwqp0h1h-b7pk76d08c.gz
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\compressed\vvgo3xqnzw-fsbi9cje9m.gz
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\compressed\q7hlje63o7-rzd6atqjts.gz
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\compressed\dxwwk2i7v4-ee0r1s7dh0.gz
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\compressed\alr1v11wyf-dxx9fxp4il.gz
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\compressed\85dpiq3ubf-jd9uben2k1.gz
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\compressed\bid373uk7t-khv3u5hwcm.gz
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\compressed\a5vkq9r7cm-r4e9w2rdcm.gz
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\compressed\uv0e47anx5-lcd1t2u6c8.gz
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\compressed\ek56jbs7e1-c2oey78nd0.gz
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\compressed\cj3aua9yka-tdbxkamptv.gz
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\compressed\rzx8312sjx-j5mq2jizvt.gz
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\compressed\cp9qqox33a-06098lyss8.gz
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\compressed\kudug1axpz-nvvlpmu67g.gz
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\compressed\qh7e6n9gm5-s35ty4nyc5.gz
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\compressed\piaiv1o1th-pj5nd1wqec.gz
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\compressed\bs4dtssvmk-46ein0sx1k.gz
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\compressed\neaqxmyqoi-v0zj4ognzu.gz
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\compressed\sjgd9ydomz-37tfw0ft22.gz
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\compressed\gkvjryxzc6-hrwsygsryq.gz
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\compressed\w90nkyxfuy-pk9g2wxc8p.gz
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\compressed\3jplnbpcpd-ft3s53vfgj.gz
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\compressed\mtxr8zpmyd-6cfz1n2cew.gz
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\compressed\u7f8dk9dsk-6pdc2jztkx.gz
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\compressed\sdzivljiab-493y06b0oq.gz
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\compressed\mz0hmzf5xp-iovd86k7lj.gz
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\compressed\qzxhqdscpj-vr1egmr9el.gz
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\compressed\242djj5qol-kbrnm935zg.gz
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\compressed\phnt47o1vw-jj8uyg4cgr.gz
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\compressed\i7bzebfid4-y7v9cxd14o.gz
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\compressed\vmkc3udk0x-notf2xhcfb.gz
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\compressed\4of6b070pe-h1s4sie4z3.gz
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\compressed\d9x4ybt6du-63fj8s7r0e.gz
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\compressed\mq4f8dr6gz-0j3bgjxly4.gz
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\compressed\hlap60nfgo-47otxtyo56.gz
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\compressed\3znztzcqpd-4v8eqarkd7.gz
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\compressed\s540hu69hd-356vix0kms.gz
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\compressed\i7ov7586up-83jwlth58m.gz
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\compressed\vl19d5udkc-mrlpezrjn3.gz
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\compressed\re1qx74xf3-lzl9nlhx6b.gz
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\compressed\o6d4eqgwnj-ag7o75518u.gz
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\compressed\9noghcse0n-x0q3zqp4vz.gz
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\compressed\9x778059uj-0i3buxo5is.gz
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\compressed\m9waeptedt-o1o13a6vjx.gz
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\compressed\xu5azukd8h-ttgo8qnofa.gz
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\compressed\iggabgs98m-2z0ns9nrw6.gz
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\compressed\qizkgke3bb-muycvpuwrr.gz
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\compressed\99nl07fgod-87fc7y1x7t.gz
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\compressed\epyqocywqb-mlv21k5csn.gz
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\compressed\zwvw9ndvly-7p3msbnans.gz
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\compressed\fdz4q5iqfc-7p3msbnans.gz
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\staticwebassets.build.json
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\staticwebassets.development.json
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\staticwebassets.build.endpoints.json
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\staticwebassets\msbuild.eOrderTouchApp.Microsoft.AspNetCore.StaticWebAssets.props
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\staticwebassets\msbuild.eOrderTouchApp.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\staticwebassets\msbuild.build.eOrderTouchApp.props
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\staticwebassets\msbuild.buildMultiTargeting.eOrderTouchApp.props
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\staticwebassets\msbuild.buildTransitive.eOrderTouchApp.props
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\staticwebassets.pack.json
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\eOrderTo.81320C37.Up2Date
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\eOrderTouchApp.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\refint\eOrderTouchApp.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\eOrderTouchApp.pdb
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\eOrderTouchApp.genruntimeconfig.cache
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\ref\eOrderTouchApp.dll
+D:\Aviraj Innovations Pvt Ltd\eOrderTouch\eOrderTouchApp\obj\Debug\net9.0\compressed\ypem67jvlr-ufwbkfi8jy.gz
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\appsettings.json
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\appsettings.Development.json
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\eOrderTouchApp.staticwebassets.runtime.json
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\eOrderTouchApp.staticwebassets.endpoints.json
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\eOrderTouchApp.exe
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\eOrderTouchApp.deps.json
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\eOrderTouchApp.runtimeconfig.json
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\eOrderTouchApp.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\eOrderTouchApp.pdb
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\Azure.Core.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\Azure.Identity.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\Humanizer.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Bcl.AsyncInterfaces.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Build.Locator.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\Microsoft.CodeAnalysis.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\Microsoft.CodeAnalysis.CSharp.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\Microsoft.CodeAnalysis.Workspaces.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\Microsoft.CodeAnalysis.Workspaces.MSBuild.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Data.SqlClient.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.Design.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.Relational.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Extensions.Caching.Abstractions.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Extensions.Caching.Memory.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Extensions.Configuration.Abstractions.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Extensions.DependencyInjection.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Extensions.DependencyModel.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Extensions.Logging.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Extensions.Logging.Abstractions.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Extensions.Options.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Extensions.Primitives.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Identity.Client.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Identity.Client.Extensions.Msal.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\Microsoft.IdentityModel.Abstractions.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\Microsoft.IdentityModel.Logging.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\Microsoft.IdentityModel.Tokens.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\Microsoft.SqlServer.Server.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\Mono.TextTemplating.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\System.ClientModel.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\System.CodeDom.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\System.Composition.AttributedModel.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\System.Composition.Convention.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\System.Composition.Hosting.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\System.Composition.Runtime.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\System.Composition.TypedParts.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\System.Configuration.ConfigurationManager.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\System.IdentityModel.Tokens.Jwt.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\System.Memory.Data.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\System.Runtime.Caching.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\System.Security.Cryptography.ProtectedData.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\runtimes\unix\lib\net6.0\Microsoft.Data.SqlClient.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\runtimes\win\lib\net6.0\Microsoft.Data.SqlClient.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\eOrderTouchApp.csproj.AssemblyReference.cache
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\rpswa.dswa.cache.json
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\eOrderTouchApp.GeneratedMSBuildEditorConfig.editorconfig
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\eOrderTouchApp.AssemblyInfoInputs.cache
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\eOrderTouchApp.AssemblyInfo.cs
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\eOrderTouchApp.csproj.CoreCompileInputs.cache
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\eOrderTouchApp.MvcApplicationPartsAssemblyInfo.cache
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\eOrderTouchApp.RazorAssemblyInfo.cache
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\eOrderTouchApp.RazorAssemblyInfo.cs
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\rjimswa.dswa.cache.json
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\rjsmrazor.dswa.cache.json
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\rjsmcshtml.dswa.cache.json
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\scopedcss\bundle\eOrderTouchApp.styles.css
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\scopedcss\projectbundle\eOrderTouchApp.bundle.scp.css
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\compressed\ypem67jvlr-ufwbkfi8jy.gz
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\compressed\9nrionsugr-61n19gt1b8.gz
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\compressed\95awqjf7dm-xtxxf3hu2r.gz
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\compressed\8xuzvq6y1e-bqjiyaj88i.gz
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\compressed\8umv4gmjcy-c2jlpeoesf.gz
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\compressed\clpf4gp7mn-erw9l3u2r3.gz
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\compressed\gqiuqf751z-aexeepp0ev.gz
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\compressed\tnknkl0mh3-d7shbmvgxk.gz
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\compressed\s9u8na0hqw-ausgxo2sd3.gz
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\compressed\t1bzlvytim-k8d9w2qqmf.gz
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\compressed\aw3b4xolwo-cosvhxvwiu.gz
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\compressed\au4hce251h-ub07r2b239.gz
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\compressed\ajc7u8o6dp-fvhpjtyr6v.gz
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\compressed\k5cwqp0h1h-b7pk76d08c.gz
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\compressed\vvgo3xqnzw-fsbi9cje9m.gz
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\compressed\q7hlje63o7-rzd6atqjts.gz
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\compressed\dxwwk2i7v4-ee0r1s7dh0.gz
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\compressed\alr1v11wyf-dxx9fxp4il.gz
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\compressed\85dpiq3ubf-jd9uben2k1.gz
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\compressed\bid373uk7t-khv3u5hwcm.gz
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\compressed\a5vkq9r7cm-r4e9w2rdcm.gz
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\compressed\uv0e47anx5-lcd1t2u6c8.gz
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\compressed\ek56jbs7e1-c2oey78nd0.gz
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\compressed\cj3aua9yka-tdbxkamptv.gz
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\compressed\rzx8312sjx-j5mq2jizvt.gz
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\compressed\cp9qqox33a-06098lyss8.gz
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\compressed\kudug1axpz-nvvlpmu67g.gz
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\compressed\qh7e6n9gm5-s35ty4nyc5.gz
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\compressed\piaiv1o1th-pj5nd1wqec.gz
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\compressed\bs4dtssvmk-46ein0sx1k.gz
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\compressed\neaqxmyqoi-v0zj4ognzu.gz
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\compressed\sjgd9ydomz-37tfw0ft22.gz
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\compressed\gkvjryxzc6-hrwsygsryq.gz
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\compressed\w90nkyxfuy-pk9g2wxc8p.gz
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\compressed\3jplnbpcpd-ft3s53vfgj.gz
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\compressed\mtxr8zpmyd-6cfz1n2cew.gz
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\compressed\u7f8dk9dsk-6pdc2jztkx.gz
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\compressed\sdzivljiab-493y06b0oq.gz
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\compressed\mz0hmzf5xp-iovd86k7lj.gz
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\compressed\qzxhqdscpj-vr1egmr9el.gz
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\compressed\242djj5qol-kbrnm935zg.gz
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\compressed\phnt47o1vw-jj8uyg4cgr.gz
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\compressed\i7bzebfid4-y7v9cxd14o.gz
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\compressed\vmkc3udk0x-notf2xhcfb.gz
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\compressed\4of6b070pe-h1s4sie4z3.gz
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\compressed\d9x4ybt6du-63fj8s7r0e.gz
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\compressed\mq4f8dr6gz-0j3bgjxly4.gz
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\compressed\hlap60nfgo-47otxtyo56.gz
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\compressed\3znztzcqpd-4v8eqarkd7.gz
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\compressed\s540hu69hd-356vix0kms.gz
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\compressed\i7ov7586up-83jwlth58m.gz
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\compressed\vl19d5udkc-mrlpezrjn3.gz
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\compressed\re1qx74xf3-lzl9nlhx6b.gz
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\compressed\o6d4eqgwnj-ag7o75518u.gz
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\compressed\9noghcse0n-x0q3zqp4vz.gz
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\compressed\9x778059uj-0i3buxo5is.gz
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\compressed\m9waeptedt-o1o13a6vjx.gz
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\compressed\xu5azukd8h-ttgo8qnofa.gz
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\compressed\iggabgs98m-2z0ns9nrw6.gz
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\compressed\qizkgke3bb-muycvpuwrr.gz
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\compressed\99nl07fgod-87fc7y1x7t.gz
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\compressed\epyqocywqb-mlv21k5csn.gz
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\compressed\zwvw9ndvly-7p3msbnans.gz
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\compressed\fdz4q5iqfc-7p3msbnans.gz
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\staticwebassets.build.json
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\staticwebassets.build.json.cache
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\staticwebassets.development.json
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\staticwebassets.build.endpoints.json
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\eOrderTo.81320C37.Up2Date
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\eOrderTouchApp.dll
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\refint\eOrderTouchApp.dll
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\eOrderTouchApp.pdb
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\eOrderTouchApp.genruntimeconfig.cache
+D:\Project\eOrderTouchApp\obj\Debug\net9.0\ref\eOrderTouchApp.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\Microsoft.AspNetCore.Razor.Language.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Build.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Build.Framework.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\Microsoft.CodeAnalysis.AnalyzerUtilities.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\Microsoft.CodeAnalysis.CSharp.Features.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\Microsoft.CodeAnalysis.Elfie.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\Microsoft.CodeAnalysis.Features.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\Microsoft.CodeAnalysis.Razor.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\Microsoft.CodeAnalysis.Scripting.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\Microsoft.DiaSymReader.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\Microsoft.DotNet.Scaffolding.Shared.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\Microsoft.NET.StringTools.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\Microsoft.VisualStudio.Web.CodeGeneration.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\Microsoft.VisualStudio.Web.CodeGeneration.Core.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\dotnet-aspnet-codegenerator-design.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\Microsoft.VisualStudio.Web.CodeGeneration.Templating.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\Microsoft.VisualStudio.Web.CodeGeneration.Utils.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\Microsoft.VisualStudio.Web.CodeGenerators.Mvc.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\Newtonsoft.Json.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\NuGet.Common.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\NuGet.Configuration.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\NuGet.DependencyResolver.Core.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\NuGet.Frameworks.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\NuGet.LibraryModel.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\NuGet.Packaging.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\NuGet.ProjectModel.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\NuGet.Protocol.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\NuGet.Versioning.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\System.Reflection.MetadataLoadContext.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\af\Humanizer.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\ar\Humanizer.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\az\Humanizer.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\bg\Humanizer.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\bn-BD\Humanizer.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\cs\Humanizer.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\da\Humanizer.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\de\Humanizer.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\el\Humanizer.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\es\Humanizer.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\fa\Humanizer.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\fi-FI\Humanizer.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\fr\Humanizer.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\fr-BE\Humanizer.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\he\Humanizer.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\hr\Humanizer.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\hu\Humanizer.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\hy\Humanizer.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\id\Humanizer.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\is\Humanizer.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\it\Humanizer.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\ja\Humanizer.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\ko-KR\Humanizer.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\ku\Humanizer.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\lv\Humanizer.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\ms-MY\Humanizer.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\mt\Humanizer.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\nb\Humanizer.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\nb-NO\Humanizer.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\nl\Humanizer.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\pl\Humanizer.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\pt\Humanizer.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\ro\Humanizer.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\ru\Humanizer.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\sk\Humanizer.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\sl\Humanizer.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\sr\Humanizer.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\sr-Latn\Humanizer.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\sv\Humanizer.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\th-TH\Humanizer.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\tr\Humanizer.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\uk\Humanizer.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\uz-Cyrl-UZ\Humanizer.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\uz-Latn-UZ\Humanizer.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\vi\Humanizer.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\zh-CN\Humanizer.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\zh-Hans\Humanizer.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\zh-Hant\Humanizer.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.Features.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.Features.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.Features.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.Features.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.Features.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.Features.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.Features.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.Features.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.Features.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.Features.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.Features.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.Features.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.Features.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\Project\eOrderTouchApp\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\appsettings.json
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\appsettings.Development.json
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\eOrderTouchApp.staticwebassets.runtime.json
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\eOrderTouchApp.staticwebassets.endpoints.json
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\eOrderTouchApp.exe
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\eOrderTouchApp.deps.json
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\eOrderTouchApp.runtimeconfig.json
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\eOrderTouchApp.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\eOrderTouchApp.pdb
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Azure.Core.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Azure.Identity.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Humanizer.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.AspNetCore.Razor.Language.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Bcl.AsyncInterfaces.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Build.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Build.Framework.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Build.Locator.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.CodeAnalysis.AnalyzerUtilities.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.CodeAnalysis.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.CodeAnalysis.CSharp.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.CodeAnalysis.CSharp.Features.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.CodeAnalysis.Elfie.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.CodeAnalysis.Features.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.CodeAnalysis.Razor.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.CodeAnalysis.Scripting.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.CodeAnalysis.Workspaces.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.CodeAnalysis.Workspaces.MSBuild.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Data.SqlClient.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.DiaSymReader.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.DotNet.Scaffolding.Shared.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.Design.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.Relational.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Extensions.Caching.Abstractions.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Extensions.Caching.Memory.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Extensions.Configuration.Abstractions.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Extensions.DependencyInjection.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Extensions.DependencyModel.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Extensions.Logging.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Extensions.Logging.Abstractions.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Extensions.Options.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Extensions.Primitives.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Identity.Client.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Identity.Client.Extensions.Msal.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.IdentityModel.Abstractions.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.IdentityModel.Logging.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.IdentityModel.Tokens.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.NET.StringTools.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.SqlServer.Server.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.VisualStudio.Web.CodeGeneration.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.VisualStudio.Web.CodeGeneration.Core.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\dotnet-aspnet-codegenerator-design.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.VisualStudio.Web.CodeGeneration.Templating.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.VisualStudio.Web.CodeGeneration.Utils.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.VisualStudio.Web.CodeGenerators.Mvc.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Mono.TextTemplating.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Newtonsoft.Json.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\NuGet.Common.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\NuGet.Configuration.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\NuGet.DependencyResolver.Core.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\NuGet.Frameworks.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\NuGet.LibraryModel.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\NuGet.Packaging.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\NuGet.ProjectModel.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\NuGet.Protocol.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\NuGet.Versioning.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\System.ClientModel.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\System.CodeDom.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\System.Composition.AttributedModel.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\System.Composition.Convention.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\System.Composition.Hosting.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\System.Composition.Runtime.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\System.Composition.TypedParts.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\System.Configuration.ConfigurationManager.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\System.IdentityModel.Tokens.Jwt.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\System.Memory.Data.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\System.Reflection.MetadataLoadContext.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\System.Runtime.Caching.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\System.Security.Cryptography.ProtectedData.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\af\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\ar\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\az\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\bg\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\bn-BD\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\cs\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\da\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\de\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\el\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\es\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\fa\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\fi-FI\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\fr\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\fr-BE\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\he\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\hr\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\hu\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\hy\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\id\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\is\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\it\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\ja\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\ko-KR\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\ku\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\lv\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\ms-MY\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\mt\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\nb\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\nb-NO\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\nl\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\pl\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\pt\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\ro\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\ru\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\sk\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\sl\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\sr\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\sr-Latn\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\sv\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\th-TH\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\tr\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\uk\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\uz-Cyrl-UZ\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\uz-Latn-UZ\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\vi\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\zh-CN\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\zh-Hans\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\zh-Hant\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.Features.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.Features.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.Features.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.Features.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.Features.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.Features.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.Features.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.Features.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.Features.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.Features.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.Features.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.Features.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.Features.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\runtimes\unix\lib\net6.0\Microsoft.Data.SqlClient.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\runtimes\win\lib\net6.0\Microsoft.Data.SqlClient.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\bin\Debug\net9.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\eOrderTouchApp.csproj.AssemblyReference.cache
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\rpswa.dswa.cache.json
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\eOrderTouchApp.GeneratedMSBuildEditorConfig.editorconfig
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\eOrderTouchApp.AssemblyInfoInputs.cache
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\eOrderTouchApp.AssemblyInfo.cs
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\eOrderTouchApp.csproj.CoreCompileInputs.cache
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\eOrderTouchApp.MvcApplicationPartsAssemblyInfo.cache
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\eOrderTouchApp.RazorAssemblyInfo.cache
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\eOrderTouchApp.RazorAssemblyInfo.cs
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\rjimswa.dswa.cache.json
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\rjsmrazor.dswa.cache.json
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\rjsmcshtml.dswa.cache.json
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\scopedcss\bundle\eOrderTouchApp.styles.css
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\scopedcss\projectbundle\eOrderTouchApp.bundle.scp.css
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\ypem67jvlr-ufwbkfi8jy.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\9nrionsugr-61n19gt1b8.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\95awqjf7dm-xtxxf3hu2r.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\8xuzvq6y1e-bqjiyaj88i.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\8umv4gmjcy-c2jlpeoesf.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\clpf4gp7mn-erw9l3u2r3.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\gqiuqf751z-aexeepp0ev.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\tnknkl0mh3-d7shbmvgxk.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\s9u8na0hqw-ausgxo2sd3.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\t1bzlvytim-k8d9w2qqmf.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\aw3b4xolwo-cosvhxvwiu.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\au4hce251h-ub07r2b239.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\ajc7u8o6dp-fvhpjtyr6v.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\k5cwqp0h1h-b7pk76d08c.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\vvgo3xqnzw-fsbi9cje9m.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\q7hlje63o7-rzd6atqjts.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\dxwwk2i7v4-ee0r1s7dh0.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\alr1v11wyf-dxx9fxp4il.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\85dpiq3ubf-jd9uben2k1.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\bid373uk7t-khv3u5hwcm.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\a5vkq9r7cm-r4e9w2rdcm.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\uv0e47anx5-lcd1t2u6c8.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\ek56jbs7e1-c2oey78nd0.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\cj3aua9yka-tdbxkamptv.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\rzx8312sjx-j5mq2jizvt.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\cp9qqox33a-06098lyss8.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\kudug1axpz-nvvlpmu67g.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\qh7e6n9gm5-s35ty4nyc5.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\piaiv1o1th-pj5nd1wqec.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\bs4dtssvmk-46ein0sx1k.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\neaqxmyqoi-v0zj4ognzu.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\sjgd9ydomz-37tfw0ft22.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\gkvjryxzc6-hrwsygsryq.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\w90nkyxfuy-pk9g2wxc8p.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\3jplnbpcpd-ft3s53vfgj.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\mtxr8zpmyd-6cfz1n2cew.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\u7f8dk9dsk-6pdc2jztkx.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\sdzivljiab-493y06b0oq.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\mz0hmzf5xp-iovd86k7lj.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\qzxhqdscpj-vr1egmr9el.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\242djj5qol-kbrnm935zg.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\phnt47o1vw-jj8uyg4cgr.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\i7bzebfid4-y7v9cxd14o.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\vmkc3udk0x-notf2xhcfb.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\4of6b070pe-h1s4sie4z3.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\d9x4ybt6du-63fj8s7r0e.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\mq4f8dr6gz-0j3bgjxly4.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\hlap60nfgo-47otxtyo56.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\3znztzcqpd-4v8eqarkd7.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\s540hu69hd-356vix0kms.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\i7ov7586up-83jwlth58m.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\vl19d5udkc-mrlpezrjn3.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\re1qx74xf3-lzl9nlhx6b.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\o6d4eqgwnj-ag7o75518u.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\9noghcse0n-x0q3zqp4vz.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\9x778059uj-0i3buxo5is.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\m9waeptedt-o1o13a6vjx.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\xu5azukd8h-ttgo8qnofa.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\iggabgs98m-2z0ns9nrw6.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\qizkgke3bb-muycvpuwrr.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\99nl07fgod-87fc7y1x7t.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\epyqocywqb-mlv21k5csn.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\zwvw9ndvly-7p3msbnans.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\fdz4q5iqfc-7p3msbnans.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\staticwebassets.build.json
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\staticwebassets.build.json.cache
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\staticwebassets.development.json
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\staticwebassets.build.endpoints.json
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\eOrderTo.81320C37.Up2Date
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\eOrderTouchApp.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\refint\eOrderTouchApp.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\eOrderTouchApp.pdb
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\eOrderTouchApp.genruntimeconfig.cache
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\ref\eOrderTouchApp.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
+D:\Aviraj Innovations Pvt Ltd\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\o8je4h6na7-nxdw2n9wdz.gz
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\appsettings.Development.json
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\appsettings.json
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\eOrderTouchApp.staticwebassets.runtime.json
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\eOrderTouchApp.staticwebassets.endpoints.json
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\eOrderTouchApp.exe
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\eOrderTouchApp.deps.json
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\eOrderTouchApp.runtimeconfig.json
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\eOrderTouchApp.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\eOrderTouchApp.pdb
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Azure.Core.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Azure.Identity.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Humanizer.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.AspNetCore.Razor.Language.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Bcl.AsyncInterfaces.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Build.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Build.Framework.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Build.Locator.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.CodeAnalysis.AnalyzerUtilities.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.CodeAnalysis.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.CodeAnalysis.CSharp.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.CodeAnalysis.CSharp.Features.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.CodeAnalysis.Elfie.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.CodeAnalysis.Features.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.CodeAnalysis.Razor.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.CodeAnalysis.Scripting.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.CodeAnalysis.Workspaces.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.CodeAnalysis.Workspaces.MSBuild.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Data.SqlClient.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.DiaSymReader.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.DotNet.Scaffolding.Shared.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.Design.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.Relational.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Extensions.Caching.Abstractions.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Extensions.Caching.Memory.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Extensions.Configuration.Abstractions.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Extensions.DependencyInjection.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Extensions.DependencyModel.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Extensions.Logging.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Extensions.Logging.Abstractions.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Extensions.Options.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Extensions.Primitives.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Identity.Client.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Identity.Client.Extensions.Msal.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.IdentityModel.Abstractions.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.IdentityModel.Logging.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.IdentityModel.Tokens.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.NET.StringTools.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.SqlServer.Server.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.VisualStudio.Web.CodeGeneration.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.VisualStudio.Web.CodeGeneration.Core.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\dotnet-aspnet-codegenerator-design.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.VisualStudio.Web.CodeGeneration.Templating.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.VisualStudio.Web.CodeGeneration.Utils.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Microsoft.VisualStudio.Web.CodeGenerators.Mvc.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Mono.TextTemplating.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\Newtonsoft.Json.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\NuGet.Common.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\NuGet.Configuration.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\NuGet.DependencyResolver.Core.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\NuGet.Frameworks.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\NuGet.LibraryModel.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\NuGet.Packaging.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\NuGet.ProjectModel.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\NuGet.Protocol.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\NuGet.Versioning.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\System.ClientModel.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\System.CodeDom.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\System.Composition.AttributedModel.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\System.Composition.Convention.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\System.Composition.Hosting.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\System.Composition.Runtime.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\System.Composition.TypedParts.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\System.Configuration.ConfigurationManager.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\System.IdentityModel.Tokens.Jwt.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\System.Memory.Data.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\System.Reflection.MetadataLoadContext.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\System.Runtime.Caching.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\System.Security.Cryptography.ProtectedData.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\af\Humanizer.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\ar\Humanizer.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\az\Humanizer.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\bg\Humanizer.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\bn-BD\Humanizer.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\cs\Humanizer.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\da\Humanizer.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\de\Humanizer.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\el\Humanizer.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\es\Humanizer.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\fa\Humanizer.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\fi-FI\Humanizer.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\fr\Humanizer.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\fr-BE\Humanizer.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\he\Humanizer.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\hr\Humanizer.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\hu\Humanizer.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\hy\Humanizer.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\id\Humanizer.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\is\Humanizer.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\it\Humanizer.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\ja\Humanizer.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\ko-KR\Humanizer.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\ku\Humanizer.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\lv\Humanizer.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\ms-MY\Humanizer.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\mt\Humanizer.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\nb\Humanizer.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\nb-NO\Humanizer.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\nl\Humanizer.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\pl\Humanizer.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\pt\Humanizer.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\ro\Humanizer.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\ru\Humanizer.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\sk\Humanizer.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\sl\Humanizer.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\sr\Humanizer.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\sr-Latn\Humanizer.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\sv\Humanizer.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\th-TH\Humanizer.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\tr\Humanizer.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\uk\Humanizer.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\uz-Cyrl-UZ\Humanizer.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\uz-Latn-UZ\Humanizer.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\vi\Humanizer.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\zh-CN\Humanizer.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\zh-Hans\Humanizer.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\zh-Hant\Humanizer.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.Features.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.Features.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.Features.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.Features.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.Features.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.Features.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.Features.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.Features.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.Features.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.Features.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.Features.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.Features.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.Features.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\runtimes\unix\lib\net6.0\Microsoft.Data.SqlClient.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\runtimes\win\lib\net6.0\Microsoft.Data.SqlClient.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\bin\Debug\net9.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\eOrderTouchApp.csproj.AssemblyReference.cache
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\rpswa.dswa.cache.json
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\eOrderTouchApp.GeneratedMSBuildEditorConfig.editorconfig
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\eOrderTouchApp.AssemblyInfoInputs.cache
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\eOrderTouchApp.AssemblyInfo.cs
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\eOrderTouchApp.csproj.CoreCompileInputs.cache
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\eOrderTouchApp.MvcApplicationPartsAssemblyInfo.cache
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\eOrderTouchApp.RazorAssemblyInfo.cache
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\eOrderTouchApp.RazorAssemblyInfo.cs
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\rjimswa.dswa.cache.json
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\rjsmrazor.dswa.cache.json
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\rjsmcshtml.dswa.cache.json
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\scopedcss\bundle\eOrderTouchApp.styles.css
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\scopedcss\projectbundle\eOrderTouchApp.bundle.scp.css
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\9nrionsugr-61n19gt1b8.gz
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\95awqjf7dm-xtxxf3hu2r.gz
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\8xuzvq6y1e-bqjiyaj88i.gz
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\8umv4gmjcy-c2jlpeoesf.gz
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\clpf4gp7mn-erw9l3u2r3.gz
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\gqiuqf751z-aexeepp0ev.gz
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\tnknkl0mh3-d7shbmvgxk.gz
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\s9u8na0hqw-ausgxo2sd3.gz
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\t1bzlvytim-k8d9w2qqmf.gz
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\aw3b4xolwo-cosvhxvwiu.gz
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\au4hce251h-ub07r2b239.gz
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\ajc7u8o6dp-fvhpjtyr6v.gz
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\k5cwqp0h1h-b7pk76d08c.gz
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\vvgo3xqnzw-fsbi9cje9m.gz
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\q7hlje63o7-rzd6atqjts.gz
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\dxwwk2i7v4-ee0r1s7dh0.gz
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\alr1v11wyf-dxx9fxp4il.gz
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\85dpiq3ubf-jd9uben2k1.gz
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\bid373uk7t-khv3u5hwcm.gz
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\a5vkq9r7cm-r4e9w2rdcm.gz
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\uv0e47anx5-lcd1t2u6c8.gz
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\ek56jbs7e1-c2oey78nd0.gz
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\cj3aua9yka-tdbxkamptv.gz
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\rzx8312sjx-j5mq2jizvt.gz
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\cp9qqox33a-06098lyss8.gz
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\kudug1axpz-nvvlpmu67g.gz
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\qh7e6n9gm5-s35ty4nyc5.gz
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\piaiv1o1th-pj5nd1wqec.gz
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\bs4dtssvmk-46ein0sx1k.gz
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\neaqxmyqoi-v0zj4ognzu.gz
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\sjgd9ydomz-37tfw0ft22.gz
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\gkvjryxzc6-hrwsygsryq.gz
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\w90nkyxfuy-pk9g2wxc8p.gz
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\3jplnbpcpd-ft3s53vfgj.gz
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\mtxr8zpmyd-6cfz1n2cew.gz
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\u7f8dk9dsk-6pdc2jztkx.gz
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\sdzivljiab-493y06b0oq.gz
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\mz0hmzf5xp-iovd86k7lj.gz
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\qzxhqdscpj-vr1egmr9el.gz
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\242djj5qol-kbrnm935zg.gz
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\phnt47o1vw-jj8uyg4cgr.gz
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\i7bzebfid4-y7v9cxd14o.gz
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\vmkc3udk0x-notf2xhcfb.gz
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\4of6b070pe-h1s4sie4z3.gz
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\d9x4ybt6du-63fj8s7r0e.gz
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\mq4f8dr6gz-0j3bgjxly4.gz
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\hlap60nfgo-47otxtyo56.gz
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\3znztzcqpd-4v8eqarkd7.gz
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\s540hu69hd-356vix0kms.gz
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\i7ov7586up-83jwlth58m.gz
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\vl19d5udkc-mrlpezrjn3.gz
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\re1qx74xf3-lzl9nlhx6b.gz
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\o6d4eqgwnj-ag7o75518u.gz
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\9noghcse0n-x0q3zqp4vz.gz
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\9x778059uj-0i3buxo5is.gz
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\m9waeptedt-o1o13a6vjx.gz
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\xu5azukd8h-ttgo8qnofa.gz
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\iggabgs98m-2z0ns9nrw6.gz
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\qizkgke3bb-muycvpuwrr.gz
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\99nl07fgod-87fc7y1x7t.gz
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\epyqocywqb-mlv21k5csn.gz
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\o8je4h6na7-nxdw2n9wdz.gz
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\zwvw9ndvly-7p3msbnans.gz
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\fdz4q5iqfc-7p3msbnans.gz
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\staticwebassets.build.json
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\staticwebassets.build.json.cache
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\staticwebassets.development.json
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\staticwebassets.build.endpoints.json
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\eOrderTo.81320C37.Up2Date
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\eOrderTouchApp.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\refint\eOrderTouchApp.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\eOrderTouchApp.pdb
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\eOrderTouchApp.genruntimeconfig.cache
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\ref\eOrderTouchApp.dll
+D:\Invozy_SAAS_App\Invoizy\eOrderTouchApp\obj\Debug\net9.0\compressed\ypem67jvlr-jj2zm43lo5.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\appsettings.json
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\appsettings.Development.json
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\eOrderTouchApp.staticwebassets.runtime.json
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\eOrderTouchApp.staticwebassets.endpoints.json
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\eOrderTouchApp.exe
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\eOrderTouchApp.deps.json
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\eOrderTouchApp.runtimeconfig.json
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\eOrderTouchApp.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\eOrderTouchApp.pdb
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\Azure.Core.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\Azure.Identity.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\Humanizer.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\Microsoft.AspNetCore.Razor.Language.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Bcl.AsyncInterfaces.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Build.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Build.Framework.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Build.Locator.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\Microsoft.CodeAnalysis.AnalyzerUtilities.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\Microsoft.CodeAnalysis.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\Microsoft.CodeAnalysis.CSharp.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\Microsoft.CodeAnalysis.CSharp.Features.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\Microsoft.CodeAnalysis.Elfie.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\Microsoft.CodeAnalysis.Features.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\Microsoft.CodeAnalysis.Razor.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\Microsoft.CodeAnalysis.Scripting.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\Microsoft.CodeAnalysis.Workspaces.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\Microsoft.CodeAnalysis.Workspaces.MSBuild.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Data.SqlClient.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\Microsoft.DiaSymReader.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\Microsoft.DotNet.Scaffolding.Shared.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.Design.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.Relational.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Extensions.Caching.Abstractions.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Extensions.Caching.Memory.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Extensions.Configuration.Abstractions.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Extensions.DependencyInjection.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Extensions.DependencyModel.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Extensions.Logging.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Extensions.Logging.Abstractions.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Extensions.Options.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Extensions.Primitives.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Identity.Client.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\Microsoft.Identity.Client.Extensions.Msal.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\Microsoft.IdentityModel.Abstractions.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\Microsoft.IdentityModel.Logging.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\Microsoft.IdentityModel.Tokens.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\Microsoft.NET.StringTools.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\Microsoft.SqlServer.Server.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\Microsoft.VisualStudio.Web.CodeGeneration.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\Microsoft.VisualStudio.Web.CodeGeneration.Core.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\dotnet-aspnet-codegenerator-design.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\Microsoft.VisualStudio.Web.CodeGeneration.Templating.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\Microsoft.VisualStudio.Web.CodeGeneration.Utils.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\Microsoft.VisualStudio.Web.CodeGenerators.Mvc.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\Mono.TextTemplating.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\Newtonsoft.Json.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\NuGet.Common.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\NuGet.Configuration.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\NuGet.DependencyResolver.Core.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\NuGet.Frameworks.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\NuGet.LibraryModel.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\NuGet.Packaging.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\NuGet.ProjectModel.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\NuGet.Protocol.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\NuGet.Versioning.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\System.ClientModel.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\System.CodeDom.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\System.Composition.AttributedModel.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\System.Composition.Convention.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\System.Composition.Hosting.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\System.Composition.Runtime.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\System.Composition.TypedParts.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\System.Configuration.ConfigurationManager.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\System.IdentityModel.Tokens.Jwt.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\System.Memory.Data.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\System.Reflection.MetadataLoadContext.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\System.Runtime.Caching.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\System.Security.Cryptography.ProtectedData.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\af\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\ar\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\az\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\bg\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\bn-BD\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\cs\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\da\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\de\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\el\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\es\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\fa\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\fi-FI\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\fr\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\fr-BE\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\he\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\hr\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\hu\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\hy\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\id\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\is\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\it\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\ja\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\ko-KR\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\ku\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\lv\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\ms-MY\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\mt\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\nb\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\nb-NO\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\nl\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\pl\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\pt\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\ro\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\ru\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\sk\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\sl\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\sr\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\sr-Latn\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\sv\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\th-TH\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\tr\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\uk\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\uz-Cyrl-UZ\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\uz-Latn-UZ\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\vi\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\zh-CN\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\zh-Hans\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\zh-Hant\Humanizer.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.Features.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.Features.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.Features.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.Features.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.Features.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.Features.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.Features.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.Features.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.Features.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.Features.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.Features.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.Features.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.Features.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\runtimes\unix\lib\net6.0\Microsoft.Data.SqlClient.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\runtimes\win\lib\net6.0\Microsoft.Data.SqlClient.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\bin\Debug\net9.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\eOrderTouchApp.csproj.AssemblyReference.cache
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\rpswa.dswa.cache.json
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\eOrderTouchApp.GeneratedMSBuildEditorConfig.editorconfig
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\eOrderTouchApp.AssemblyInfoInputs.cache
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\eOrderTouchApp.AssemblyInfo.cs
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\eOrderTouchApp.csproj.CoreCompileInputs.cache
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\eOrderTouchApp.MvcApplicationPartsAssemblyInfo.cache
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\eOrderTouchApp.RazorAssemblyInfo.cache
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\eOrderTouchApp.RazorAssemblyInfo.cs
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\rjimswa.dswa.cache.json
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\rjsmrazor.dswa.cache.json
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\rjsmcshtml.dswa.cache.json
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\scopedcss\bundle\eOrderTouchApp.styles.css
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\scopedcss\projectbundle\eOrderTouchApp.bundle.scp.css
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\compressed\ypem67jvlr-jj2zm43lo5.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\compressed\9nrionsugr-61n19gt1b8.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\compressed\95awqjf7dm-xtxxf3hu2r.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\compressed\8xuzvq6y1e-bqjiyaj88i.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\compressed\8umv4gmjcy-c2jlpeoesf.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\compressed\clpf4gp7mn-erw9l3u2r3.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\compressed\gqiuqf751z-aexeepp0ev.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\compressed\tnknkl0mh3-d7shbmvgxk.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\compressed\s9u8na0hqw-ausgxo2sd3.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\compressed\t1bzlvytim-k8d9w2qqmf.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\compressed\aw3b4xolwo-cosvhxvwiu.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\compressed\au4hce251h-ub07r2b239.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\compressed\ajc7u8o6dp-fvhpjtyr6v.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\compressed\k5cwqp0h1h-b7pk76d08c.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\compressed\vvgo3xqnzw-fsbi9cje9m.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\compressed\q7hlje63o7-rzd6atqjts.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\compressed\dxwwk2i7v4-ee0r1s7dh0.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\compressed\alr1v11wyf-dxx9fxp4il.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\compressed\85dpiq3ubf-jd9uben2k1.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\compressed\bid373uk7t-khv3u5hwcm.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\compressed\a5vkq9r7cm-r4e9w2rdcm.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\compressed\uv0e47anx5-lcd1t2u6c8.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\compressed\ek56jbs7e1-c2oey78nd0.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\compressed\cj3aua9yka-tdbxkamptv.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\compressed\rzx8312sjx-j5mq2jizvt.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\compressed\cp9qqox33a-06098lyss8.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\compressed\kudug1axpz-nvvlpmu67g.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\compressed\qh7e6n9gm5-s35ty4nyc5.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\compressed\piaiv1o1th-pj5nd1wqec.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\compressed\bs4dtssvmk-46ein0sx1k.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\compressed\neaqxmyqoi-v0zj4ognzu.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\compressed\sjgd9ydomz-37tfw0ft22.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\compressed\gkvjryxzc6-hrwsygsryq.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\compressed\w90nkyxfuy-pk9g2wxc8p.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\compressed\3jplnbpcpd-ft3s53vfgj.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\compressed\mtxr8zpmyd-6cfz1n2cew.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\compressed\u7f8dk9dsk-6pdc2jztkx.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\compressed\sdzivljiab-493y06b0oq.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\compressed\mz0hmzf5xp-iovd86k7lj.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\compressed\qzxhqdscpj-vr1egmr9el.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\compressed\242djj5qol-kbrnm935zg.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\compressed\phnt47o1vw-jj8uyg4cgr.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\compressed\i7bzebfid4-y7v9cxd14o.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\compressed\vmkc3udk0x-notf2xhcfb.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\compressed\4of6b070pe-h1s4sie4z3.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\compressed\d9x4ybt6du-63fj8s7r0e.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\compressed\mq4f8dr6gz-0j3bgjxly4.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\compressed\hlap60nfgo-47otxtyo56.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\compressed\3znztzcqpd-4v8eqarkd7.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\compressed\s540hu69hd-356vix0kms.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\compressed\i7ov7586up-83jwlth58m.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\compressed\vl19d5udkc-mrlpezrjn3.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\compressed\re1qx74xf3-lzl9nlhx6b.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\compressed\o6d4eqgwnj-ag7o75518u.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\compressed\9noghcse0n-x0q3zqp4vz.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\compressed\9x778059uj-0i3buxo5is.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\compressed\m9waeptedt-o1o13a6vjx.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\compressed\xu5azukd8h-ttgo8qnofa.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\compressed\iggabgs98m-2z0ns9nrw6.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\compressed\qizkgke3bb-muycvpuwrr.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\compressed\99nl07fgod-87fc7y1x7t.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\compressed\epyqocywqb-mlv21k5csn.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\compressed\o8je4h6na7-nxdw2n9wdz.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\compressed\zwvw9ndvly-7p3msbnans.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\compressed\fdz4q5iqfc-7p3msbnans.gz
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\staticwebassets.build.json
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\staticwebassets.build.json.cache
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\staticwebassets.development.json
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\staticwebassets.build.endpoints.json
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\eOrderTo.81320C37.Up2Date
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\eOrderTouchApp.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\refint\eOrderTouchApp.dll
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\eOrderTouchApp.pdb
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\eOrderTouchApp.genruntimeconfig.cache
+D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\obj\Debug\net9.0\ref\eOrderTouchApp.dll
