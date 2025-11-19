@@ -1,52 +1,85 @@
 ﻿@{
-    var users = ViewBag.Users as List<eOrderTouchApp.Models.TblUserLicense>;
+    ViewData["Title"] = "User License Management";
 }
 
-<h2>User License Management</h2>
+<link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+
+<style>
+    .dataTables_wrapper .dataTables_length,
+    .dataTables_wrapper .dataTables_filter {
+        display: flex !important;
+        align-items: center !important;
+        gap: 10px !important;
+        margin-bottom: 12px !important;
+    }
+
+    .dataTables_length select {
+        padding-right: 28px !important;
+        padding-left: 6px !important;
+        height: 32px !important;
+    }
+
+    .dataTables_filter input {
+        margin-left: 6px !important;
+    }
+
+    .dataTables_paginate {
+        margin-top: 14px !important;
+    }
+</style>
+
+<h3 class="mb-4">User License Management</h3>
 
 <div class="row">
 
-    <!-- 40% FORM -->
+    <!-- LEFT : FORM -->
     <div class="col-md-4">
-        <div class="card p-3 shadow">
-            <h4 id="formTitle">Add License</h4>
+        <div class="card shadow-sm p-3">
+            <h5 id="formTitle" class="mb-3">Add License</h5>
+
             <form id="frmLicense">
+
                 <input type="hidden" id="Id" name="Id" />
 
-            <div class="form-group mb-2">
-                <label>License Key</label>
-                    <input id="LicenseKey" name="LicenseKey"  class="form-control" />
-            </div>
+                <div class="mb-2">
+                    <label class="form-label">License Key</label>
+                    <input id="LicenseKey" name="LicenseKey" class="form-control" required />
+                </div>
 
-            <div class="form-group mb-2">
-                <label>Start Date</label>
-                    <input type="date" id="StartDate" name="StartDate" class="form-control" />
-            </div>
+                <div class="mb-2">
+                    <label class="form-label">Start Date</label>
+                    <input type="date" id="StartDate" name="StartDate" class="form-control" required />
+                </div>
 
-            <div class="form-group mb-2">
-                <label>End Date</label>
-                <input type="date" id="EndDate" name="EndDate" class="form-control" />
-            </div>
+                <div class="mb-2">
+                    <label class="form-label">End Date</label>
+                    <input type="date" id="EndDate" name="EndDate" class="form-control" required />
+                </div>
 
-            <button type="button" class="btn btn-primary mt-2" onclick="saveLicense()">Save</button>
-                <button type="button" class="btn btn-secondary mt-2" onclick="clearForm()">Clear</button>
+                <div class="d-grid gap-2 mt-3">
+                    <button type="button" class="btn btn-primary" onclick="saveLicense()">Save</button>
+                    <button type="button" class="btn btn-outline-secondary" onclick="clearForm()">Clear</button>
+                </div>
+
             </form>
         </div>
     </div>
 
-    <!-- 60% GRID -->
-    <div class="col-md-8">
-        <div class="card p-3 shadow">
-            <h4>License List</h4>
 
-            <table class="table table-bordered" id="tblData">
-                <thead>
+    <!-- RIGHT : DATATABLE -->
+    <div class="col-md-8">
+        <div class="card shadow-sm p-3">
+
+            <h5 class="mb-3">License List</h5>
+
+            <table id="tblLicense" class="table table-bordered table-striped w-100">
+                <thead class="table-dark">
                     <tr>
-                        
+                        <th>#</th>
                         <th>License Key</th>
                         <th>Start</th>
                         <th>End</th>
-                        <th>Action</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody></tbody>
@@ -56,89 +89,139 @@
     </div>
 </div>
 
-@section Scripts {
-    <script>
-        loadTable();
 
+
+@section Scripts {
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
+    <script>
+
+        let dt;
+
+        $(document).ready(function () {
+            loadTable();
+        });
+
+        // -------------------------
+        // LOAD DATATABLE
+        // -------------------------
         async function loadTable() {
             const res = await fetch('/UserLicense/GetAll');
             const data = await res.json();
+
+            // Destroy old datatable if exists
+            if (dt) dt.destroy();
 
             let rows = "";
             data.forEach(x => {
                 rows += `
                     <tr>
-                      
+                        <td></td>
                         <td>${x.licenseKey}</td>
-                        <td>${x.startDate?.substring(0,10) ?? ""}</td>
-                        <td>${x.endDate?.substring(0,10) ?? ""}</td>
+                        <td>${x.startDate?.substring(0, 10) ?? ""}</td>
+                        <td>${x.endDate?.substring(0, 10) ?? ""}</td>
                         <td>
-                            <button class="btn btn-sm btn-info" onclick="edit(${x.id})">Edit</button>
+                            <button class="btn btn-sm btn-primary" onclick="edit(${x.id})">Edit</button>
                             <button class="btn btn-sm btn-danger" onclick="remove(${x.id})">Delete</button>
                         </td>
-                    </tr>
-                `;
+                    </tr>`;
             });
 
-            document.querySelector("#tblData tbody").innerHTML = rows;
+            $("#tblLicense tbody").html(rows);
+
+            dt = $("#tblLicense").DataTable({
+                pageLength: 10,
+                responsive: true,
+
+                columnDefs: [
+                    {
+                        targets: 0,
+                        orderable: false,
+                        searchable: false,
+                        render: (data, type, row, meta) => meta.row + 1
+                    }
+                ]
+            });
         }
 
+
+        // -------------------------
+        // CLEAR FORM
+        // -------------------------
         function clearForm() {
-            document.getElementById("Id").value = "";
-            document.getElementById("LicenseKey").value = "";
-            document.getElementById("StartDate").value = "";
-            document.getElementById("EndDate").value = "";
-            document.getElementById("formTitle").innerText = "Add License";
+            $("#Id").val("");
+            $("#LicenseKey").val("");
+            $("#StartDate").val("");
+            $("#EndDate").val("");
+
+            $("#formTitle").text("Add License");
         }
 
-        async function saveLicense() {
-            debugger;
-       
-            let url = document.getElementById("Id").value ? '/UserLicense/Update' : '/UserLicense/Create';
 
-           var formData = new FormData(document.getElementById("frmLicense"));
+        // -------------------------
+        // SAVE LICENSE
+        // -------------------------
+        function saveLicense() {
 
-         
+            let url = $("#Id").val() ? "/UserLicense/Update" : "/UserLicense/Create";
 
-           
+            let formData = new FormData($("#frmLicense")[0]);
+
             $.ajax({
                 url: url,
                 type: "POST",
                 data: formData,
                 contentType: false,
                 processData: false,
+
                 success: function (result) {
-                       
-                        alert(result.message);
-                     loadTable();
-                      clearForm();
-          
+                    alert(result.message);
+                    loadTable();
+                    clearForm();
                 }
             });
-       
         }
 
+
+        // -------------------------
+        // EDIT LICENSE
+        // -------------------------
         async function edit(id) {
             const res = await fetch('/UserLicense/GetAll');
             const data = await res.json();
+
             const row = data.find(x => x.id === id);
 
-            document.getElementById("Id").value = row.id;      
-            document.getElementById("LicenseKey").value = row.licenseKey;
-            document.getElementById("StartDate").value = row.startDate?.substring(0, 10);
-            document.getElementById("EndDate").value = row.endDate?.substring(0, 10);
-            document.getElementById("formTitle").innerText = "Edit License";
+            $("#Id").val(row.id);
+            $("#LicenseKey").val(row.licenseKey);
+            $("#StartDate").val(row.startDate?.substring(0, 10));
+            $("#EndDate").val(row.endDate?.substring(0, 10));
+
+            $("#formTitle").text("Edit License");
         }
 
+
+        // -------------------------
+        // DELETE LICENSE
+        // -------------------------
         async function remove(id) {
+
             if (!confirm("Delete this record?")) return;
 
-            const res = await fetch('/UserLicense/Delete?id=' + id, { method: "POST" });
+            const res = await fetch('/UserLicense/Delete?id=' + id, {
+                method: "POST"
+            });
 
             const result = await res.json();
+
             if (result.success) {
                 loadTable();
             }
         }
+
     </script>
+
 }

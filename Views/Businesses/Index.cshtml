@@ -1,5 +1,36 @@
 ﻿@model IEnumerable<eOrderTouchApp.Models.TblBusiness>
 
+<link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+
+<style>
+    
+    /* Align "Show X entries" & Search box */
+    .dataTables_wrapper .dataTables_length,
+    .dataTables_wrapper .dataTables_filter {
+        display: flex;
+        align-items: center;
+        gap: 10px !important;
+        margin-bottom: 12px !important; /* ⬅️ ADDED spacing under Search box */
+    }
+
+    /* Fix dropdown arrow + number overlap */
+    .dataTables_length select {
+        padding-right: 28px !important;
+        padding-left: 6px !important;
+        height: 32px;
+    }
+
+    .dataTables_wrapper .dataTables_filter input {
+        margin-left: 6px !important;
+    }
+
+    /* Pagination gap consistency */
+    .dataTables_wrapper .dataTables_paginate {
+        margin-top: 12px !important;
+    }
+
+</style>
+
 <div class="row mt-4">
 
     <!-- LEFT SIDE FORM (40%) -->
@@ -25,9 +56,12 @@
                         <label>Business Type</label>
                         <select id="BusinessTypeId" name="BusinessTypeId" class="form-control" required>
                             <option value="">-- Select --</option>
+
                             @foreach (var x in ViewBag.BusinessTypes)
+
                             {
                                 <option value="@x.Id">@x.BusinessTypeName</option>
+
                             }
                         </select>
                     </div>
@@ -72,9 +106,12 @@
                         <label>Printer Size</label>
                         <select id="PrinterSizeId" name="PrinterSizeId" class="form-control">
                             <option value="">-- Select --</option>
+
                             @foreach (var x in ViewBag.PrinterSizes)
+
                             {
                                 <option value="@x.Id">@x.PrinterSize</option>
+
                             }
                         </select>
                     </div>
@@ -115,12 +152,11 @@
                     </div>
 
                     <!-- Active -->
-                        <div class="form-check mb-3">
+                    <div class="form-check mb-3">
                         <input class="form-check-input" type="checkbox" id="IsActive" name="IsActive" />
                         <label class="form-check-label">Is Active</label>
-                      
-                      
-                        </div>
+
+                    </div>
 
                     <button type="button" class="btn btn-success w-100" id="btnSave">Save</button>
 
@@ -131,75 +167,98 @@
 
     <!-- RIGHT SIDE GRID (60%) -->
     <div class="col-md-8">
-      
+        <div class="card-body" id="gridContainer" style="overflow-x:auto;">
+            <table class="table table-bordered datatable" id="gridTable">
+                <thead class="table-dark">
+                    <tr>
+                        <th width="140">Action</th>
+                        <th>Logo</th>
+                        <th>QR</th>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Owner</th>
+                        <th>City</th>
+                        <th>Email</th>
+                        <th>GSTN</th>
+                        <th>Printer</th>
+                        <th>Is GST Applicable?</th>
+                        <th>Customer Field</th>
+                        <th>Table LOV</th>
+                        <th>Active</th>
+                    </tr>
+                </thead>
 
-            <div class="card-body" id="gridContainer" style="overflow: scroll;">
-                <table class="table table-bordered" id="gridTable">
-                    <thead class="table-dark">
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
                         <tr>
-                            <th width="140">Action</th>
-                            <th>Logo</th>
-                            <th>QR</th>                          
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Owner</th>
-                            <th>City</th>
-                            <th>Email</th>
-                            <th>GSTN</th>
-                            <th>Printer</th>
-                            <th>Is GST Applicable?</th>
-                            <td>Customer Field</td>
-                            <td>Table LOV</td>
-                            <th>Active</th>                          
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
-                            <tr>
-                                <td>
+                            <td>
+                                <div class="d-flex gap-2">
                                     <button class="btn btn-sm btn-primary" onclick="editRecord(@item.Id)">Edit</button>
                                     <button class="btn btn-sm btn-danger" onclick="deleteRecord(@item.Id)">Delete</button>
-                                    @Html.ActionLink("Users", "Index", "user", new { OrgId = item.Id }, new {@class= "btn btn-sm btn-info"})
-                                
-                                </td>
-                                <td>
-                                    @if (!string.IsNullOrEmpty(item.Logo))
-                                    {
-                                        <img src="~/Uploads/@item.Logo" width="50" />
-                                    }
-                                </td>
-                                <td>
-                                    @if (!string.IsNullOrEmpty(item.Qrcode))
-                                    {
-                                        <img src="~/Uploads/@item.Qrcode" width="50" />
-                                    }
-                                </td>
-                                <td>@item.Id</td>
-                                <td>@item.BusinessName</td>
-                                <td>@item.OwnerName</td>
-                                <td>@item.City</td>
-                                <td>@item.Email</td>
-                                <td>@item.Gstin</td>
-                                <td>@item.PrinterSize</td>
-                                <td>@item.HideCustomerField</td>
-                                <td>@item.HideTableDropDown</td>
-                                <td>@(item.IsActive == true ? "Yes" : "No")</td>
-                               
+                                    @Html.ActionLink("Users", "Index", "user", new { OrgId = item.Id }, new { @class = "btn btn-sm btn-info" })
+                                </div>
 
-                               
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
-        
+                            </td>
+                            <td>
+
+                                @if (!string.IsNullOrEmpty(item.Logo))
+
+                                {
+                                    <img src="~/Uploads/@item.Logo" width="50" />
+
+                                }
+                            </td>
+                            <td>
+
+                                @if (!string.IsNullOrEmpty(item.Qrcode))
+
+                                {
+                                    <img src="~/Uploads/@item.Qrcode" width="50" />
+
+                                }
+                            </td>
+                            <td>@item.Id</td>
+                            <td>@item.BusinessName</td>
+                            <td>@item.OwnerName</td>
+                            <td>@item.City</td>
+                            <td>@item.Email</td>
+                            <td>@item.Gstin</td>
+                            <td>@item.PrinterSize</td>
+                            <td>@item.IsGstapplicable</td>
+                            <td>@item.HideCustomerField</td>
+                            <td>@item.HideTableDropDown</td>
+                            <td>@(item.IsActive == true ? "Yes" : "No")</td>
+
+
+
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>
 
 </div>
-@section Scripts{
+
+
+@section Scripts {
     <script>
+                $(document).ready(function () {
+
+            if (!$.fn.DataTable.isDataTable("#gridTable")) {
+
+                $("#gridTable").DataTable({
+                    pageLength: 10,
+                    lengthMenu: [5, 10, 25, 50],
+                    responsive: true,
+                    ordering: true,
+                    searching: true,
+                });
+            }
+        });
 
         // FORM VALIDATION
         function validateForm() {
@@ -237,10 +296,6 @@
             });
         });
 
-        // LOAD GRID
-        function loadGrid(page = 1) {
-            $("#gridContainer").load("/Businesses/Index?page=" + page + " #gridTable");
-        }
 
         // EDIT
         function editRecord(id) {
@@ -292,12 +347,8 @@
            $("#IsActive").prop("checked",false)
              $("#HideCustomerField").prop("checked",false)
                $("#HideTableDropDown").prop("checked",false)
-          
         }
 
     </script>
-
-
-
 
 }

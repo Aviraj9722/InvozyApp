@@ -5,86 +5,98 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>User List</h1>
+<link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
 
+<style>
+    /* DataTables UI improvements */
+    .dataTables_wrapper .dataTables_length,
+    .dataTables_wrapper .dataTables_filter {
+        display: flex !important;
+        align-items: center !important;
+        gap: 10px !important;
+        margin-bottom: 15px !important;
+    }
 
-<table class="table table-bordered">
-    <thead>
-        <tr >
-           @*  <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th> *@
-            <th>
-                Login Name
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UserName)
-            </th>
-           @*  <th>
-                @Html.DisplayNameFor(model => model.Password)
-            </th> *@
-           @*  <th>
-                @Html.DisplayNameFor(model => model.Role)
-            </th> *@
-            <th>
-                Mobile No.
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsActive)
-            </th>
-            <th>
-               Email Id.
-            </th>
-            <th>
-               Subscription Start Date
-            </th>
-            <th>
-                Expiring On
-            </th>
-          
-            @* <th></th> *@
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-          @*   <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td> *@
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserName)
-            </td>
-           @*  <td>
-                @Html.DisplayFor(modelItem => item.Password)
-            </td> *@
-          @*   <td>
-                @Html.DisplayFor(modelItem => item.Role)
-            </td> *@
-            <td>
-                @Html.DisplayFor(modelItem => item.MobileNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsActive)
-            </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EmailId)
-                </td>
-            <td>
-                @item.TblUserLicenses?.OrderByDescending(o=>o.Id).FirstOrDefault()?.StartDate
-            </td>
-           <td>
-                @item.TblUserLicenses?.OrderByDescending(o => o.Id).FirstOrDefault()?.EndDate
-            </td>
-          
-          @*   <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td> *@
-        </tr>
+    .dataTables_length select {
+        padding-right: 28px !important;
+        padding-left: 6px !important;
+        height: 32px !important;
+    }
+
+    .dataTables_wrapper .dataTables_filter input {
+        margin-left: 6px !important;
+    }
+
+    .dataTables_wrapper .dataTables_paginate {
+        margin-top: 12px !important;
+    }
+</style>
+
+<h3 class="mb-3">User List</h3>
+
+<div class="card shadow-sm p-3">
+    <table id="userListTable" class="table table-bordered table-striped w-100">
+        <thead class="table-dark">
+            <tr>
+                <th>#</th>
+                <th>Login Name</th>
+                <th>UserName</th>
+                <th>Mobile No.</th>
+                <th>Is Active?</th>
+                <th>Email Id</th>
+                <th>Subscription Start</th>
+                <th>Expiring On</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                var lastLicense = item.TblUserLicenses?
+                .OrderByDescending(o => o.Id)
+                .FirstOrDefault();
+
+                <tr>
+                    <td></td> <!-- Auto numbering -->
+                    <td>@item.Name</td>
+                    <td>@item.UserName</td>
+                    <td>@item.MobileNumber</td>
+                    <td>@item.IsActive</td>
+                    <td>@item.EmailId</td>
+                    <td>@lastLicense?.StartDate?.ToString("dd-MM-yyyy")</td>
+                    <td>@lastLicense?.EndDate?.ToString("dd-MM-yyyy")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            $("#userListTable").DataTable({
+                pageLength: 10,
+                responsive: true,
+
+                columnDefs: [
+                    {
+                        targets: 0,
+                        orderable: false,
+                        searchable: false,
+                        render: function (data, type, row, meta) {
+                            return meta.row + 1; // Auto numbering
+                        }
+                    }
+                ]
+            });
+
+        });
+    </script>
+
 }
-    </tbody>
-</table>

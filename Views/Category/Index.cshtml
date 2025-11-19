@@ -1,93 +1,175 @@
 ﻿@model IEnumerable<eOrderTouchApp.Models.TblCategory>
 
-<h2>Manage Categories</h2>
+<link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
 
-<div class="row">
-    <!-- Left Form -->
-    <div class="col-md-4">
-        <h4 id="formTitle">Add Category</h4>
-        <form id="categoryForm">
-            <input type="hidden" id="categoryId" />
-            <div class="mb-2">
-                <label>Category Name</label>
-                <input type="text" id="categoryName" class="form-control" required />
+<style>
+    /* Keep DataTables UI consistent across all pages */
+    .dataTables_wrapper .dataTables_length,
+    .dataTables_wrapper .dataTables_filter {
+        display: flex;
+        align-items: center;
+        gap: 10px !important;
+    }
+
+    .dataTables_length select {
+        padding-right: 28px !important; /* ensures arrow is not overlapping the number */
+        padding-left: 6px !important; /* normal text spacing */
+    }
+    /* Optional: make dropdown look clean */
+    .dataTables_length select {
+        height: 32px;
+    }
+    .dataTables_wrapper .dataTables_paginate {
+        margin-top: 12px !important;
+    }
+</style>
+
+<div class="container-fluid mt-3">
+    <div class="row">
+
+        <!-- LEFT FORM -->
+        <div class="col-md-4">
+            <div class="card shadow-sm p-3">
+                <h5 id="formTitle">Add / Edit Category</h5>
+
+                <form id="categoryForm" novalidate>
+                    <input type="hidden" id="categoryId" value="0" />
+
+                    <div class="mb-3">
+                        <label class="form-label">Category Name <span class="text-danger">*</span></label>
+                        <input type="text" id="categoryName" class="form-control" required />
+                        <div class="invalid-feedback">Category name is required.</div>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button type="button" id="btnSave" class="btn btn-primary">Save</button>
+                        <button type="button" id="btnClear" class="btn btn-outline-secondary">Clear</button>
+                    </div>
+                </form>
             </div>
-            <button type="submit" class="btn btn-primary">Save</button>
-        </form>
-    </div>
+        </div>
 
-    <!-- Right Table -->
-    <div class="col-md-8">
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Category Name</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody id="categoryTableBody">
-                @foreach (var cat in Model)
-                {
-                    <tr data-id="@cat.Id">
-                        <td>@cat.Name</td>
-                        <td>
-                            <button class="btn btn-warning btn-sm editCategory">Edit</button>
-                            <button class="btn btn-danger btn-sm deleteCategory">Delete</button>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+        <!-- RIGHT TABLE -->
+        <div class="col-md-8">
+            <div class="card shadow-sm p-3">
+
+                <table id="categoryTable" class="table table-bordered table-striped w-100">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>#</th>
+                            <th>Category Name</th>
+                            <th style="width:140px">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var c in Model)
+                        {
+                            <tr data-id="@c.Id">
+                                <td></td>
+                                <td>@c.Name</td>
+                                <td>
+                                    <button class="btn btn-warning btn-sm editCategory">Edit</button>
+                                    <button class="btn btn-danger btn-sm deleteCategory">Delete</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
     </div>
 </div>
 
+
 @section Scripts {
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
     <script>
-        $('#categoryForm').submit(function (e) {
-            e.preventDefault();
+        $(document).ready(function () {
 
-            let category = {
-                Id: $('#categoryId').val() || 0,
-                Name: $('#categoryName').val()
-            };
+            let table = $("#categoryTable").DataTable({
+                pageLength: 10,
+                lengthMenu: [5, 10, 25, 50],
+                responsive: true,
+                ordering: true,
+                searching: true,
+                columnDefs: [{
+                    targets: 0,
+                    searchable: false,
+                    orderable: false,
+                    render: function (data, type, row, meta) {
+                        return meta.row + 1;
+                    }
+                }]
+            });
 
-            let url = category.Id == 0 ? '/Category/Create' : '/Category/Edit';
+            // SAVE CATEGORY
+            $('#btnSave').click(function () {
 
-            $.ajax({
-                url: url,
-                type: 'POST',
-                contentType: 'application/json',
-                data: JSON.stringify(category),
-                success: function (res) {
+                if (!$('#categoryName').val().trim()) {
+                    $('#categoryName').addClass('is-invalid');
+                    return;
+                }
+
+                let category = {
+                    Id: $('#categoryId').val() || 0,
+                    Name: $('#categoryName').val()
+                };
+
+                let url = category.Id == 0 ? '/Category/Create' : '/Category/Edit';
+
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(category),
+                    success: function (res) {
+                        if (res.success) {
+                            location.reload();
+                        } else {
+                            alert(res.message || "Error occurred");
+                        }
+                    }
+                });
+            });
+
+            // EDIT CATEGORY
+            $('.editCategory').click(function () {
+                let row = $(this).closest('tr');
+
+                $('#formTitle').text("Edit Category");
+                $('#categoryId').val(row.data('id'));
+                $('#categoryName').val(row.find('td:eq(1)').text());
+            });
+
+            // DELETE CATEGORY
+            $('.deleteCategory').click(function () {
+                if (!confirm("Are you sure you want to delete this category?")) return;
+
+                let id = $(this).closest('tr').data('id');
+
+                $.post('/Category/Delete', { id: id }, function (res) {
                     if (res.success) {
                         location.reload();
                     } else {
-                        alert(res.message || 'Error occurred');
+                        alert("Error deleting category");
                     }
-                }
+                });
             });
-        });
 
-        $('.editCategory').click(function () {
-            let row = $(this).closest('tr');
-            $('#formTitle').text('Edit Category');
-            $('#categoryId').val(row.data('id'));
-            $('#categoryName').val(row.find('td:eq(0)').text());
-        });
-
-        $('.deleteCategory').click(function () {
-            if (!confirm('Are you sure you want to delete this category?')) return;
-
-            let id = $(this).closest('tr').data('id');
-
-            $.post('/Category/Delete', { id: id }, function (res) {
-                if (res.success) {
-                    location.reload();
-                } else {
-                    alert('Error deleting category');
-                }
+            // CLEAR FORM
+            $('#btnClear').click(function () {
+                $('#categoryForm')[0].reset();
+                $('#categoryId').val(0);
+                $('#formTitle').text("Add / Edit Category");
+                $('#categoryName').removeClass("is-invalid");
             });
+
         });
     </script>
+
 }
