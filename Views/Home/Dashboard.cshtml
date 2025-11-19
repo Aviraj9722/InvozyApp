@@ -1,7 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Dashboard";
 }
-  @if (User.FindFirst("Role")?.Value != "Admin")
+@if (User.FindFirst("Role")?.Value != "Admin")
 {
     <div class="container-fluid py-4">
         <h3 class="text-center fw-bold text-primary mb-4">Invozy Dashboard</h3>
@@ -9,7 +9,7 @@
         <div class="row justify-content-center g-3">
 
             <!-- New Order -->
-            <div class="col-4 col-md-4 col-lg-4">
+            <div class="dash-col mobile-col">
                 <a asp-controller="Order" asp-action="Create" class="text-decoration-none">
                     <div class="dashboard-card text-center shadow-sm border-0">
                         <div class="card-body p-3">
@@ -21,7 +21,7 @@
             </div>
 
             <!-- Products -->
-            <div class="col-4 col-md-4 col-lg-4">
+            <div class="dash-col mobile-col">
                 <a asp-controller="Product" asp-action="Index" class="text-decoration-none">
                     <div class="dashboard-card text-center shadow-sm border-0">
                         <div class="card-body p-3">
@@ -33,7 +33,7 @@
             </div>
 
             <!-- Product Stock -->
-            <div class="col-4 col-md-4 col-lg-4">
+            <div class="dash-col mobile-col">
                 <a asp-controller="Product" asp-action="Index" class="text-decoration-none">
                     <div class="dashboard-card text-center shadow-sm border-0">
                         <div class="card-body p-3">
@@ -45,7 +45,7 @@
             </div>
 
             <!-- Categories -->
-            <div class="col-4 col-md-4 col-lg-4">
+            <div class="dash-col mobile-col">
                 <a asp-controller="Category" asp-action="Index" class="text-decoration-none">
                     <div class="dashboard-card text-center shadow-sm border-0">
                         <div class="card-body p-3">
@@ -57,7 +57,7 @@
             </div>
 
             <!-- Users -->
-            <div class="col-4 col-md-4 col-lg-4">
+            <div class="dash-col mobile-col">
                 <a asp-controller="User" asp-action="UserList" class="text-decoration-none">
                     <div class="dashboard-card text-center shadow-sm border-0">
                         <div class="card-body p-3">
@@ -69,7 +69,7 @@
             </div>
 
             <!-- Stock -->
-            <div class="col-4 col-md-4 col-lg-4">
+            <div class="dash-col mobile-col">
                 <a asp-controller="Stock" asp-action="Index" class="text-decoration-none">
                     <div class="dashboard-card text-center shadow-sm border-0">
                         <div class="card-body p-3">
@@ -81,7 +81,7 @@
             </div>
 
             <!-- Settings -->
-            <div class="col-4 col-md-4 col-lg-4">
+            <div class="dash-col mobile-col">
                 <a asp-controller="Settings" asp-action="Index" class="text-decoration-none">
                     <div class="dashboard-card text-center shadow-sm border-0">
                         <div class="card-body p-3">
@@ -93,7 +93,7 @@
             </div>
 
             <!-- UOM -->
-            <div class="col-4 col-md-4 col-lg-4">
+            <div class="dash-col mobile-col">
                 <a asp-controller="UOM" asp-action="Index" class="text-decoration-none">
                     <div class="dashboard-card text-center shadow-sm border-0">
                         <div class="card-body p-3">
@@ -105,7 +105,7 @@
             </div>
 
             <!-- Feedback -->
-            <div class="col-4 col-md-4 col-lg-4">
+            <div class="dash-col mobile-col">
                 <a asp-controller="Feedback" asp-action="Index" class="text-decoration-none">
                     <div class="dashboard-card text-center shadow-sm border-0">
                         <div class="card-body p-3">
@@ -115,8 +115,9 @@
                     </div>
                 </a>
             </div>
+
             <!-- Order Report -->
-            <div class="col-4 col-md-4 col-lg-4">
+            <div class="dash-col mobile-col">
                 <a asp-controller="Order" asp-action="Report" class="text-decoration-none">
                     <div class="dashboard-card text-center shadow-sm border-0">
                         <div class="card-body p-3">
@@ -126,8 +127,9 @@
                     </div>
                 </a>
             </div>
+
             <!-- Logout -->
-            <div class="col-4 col-md-4 col-lg-4">
+            <div class="dash-col mobile-col mb-5">
                 <a asp-controller="Account" asp-action="Logout" class="text-decoration-none">
                     <div class="dashboard-card text-center shadow-sm border-0">
                         <div class="card-body p-3">
@@ -141,7 +143,7 @@
         </div>
     </div>
 }
-<!-- Dashboard Styling -->
+
 <style>
     .dashboard-card {
         border-radius: 15px;
@@ -154,30 +156,62 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
-    h6 {
-        font-size: 0.9rem;
+    /* Desktop: always 3 per row */
+    .dash-col {
+        width: 33.33%;
+        max-width: 33.33%;
+        padding: 5px;
     }
 
-    @@media (max-width: 768px) {
-        .col-4 {
-            width: 33.33%;
-            flex: 0 0 33.33%;
-            max-width: 33.33%;
+    /* Mobile: 2 items per row + larger icons/text */
+    @@media only screen and (max-width: 768px) {
+        /* Force 2 items per row */
+        .dash-col
+
+    {
+        width: 50% !important;
+        max-width: 50% !important;
+        padding: 4px !important;
+    }
+
+    /* Bigger box size */
+    .dashboard-card {
+        height: 120px !important; /* Increased */
+        display: flex !important;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 0 !important;
+    }
+
+        /* Increase icon size */
+        .dashboard-card i {
+            font-size: 2.5rem !important; /* Increased */
+            margin-bottom: 4px !important;
         }
 
-        i {
-            font-size: 1.4rem !important;
+        /* Increase text size */
+        .dashboard-card h4 {
+            font-size: 1.05rem !important; /* Increased */
+            font-weight: 600 !important;
+            line-height: 1.2 !important;
+            text-align: center;
+            padding: 0 4px;
+            white-space: normal;
         }
 
-        h6 {
-            font-size: 0.75rem;
-        }
+    /* Spacing fix */
+    .dash-col {
+        margin-bottom: 10px !important;
+    }
+    
+    /* Extra space below the last card on mobile */
+    .dash-col:last-child {
+        margin-bottom: 80px !important;
+    }
 
-        .dashboard-card {
-            padding: 0.5rem !important;
-        }
     }
 </style>
 
-<!-- Font Awesome -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />

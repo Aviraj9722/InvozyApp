@@ -1,97 +1,111 @@
 ﻿@model IEnumerable<eOrderTouchApp.Models.TblOrderMaster>
 
 @{
-    ViewData["Title"] = "Report";
+    ViewData["Title"] = "Order Report";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Order report</h1>
-<form asp-action="Report2" class="d-flex align-items-center gap-2">
-    <label for="fromDT" class="me-2 mb-0">From Date:</label>
+<!-- DATATABLE CSS -->
+<link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+
+<style>
+    /* Keep DataTables UI consistent across pages */
+    .dataTables_wrapper .dataTables_length,
+    .dataTables_wrapper .dataTables_filter {
+        display: flex !important;
+        align-items: center !important;
+        margin-bottom: 10px !important;
+    }
+
+        .dataTables_wrapper .dataTables_filter input {
+            margin-left: 6px !important;
+        }
+
+    .dataTables_wrapper .dataTables_paginate {
+        margin-top: 12px !important;
+    }
+
+    /* Make long Ordered Items display nicely */
+    .order-items {
+        white-space: normal !important;
+        line-height: 1.3;
+        font-size: 14px;
+    }
+</style>
+
+<h1>Order Report</h1>
+
+<form asp-action="Report2" class="d-flex align-items-center gap-2 mb-3">
+    <label class="me-2 mb-0">From Date:</label>
     <input type="date" id="fromDT" name="fromDT" class="form-control" style="max-width: 250px;" />
 
-    <label for="toDT" class="ms-3 me-2 mb-0">To Date:</label>
+    <label class="ms-3 me-2 mb-0">To Date:</label>
     <input type="date" id="toDT" name="toDT" class="form-control" style="max-width: 250px;" />
 
     <button type="submit" class="btn btn-success ms-3">Generate</button>
 </form>
-<br />
-<table class="table table table-striped table-bordered table-group-divider">
-    <thead>
+
+<!-- TABLE -->
+<table id="orderTable" class="table table-striped table-bordered w-100">
+    <thead class="table-dark">
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CustomerName)
-            </th>
-           
-           
-            <th>
-               Ordered Items
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.GrandTotal)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateOfOrder)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TableDetails)
-            </th>
-          @*   <th>
-                @Html.DisplayNameFor(model => model.Printed)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UserId)
-            </th> *@
-         @*    <th></th> *@
+            <th>Order ID</th>
+            <th>Customer</th>
+            <th>Ordered Items</th>
+            <th>Grand Total</th>
+            <th>Order Date</th>
+            <th>Table</th>
         </tr>
     </thead>
+
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CustomerName)
-            </td>
-         
-            <td>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+
+                <td>@item.CustomerName</td>
+
+                <td class="order-items">
                     @{
                         var details = item.TblOrderDetails.ToList();
                         string data = "";
                         foreach (var prod in details)
                         {
-                            var material =  ((List<TblProduct>)ViewBag.Materials).Where( w=>w.Id== prod.ProductId).FirstOrDefault();
-                            data = data + $"{material.Name}  <b>₹</b> {prod.Price} <b>Qty:</b> {prod.Qty}   <b>₹</b>{prod.Total}<BR>";
+                            var material = ((List<TblProduct>)ViewBag.Materials)
+                            .Where(w => w.Id == prod.ProductId)
+                            .FirstOrDefault();
+
+                            data += $"{material?.Name} <b>₹</b>{prod.Price} <b>Qty:</b> {prod.Qty} <b>₹</b>{prod.Total}<br>";
                         }
                     }
                     @Html.Raw(data)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.GrandTotal)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DateOfOrder)
-                </td>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.TableDetails)
-            </td>
-           @*  <td>
-                @Html.DisplayFor(modelItem => item.Printed)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserId)
-            </td> *@
-           @*  <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td> *@
-        </tr>
-}
+                <td>@item.GrandTotal</td>
+                <td>@item.DateOfOrder</td>
+                <td>@item.TableDetails</td>
+            </tr>
+        }
     </tbody>
 </table>
+
+<!-- DATATABLE SCRIPTS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+
+        $('#orderTable').DataTable({
+            paging: true,
+            searching: true,
+            info: true,
+            ordering: true,
+            pageLength: 10,
+            lengthMenu: [5, 10, 25, 50, 100]
+        });
+
+    });
+</script>
