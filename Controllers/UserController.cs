@@ -28,8 +28,9 @@ namespace eOrderTouchApp.Controllers
         }
         public async Task<IActionResult> Index(int OrgId=0)
         {
-            if (User.FindFirst("OrgId")!=null)
+            if (User.FindFirst("OrgId")!=null && OrgId==0 )
             {
+
                 OrgId = Convert.ToInt32(User.FindFirst("OrgId")?.Value);
             }
             TempData["OrgId"] = OrgId;
