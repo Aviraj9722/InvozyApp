@@ -6,7 +6,7 @@ using eOrderTouchApp.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace eOrderTouchApp.Controllers
-{
+{ 
     public class AccountController : Controller
     {
         private readonly eOrderTouchContext _context;
