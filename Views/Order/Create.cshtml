@@ -9,6 +9,30 @@
     var Org = (eOrderTouchApp.Models.TblBusiness)ViewBag.Orgnization;
 }
 <style>
+
+    @@media (max-width: 600px) {
+        input, select, textarea, button
+
+    {
+        font-size: 16px !important;
+    }
+
+     .cart-item-row {
+    overflow: hidden;
+}
+
+.cart-item-row > * {
+    min-width: 0;
+}
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 12px;
+}
+
+    }
+
+   
     /* ================================
                PRINTABLE RECEIPT STYLES
             =================================*/
@@ -107,6 +131,7 @@
     .product-area {
         flex: 1;
         min-width: 0;
+        width:100%;
     }
 
     /* Categories */
@@ -364,7 +389,7 @@
 
                 <div class="w-100 mt-2">
                     <label class="form-label mb-1"><b>Payment Mode:</b></label><br />
-                    <label><input type="radio" name="paymentMobile" value="Cash" checked> Cash</label>&nbsp;
+                    <label><input type="radio" name="paymentMobile"  value="Cash" checked> Cash</label>&nbsp;
                     <label><input type="radio" name="paymentMobile" value="Online"> Online</label>&nbsp;
                     <label><input type="radio" name="paymentMobile" value="Free"> Free</label>
                 </div>
@@ -522,7 +547,7 @@
                         // desktop row
                         desktopContainer.append(`
                             <div class="cart-item-row" data-id="${item.id}">
-                                <div class="ci-name">${htmlEscape(item.name)}</div><BR>
+                                <div class="ci-name">${htmlEscape(item.name)}</div>
                                 <div class="ci-qty">
                                     <button class="btn btn-sm btn-outline-secondary desktop-qty-down" data-id="${item.id}">-</button>
                                     <input type="number" class="form-control form-control-sm desktop-qty-input" data-id="${item.id}" value="${item.qty}" />
@@ -581,6 +606,23 @@
                     input.val(qty);
                     updateCart(id, name, price, qty);
                 });
+
+                $(document).on('click', '.product-card', function (e) {
+                        // if user clicked a button/input inside card, ignore
+                        if ($(e.target).closest('.qty-controls, .qty-up, .qty-down, button, input, a').length) return;
+
+                        const card = $(this);
+                        const id = card.data('id');
+                        if (!id) return;
+
+                        const input = $(`#qty-${id}`);
+                        const name = card.find('h6').text().trim();
+                        const price = parseFloat(card.find('p.price').text().replace(/[^\d.]/g, '')) || 0;
+
+                        let qty = +input.val() + 1;
+                        input.val(qty);
+                        updateCart(id, name, price, qty);
+                    });
 
                 $(document).on('click', '.qty-down', function () {
                     const id = $(this).data('id');
@@ -687,7 +729,7 @@
                 });
 
                 // Checkout handlers (desktop & mobile share same AJAX call)
-                        function doCheckout(customerName,tableDetail,paymentMode) {
+                function doCheckout(customerName,tableDetail,paymentMode) {
                     if (cart.length === 0) {
                         alert("Cart is empty. Please add some items for sale.");
                         return;
@@ -750,9 +792,10 @@
                 }
 
                 $('#checkoutBtn').click(function () {
+                    debugger;
                     const customerName = $("#txtCustNameMobile").val();
                     const tableDetail = $("#ddlTableMobile option:selected").val();
-                    const paymentMode = $("#paymentMobile").val();
+                            const paymentMode = $('[name="paymentMobile"]').val();
 
                     doCheckout(customerName,tableDetail,paymentMode);
                 });
@@ -760,7 +803,7 @@
                 $('#checkoutBtnDesktop').click(function () {
                     const customerName = $("#txtCustNameDesktop").val();
                     const tableDetail = $("#ddlTableDesktop option:selected").val();
-                    const paymentMode = $("#paymentDesktop").val();
+                                    const paymentMode = $('[name="paymentDesktop"]').val();
 
                     doCheckout(customerName,tableDetail,paymentMode);
                 });
@@ -968,47 +1011,6 @@
 
 
 
-                // function printPlainReceipt58mm(orgTitle, address, invoiceNo, date, customerName, productList, grandTotal = 0,Contact,Mode,TableNo)
-                // {
-                //             const ESC = "\x1B";
-                //             const DOUBLE = ESC + "!" + "\x38";
-                //             const NORMAL = ESC + "!" + "\x00";
-                //             let receipt = "";
-                //             receipt += "--------------------------------\n";
-                //             receipt += DOUBLE + orgTitle + NORMAL + "\n";
-                //             receipt += address + "\n";
-                //             receipt += "Contact : " + Contact + "\n";
-                //             receipt += "--------------------------------\n";
-                //             receipt += `${DOUBLE}Invoice#: ${invoiceNo}   ${TableNo} ${NORMAL}\n`;
-                //             receipt += "Customer: " + customerName + "\n";
-                //             receipt += "Date    : " + date + "  "+Mode+"\n";
-                //             receipt += "--------------------------------\n";
-                //             receipt += "Item         Qty   Rate    Total\n";                         
-                //             receipt += "--------------------------------\n";
-
-                //             productList.forEach(p => {
-                //                 const product = allProducts.find(w => w.Id === p.productId);
-                //                 const name = (product?.Name || "").padEnd(18, " ").substring(0, 18);
-                //                 const qty = String(p.qty).padStart(4, " ");
-                //                 const price = p.price.toFixed(2).padStart(8, " ");
-                //                 const total = (p.qty * p.price).toFixed(2).padStart(9, " ");
-                //                 receipt += `${name}${qty}${price}${total}\n`;
-                //                 grandTotal += p.qty * p.price;
-                //             });
-
-                //             receipt += "--------------------------------\n";
-                //             receipt += `${DOUBLE}Grand Total:${grandTotal.toFixed(2).padStart(4, " ")}${ESC}\n`;
-                //             receipt += "--------------------------------\n";
-                //             receipt += "Thank you visit again!\n\n\n";
-                //             receipt += "Aviraj Innovations Pvt. Ltd.\n";
-                //             receipt += "+91 9096152118, +91 8999626684\n";
-                //             const encoded = btoa(unescape(encodeURIComponent(receipt)));
-                //             window.location.href = "rawbt:base64," + encoded;
-
-                //             window.onfocus = function () {
-                //                 location.reload();
-                //             };
-                //         }
 
 
 
