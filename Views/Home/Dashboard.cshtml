@@ -145,70 +145,122 @@
 }
 
 <style>
+    /* Base card style */
     .dashboard-card {
-        border-radius: 15px;
-        background: #fff;
+        border-radius: 18px;
+        background: #1e1e1e; /* Default dark color */
         transition: all 0.25s ease-in-out;
+        border: none;
+        overflow: hidden;
+        box-shadow: 0px 4px 12px rgba(0,0,0,0.25);
     }
 
+        /* Hover effect */
         .dashboard-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transform: scale(1.03);
+            box-shadow: 0px 6px 20px rgba(0,0,0,0.35);
         }
 
-    /* Desktop: always 3 per row */
+    /* Solid dark colors per button (optional but looks good) */
+    .dash-col:nth-child(1) .dashboard-card {
+        background: #2c3e50;
+    }
+
+    .dash-col:nth-child(2) .dashboard-card {
+        background: #1f4b99;
+    }
+
+    .dash-col:nth-child(3) .dashboard-card {
+        background: #6a1b9a;
+    }
+
+    .dash-col:nth-child(4) .dashboard-card {
+        background: #b71c1c;
+    }
+
+    .dash-col:nth-child(5) .dashboard-card {
+        background: #004d40;
+    }
+
+    .dash-col:nth-child(6) .dashboard-card {
+        background: #4e342e;
+    }
+
+    .dash-col:nth-child(7) .dashboard-card {
+        background: #263238;
+    }
+
+    .dash-col:nth-child(8) .dashboard-card {
+        background: #37474f;
+    }
+
+    .dash-col:nth-child(9) .dashboard-card {
+        background: #1b5e20;
+    }
+
+    .dash-col:nth-child(10) .dashboard-card {
+        background: #1e3a8a;
+    }
+
+    .dash-col:nth-child(11) .dashboard-card {
+        background: #880e4f;
+    }
+
+    /* White icon and label */
+    .dashboard-card i,
+    .dashboard-card h6 {
+        color: #ffffff !important;
+    }
+
+    /* Desktop: 3 columns */
     .dash-col {
         width: 33.33%;
         max-width: 33.33%;
         padding: 5px;
     }
 
-    /* Mobile: 2 items per row + larger icons/text */
+    /* ------- MOBILE UI ------- */
     @@media only screen and (max-width: 768px) {
-        /* Force 2 items per row */
+        /* 2 per row */
         .dash-col
 
     {
         width: 50% !important;
         max-width: 50% !important;
-        padding: 4px !important;
+        padding: 7px !important;
     }
 
-    /* Bigger box size */
+    /* Larger tiles for mobile */
     .dashboard-card {
-        height: 120px !important; /* Increased */
+        height: 135px !important;
+        border-radius: 20px;
         display: flex !important;
-        flex-direction: column;
         justify-content: center;
         align-items: center;
         padding: 0 !important;
+        box-shadow: 0px 6px 16px rgba(0,0,0,0.35);
     }
 
-        /* Increase icon size */
+        /* Large icons */
         .dashboard-card i {
-            font-size: 2.5rem !important; /* Increased */
-            margin-bottom: 4px !important;
+            font-size: 2.6rem !important;
+            margin-bottom: 6px !important;
         }
 
-        /* Increase text size */
-        .dashboard-card h4 {
-            font-size: 1.05rem !important; /* Increased */
-            font-weight: 600 !important;
-            line-height: 1.2 !important;
+        /* Large text */
+        .dashboard-card h6 {
+            font-size: 1.15rem !important;
+            font-weight: 700 !important;
             text-align: center;
-            padding: 0 4px;
-            white-space: normal;
         }
 
-    /* Spacing fix */
     .dash-col {
-        margin-bottom: 10px !important;
+        margin-bottom: 12px;
     }
-    
-    /* Extra space below the last card on mobile */
-    .dash-col:last-child {
-        margin-bottom: 80px !important;
-    }
+
+        .dash-col:last-child {
+            margin-bottom: 90px;
+        }
 
     }
 </style>

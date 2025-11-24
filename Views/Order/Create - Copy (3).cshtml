@@ -10,40 +10,6 @@
 }
 <style>
 
-    /* ----- MOBILE BOTTOM BAR ----- */
-@@media (max-width: 991px) {
-    .mobile-bottom-bar {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background: #222;
-        color: #fff;
-        display: flex;
-        justify-content: space-around;
-        padding: 10px 0;
-        z-index: 99999;
-        border-top: 2px solid #000;
-    }
-
-    .mobile-bottom-bar button,
-    .mobile-bottom-bar a {
-        flex: 1;
-        margin: 0 5px;
-        border-radius: 6px;
-        font-weight: 600;
-        padding: 10px 5px;
-        text-align: center;
-        background: #333;
-        color: #fff !important;
-        border: none;
-    }
-
-    body {
-        padding-bottom: 70px !important; /* prevents content from hiding under bar */
-    }
-}
-
     @@media (max-width: 600px) {
         input, select, textarea, button
 
@@ -318,18 +284,10 @@
         padding: 4px 8px;
         border-radius: 20px;
     }
-
-    /* Highlight product when added */
-    .product-added {
-        border: 3px solid #00c853 !important; /* green border */
-        box-shadow: 0 0 12px rgba(0, 200, 83, 0.6);
-        border-radius: 12px;
-        transition: 0.25s ease-in-out;
-    }
 </style>
 
 
-<h3>Create Order</h3>
+<h3>Create Order <a href="@Url.Action("Dashboard", "Home")" class="category-btn btn-sm btn-light">Dashboard</a></h3>
 
 <div class="order-layout">
     <!-- 🛒 DESKTOP CART -->
@@ -466,13 +424,7 @@
     <p><strong>Grand Total: <span id="invTotal"></span></strong></p>
     <p>Thank you!</p>
 </div>
-<!-- Bottom Mobile Bar -->
-<div class="mobile-bottom-bar d-md-none">
-    <a href="@Url.Action("Dashboard","Home")">Dashboard</a>
-    <button id="btnMobileViewCart">View Cart</button>
-    <button id="btnMobileSave">Save</button>
-    <button id="btnMobilePrint">Print</button>
-</div>
+
 @section Scripts {
     <script>
                 // parse products (escape single quotes)
@@ -557,7 +509,6 @@
                     $(`#qty-${id}`).val(qty);
 
                     renderCart();
-                          updateProductHighlight(id, qty);
                 }
 
                 function renderCart() {
@@ -653,10 +604,7 @@
 
                     let qty = +input.val() + 1;
                     input.val(qty);
-                        
                     updateCart(id, name, price, qty);
-                        
-                              
                 });
 
                 $(document).on('click', '.product-card', function (e) {
@@ -673,10 +621,7 @@
 
                         let qty = +input.val() + 1;
                         input.val(qty);
-                              
                         updateCart(id, name, price, qty);
-                      
-                             
                     });
 
                 $(document).on('click', '.qty-down', function () {
@@ -689,10 +634,7 @@
                     let qty = +input.val();
                     if (qty > 0) qty--;
                     input.val(qty);
-                        
                     updateCart(id, name, price, qty);
-                 
-                             
                 });
 
                 // pagination click
@@ -898,7 +840,47 @@
                     window.location.href = "rawbt:base64," + encoded;
                 }
 
-     
+        //         function printPlainReceipt(orgTitle, address, invoiceNo, date, customerName, productList, grandTotal = 0, Contact, Mode, TableNo) {
+        //     const ESC = "\x1B";
+        //     const DOUBLE = ESC + "!" + "\x38";
+        //     const NORMAL = ESC + "!" + "\x00";
+        //     let receipt = "";
+        //     receipt += "----------------------------------------\n";
+        //     receipt += orgTitle + "\n";
+        //     receipt += address + "\n";
+        //     receipt += "Contact : " + Contact + "\n";
+        //     receipt += "----------------------------------------\n";
+        //     receipt += "Invoice#: " + invoiceNo + "   " + TableNo + "\n";
+        //     receipt += "Customer: " + customerName + "\n";
+        //     receipt += "Date    : " + date + "  " + Mode + "\n";
+        //     receipt += "----------------------------------------\n";
+        //     receipt += "Item                Qty   Rate    Total\n";
+        //     receipt += "----------------------------------------\n";
+
+        //     productList.forEach(p => {
+        //         const product = allProducts.find(w => w.Id === p.productId);
+        //         const name = (product?.Name || "").padEnd(18, " ").substring(0, 18);
+        //         const qty = String(p.qty).padStart(4, " ");
+        //         const price = p.price.toFixed(2).padStart(8, " ");
+        //         const total = (p.qty * p.price).toFixed(2).padStart(9, " ");
+        //         receipt += `${name}${qty}${price}${total}\n`;
+        //         grandTotal += p.qty * p.price;
+        //     });
+
+        //     receipt += "----------------------------------------\n";
+        //     receipt += `Grand Total: ${grandTotal.toFixed(2).padStart(12, " ")}\n`;
+        //     receipt += "----------------------------------------\n";
+        //     receipt += "Thank you visit again!\n\n\n";
+        //     receipt += "Powered by: Aviraj Innovations Pvt. Ltd.\n";
+        //     receipt += "Contact Us: +91 9096152118, +91 8999626684\n";
+
+        //     // --- Create a Blob and open it in a new tab ---
+        //     const blob = new Blob([receipt], { type: 'text/plain' });
+        //     const blobUrl = URL.createObjectURL(blob);
+
+        //     // Open in a new tab
+        //     window.open(blobUrl, '_blank');
+        // }
 
     function printPlainReceipt80mm(orgTitle, address, invoiceNo, date, customerName, productList, grandTotal = 0,Contact,Mode,TableNo) 
     {
@@ -1123,38 +1105,94 @@
         }
 
 
-                // Open Cart Modal
-        $("#btnMobileViewCart").click(function () {
-            $("#cartModal").modal("show");
-        });
+//        function printPlainReceipt58mm(orgTitle, address, invoiceNo, date, customerName, productList, grandTotal = 0, Contact, Mode, TableNo) {
 
-        // Save button → same as checkout button
-        $("#btnMobileSave").click(function () {
-            $("#checkoutBtn").click();
-        });
+//     const ESC = "\x1B";
+//     const DOUBLE = ESC + "!" + "\x38";   // Double-size
+//     const NORMAL = ESC + "!" + "\x00";   // Normal size
+//     const SMALL = ESC + "M" + "\x01";    // Small font
+//     const NORMAL_FONT = ESC + "M" + "\x00";
 
-        // Print just opens cart print if items exist
-        $("#btnMobilePrint").click(function () {
-            if (cart.length === 0) {
-                alert("Cart is empty!");
-                return;
-            }
-            $("#checkoutBtn").click();
-        });
+//     // Center for 32 chars (normal font)
+//     function center32(text) {
+//         const total = 32;
+//         let pad = Math.floor((total - text.length) / 2);
+//         return " ".repeat(pad) + text;
+//     }
 
-             function updateProductHighlight(productId, qty) {
-            let card = $('.product-card[data-id="' + productId + '"]');
+//   function center16(text) {
+//     text = text.substring(0, 16);   // prevent overflow
+//     const total = 16;
+//     let pad = Math.max(0, Math.floor((total - text.length) / 2));
+//     return " ".repeat(pad) + text;
+// }
 
-            if (!card.length) return;
+//     let receipt = "";
 
-            if (qty > 0) {
-                card.addClass("product-added");
-            } else {
-                card.removeClass("product-added");
-            }
-        }
+//     // Header
+//     receipt += "--------------------------------\n";
+
+//     // Center title in double-width (16 columns)
+//     receipt += DOUBLE + center16(orgTitle) + NORMAL + "\n";
+
+//     receipt += center32(address) + "\n";
+//     receipt += "Contact : " + Contact + "\n";
+//     receipt += "--------------------------------\n";
+
+//     // Invoice details
+//     receipt += `Invoice#: ${invoiceNo}\n`;
+//     if (TableNo) receipt += `Table No: ${TableNo}\n`;
+//     receipt += `Customer : ${customerName}\n`;
+//     receipt += `Date     : ${date}\n`;
+//     receipt += `Mode     : ${Mode}\n`;
+//     receipt += "--------------------------------\n";
+
+//     // Table header (must fit 32 chars)
+//     receipt += "Item            Qty  Rate  Total\n";
+//     receipt += "--------------------------------\n";
+
+//     // Item rows
+//     productList.forEach(p => {
+//         const product = allProducts.find(w => w.Id === p.productId);
+
+//         const name = (product?.Name || "").padEnd(14, " ").substring(0, 14); // 14 chars
+//         const qty = String(p.qty).padStart(3, " ");                           // 3 chars
+//         const rate = String(p.price).padStart(5, " ");                        // 5 chars
+//         const total = String(p.qty * p.price).padStart(7, " ");               // 7 chars
+
+//         // Final row = 14 + space + 3 + space + 5 + space + 7 = 32 chars
+//         receipt += `${name} ${qty} ${rate} ${total}\n`;
+
+//         grandTotal += p.qty * p.price;
+//     });
+
+//     receipt += "--------------------------------\n";
+
+//     // Grand total centered in DOUBLE (16 chars width)
+//     const grandText = "Total: " + grandTotal;
+//     receipt += DOUBLE + center16(grandText)+"/-" + NORMAL + "\n";
+
+//     receipt += "--------------------------------\n";
+
+//     // Small text for footer
+//     receipt +=  center32("Thank you, visit again!") + "\n\n";
+//     receipt +=SMALL + center32("Aviraj Innovations Pvt. Ltd.") + "\n";
+//     receipt += center32("+91 9096152118 / 8999626684") + "\n";
+//     receipt += NORMAL_FONT + "\n";
+
+//     // Encode & print
+//     const encoded = btoa(unescape(encodeURIComponent(receipt)));
+//     window.location.href = "rawbt:base64," + encoded;
+
+//     window.onfocus = function () {
+//         location.reload();
+//     };
+// }
+
+
+
+
+
 
     </script>
 }
-
-
