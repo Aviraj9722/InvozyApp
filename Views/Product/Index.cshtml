@@ -154,13 +154,18 @@
                 }]
             });
 
-            // EDIT BUTTON LOGIC (SAME AS YOURS)
-            $('.editBtn').click(function () {
+
+            // EDIT BUTTON (WORKS WITH PAGINATION)
+            $(document).on("click", ".editBtn", function () {
+
                 $('#formTitle').text('Edit Product');
                 $('#productId').val($(this).data('id'));
                 $('#name').val($(this).data('name'));
                 $('#price').val($(this).data('price'));
                 $('#categoryId').val($(this).data('category'));
+
+            // Scroll to form (optional)
+            $('html, body').animate({ scrollTop: 0 }, 300);
             });
 
             // CLEAR FORM
