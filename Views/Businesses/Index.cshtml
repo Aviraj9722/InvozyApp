@@ -49,6 +49,7 @@
                     <div class="mb-3">
                         <label>Business Name</label>
                         <input type="text" id="BusinessName" name="BusinessName" class="form-control" required />
+                        <span class="text-danger" id="err_BusinessName"></span>
                     </div>
 
                     <!-- Business Type -->
@@ -64,24 +65,28 @@
 
                             }
                         </select>
+                        <span class="text-danger" id="err_BusinessType"></span>
                     </div>
 
                     <!-- Owner Name -->
                     <div class="mb-3">
                         <label>Owner Name</label>
                         <input type="text" id="OwnerName" name="OwnerName" class="form-control" required />
+                        <span class="text-danger" id="err_OwnerName"></span>
                     </div>
 
                     <!-- GSTIN -->
                     <div class="mb-3">
                         <label>GSTIN</label>
                         <input type="text" id="GSTIN" name="GSTIN" class="form-control" />
+                        <span class="text-danger" id="err_GSTIN"></span>
                     </div>
 
                     <!-- Email -->
                     <div class="mb-3">
                         <label>Email</label>
                         <input type="email" id="Email" name="Email" class="form-control" required />
+                        <span class="text-danger" id="err_Email"></span>
                     </div>
                     <!-- Mobile -->
                     <div class="mb-3">
@@ -93,12 +98,14 @@
                     <div class="mb-3">
                         <label>Address</label>
                         <textarea id="Address" name="Address" class="form-control"></textarea>
+                        <span class="text-danger" id="err_Address"></span>
                     </div>
 
                     <!-- City -->
                     <div class="mb-3">
                         <label>City</label>
                         <input type="text" id="City" name="City" class="form-control" />
+                        <span class="text-danger" id="err_City"></span>
                     </div>
 
                     <!-- Printer Size -->
@@ -114,6 +121,7 @@
 
                             }
                         </select>
+                        <span class="text-danger" id="err_PrinterSize"></span>
                     </div>
 
                     <!-- GST Applicable -->
@@ -176,6 +184,7 @@
                         <th>QR</th>
                         <th>ID</th>
                         <th>Name</th>
+                        <th>Business Type</th>
                         <th>Owner</th>
                         <th>City</th>
                         <th>Email</th>
@@ -221,11 +230,12 @@
                             </td>
                             <td>@item.Id</td>
                             <td>@item.BusinessName</td>
+                            <td>@item.BusinessType?.BusinessTypeName</td>
                             <td>@item.OwnerName</td>
                             <td>@item.City</td>
                             <td>@item.Email</td>
                             <td>@item.Gstin</td>
-                            <td>@item.PrinterSize</td>
+                            <td>@item.PrinterSize?.PrinterSize</td>
                             <td>@item.IsGstapplicable</td>
                             <td>@item.HideCustomerField</td>
                             <td>@item.HideTableDropDown</td>
@@ -266,6 +276,111 @@
             if ($("#OwnerName").val().trim() === "") { alert("Owner Name required"); return false; }
             if ($("#Email").val().trim() === "") { alert("Email required"); return false; }
             return true;
+        }
+
+         function loadGrid(page = 1) {
+             $("#gridContainer").load("/Businesses/Index?page=" + page + " #gridTable");
+        }
+
+                // REAL-TIME REMOVE ERROR
+        $("input, textarea, select").on("input change", function () {
+             $(this).removeClass("invalid-input");
+             let errSpan = "#err_" + $(this).attr("id");
+             $(errSpan).text("");
+        });
+
+
+        // ==========================
+        //     VALIDATION FUNCTION
+        // ==========================
+        function validateForm() {
+
+             let isValid = true;
+             $(".text-danger").text("");
+
+             // Business Name
+             if ($("#BusinessName").val().trim() === "") {
+                 $("#err_BusinessName").text("Business Name is required");
+                 $("#BusinessName").addClass("invalid-input");
+                 isValid = false;
+             }
+
+             // Owner Name
+             if ($("#OwnerName").val().trim() === "") {
+                 $("#err_OwnerName").text("Owner Name is required");
+                 $("#OwnerName").addClass("invalid-input");
+                 isValid = false;
+             }
+
+             // Email
+             let email = $("#Email").val().trim();
+             let emailPattern = /^[^\s@@]+@@[^\s@@]+\.[^\s@@]+$/;
+
+             if (email === "") {
+                 $("#err_Email").text("Email is required");
+                 $("#Email").addClass("invalid-input");
+                 isValid = false;
+             }
+             else if (!emailPattern.test(email)) {
+                 $("#err_Email").text("Invalid email format");
+                 $("#Email").addClass("invalid-input");
+                 isValid = false;
+             }
+
+             // Mobile Validation
+             let mobile = $("#MobileNo").val().trim();
+             let mobilePattern = /^[0-9]{10}$/;
+
+             if (mobile === "") {
+                 $("#err_Mobile").text("Mobile number is required");
+                 $("#MobileNo").addClass("invalid-input");
+                 isValid = false;
+             }
+             else if (!mobilePattern.test(mobile)) {
+                 $("#err_Mobile").text("Mobile number must be 10 digits");
+                 $("#MobileNo").addClass("invalid-input");
+                 isValid = false;
+             }
+
+             // // GSTIN Validation
+             // let gst = $("#GSTIN").val().trim();
+             // let gstPattern = /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z][1-9A-Z]Z[0-9A-Z]$/;
+
+             // if (gst !== "" && !gstPattern.test(gst)) {
+             //     $("#err_GSTIN").text("Invalid GSTIN");
+             //     $("#GSTIN").addClass("invalid-input");
+             //     isValid = false;
+             // }
+
+             // Business Type
+             if ($("#BusinessTypeId").val() === "") {
+                 $("#err_BusinessType").text("Select Business Type");
+                 $("#BusinessTypeId").addClass("invalid-input");
+                 isValid = false;
+             }
+
+             // Printer Size
+             if ($("#PrinterSizeId").val() === "") {
+                 $("#err_PrinterSize").text("Select Printer Size");
+                 $("#PrinterSizeId").addClass("invalid-input");
+                 isValid = false;
+             }
+
+             // Address
+             if ($("#Address").val().trim() === "") {
+                 $("#err_Address").text("Address is required");
+                 $("#Address").addClass("invalid-input");
+                 isValid = false;
+             }
+
+             // City
+             if ($("#City").val().trim() === "") {
+                 $("#err_City").text("City is required");
+                 $("#City").addClass("invalid-input");
+                 isValid = false;
+             }
+
+             return isValid;
         }
 
         // SAVE / UPDATE

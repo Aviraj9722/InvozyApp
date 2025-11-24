@@ -48,17 +48,15 @@ namespace eOrderTouchApp.Controllers
             if (!ModelState.IsValid)
             {
                 var allErrors = ModelState
-          .Where(x => x.Value.Errors.Count > 0)
-          .Select(x => new
-          {
-              Field = x.Key,
-              Errors = x.Value.Errors.Select(e => e.ErrorMessage).ToList()
-          }).ToList();
+              .Where(x => x.Value.Errors.Count > 0)
+              .Select(x => new
+              {
+                  Field = x.Key,
+                  Errors = x.Value.Errors.Select(e => e.ErrorMessage).ToList()
+              }).ToList();
 
                 return BadRequest(allErrors);
             }
-
-
 
             business.CreatedOn = DateTime.Now;
 

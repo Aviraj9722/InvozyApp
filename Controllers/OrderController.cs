@@ -30,6 +30,9 @@ public class OrderController : Controller
 
         var Orders = await _context.TblOrderMasters.Where(w => w.BuisnessId == businessId).Include(I => I.TblOrderDetails).Where(w=>w.DateOfOrder>= fromDT && w.DateOfOrder<=toDT) .OrderByDescending(o => o.Id).ToListAsync();
 
+        ViewBag.TotalCash = Orders.Where(w => w.PaymentMode == "Cash").Sum(w => w.GrandTotal);
+        ViewBag.Online = Orders.Where(w => w.PaymentMode == "Online").Sum(s => s.GrandTotal);
+        ViewBag.Free = Orders.Where(w => w.PaymentMode == "Free").Sum(s => s.GrandTotal);
         ViewBag.Materials = _context.TblProducts.ToList();
 
         return View("Report",Orders);

@@ -30,6 +30,7 @@ namespace eOrderTouchApp.Controllers
         {
             if (User.FindFirst("OrgId")!=null && OrgId ==0)
             {
+
                 OrgId = Convert.ToInt32(User.FindFirst("OrgId")?.Value);
             }
             TempData["OrgId"] = OrgId;
