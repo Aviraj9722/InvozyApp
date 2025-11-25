@@ -1,0 +1,1160 @@
+﻿@{
+    var categories = ViewBag.Categories as List<eOrderTouchApp.Models.TblCategory>;
+    var productsJson = ViewBag.ProductsJson as string;
+}
+@{
+
+    ViewBag.HideNav = true;
+
+    var Org = (eOrderTouchApp.Models.TblBusiness)ViewBag.Orgnization;
+}
+<style>
+
+    /* ----- MOBILE BOTTOM BAR ----- */
+@@media (max-width: 991px) {
+    .mobile-bottom-bar {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: #222;
+        color: #fff;
+        display: flex;
+        justify-content: space-around;
+        padding: 10px 0;
+        z-index: 99999;
+        border-top: 2px solid #000;
+    }
+
+    .mobile-bottom-bar button,
+    .mobile-bottom-bar a {
+        flex: 1;
+        margin: 0 5px;
+        border-radius: 6px;
+        font-weight: 600;
+        padding: 10px 5px;
+        text-align: center;
+        background: #333;
+        color: #fff !important;
+        border: none;
+    }
+
+    body {
+        padding-bottom: 70px !important; /* prevents content from hiding under bar */
+    }
+}
+
+    @@media (max-width: 600px) {
+        input, select, textarea, button
+
+    {
+        font-size: 16px !important;
+    }
+
+     .cart-item-row {
+    overflow: hidden;
+}
+
+.cart-item-row > * {
+    min-width: 0;
+}
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 12px;
+}
+
+    }
+
+   
+    /* ================================
+               PRINTABLE RECEIPT STYLES
+            =================================*/
+    .printable-area {
+        width: 80mm;
+        padding: 6px;
+        font-family: 'Courier New', monospace;
+        font-size: 15px;
+        color: #000;
+    }
+
+        .printable-area h4 {
+            text-align: center;
+            font-size: 17px;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+        }
+
+        .printable-area p {
+            margin: 2px 0;
+            line-height: 1.3;
+        }
+
+        .printable-area table {
+            width: 100%;
+            border-spacing: 3px;
+            border-collapse: separate;
+        }
+
+        .printable-area th, .printable-area td {
+            padding: 3px 2px;
+            font-size: 14px;
+            border-bottom: 1px dashed #000;
+            vertical-align: top;
+        }
+
+    /* ================================
+               LAYOUT: DESKTOP CART + PRODUCT AREA
+            =================================*/
+    .order-layout {
+        display: flex;
+        gap: 18px;
+        align-items: flex-start;
+    }
+
+    /* Desktop Cart (left column) */
+    .desktop-cart {
+        flex: 0 0 600px;
+        max-width: 600px;
+        background: #fff;
+        border: 1px solid #e6e6e6;
+        padding: 12px;
+        border-radius: 8px;
+        height: calc(100vh - 40px);
+        position: sticky;
+        top: 20px;
+        overflow-y: auto;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    }
+
+        .desktop-cart h5 {
+            margin-top: 0;
+            font-weight: 700;
+        }
+
+    .cart-item-row {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        padding: 8px 4px;
+        border-bottom: 1px dashed #eee;
+    }
+
+        .cart-item-row .ci-name {
+            flex: 1;
+            font-weight: 600;
+            font-size: 0.95rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .cart-item-row .ci-qty {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+        }
+
+            .cart-item-row .ci-qty input {
+                width: 56px;
+                padding: 3px;
+                text-align: center;
+            }
+
+    /* Product area */
+    .product-area {
+        flex: 1;
+        min-width: 0;
+        width:100%;
+    }
+
+    /* Categories */
+    .category-top {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        padding: 10px;
+        background: #fff;
+        border-radius: 8px;
+        border: 1px solid #eee;
+        margin-bottom: 12px;
+        position: sticky;
+        top: 20px;
+        z-index: 1020;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+        .category-top .category-btn {
+            white-space: nowrap;
+            padding: 8px 14px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            border: 1px solid #ddd;
+            background: #f7f7f7;
+        }
+
+            .category-top .category-btn.active {
+                background: linear-gradient(135deg,#007bff,#00b4ff);
+                color: #fff;
+                border-color: transparent;
+                transform: scale(1.02);
+            }
+
+    /* Product grid / card */
+    .product-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .product-card {
+        background: #fff;
+        border: 1px solid #e6e6e6;
+        padding: 8px;
+        width: calc(100% / 6 - 12px);
+        border-radius: 8px;
+        text-align: center;
+    }
+
+        .product-card img {
+            width: 100%;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 6px;
+        }
+
+        .product-card h6 {
+            font-size: 0.85rem;
+            margin: 6px 0 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .product-card p.price {
+            margin: 0 0 6px;
+            font-weight: 700;
+        }
+
+    .qty-controls {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 6px;
+    }
+
+        .qty-controls input {
+            width: 48px;
+            text-align: center;
+            padding: 4px;
+        }
+
+    /* ================================
+               Responsive breakpoints
+            =================================*/
+    @@media (max-width: 1400px) {
+        .product-card {
+            width: calc(100% / 5 - 12px);
+        }
+    }
+
+    @@media (max-width: 1199px) {
+        .product-card {
+            width: calc(100% / 4 - 12px);
+        }
+    }
+
+    @@media (max-width: 991px) {
+        .product-card {
+            width: calc(100% / 3 - 12px);
+        }
+        /* 3 products per row on tablets & mobiles */
+    }
+
+    /* MOBILE: hide desktop cart, adjust product grid */
+    @@media (max-width: 991px) {
+        .order-layout {
+            flex-direction: column;
+        }
+
+        .desktop-cart {
+            display: none;
+        }
+
+        #cartToggleBtn {
+            display: inline-block;
+            position: fixed;
+            top: 16px;
+            right: 16px;
+            z-index: 9999;
+        }
+
+        .category-top {
+            position: relative;
+            top: 0;
+            margin-bottom: 6px;
+        }
+    }
+
+    @@media (max-width: 575px) {
+        .product-card {
+            width: calc(100% / 3 - 12px);
+        }
+        /* 3 per row even on small phones */
+    }
+
+    /* Misc */
+    #productContainer {
+        margin-top: 6px;
+    }
+
+    .badge-count {
+        background: #f1f1f1;
+        color: #111;
+        font-weight: 700;
+        margin-left: 8px;
+        padding: 4px 8px;
+        border-radius: 20px;
+    }
+
+    /* Highlight product when added */
+    .product-added {
+        border: 3px solid #00c853 !important; /* green border */
+        box-shadow: 0 0 12px rgba(0, 200, 83, 0.6);
+        border-radius: 12px;
+        transition: 0.25s ease-in-out;
+    }
+</style>
+
+
+<h3>Create Order</h3>
+
+<div class="order-layout">
+    <!-- 🛒 DESKTOP CART -->
+    <div class="desktop-cart" id="desktopCart">
+        <h5>Your Cart <span id="desktopCartCount" class="badge-count">0</span></h5>
+        <div id="desktopCartItems" style="margin-top:8px;"></div>
+
+        <div style="margin-top:12px; display:flex; justify-content:space-between; align-items:center;">
+            <strong>Grand Total:</strong>
+            <strong>₹<span id="desktopCartTotal">0.00</span></strong>
+        </div>
+
+        <div style="margin-top:12px;">
+            <input id="txtCustNameDesktop" class="form-control form-control-sm" placeholder="Customer name / mobile" />
+        </div>
+
+        <div style="margin-top:8px;">
+            <select id="ddlTableDesktop" class="form-select form-select-sm">
+                <option value="">-- Select Table (optional) --</option>
+                @for (int i = 1; i <= 10; i++)
+                {
+                    <option value="Table @i">Table @i</option>
+                }
+            </select>
+        </div>
+
+        <div style="margin-top:8px;">
+            <label class="form-label mb-1"><b>Payment Mode:</b></label>
+            <div>
+                <label><input type="radio" name="paymentDesktop" value="Cash" checked> Cash</label>&nbsp;
+                <label><input type="radio" name="paymentDesktop" value="Online"> Online</label>&nbsp;
+                <label><input type="radio" name="paymentDesktop" value="Free"> Free</label>
+            </div>
+        </div>
+
+        <div style="margin-top:10px; display:flex; gap:8px;">
+            <button id="checkoutBtnDesktop" class="btn btn-success btn-sm flex-grow-1">Save & Print</button>
+            <button id="clearCartDesktop" class="btn btn-outline-danger btn-sm">Clear</button>
+        </div>
+    </div>
+
+    <div class="product-area">
+        <!-- Cart button for mobile (hidden on desktop) -->
+        <button id="cartToggleBtn" class="btn btn-primary shadow d-md-inline-block" data-bs-toggle="modal" data-bs-target="#cartModal">
+            🛒 Cart <span id="cartCount" class="badge bg-light text-dark ms-1">0</span>
+        </button>
+
+        <!-- Categories: top sticky bar inside product area -->
+        <div class="category-top" id="categoryTop">
+            <div class="category-btn active" data-id="all">All</div>
+            @foreach (var cat in categories)
+            {
+                <div class="category-btn" data-id="@cat.Id">@cat.Name</div>
+            }
+        </div>
+
+        <!-- Product container -->
+        <div id="productContainer" class="product-grid"></div>
+
+        <nav>
+            <ul class="pagination justify-content-center mt-4" id="pagination"></ul>
+        </nav>
+    </div>
+</div>
+
+<!-- 🛒 MOBILE CART MODAL -->
+<div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Your Cart</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-bordered table-sm">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th style="width:120px;">Qty</th>
+                            <th>Price</th>
+                            <th>Total</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="cartItems"></tbody>
+                </table>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <h5 class="mb-0">Grand Total: ₹<span id="cartTotal">0.00</span></h5>
+                <input type="text" placeholder="Customer Name/Mobile" class="form-control" id="txtCustNameMobile" />
+
+                <select id="ddlTableMobile" class="form-select">
+                    <option value="">-- Select Table (optional) --</option>
+                    @for (int i = 1; i <= 10; i++)
+                    {
+                        <option value="Table @i">Table @i</option>
+                    }
+                </select>
+
+                <div class="w-100 mt-2">
+                    <label class="form-label mb-1"><b>Payment Mode:</b></label><br />
+                    <label><input type="radio" name="paymentMobile"  value="Cash" checked> Cash</label>&nbsp;
+                    <label><input type="radio" name="paymentMobile" value="Online"> Online</label>&nbsp;
+                    <label><input type="radio" name="paymentMobile" value="Free"> Free</label>
+                </div>
+
+                <button id="checkoutBtn" class="btn btn-success w-100 mt-2">Save & Print</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- 🧾 Invoice Section (unchanged) -->
+<div id="invoiceSection" class="printable-area" style="display:none;">
+    <h3 style="font-weight:800;">Old Mumbai Ice Cream Branch: Shaniwar peth, Karad</h3>
+    <p>Branch: Shaniwar peth, Karad</p>
+    <p>Invoice #: <span id="invId" style="font-weight:800"></span></p>
+    <p>Customer: <span id="invCustomer"></span></p>
+    <p>Date: <span id="invDate"></span></p>
+    <hr />
+    <table>
+        <thead>
+            <tr>
+                <th>Item</th>
+                <th>Qty</th>
+                <th>Price</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody id="invItems"></tbody>
+    </table>
+    <hr />
+    <p><strong>Grand Total: <span id="invTotal"></span></strong></p>
+    <p>Thank you!</p>
+</div>
+<!-- Bottom Mobile Bar -->
+<div class="mobile-bottom-bar d-md-none">
+    <a href="@Url.Action("Dashboard","Home")">Dashboard</a>
+    <button id="btnMobileViewCart">View Cart</button>
+    <button id="btnMobileSave">Save</button>
+    <button id="btnMobilePrint">Print</button>
+</div>
+@section Scripts {
+    <script>
+                // parse products (escape single quotes)
+                const allProducts = JSON.parse('@Html.Raw(productsJson.Replace("'", "\\'"))');
+                const productsPerPage = 24;
+                let currentPage = 1;
+                let filteredProducts = [...allProducts];
+                let cart = [];
+
+                /* -------------------------
+                   Rendering: Categories & Products
+                   ------------------------*/
+                function renderProducts() {
+                    const container = $('#productContainer');
+                    container.empty();
+                    const start = (currentPage - 1) * productsPerPage;
+                    const paginated = filteredProducts.slice(start, start + productsPerPage);
+
+                    if (paginated.length === 0) {
+                        container.append('<p>No products found.</p>');
+                        return;
+                    }
+
+                    paginated.forEach(p => {
+                        const img = p.Photo
+                            ? `<img src="${p.Photo}" alt="${htmlEscape(p.Name)}" />`
+                            : `<div style="height:100px;background:#eee;display:flex;align-items:center;justify-content:center;border-radius:6px;">No Image</div>`;
+
+                        // find current qty in cart (if any) so product card can show the qty
+                        const existing = cart.find(x => x.id === p.Id);
+                        const currentQty = existing ? existing.qty : 0;
+
+                        container.append(`
+                            <div class="product-card" data-id="${p.Id}">
+                                ${img}
+                                <h6 title="${htmlEscape(p.Name)}">${htmlEscape(p.Name)}</h6>
+                                <p class="price">₹${p.Price}</p>
+                                <div class="qty-controls">
+                                    <button class="btn btn-sm btn-outline-secondary qty-down" data-id="${p.Id}">-</button>
+                                    <input type="number" class="form-control form-control-sm product-qty" value="${currentQty}" id="qty-${p.Id}" readonly />
+                                    <button class="btn btn-sm btn-outline-secondary qty-up" data-id="${p.Id}">+</button>
+                                </div>
+                            </div>
+                        `);
+                    });
+
+                    renderPagination();
+                }
+
+                function renderPagination() {
+                    const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
+                    const pagination = $('#pagination');
+                    pagination.empty();
+                    for (let i = 1; i <= totalPages; i++) {
+                        pagination.append(`
+                            <li class="page-item ${i === currentPage ? 'active' : ''}">
+                                <a class="page-link page-nav" href="#" data-page="${i}">${i}</a>
+                            </li>
+                        `);
+                    }
+                }
+
+                /* -------------------------
+                   Cart logic & rendering (both desktop & modal)
+                   ------------------------*/
+                function updateCart(id, name, price, qty) {
+                    const index = cart.findIndex(x => x.id === id);
+                    if (index > -1) {
+                        if (qty === 0) {
+                            cart.splice(index, 1);
+                        } else {
+                            cart[index].qty = qty;
+                            cart[index].total = qty * price;
+                        }
+                    } else {
+                        if (qty > 0) {
+                            cart.push({ id, name, price, qty, total: qty * price });
+                        }
+                    }
+
+                    // keep product card qty input in sync
+                    $(`#qty-${id}`).val(qty);
+
+                    renderCart();
+                          updateProductHighlight(id, qty);
+                }
+
+                function renderCart() {
+                    // mobile modal table
+                    const mobileTable = $('#cartItems');
+                    mobileTable.empty();
+
+                    // desktop cart container
+                    const desktopContainer = $('#desktopCartItems');
+                    desktopContainer.empty();
+
+                    let grandTotal = 0;
+                    let itemCount = 0;
+
+                    cart.forEach(item => {
+                        grandTotal += item.total;
+                        itemCount += item.qty;
+
+                        // mobile row (table)
+                        mobileTable.append(`
+                            <tr data-id="${item.id}">
+                                <td style="vertical-align:middle;">${htmlEscape(item.name)}</td>
+                                <td>
+                                    <div class="input-group input-group-sm">
+                                        <button class="btn btn-outline-secondary mobile-qty-down" data-id="${item.id}">-</button>
+                                        <input type="text" class="form-control form-control-sm mobile-qty-input" data-id="${item.id}" value="${item.qty}" style="width:56px;text-align:center;" />
+                                        <button class="btn btn-outline-secondary mobile-qty-up" data-id="${item.id}">+</button>
+                                    </div>
+                                </td>
+                                <td style="vertical-align:middle;">₹${item.price}</td>
+                                <td style="vertical-align:middle;">₹${item.total.toFixed(2)}</td>
+                                <td style="vertical-align:middle;"><button class="btn btn-sm btn-danger remove-item" data-id="${item.id}">✖</button></td>
+                            </tr>
+                        `);
+
+                        // desktop row
+                        desktopContainer.append(`
+                            <div class="cart-item-row" data-id="${item.id}">
+                                <div class="ci-name">${htmlEscape(item.name)}</div>
+                                <div class="ci-qty">
+                                    <button class="btn btn-sm btn-outline-secondary desktop-qty-down" data-id="${item.id}">-</button>
+                                    <input type="number" class="form-control form-control-sm desktop-qty-input" data-id="${item.id}" value="${item.qty}" />
+                                    <button class="btn btn-sm btn-outline-secondary desktop-qty-up" data-id="${item.id}">+</button>
+                                </div>
+                                <div style="min-width:80px; text-align:right;">₹${item.total.toFixed(2)}</div>
+                                <div><button class="btn btn-sm btn-danger remove-item" data-id="${item.id}">✖</button></div>
+                            </div>
+                        `);
+                    });
+
+                    // if cart empty, show placeholder in desktop
+                    if (cart.length === 0) {
+                        desktopContainer.html('<p class="text-muted">Cart is empty. Add items from product list.</p>');
+                        mobileTable.append(`<tr><td colspan="5" class="text-center text-muted">Cart is empty.</td></tr>`);
+                    }
+
+                    $('#cartTotal').text(grandTotal.toFixed(2));
+                    $('#desktopCartTotal').text(grandTotal.toFixed(2));
+                    $('#cartCount').text(itemCount);
+                    $('#desktopCartCount').text(itemCount);
+                }
+
+                function clearCartUI() {
+                    // set all product qty inputs to 0
+                    $('.product-qty').val(0);
+                    cart = [];
+                    renderCart();
+                }
+
+                /* -------------------------
+                   Helpers
+                   ------------------------*/
+                function htmlEscape(str) {
+                    if (!str && str !== 0) return '';
+                    return String(str)
+                        .replace(/&/g, '&amp;')
+                        .replace(/"/g, '&quot;')
+                        .replace(/'/g, '&#39;')
+                        .replace(/</g, '&lt;')
+                        .replace(/>/g, '&gt;');
+                }
+
+                /* -------------------------
+                   EVENTS
+                   ------------------------*/
+                // product qty +/-
+                $(document).on('click', '.qty-up', function () {
+                    const id = $(this).data('id');
+                    const card = $(this).closest('.product-card');
+                    const input = $(`#qty-${id}`);
+                    const name = card.find('h6').text().trim();
+                    const price = parseFloat(card.find('p.price').text().replace(/[^\d.]/g, '')) || 0;
+
+                    let qty = +input.val() + 1;
+                    input.val(qty);
+                        
+                    updateCart(id, name, price, qty);
+                        
+                              
+                });
+
+                $(document).on('click', '.product-card', function (e) {
+                        // if user clicked a button/input inside card, ignore
+                        if ($(e.target).closest('.qty-controls, .qty-up, .qty-down, button, input, a').length) return;
+
+                        const card = $(this);
+                        const id = card.data('id');
+                        if (!id) return;
+
+                        const input = $(`#qty-${id}`);
+                        const name = card.find('h6').text().trim();
+                        const price = parseFloat(card.find('p.price').text().replace(/[^\d.]/g, '')) || 0;
+
+                        let qty = +input.val() + 1;
+                        input.val(qty);
+                              
+                        updateCart(id, name, price, qty);
+                      
+                             
+                    });
+
+                $(document).on('click', '.qty-down', function () {
+                    const id = $(this).data('id');
+                    const card = $(this).closest('.product-card');
+                    const input = $(`#qty-${id}`);
+                    const name = card.find('h6').text().trim();
+                    const price = parseFloat(card.find('p.price').text().replace(/[^\d.]/g, '')) || 0;
+
+                    let qty = +input.val();
+                    if (qty > 0) qty--;
+                    input.val(qty);
+                        
+                    updateCart(id, name, price, qty);
+                 
+                             
+                });
+
+                // pagination click
+                $(document).on('click', '.page-nav', function (e) {
+                    e.preventDefault();
+                    currentPage = +$(this).data('page');
+                    renderProducts();
+                });
+
+                // category click (top bar)
+                $(document).on('click', '.category-top .category-btn, .category-btn', function () {
+                    // ensure active switches across both top and left instances (we only have top)
+                    $('.category-btn').removeClass('active');
+                    $(this).addClass('active');
+
+                    const val = $(this).data('id');
+                    filteredProducts = val === 'all'
+                        ? [...allProducts]
+                        : allProducts.filter(p => p.CategoryId == val);
+
+                    currentPage = 1;
+                    renderProducts();
+                });
+
+                // remove item (both desktop & mobile)
+                $(document).on('click', '.remove-item', function () {
+                    const id = $(this).data('id');
+                    $(`#qty-${id}`).val(0);
+                    cart = cart.filter(x => x.id !== id);
+                    renderCart();
+                });
+
+                // desktop qty buttons & input
+                $(document).on('click', '.desktop-qty-up', function () {
+                    const id = $(this).data('id');
+                    const input = $(`.desktop-qty-input[data-id="${id}"]`);
+                    const newQty = +input.val() + 1;
+                    input.val(newQty);
+                    const product = allProducts.find(x => x.Id === id);
+                    updateCart(id, product.Name, product.Price, newQty);
+                });
+                $(document).on('click', '.desktop-qty-down', function () {
+                    const id = $(this).data('id');
+                    const input = $(`.desktop-qty-input[data-id="${id}"]`);
+                    let newQty = +input.val();
+                    if (newQty > 0) newQty--;
+                    input.val(newQty);
+                    const product = allProducts.find(x => x.Id === id);
+                    updateCart(id, product.Name, product.Price, newQty);
+                });
+                // allow typing in desktop qty input (validate)
+                $(document).on('change', '.desktop-qty-input', function () {
+                    const id = $(this).data('id');
+                    let val = parseInt($(this).val()) || 0;
+                    if (val < 0) val = 0;
+                    $(this).val(val);
+                    const product = allProducts.find(x => x.Id === id);
+                    updateCart(id, product.Name, product.Price, val);
+                });
+
+                // mobile qty buttons and input
+                $(document).on('click', '.mobile-qty-up', function () {
+                    const id = $(this).data('id');
+                    const input = $(`.mobile-qty-input[data-id="${id}"]`);
+                    const newQty = +input.val() + 1;
+                    input.val(newQty);
+                    const product = allProducts.find(x => x.Id === id);
+                    updateCart(id, product.Name, product.Price, newQty);
+                });
+                $(document).on('click', '.mobile-qty-down', function () {
+                    const id = $(this).data('id');
+                    const input = $(`.mobile-qty-input[data-id="${id}"]`);
+                    let newQty = +input.val();
+                    if (newQty > 0) newQty--;
+                    input.val(newQty);
+                    const product = allProducts.find(x => x.Id === id);
+                    updateCart(id, product.Name, product.Price, newQty);
+                });
+                $(document).on('change', '.mobile-qty-input', function () {
+                    const id = $(this).data('id');
+                    let val = parseInt($(this).val()) || 0;
+                    if (val < 0) val = 0;
+                    $(this).val(val);
+                    const product = allProducts.find(x => x.Id === id);
+                    updateCart(id, product.Name, product.Price, val);
+                });
+
+                // Clear desktop cart
+                $('#clearCartDesktop').click(function () {
+                    if (!confirm('Clear cart?')) return;
+                    clearCartUI();
+                });
+
+                // Checkout handlers (desktop & mobile share same AJAX call)
+                function doCheckout(customerName,tableDetail,paymentMode) {
+                    if (cart.length === 0) {
+                        alert("Cart is empty. Please add some items for sale.");
+                        return;
+                    }
+                    $('#checkoutBtn, #checkoutBtnDesktop').prop('disabled', true);
+
+                    const order = {
+                        customerName: customerName,
+                        tableDetail:tableDetail,
+                        paymentMode:paymentMode,
+                        items: cart.map(item => ({
+                            productId: item.id,
+                            qty: item.qty,
+                            price: item.price
+                        }))
+                    };
+
+                    $.ajax({
+                        url: '/Order/SaveOrder',
+                        type: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify(order),
+                        success: function (res) {
+                            if (res.success) {
+                                // use your print function
+                                setTimeout(() => {
+                                const isDesktop = window.innerWidth > 991;
+                                const tableNo = isDesktop ? $("#ddlTableDesktop").val() : $("#ddlTableMobile").val();
+                                const paymentMode = isDesktop
+                                     ? document.querySelector('input[name="paymentDesktop"]:checked').value
+                                    : document.querySelector('input[name="paymentMobile"]:checked').value;
+
+                                    if('@Org.PrinterSizeId'=='2')
+                                    {
+                                        printPlainReceipt80mm('@Org.BusinessName', '@Org.Address', res.orderId, new Date().toLocaleString(), order.customerName, order.items, 0,'@Org.MobileNo',paymentMode,tableNo);
+
+                                    }else{
+                                        printPlainReceipt58mm('@Org.BusinessName', '@Org.Address', res.orderId, new Date().toLocaleString(), order.customerName, order.items, 0,'@Org.MobileNo',paymentMode,tableNo);
+
+                                    }
+
+
+                                    $('#invoiceSection').hide();
+                                    // after print clear cart
+                                    clearCartUI();
+                                    $('#checkoutBtn, #checkoutBtnDesktop').prop('disabled', false);
+                                    // close modal if on mobile
+                                    $('#cartModal').modal('hide');
+                                }, 500);
+                            } else {
+                                alert("Error: " + res.message);
+                                $('#checkoutBtn, #checkoutBtnDesktop').prop('disabled', false);
+                            }
+                        },
+                        error: function (err) {
+                            alert("Save order failed.");
+                            $('#checkoutBtn, #checkoutBtnDesktop').prop('disabled', false);
+                        }
+                    });
+                }
+
+                $('#checkoutBtn').click(function () {
+                    debugger;
+                    const customerName = $("#txtCustNameMobile").val();
+                    const tableDetail = $("#ddlTableMobile option:selected").val();
+                            const paymentMode = $('[name="paymentMobile"]').val();
+
+                    doCheckout(customerName,tableDetail,paymentMode);
+                });
+
+                $('#checkoutBtnDesktop').click(function () {
+                    const customerName = $("#txtCustNameDesktop").val();
+                    const tableDetail = $("#ddlTableDesktop option:selected").val();
+                                    const paymentMode = $('[name="paymentDesktop"]').val();
+
+                    doCheckout(customerName,tableDetail,paymentMode);
+                });
+
+                /* -------------------------
+                   Initial render
+                   ------------------------*/
+                renderProducts();
+                renderCart();
+
+                // make sure when page re-renders product list we sync product qty values from cart
+                // (for example after filter/pagination)
+                $(document).on('renderProductsSync', function () {
+                    cart.forEach(item => {
+                        $(`#qty-${item.id}`).val(item.qty);
+                    });
+                });
+
+                // trigger after renderProducts to sync (we call it at end of renderProducts)
+                // Update: call it at the end of renderProducts
+                const origRenderProducts = renderProducts;
+                renderProducts = function () {
+                    origRenderProducts();
+                    $(document).trigger('renderProductsSync');
+                };
+
+                // =========================
+                // Receipt / RawBT functions (kept as your original)
+                // =========================
+
+                function generateInvoicePDF() {
+                    const receiptHTML = document.getElementById("invoiceSection").innerHTML;
+                    const encoded = btoa(unescape(encodeURIComponent(receiptHTML)));
+                    window.location.href = "rawbt:base64," + encoded;
+                }
+
+     
+
+    function printPlainReceipt80mm(orgTitle, address, invoiceNo, date, customerName, productList, grandTotal = 0,Contact,Mode,TableNo) 
+    {
+           const ESC = "\x1B";
+    const DOUBLE = ESC + "!" + "\x38";        // Big font
+    const MEDIUM = ESC + "!" + "\x20";        // Medium (double height)
+    const NORMAL = ESC + "!" + "\x00";        // Normal
+    const SMALL = ESC + "M" + "\x01";         // Small font
+    const NORMAL_FONT = ESC + "M" + "\x00";
+
+    // Split long text into lines
+    function wrapText(text, max) {
+        let lines = [];
+        while (text.length > 0) {
+            lines.push(text.substring(0, max));
+            text = text.substring(max);
+        }
+        return lines;
+    }
+
+    // 80mm normal width = 48 chars
+    function center48(text) {
+        const total = 48;
+        let pad = Math.max(0, Math.floor((total - text.length) / 2));
+        return " ".repeat(pad) + text;
+    }
+
+    // 80mm double-width = 24 chars
+    function center24(text) {
+        text = text.substring(0, 24);
+        const total = 24;
+        let pad = Math.max(0, Math.floor((total - text.length) / 2));
+        return " ".repeat(pad) + text;
+    }
+
+    // Clean date (remove seconds)
+    let cleanDate = date.split(":");
+    if (cleanDate.length >= 2) {
+        cleanDate = cleanDate[0] + ":" + cleanDate[1];
+    } else {
+        cleanDate = date;
+    }
+
+    let receipt = "";
+    receipt += "------------------------------------------------\n";
+
+    // ---- Title (Medium Font + Auto Wrap) ----
+    let titleLines = wrapText(orgTitle, 24).slice(0, 2);
+
+    titleLines.forEach(line => {
+        receipt += MEDIUM + center24(line) + NORMAL + "\n";
+    });
+
+    // ---- Address (Auto Wrap in 48 chars) ----
+    let addressLines = wrapText(address, 48).slice(0, 2);
+    addressLines.forEach(line => {
+        receipt += center48(line) + "\n";
+    });
+
+    receipt +=  center24(Contact) + "\n";
+    receipt += "------------------------------------------------\n";
+
+    // Invoice details
+    receipt += `Invoice#: ${invoiceNo}\n`;
+    if (TableNo) receipt += `Table No: ${TableNo}\n`;
+    receipt += `Customer : ${customerName}\n`;
+    receipt += `Date     : ${cleanDate}\n`;
+    receipt += `Mode     : ${Mode}\n`;
+    receipt += "------------------------------------------------\n";
+
+    // 80mm Table Header (48 chars)
+    receipt += "Item                     Qty    Rate     Total\n";
+    receipt += "------------------------------------------------\n";
+
+    // Items
+    productList.forEach(p => {
+        const product = allProducts.find(w => w.Id === p.productId);
+
+        const name = (product?.Name || "").padEnd(21, " ").substring(0, 21); // 21 chars
+        const qty = String(p.qty).padStart(5, " ");                          // 5 chars
+        const rate = String(p.price).padStart(8, " ");                       // 8 chars
+        const total = String(p.qty * p.price).padStart(10, " ");             // 10 chars
+
+        // Total length = 21 + 1 + 5 + 1 + 8 + 1 + 10 = 47–48 chars
+        receipt += `${name} ${qty} ${rate} ${total}\n`;
+
+        grandTotal += p.qty * p.price;
+    });
+
+    receipt += "------------------------------------------------\n";
+
+    // Grand Total (Medium font, centered)
+    const grandText = "Total: " + grandTotal + "/-";
+    receipt += MEDIUM + center24(grandText) + NORMAL + "\n";
+
+    receipt += "------------------------------------------------\n";
+
+    // Footer small text
+    receipt += center48("Thank you, visit again!") + "\n\n";
+    receipt += SMALL + center48("Aviraj Innovations Pvt. Ltd.") + "\n";
+    receipt += center48("Inquiry On: +91 9096152118") + "\n";
+    receipt += NORMAL_FONT + "\n";
+
+    // Print using RAWBT
+    const encoded = btoa(unescape(encodeURIComponent(receipt)));
+    window.location.href = "rawbt:base64," + encoded;
+
+    window.onfocus = function () {
+        location.reload();
+    };    
+    }
+
+
+                        function printPlainReceipt58mm(orgTitle, address, invoiceNo, date, customerName, productList, grandTotal = 0, Contact, Mode, TableNo) {
+
+            const ESC = "\x1B";
+            const DOUBLE = ESC + "!" + "\x38";        // Big font
+            const MEDIUM = ESC + "!" + "\x20";        // Medium (double height)
+            const NORMAL = ESC + "!" + "\x00";        // Normal
+            const SMALL = ESC + "M" + "\x01";         // Small font
+            const NORMAL_FONT = ESC + "M" + "\x00";
+
+            // Split long text into lines of fixed width
+            function wrapText(text, max) {
+                let lines = [];
+                while (text.length > 0) {
+                    lines.push(text.substring(0, max));
+                    text = text.substring(max);
+                }
+                return lines;
+            }
+
+            // Center 32-wide lines
+            function center32(text) {
+                const total = 32;
+                let pad = Math.max(0, Math.floor((total - text.length) / 2));
+                return " ".repeat(pad) + text;
+            }
+
+            // Center 16-wide lines (medium / double-width)
+            function center16(text) {
+                text = text.substring(0, 16);
+                const total = 16;
+                let pad = Math.max(0, Math.floor((total - text.length) / 2));
+                return " ".repeat(pad) + text;
+            }
+
+            // Format date (remove seconds)
+            let cleanDate = date.split(":");
+            if (cleanDate.length >= 2) {
+                cleanDate = cleanDate[0] + ":" + cleanDate[1]; // keep HH:mm only
+            } else {
+                cleanDate = date;
+            }
+
+            let receipt = "";
+            receipt += "--------------------------------\n";
+
+            // ---- Title (Medium Font + Auto wrap) ----
+            let titleLines = wrapText(orgTitle, 16).slice(0, 2); // max 2 lines
+
+            titleLines.forEach(line => {
+                receipt += MEDIUM + center16(line) + NORMAL + "\n";
+            });
+
+            // ---- Address (Auto Wrap in 32) ----
+            let addressLines = wrapText(address, 32).slice(0, 2);
+            addressLines.forEach(line => {
+                receipt += center32(line) + "\n";
+            });
+
+            receipt += "Contact : " + Contact + "\n";
+            receipt += "--------------------------------\n";
+
+            // Invoice details
+            receipt += `Invoice#: ${invoiceNo}\n`;
+            if (TableNo) receipt += `Table No: ${TableNo}\n`;
+            receipt += `Customer : ${customerName}\n`;
+            receipt += `Date     : ${cleanDate}\n`;
+            receipt += `Mode     : ${Mode}\n`;
+            receipt += "--------------------------------\n";
+
+            // Table header
+            receipt += "Item            Qty  Rate  Total\n";
+            receipt += "--------------------------------\n";
+
+            // Items
+            productList.forEach(p => {
+                const product = allProducts.find(w => w.Id === p.productId);
+
+                const name = (product?.Name || "").padEnd(14, " ").substring(0, 14);
+                const qty = String(p.qty).padStart(3, " ");
+                const rate = String(p.price).padStart(5, " ");
+                const total = String(p.qty * p.price).padStart(7, " ");
+
+                receipt += `${name} ${qty} ${rate} ${total}\n`;
+
+                grandTotal += p.qty * p.price;
+            });
+
+            receipt += "--------------------------------\n";
+
+            // Grand total – Medium font centered
+            const grandText = "Total: " + grandTotal + "/-";
+            receipt += MEDIUM + center16(grandText) + NORMAL + "\n";
+
+            receipt += "--------------------------------\n";
+
+            // Footer small text
+            receipt += center32("Thank you, visit again!") + "\n\n";
+            receipt += SMALL + center32("Aviraj Innovations Pvt. Ltd.") + "\n";
+            receipt += center32("Inquiry On: +91 9096152118") + "\n";
+            receipt += NORMAL_FONT + "\n";
+
+            // Print
+            const encoded = btoa(unescape(encodeURIComponent(receipt)));
+            window.location.href = "rawbt:base64," + encoded;
+
+            window.onfocus = function () {
+                location.reload();
+            };
+        }
+
+
+                // Open Cart Modal
+        $("#btnMobileViewCart").click(function () {
+            $("#cartModal").modal("show");
+        });
+
+        // Save button → same as checkout button
+        $("#btnMobileSave").click(function () {
+            $("#checkoutBtn").click();
+        });
+
+        // Print just opens cart print if items exist
+        $("#btnMobilePrint").click(function () {
+            if (cart.length === 0) {
+                alert("Cart is empty!");
+                return;
+            }
+            $("#checkoutBtn").click();
+        });
+
+             function updateProductHighlight(productId, qty) {
+            let card = $('.product-card[data-id="' + productId + '"]');
+
+            if (!card.length) return;
+
+            if (qty > 0) {
+                card.addClass("product-added");
+            } else {
+                card.removeClass("product-added");
+            }
+        }
+
+    </script>
+}
+
+

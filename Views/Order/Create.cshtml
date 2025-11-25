@@ -9,67 +9,65 @@
     var Org = (eOrderTouchApp.Models.TblBusiness)ViewBag.Orgnization;
 }
 <style>
-
+    /* (Your entire CSS kept unchanged) */
     /* ----- MOBILE BOTTOM BAR ----- */
-@@media (max-width: 991px) {
-    .mobile-bottom-bar {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background: #222;
-        color: #fff;
-        display: flex;
-        justify-content: space-around;
-        padding: 10px 0;
-        z-index: 99999;
-        border-top: 2px solid #000;
-    }
+    @@media (max-width: 991px) {
+        .mobile-bottom-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #222;
+            color: #fff;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            z-index: 99999;
+            border-top: 2px solid #000;
+        }
 
-    .mobile-bottom-bar button,
-    .mobile-bottom-bar a {
-        flex: 1;
-        margin: 0 5px;
-        border-radius: 6px;
-        font-weight: 600;
-        padding: 10px 5px;
-        text-align: center;
-        background: #333;
-        color: #fff !important;
-        border: none;
-    }
+            .mobile-bottom-bar button,
+            .mobile-bottom-bar a {
+                flex: 1;
+                margin: 0 5px;
+                border-radius: 6px;
+                font-weight: 600;
+                padding: 10px 5px;
+                text-align: center;
+                background: #333;
+                color: #fff !important;
+                border: none;
+            }
 
-    body {
-        padding-bottom: 70px !important; /* prevents content from hiding under bar */
+        body {
+            padding-bottom: 70px !important; /* prevents content from hiding under bar */
+        }
     }
-}
 
     @@media (max-width: 600px) {
-        input, select, textarea, button
+        input, select, textarea, button {
+            font-size: 16px !important;
+        }
 
-    {
-        font-size: 16px !important;
+        .cart-item-row {
+            overflow: hidden;
+        }
+
+            .cart-item-row > * {
+                min-width: 0;
+            }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 12px;
+        }
     }
 
-     .cart-item-row {
-    overflow: hidden;
-}
 
-.cart-item-row > * {
-    min-width: 0;
-}
-.product-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    gap: 12px;
-}
-
-    }
-
-   
     /* ================================
-               PRINTABLE RECEIPT STYLES
-            =================================*/
+                   PRINTABLE RECEIPT STYLES
+                =================================*/
     .printable-area {
         width: 80mm;
         padding: 6px;
@@ -104,8 +102,8 @@
         }
 
     /* ================================
-               LAYOUT: DESKTOP CART + PRODUCT AREA
-            =================================*/
+                   LAYOUT: DESKTOP CART + PRODUCT AREA
+                =================================*/
     .order-layout {
         display: flex;
         gap: 18px;
@@ -165,7 +163,7 @@
     .product-area {
         flex: 1;
         min-width: 0;
-        width:100%;
+        width: 100%;
     }
 
     /* Categories */
@@ -252,8 +250,8 @@
         }
 
     /* ================================
-               Responsive breakpoints
-            =================================*/
+                   Responsive breakpoints
+                =================================*/
     @@media (max-width: 1400px) {
         .product-card {
             width: calc(100% / 5 - 12px);
@@ -329,7 +327,11 @@
 </style>
 
 
-<h3>Create Order</h3>
+<h3 style="display:flex;align-items:center;gap:12px;">
+    Create Order
+    <button id="openHistoryBtn" class="btn btn-outline-secondary btn-sm">Order History</button>
+    <span id="editingBadge" class="badge bg-warning text-dark" style="display:none;">Editing Order: <span id="editingOrderId"></span></span>
+</h3>
 
 <div class="order-layout">
     <!-- 🛒 DESKTOP CART -->
@@ -431,7 +433,7 @@
 
                 <div class="w-100 mt-2">
                     <label class="form-label mb-1"><b>Payment Mode:</b></label><br />
-                    <label><input type="radio" name="paymentMobile"  value="Cash" checked> Cash</label>&nbsp;
+                    <label><input type="radio" name="paymentMobile" value="Cash" checked> Cash</label>&nbsp;
                     <label><input type="radio" name="paymentMobile" value="Online"> Online</label>&nbsp;
                     <label><input type="radio" name="paymentMobile" value="Free"> Free</label>
                 </div>
@@ -442,6 +444,37 @@
     </div>
 </div>
 
+<!-- ---------- ORDER HISTORY MODAL (NEW) ---------- -->
+<div class="modal fade" id="orderHistoryModal" tabindex="-1" aria-labelledby="orderHistoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Recent Orders</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-sm table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Customer</th>
+                            <th>Table No</th>
+                            <th>Grand Total</th>
+                            <th>Date</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="historyBody">
+                        <tr><td colspan="6" class="text-center text-muted">Loading...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- 🧾 Invoice Section (unchanged) -->
 <div id="invoiceSection" class="printable-area" style="display:none;">
@@ -468,662 +501,769 @@
 </div>
 <!-- Bottom Mobile Bar -->
 <div class="mobile-bottom-bar d-md-none">
-    <a href="@Url.Action("Dashboard","Home")">Dashboard</a>
+    <a href="@Url.Action("Dashboard", "Home")">Dashboard</a>
     <button id="btnMobileViewCart">View Cart</button>
     <button id="btnMobileSave">Save</button>
     <button id="btnMobilePrint">Print</button>
 </div>
+
+<!-- Hidden state -->
+<input type="hidden" id="isEditing" value="0" />
+<input type="hidden" id="editingOrderIdHidden" value="" />
+
 @section Scripts {
     <script>
-                // parse products (escape single quotes)
-                const allProducts = JSON.parse('@Html.Raw(productsJson.Replace("'", "\\'"))');
-                const productsPerPage = 24;
-                let currentPage = 1;
-                let filteredProducts = [...allProducts];
-                let cart = [];
+        // parse products (escape single quotes)
+        const allProducts = JSON.parse('@Html.Raw(productsJson.Replace("'", "\\'"))');
+        const productsPerPage = 24;
+        let currentPage = 1;
+        let filteredProducts = [...allProducts];
+        let cart = [];
 
-                /* -------------------------
-                   Rendering: Categories & Products
-                   ------------------------*/
-                function renderProducts() {
-                    const container = $('#productContainer');
-                    container.empty();
-                    const start = (currentPage - 1) * productsPerPage;
-                    const paginated = filteredProducts.slice(start, start + productsPerPage);
+        /* -------------------------
+           Rendering: Categories & Products
+           ------------------------*/
+        function renderProducts() {
+           // debugger;
+            const container = $('#productContainer');
+            container.empty();
+            const start = (currentPage - 1) * productsPerPage;
+            const paginated = filteredProducts.slice(start, start + productsPerPage);
 
-                    if (paginated.length === 0) {
-                        container.append('<p>No products found.</p>');
-                        return;
-                    }
+            if (paginated.length === 0) {
+                container.append('<p>No products found.</p>');
+                return;
+            }
 
-                    paginated.forEach(p => {
-                        const img = p.Photo
-                            ? `<img src="${p.Photo}" alt="${htmlEscape(p.Name)}" />`
-                            : `<div style="height:100px;background:#eee;display:flex;align-items:center;justify-content:center;border-radius:6px;">No Image</div>`;
+            paginated.forEach(p => {
+                const img = p.Photo
+                    ? `<img src="${p.Photo}" alt="${htmlEscape(p.Name)}" />`
+                    : `<div style="height:100px;background:#eee;display:flex;align-items:center;justify-content:center;border-radius:6px;">No Image</div>`;
 
-                        // find current qty in cart (if any) so product card can show the qty
-                        const existing = cart.find(x => x.id === p.Id);
-                        const currentQty = existing ? existing.qty : 0;
+                // find current qty in cart (if any) so product card can show the qty
+                const existing = cart.find(x => x.id === p.Id);
+                const currentQty = existing ? existing.qty : 0;
 
-                        container.append(`
-                            <div class="product-card" data-id="${p.Id}">
-                                ${img}
-                                <h6 title="${htmlEscape(p.Name)}">${htmlEscape(p.Name)}</h6>
-                                <p class="price">₹${p.Price}</p>
-                                <div class="qty-controls">
-                                    <button class="btn btn-sm btn-outline-secondary qty-down" data-id="${p.Id}">-</button>
-                                    <input type="number" class="form-control form-control-sm product-qty" value="${currentQty}" id="qty-${p.Id}" readonly />
-                                    <button class="btn btn-sm btn-outline-secondary qty-up" data-id="${p.Id}">+</button>
-                                </div>
-                            </div>
-                        `);
-                    });
+                container.append(`
+                    <div class="product-card" data-id="${p.Id}">
+                        ${img}
+                        <h6 title="${htmlEscape(p.Name)}">${htmlEscape(p.Name)}</h6>
+                        <p class="price">₹${p.Price}</p>
+                        <div class="qty-controls">
+                            <button class="btn btn-sm btn-outline-secondary qty-down" data-id="${p.Id}">-</button>
+                            <input type="number" class="form-control form-control-sm product-qty" value="${currentQty}" id="qty-${p.Id}" readonly />
+                            <button class="btn btn-sm btn-outline-secondary qty-up" data-id="${p.Id}">+</button>
+                        </div>
+                    </div>
+                `);
+            });
 
-                    renderPagination();
-                }
-
-                function renderPagination() {
-                    const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
-                    const pagination = $('#pagination');
-                    pagination.empty();
-                    for (let i = 1; i <= totalPages; i++) {
-                        pagination.append(`
-                            <li class="page-item ${i === currentPage ? 'active' : ''}">
-                                <a class="page-link page-nav" href="#" data-page="${i}">${i}</a>
-                            </li>
-                        `);
-                    }
-                }
-
-                /* -------------------------
-                   Cart logic & rendering (both desktop & modal)
-                   ------------------------*/
-                function updateCart(id, name, price, qty) {
-                    const index = cart.findIndex(x => x.id === id);
-                    if (index > -1) {
-                        if (qty === 0) {
-                            cart.splice(index, 1);
-                        } else {
-                            cart[index].qty = qty;
-                            cart[index].total = qty * price;
-                        }
-                    } else {
-                        if (qty > 0) {
-                            cart.push({ id, name, price, qty, total: qty * price });
-                        }
-                    }
-
-                    // keep product card qty input in sync
-                    $(`#qty-${id}`).val(qty);
-
-                    renderCart();
-                          updateProductHighlight(id, qty);
-                }
-
-                function renderCart() {
-                    // mobile modal table
-                    const mobileTable = $('#cartItems');
-                    mobileTable.empty();
-
-                    // desktop cart container
-                    const desktopContainer = $('#desktopCartItems');
-                    desktopContainer.empty();
-
-                    let grandTotal = 0;
-                    let itemCount = 0;
-
-                    cart.forEach(item => {
-                        grandTotal += item.total;
-                        itemCount += item.qty;
-
-                        // mobile row (table)
-                        mobileTable.append(`
-                            <tr data-id="${item.id}">
-                                <td style="vertical-align:middle;">${htmlEscape(item.name)}</td>
-                                <td>
-                                    <div class="input-group input-group-sm">
-                                        <button class="btn btn-outline-secondary mobile-qty-down" data-id="${item.id}">-</button>
-                                        <input type="text" class="form-control form-control-sm mobile-qty-input" data-id="${item.id}" value="${item.qty}" style="width:56px;text-align:center;" />
-                                        <button class="btn btn-outline-secondary mobile-qty-up" data-id="${item.id}">+</button>
-                                    </div>
-                                </td>
-                                <td style="vertical-align:middle;">₹${item.price}</td>
-                                <td style="vertical-align:middle;">₹${item.total.toFixed(2)}</td>
-                                <td style="vertical-align:middle;"><button class="btn btn-sm btn-danger remove-item" data-id="${item.id}">✖</button></td>
-                            </tr>
-                        `);
-
-                        // desktop row
-                        desktopContainer.append(`
-                            <div class="cart-item-row" data-id="${item.id}">
-                                <div class="ci-name">${htmlEscape(item.name)}</div>
-                                <div class="ci-qty">
-                                    <button class="btn btn-sm btn-outline-secondary desktop-qty-down" data-id="${item.id}">-</button>
-                                    <input type="number" class="form-control form-control-sm desktop-qty-input" data-id="${item.id}" value="${item.qty}" />
-                                    <button class="btn btn-sm btn-outline-secondary desktop-qty-up" data-id="${item.id}">+</button>
-                                </div>
-                                <div style="min-width:80px; text-align:right;">₹${item.total.toFixed(2)}</div>
-                                <div><button class="btn btn-sm btn-danger remove-item" data-id="${item.id}">✖</button></div>
-                            </div>
-                        `);
-                    });
-
-                    // if cart empty, show placeholder in desktop
-                    if (cart.length === 0) {
-                        desktopContainer.html('<p class="text-muted">Cart is empty. Add items from product list.</p>');
-                        mobileTable.append(`<tr><td colspan="5" class="text-center text-muted">Cart is empty.</td></tr>`);
-                    }
-
-                    $('#cartTotal').text(grandTotal.toFixed(2));
-                    $('#desktopCartTotal').text(grandTotal.toFixed(2));
-                    $('#cartCount').text(itemCount);
-                    $('#desktopCartCount').text(itemCount);
-                }
-
-                function clearCartUI() {
-                    // set all product qty inputs to 0
-                    $('.product-qty').val(0);
-                    cart = [];
-                    renderCart();
-                }
-
-                /* -------------------------
-                   Helpers
-                   ------------------------*/
-                function htmlEscape(str) {
-                    if (!str && str !== 0) return '';
-                    return String(str)
-                        .replace(/&/g, '&amp;')
-                        .replace(/"/g, '&quot;')
-                        .replace(/'/g, '&#39;')
-                        .replace(/</g, '&lt;')
-                        .replace(/>/g, '&gt;');
-                }
-
-                /* -------------------------
-                   EVENTS
-                   ------------------------*/
-                // product qty +/-
-                $(document).on('click', '.qty-up', function () {
-                    const id = $(this).data('id');
-                    const card = $(this).closest('.product-card');
-                    const input = $(`#qty-${id}`);
-                    const name = card.find('h6').text().trim();
-                    const price = parseFloat(card.find('p.price').text().replace(/[^\d.]/g, '')) || 0;
-
-                    let qty = +input.val() + 1;
-                    input.val(qty);
-                        
-                    updateCart(id, name, price, qty);
-                        
-                              
-                });
-
-                $(document).on('click', '.product-card', function (e) {
-                        // if user clicked a button/input inside card, ignore
-                        if ($(e.target).closest('.qty-controls, .qty-up, .qty-down, button, input, a').length) return;
-
-                        const card = $(this);
-                        const id = card.data('id');
-                        if (!id) return;
-
-                        const input = $(`#qty-${id}`);
-                        const name = card.find('h6').text().trim();
-                        const price = parseFloat(card.find('p.price').text().replace(/[^\d.]/g, '')) || 0;
-
-                        let qty = +input.val() + 1;
-                        input.val(qty);
-                              
-                        updateCart(id, name, price, qty);
-                      
-                             
-                    });
-
-                $(document).on('click', '.qty-down', function () {
-                    const id = $(this).data('id');
-                    const card = $(this).closest('.product-card');
-                    const input = $(`#qty-${id}`);
-                    const name = card.find('h6').text().trim();
-                    const price = parseFloat(card.find('p.price').text().replace(/[^\d.]/g, '')) || 0;
-
-                    let qty = +input.val();
-                    if (qty > 0) qty--;
-                    input.val(qty);
-                        
-                    updateCart(id, name, price, qty);
-                 
-                             
-                });
-
-                // pagination click
-                $(document).on('click', '.page-nav', function (e) {
-                    e.preventDefault();
-                    currentPage = +$(this).data('page');
-                    renderProducts();
-                });
-
-                // category click (top bar)
-                $(document).on('click', '.category-top .category-btn, .category-btn', function () {
-                    // ensure active switches across both top and left instances (we only have top)
-                    $('.category-btn').removeClass('active');
-                    $(this).addClass('active');
-
-                    const val = $(this).data('id');
-                    filteredProducts = val === 'all'
-                        ? [...allProducts]
-                        : allProducts.filter(p => p.CategoryId == val);
-
-                    currentPage = 1;
-                    renderProducts();
-                });
-
-                // remove item (both desktop & mobile)
-                $(document).on('click', '.remove-item', function () {
-                    const id = $(this).data('id');
-                    $(`#qty-${id}`).val(0);
-                    cart = cart.filter(x => x.id !== id);
-                    renderCart();
-                });
-
-                // desktop qty buttons & input
-                $(document).on('click', '.desktop-qty-up', function () {
-                    const id = $(this).data('id');
-                    const input = $(`.desktop-qty-input[data-id="${id}"]`);
-                    const newQty = +input.val() + 1;
-                    input.val(newQty);
-                    const product = allProducts.find(x => x.Id === id);
-                    updateCart(id, product.Name, product.Price, newQty);
-                });
-                $(document).on('click', '.desktop-qty-down', function () {
-                    const id = $(this).data('id');
-                    const input = $(`.desktop-qty-input[data-id="${id}"]`);
-                    let newQty = +input.val();
-                    if (newQty > 0) newQty--;
-                    input.val(newQty);
-                    const product = allProducts.find(x => x.Id === id);
-                    updateCart(id, product.Name, product.Price, newQty);
-                });
-                // allow typing in desktop qty input (validate)
-                $(document).on('change', '.desktop-qty-input', function () {
-                    const id = $(this).data('id');
-                    let val = parseInt($(this).val()) || 0;
-                    if (val < 0) val = 0;
-                    $(this).val(val);
-                    const product = allProducts.find(x => x.Id === id);
-                    updateCart(id, product.Name, product.Price, val);
-                });
-
-                // mobile qty buttons and input
-                $(document).on('click', '.mobile-qty-up', function () {
-                    const id = $(this).data('id');
-                    const input = $(`.mobile-qty-input[data-id="${id}"]`);
-                    const newQty = +input.val() + 1;
-                    input.val(newQty);
-                    const product = allProducts.find(x => x.Id === id);
-                    updateCart(id, product.Name, product.Price, newQty);
-                });
-                $(document).on('click', '.mobile-qty-down', function () {
-                    const id = $(this).data('id');
-                    const input = $(`.mobile-qty-input[data-id="${id}"]`);
-                    let newQty = +input.val();
-                    if (newQty > 0) newQty--;
-                    input.val(newQty);
-                    const product = allProducts.find(x => x.Id === id);
-                    updateCart(id, product.Name, product.Price, newQty);
-                });
-                $(document).on('change', '.mobile-qty-input', function () {
-                    const id = $(this).data('id');
-                    let val = parseInt($(this).val()) || 0;
-                    if (val < 0) val = 0;
-                    $(this).val(val);
-                    const product = allProducts.find(x => x.Id === id);
-                    updateCart(id, product.Name, product.Price, val);
-                });
-
-                // Clear desktop cart
-                $('#clearCartDesktop').click(function () {
-                    if (!confirm('Clear cart?')) return;
-                    clearCartUI();
-                });
-
-                // Checkout handlers (desktop & mobile share same AJAX call)
-                function doCheckout(customerName,tableDetail,paymentMode) {
-                    if (cart.length === 0) {
-                        alert("Cart is empty. Please add some items for sale.");
-                        return;
-                    }
-                    $('#checkoutBtn, #checkoutBtnDesktop').prop('disabled', true);
-
-                    const order = {
-                        customerName: customerName,
-                        tableDetail:tableDetail,
-                        paymentMode:paymentMode,
-                        items: cart.map(item => ({
-                            productId: item.id,
-                            qty: item.qty,
-                            price: item.price
-                        }))
-                    };
-
-                    $.ajax({
-                        url: '/Order/SaveOrder',
-                        type: 'POST',
-                        contentType: 'application/json',
-                        data: JSON.stringify(order),
-                        success: function (res) {
-                            if (res.success) {
-                                // use your print function
-                                setTimeout(() => {
-                                const isDesktop = window.innerWidth > 991;
-                                const tableNo = isDesktop ? $("#ddlTableDesktop").val() : $("#ddlTableMobile").val();
-                                const paymentMode = isDesktop
-                                     ? document.querySelector('input[name="paymentDesktop"]:checked').value
-                                    : document.querySelector('input[name="paymentMobile"]:checked').value;
-
-                                    if('@Org.PrinterSizeId'=='2')
-                                    {
-                                        printPlainReceipt80mm('@Org.BusinessName', '@Org.Address', res.orderId, new Date().toLocaleString(), order.customerName, order.items, 0,'@Org.MobileNo',paymentMode,tableNo);
-
-                                    }else{
-                                        printPlainReceipt58mm('@Org.BusinessName', '@Org.Address', res.orderId, new Date().toLocaleString(), order.customerName, order.items, 0,'@Org.MobileNo',paymentMode,tableNo);
-
-                                    }
-
-
-                                    $('#invoiceSection').hide();
-                                    // after print clear cart
-                                    clearCartUI();
-                                    $('#checkoutBtn, #checkoutBtnDesktop').prop('disabled', false);
-                                    // close modal if on mobile
-                                    $('#cartModal').modal('hide');
-                                }, 500);
-                            } else {
-                                alert("Error: " + res.message);
-                                $('#checkoutBtn, #checkoutBtnDesktop').prop('disabled', false);
-                            }
-                        },
-                        error: function (err) {
-                            alert("Save order failed.");
-                            $('#checkoutBtn, #checkoutBtnDesktop').prop('disabled', false);
-                        }
-                    });
-                }
-
-                $('#checkoutBtn').click(function () {
-                    debugger;
-                    const customerName = $("#txtCustNameMobile").val();
-                    const tableDetail = $("#ddlTableMobile option:selected").val();
-                            const paymentMode = $('[name="paymentMobile"]').val();
-
-                    doCheckout(customerName,tableDetail,paymentMode);
-                });
-
-                $('#checkoutBtnDesktop').click(function () {
-                    const customerName = $("#txtCustNameDesktop").val();
-                    const tableDetail = $("#ddlTableDesktop option:selected").val();
-                                    const paymentMode = $('[name="paymentDesktop"]').val();
-
-                    doCheckout(customerName,tableDetail,paymentMode);
-                });
-
-                /* -------------------------
-                   Initial render
-                   ------------------------*/
-                renderProducts();
-                renderCart();
-
-                // make sure when page re-renders product list we sync product qty values from cart
-                // (for example after filter/pagination)
-                $(document).on('renderProductsSync', function () {
-                    cart.forEach(item => {
-                        $(`#qty-${item.id}`).val(item.qty);
-                    });
-                });
-
-                // trigger after renderProducts to sync (we call it at end of renderProducts)
-                // Update: call it at the end of renderProducts
-                const origRenderProducts = renderProducts;
-                renderProducts = function () {
-                    origRenderProducts();
-                    $(document).trigger('renderProductsSync');
-                };
-
-                // =========================
-                // Receipt / RawBT functions (kept as your original)
-                // =========================
-
-                function generateInvoicePDF() {
-                    const receiptHTML = document.getElementById("invoiceSection").innerHTML;
-                    const encoded = btoa(unescape(encodeURIComponent(receiptHTML)));
-                    window.location.href = "rawbt:base64," + encoded;
-                }
-
-     
-
-    function printPlainReceipt80mm(orgTitle, address, invoiceNo, date, customerName, productList, grandTotal = 0,Contact,Mode,TableNo) 
-    {
-           const ESC = "\x1B";
-    const DOUBLE = ESC + "!" + "\x38";        // Big font
-    const MEDIUM = ESC + "!" + "\x20";        // Medium (double height)
-    const NORMAL = ESC + "!" + "\x00";        // Normal
-    const SMALL = ESC + "M" + "\x01";         // Small font
-    const NORMAL_FONT = ESC + "M" + "\x00";
-
-    // Split long text into lines
-    function wrapText(text, max) {
-        let lines = [];
-        while (text.length > 0) {
-            lines.push(text.substring(0, max));
-            text = text.substring(max);
+            renderPagination();
         }
-        return lines;
-    }
 
-    // 80mm normal width = 48 chars
-    function center48(text) {
-        const total = 48;
-        let pad = Math.max(0, Math.floor((total - text.length) / 2));
-        return " ".repeat(pad) + text;
-    }
+        function renderPagination() {
+            const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
+            const pagination = $('#pagination');
+            pagination.empty();
+            for (let i = 1; i <= totalPages; i++) {
+                pagination.append(`
+                    <li class="page-item ${i === currentPage ? 'active' : ''}">
+                        <a class="page-link page-nav" href="#" data-page="${i}">${i}</a>
+                    </li>
+                `);
+            }
+        }
 
-    // 80mm double-width = 24 chars
-    function center24(text) {
-        text = text.substring(0, 24);
-        const total = 24;
-        let pad = Math.max(0, Math.floor((total - text.length) / 2));
-        return " ".repeat(pad) + text;
-    }
-
-    // Clean date (remove seconds)
-    let cleanDate = date.split(":");
-    if (cleanDate.length >= 2) {
-        cleanDate = cleanDate[0] + ":" + cleanDate[1];
-    } else {
-        cleanDate = date;
-    }
-
-    let receipt = "";
-    receipt += "------------------------------------------------\n";
-
-    // ---- Title (Medium Font + Auto Wrap) ----
-    let titleLines = wrapText(orgTitle, 24).slice(0, 2);
-
-    titleLines.forEach(line => {
-        receipt += MEDIUM + center24(line) + NORMAL + "\n";
-    });
-
-    // ---- Address (Auto Wrap in 48 chars) ----
-    let addressLines = wrapText(address, 48).slice(0, 2);
-    addressLines.forEach(line => {
-        receipt += center48(line) + "\n";
-    });
-
-    receipt +=  center24(Contact) + "\n";
-    receipt += "------------------------------------------------\n";
-
-    // Invoice details
-    receipt += `Invoice#: ${invoiceNo}\n`;
-    if (TableNo) receipt += `Table No: ${TableNo}\n`;
-    receipt += `Customer : ${customerName}\n`;
-    receipt += `Date     : ${cleanDate}\n`;
-    receipt += `Mode     : ${Mode}\n`;
-    receipt += "------------------------------------------------\n";
-
-    // 80mm Table Header (48 chars)
-    receipt += "Item                     Qty    Rate     Total\n";
-    receipt += "------------------------------------------------\n";
-
-    // Items
-    productList.forEach(p => {
-        const product = allProducts.find(w => w.Id === p.productId);
-
-        const name = (product?.Name || "").padEnd(21, " ").substring(0, 21); // 21 chars
-        const qty = String(p.qty).padStart(5, " ");                          // 5 chars
-        const rate = String(p.price).padStart(8, " ");                       // 8 chars
-        const total = String(p.qty * p.price).padStart(10, " ");             // 10 chars
-
-        // Total length = 21 + 1 + 5 + 1 + 8 + 1 + 10 = 47–48 chars
-        receipt += `${name} ${qty} ${rate} ${total}\n`;
-
-        grandTotal += p.qty * p.price;
-    });
-
-    receipt += "------------------------------------------------\n";
-
-    // Grand Total (Medium font, centered)
-    const grandText = "Total: " + grandTotal + "/-";
-    receipt += MEDIUM + center24(grandText) + NORMAL + "\n";
-
-    receipt += "------------------------------------------------\n";
-
-    // Footer small text
-    receipt += center48("Thank you, visit again!") + "\n\n";
-    receipt += SMALL + center48("Aviraj Innovations Pvt. Ltd.") + "\n";
-    receipt += center48("Inquiry On: +91 9096152118") + "\n";
-    receipt += NORMAL_FONT + "\n";
-
-    // Print using RAWBT
-    const encoded = btoa(unescape(encodeURIComponent(receipt)));
-    window.location.href = "rawbt:base64," + encoded;
-
-    window.onfocus = function () {
-        location.reload();
-    };    
-    }
-
-
-                        function printPlainReceipt58mm(orgTitle, address, invoiceNo, date, customerName, productList, grandTotal = 0, Contact, Mode, TableNo) {
-
-            const ESC = "\x1B";
-            const DOUBLE = ESC + "!" + "\x38";        // Big font
-            const MEDIUM = ESC + "!" + "\x20";        // Medium (double height)
-            const NORMAL = ESC + "!" + "\x00";        // Normal
-            const SMALL = ESC + "M" + "\x01";         // Small font
-            const NORMAL_FONT = ESC + "M" + "\x00";
-
-            // Split long text into lines of fixed width
-            function wrapText(text, max) {
-                let lines = [];
-                while (text.length > 0) {
-                    lines.push(text.substring(0, max));
-                    text = text.substring(max);
+        /* -------------------------
+           Cart logic & rendering (both desktop & modal)
+           ------------------------*/
+        function updateCart(id, name, price, qty) {
+            const index = cart.findIndex(x => x.id === id);
+            if (index > -1) {
+                if (qty === 0) {
+                    cart.splice(index, 1);
+                } else {
+                    cart[index].qty = qty;
+                    cart[index].total = qty * price;
                 }
-                return lines;
-            }
-
-            // Center 32-wide lines
-            function center32(text) {
-                const total = 32;
-                let pad = Math.max(0, Math.floor((total - text.length) / 2));
-                return " ".repeat(pad) + text;
-            }
-
-            // Center 16-wide lines (medium / double-width)
-            function center16(text) {
-                text = text.substring(0, 16);
-                const total = 16;
-                let pad = Math.max(0, Math.floor((total - text.length) / 2));
-                return " ".repeat(pad) + text;
-            }
-
-            // Format date (remove seconds)
-            let cleanDate = date.split(":");
-            if (cleanDate.length >= 2) {
-                cleanDate = cleanDate[0] + ":" + cleanDate[1]; // keep HH:mm only
             } else {
-                cleanDate = date;
+                if (qty > 0) {
+                    cart.push({ id, name, price, qty, total: qty * price });
+                }
             }
 
-            let receipt = "";
-            receipt += "--------------------------------\n";
+            // keep product card qty input in sync
+            $(`#qty-${id}`).val(qty);
 
-            // ---- Title (Medium Font + Auto wrap) ----
-            let titleLines = wrapText(orgTitle, 16).slice(0, 2); // max 2 lines
+            renderCart();
+            updateProductHighlight(id, qty);
+        }
 
-            titleLines.forEach(line => {
-                receipt += MEDIUM + center16(line) + NORMAL + "\n";
+        function renderCart() {
+        //    debugger;
+            // mobile modal table
+            const mobileTable = $('#cartItems');
+            mobileTable.empty();
+
+            // desktop cart container
+            const desktopContainer = $('#desktopCartItems');
+            desktopContainer.empty();
+
+            let grandTotal = 0;
+            let itemCount = 0;
+
+            cart.forEach(item => {
+                grandTotal += item.total;
+                itemCount += item.qty;
+                updateProductHighlight(item.id, item.qty)
+                // mobile row (table)
+                mobileTable.append(`
+                    <tr data-id="${item.id}">
+                        <td style="vertical-align:middle;">${htmlEscape(item.name)}</td>
+                        <td>
+                            <div class="input-group input-group-sm">
+                                <button class="btn btn-outline-secondary mobile-qty-down" data-id="${item.id}">-</button>
+                                <input type="text" class="form-control form-control-sm mobile-qty-input" data-id="${item.id}" value="${item.qty}" style="width:56px;text-align:center;" />
+                                <button class="btn btn-outline-secondary mobile-qty-up" data-id="${item.id}">+</button>
+                            </div>
+                        </td>
+                        <td style="vertical-align:middle;">₹${item.price}</td>
+                        <td style="vertical-align:middle;">₹${item.total.toFixed(2)}</td>
+                        <td style="vertical-align:middle;"><button class="btn btn-sm btn-danger remove-item" data-id="${item.id}">✖</button></td>
+                    </tr>
+                `);
+
+                // desktop row
+                desktopContainer.append(`
+                    <div class="cart-item-row" data-id="${item.id}">
+                        <div class="ci-name">${htmlEscape(item.name)}</div>
+                        <div class="ci-qty">
+                            <button class="btn btn-sm btn-outline-secondary desktop-qty-down" data-id="${item.id}">-</button>
+                            <input type="number" class="form-control form-control-sm desktop-qty-input" data-id="${item.id}" value="${item.qty}" />
+                            <button class="btn btn-sm btn-outline-secondary desktop-qty-up" data-id="${item.id}">+</button>
+                        </div>
+                        <div style="min-width:80px; text-align:right;">₹${item.total.toFixed(2)}</div>
+                        <div><button class="btn btn-sm btn-danger remove-item" data-id="${item.id}">✖</button></div>
+                    </div>
+                `);
             });
 
-            // ---- Address (Auto Wrap in 32) ----
-            let addressLines = wrapText(address, 32).slice(0, 2);
-            addressLines.forEach(line => {
-                receipt += center32(line) + "\n";
-            });
+            // if cart empty, show placeholder in desktop
+            if (cart.length === 0) {
+                desktopContainer.html('<p class="text-muted">Cart is empty. Add items from product list.</p>');
+                mobileTable.append(`<tr><td colspan="5" class="text-center text-muted">Cart is empty.</td></tr>`);
+            }
 
-            receipt += "Contact : " + Contact + "\n";
-            receipt += "--------------------------------\n";
+            $('#cartTotal').text(grandTotal.toFixed(2));
+            $('#desktopCartTotal').text(grandTotal.toFixed(2));
+            $('#cartCount').text(itemCount);
+            $('#desktopCartCount').text(itemCount);
+        }
 
-            // Invoice details
-            receipt += `Invoice#: ${invoiceNo}\n`;
-            if (TableNo) receipt += `Table No: ${TableNo}\n`;
-            receipt += `Customer : ${customerName}\n`;
-            receipt += `Date     : ${cleanDate}\n`;
-            receipt += `Mode     : ${Mode}\n`;
-            receipt += "--------------------------------\n";
+        function clearCartUI() {
+            // set all product qty inputs to 0
+            $('.product-qty').val(0);
+            cart = [];
+            renderCart();
 
-            // Table header
-            receipt += "Item            Qty  Rate  Total\n";
-            receipt += "--------------------------------\n";
+            // reset editing state if desired
+            $('#isEditing').val(0);
+            $('#editingOrderIdHidden').val('');
+            $('#editingBadge').hide();
+            $('#editingOrderId').text('');
+            $('#checkoutBtn, #checkoutBtnDesktop').text('Save & Print');
+        }
 
-            // Items
-            productList.forEach(p => {
-                const product = allProducts.find(w => w.Id === p.productId);
+        /* -------------------------
+           Helpers
+           ------------------------*/
+        function htmlEscape(str) {
+            if (!str && str !== 0) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
+        }
 
-                const name = (product?.Name || "").padEnd(14, " ").substring(0, 14);
-                const qty = String(p.qty).padStart(3, " ");
-                const rate = String(p.price).padStart(5, " ");
-                const total = String(p.qty * p.price).padStart(7, " ");
+        /* -------------------------
+           EVENTS
+           ------------------------*/
+        // product qty / clicks (kept same)
+        $(document).on('click', '.qty-up', function () {
+            const id = $(this).data('id');
+            const card = $(this).closest('.product-card');
+            const input = $(`#qty-${id}`);
+            const name = card.find('h6').text().trim();
+            const price = parseFloat(card.find('p.price').text().replace(/[^\d.]/g, '')) || 0;
 
-                receipt += `${name} ${qty} ${rate} ${total}\n`;
+            let qty = +input.val() + 1;
+            input.val(qty);
 
-                grandTotal += p.qty * p.price;
-            });
+            updateCart(id, name, price, qty);
+        });
 
-            receipt += "--------------------------------\n";
+        $(document).on('click', '.product-card', function (e) {
+            if ($(e.target).closest('.qty-controls, .qty-up, .qty-down, button, input, a').length) return;
 
-            // Grand total – Medium font centered
-            const grandText = "Total: " + grandTotal + "/-";
-            receipt += MEDIUM + center16(grandText) + NORMAL + "\n";
+            const card = $(this);
+            const id = card.data('id');
+            if (!id) return;
 
-            receipt += "--------------------------------\n";
+            const input = $(`#qty-${id}`);
+            const name = card.find('h6').text().trim();
+            const price = parseFloat(card.find('p.price').text().replace(/[^\d.]/g, '')) || 0;
 
-            // Footer small text
-            receipt += center32("Thank you, visit again!") + "\n\n";
-            receipt += SMALL + center32("Aviraj Innovations Pvt. Ltd.") + "\n";
-            receipt += center32("Inquiry On: +91 9096152118") + "\n";
-            receipt += NORMAL_FONT + "\n";
+            let qty = +input.val() + 1;
+            input.val(qty);
 
-            // Print
-            const encoded = btoa(unescape(encodeURIComponent(receipt)));
-            window.location.href = "rawbt:base64," + encoded;
+            updateCart(id, name, price, qty);
+        });
 
-            window.onfocus = function () {
-                location.reload();
+        $(document).on('click', '.qty-down', function () {
+            const id = $(this).data('id');
+            const card = $(this).closest('.product-card');
+            const input = $(`#qty-${id}`);
+            const name = card.find('h6').text().trim();
+            const price = parseFloat(card.find('p.price').text().replace(/[^\d.]/g, '')) || 0;
+
+            let qty = +input.val();
+            if (qty > 0) qty--;
+            input.val(qty);
+
+            updateCart(id, name, price, qty);
+        });
+
+        // pagination click
+        $(document).on('click', '.page-nav', function (e) {
+            e.preventDefault();
+            currentPage = +$(this).data('page');
+            renderProducts();
+        });
+
+        // category click (top bar)
+        $(document).on('click', '.category-top .category-btn, .category-btn', function () {
+            $('.category-btn').removeClass('active');
+            $(this).addClass('active');
+
+            const val = $(this).data('id');
+            filteredProducts = val === 'all'
+                ? [...allProducts]
+                : allProducts.filter(p => p.CategoryId == val);
+
+            currentPage = 1;
+            renderProducts();
+        });
+
+        // remove item (both desktop & mobile)
+        $(document).on('click', '.remove-item', function () {
+            const id = $(this).data('id');
+            $(`#qty-${id}`).val(0);
+            cart = cart.filter(x => x.id !== id);
+            renderCart();
+        });
+
+        // desktop qty buttons & input
+        $(document).on('click', '.desktop-qty-up', function () {
+            const id = $(this).data('id');
+            const input = $(`.desktop-qty-input[data-id="${id}"]`);
+            const newQty = +input.val() + 1;
+            input.val(newQty);
+            const product = allProducts.find(x => x.Id === id);
+            updateCart(id, product.Name, product.Price, newQty);
+        });
+        $(document).on('click', '.desktop-qty-down', function () {
+            const id = $(this).data('id');
+            const input = $(`.desktop-qty-input[data-id="${id}"]`);
+            let newQty = +input.val();
+            if (newQty > 0) newQty--;
+            input.val(newQty);
+            const product = allProducts.find(x => x.Id === id);
+            updateCart(id, product.Name, product.Price, newQty);
+        });
+        // allow typing in desktop qty input (validate)
+        $(document).on('change', '.desktop-qty-input', function () {
+            const id = $(this).data('id');
+            let val = parseInt($(this).val()) || 0;
+            if (val < 0) val = 0;
+            $(this).val(val);
+            const product = allProducts.find(x => x.Id === id);
+            updateCart(id, product.Name, product.Price, val);
+        });
+
+        // mobile qty buttons and input
+        $(document).on('click', '.mobile-qty-up', function () {
+            const id = $(this).data('id');
+            const input = $(`.mobile-qty-input[data-id="${id}"]`);
+            const newQty = +input.val() + 1;
+            input.val(newQty);
+            const product = allProducts.find(x => x.Id === id);
+            updateCart(id, product.Name, product.Price, newQty);
+        });
+        $(document).on('click', '.mobile-qty-down', function () {
+            const id = $(this).data('id');
+            const input = $(`.mobile-qty-input[data-id="${id}"]`);
+            let newQty = +input.val();
+            if (newQty > 0) newQty--;
+            input.val(newQty);
+            const product = allProducts.find(x => x.Id === id);
+            updateCart(id, product.Name, product.Price, newQty);
+        });
+        $(document).on('change', '.mobile-qty-input', function () {
+            const id = $(this).data('id');
+            let val = parseInt($(this).val()) || 0;
+            if (val < 0) val = 0;
+            $(this).val(val);
+            const product = allProducts.find(x => x.Id === id);
+            updateCart(id, product.Name, product.Price, val);
+        });
+
+        // Clear desktop cart
+        $('#clearCartDesktop').click(function () {
+            if (!confirm('Clear cart?')) return;
+            clearCartUI();
+        });
+
+        // Checkout handlers (desktop & mobile share same AJAX call)
+        function doCheckout(customerName, tableDetail, paymentMode) {
+            if (cart.length === 0) {
+                alert("Cart is empty. Please add some items for sale.");
+                return;
+            }
+            $('#checkoutBtn, #checkoutBtnDesktop').prop('disabled', true);
+
+            const order = {
+                editOrderId: $('#isEditing').val() === '1' ? parseInt($('#editingOrderIdHidden').val() || '0') : null,
+                customerName: customerName,
+                tableDetail: tableDetail,
+                paymentMode: paymentMode,
+                items: cart.map(item => ({
+                    productId: item.id,
+                    qty: item.qty,
+                    price: item.price
+                }))
             };
+
+            $.ajax({
+                url: '/Order/SaveOrder',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(order),
+                success: function (res) {
+                    if (res.success) {
+                        // printing logic remains same
+                        setTimeout(() => {
+                            const isDesktop = window.innerWidth > 991;
+                            const tableNo = isDesktop ? $("#ddlTableDesktop").val() : $("#ddlTableMobile").val();
+                            const paymentMode = isDesktop
+                                ? document.querySelector('input[name="paymentDesktop"]:checked').value
+                                : document.querySelector('input[name="paymentMobile"]:checked').value;
+
+                            if ('@Org.PrinterSizeId' == '2') {
+                                printPlainReceipt80mm('@Org.BusinessName', '@Org.Address', res.orderId, new Date().toLocaleString(), order.customerName, order.items, 0, '@Org.MobileNo', paymentMode, tableNo);
+
+                            } else {
+                                printPlainReceipt58mm('@Org.BusinessName', '@Org.Address', res.orderId, new Date().toLocaleString(), order.customerName, order.items, 0, '@Org.MobileNo', paymentMode, tableNo);
+
+                            }
+
+                            $('#invoiceSection').hide();
+                            // after print clear cart
+                            clearCartUI();
+                            $('#checkoutBtn, #checkoutBtnDesktop').prop('disabled', false);
+                            // close modal if on mobile
+                            $('#cartModal').modal('hide');
+                        }, 500);
+                    } else {
+                        alert("Error: " + res.message);
+                        $('#checkoutBtn, #checkoutBtnDesktop').prop('disabled', false);
+                    }
+                },
+                error: function (err) {
+                    alert("Save order failed.");
+                    $('#checkoutBtn, #checkoutBtnDesktop').prop('disabled', false);
+                }
+            });
+        }
+
+        $('#checkoutBtn').click(function () {
+            const customerName = $("#txtCustNameMobile").val();
+            const tableDetail = $("#ddlTableMobile option:selected").val();
+            const paymentMode = $('[name="paymentMobile"]:checked').val();
+
+            doCheckout(customerName, tableDetail, paymentMode);
+        });
+
+        $('#checkoutBtnDesktop').click(function () {
+            const customerName = $("#txtCustNameDesktop").val();
+            const tableDetail = $("#ddlTableDesktop option:selected").val();
+            const paymentMode = $('[name="paymentDesktop"]:checked').val();
+
+            doCheckout(customerName, tableDetail, paymentMode);
+        });
+
+        /* -------------------------
+           History & Edit Flow (NEW)
+           ------------------------*/
+
+        // Open history modal and load data
+        $('#openHistoryBtn').click(function () {
+            $('#historyBody').html('<tr><td colspan="6" class="text-center text-muted">Loading...</td></tr>');
+            $('#orderHistoryModal').modal('show');
+            fetchHistory();
+        });
+
+        function fetchHistory() {
+            $.ajax({
+                url: '/Order/GetLastOrders',
+                type: 'GET',
+                success: function (res) {
+                    if (!res.success) {
+                        $('#historyBody').html('<tr><td colspan="6" class="text-center text-danger">Failed to load</td></tr>');
+                        return;
+                    }
+                  //  debugger;
+                    const rows = res.data.map(o => `
+                        <tr>
+                            <td>${o.id}</td>
+                            <td>${htmlEscape(o.customerName)}</td>
+                            <td>${htmlEscape(o.tableDetails || '')}</td>
+                            <td>₹${(o.grandTotal || 0).toFixed(2)}</td>
+                            <td>${moment ? moment(o.dateOfOrder).format('DD-MM-YYYY HH:mm') : (o.dateOfOrder || '')}</td>
+                            <td><button class="btn btn-sm btn-primary edit-order-btn" data-id="${o.id}">Edit</button></td>
+                        </tr>
+                    `).join('');
+
+                    $('#historyBody').html(rows || '<tr><td colspan="6" class="text-center text-muted">No recent orders</td></tr>');
+                },
+                error: function () {
+                    $('#historyBody').html('<tr><td colspan="6" class="text-center text-danger">Error</td></tr>');
+                }
+            });
+        }
+
+        // Click edit to load order into cart
+        $(document).on('click', '.edit-order-btn', function () {
+            const id = $(this).data('id');
+            if (!id) return;
+            // fetch order
+            $.ajax({
+                url: '/Order/GetOrder?id=' + id,
+                type: 'GET',
+                success: function (res) {
+                    if (!res.success) {
+                        alert('Unable to load order');
+                        return;
+                    }
+                    const data = res.data;
+                    // populate UI fields (customer, table, payment, items)
+                    repopulateCartFromOrder(data);
+                    // close history modal
+                    $('#orderHistoryModal').modal('hide');
+                    // scroll to top so user sees cart (optional)
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                },
+                error: function () {
+                    alert('Unable to load order');
+                }
+            });
+        });
+
+        function repopulateCartFromOrder(order) {
+            // Clear existing cart
+            cart = [];
+            debugger;
+
+            // ensure product qty inputs reset
+            $('.product-qty').val(0);
+
+            // populate cart array from order items
+            (order.items || []).forEach(i => {
+                const prod = allProducts.find(p => p.Id === i.productId);
+                const name = prod ? prod.Name : ('Product ' + i.productId);
+                const price = parseFloat(i.price) || (prod ? prod.price : 0);
+                const qty = parseFloat(i.qty) || 0;
+
+                if (qty > 0) {
+                    cart.push({ id: i.productId, name: name, price: price, qty: qty, total: price * qty });
+                    // set qty input on product card (if rendered)
+                    $(`#qty-${i.productId}`).val(qty);
+                }
+            });
+
+            // customer, table, payment
+            $('#txtCustNameDesktop').val(order.customerName || '');
+            $('#txtCustNameMobile').val(order.customerName || '');
+            $('#ddlTableDesktop').val(order.tableDetails || '');
+            $('#ddlTableMobile').val(order.tableDetails || '');
+
+            if (order.paymentMode) {
+                $(`input[name="paymentDesktop"][value="${order.paymentMode}"]`).prop('checked', true);
+                $(`input[name="paymentMobile"][value="${order.paymentMode}"]`).prop('checked', true);
+            }
+
+            // mark editing state
+            $('#isEditing').val(1);
+            $('#editingOrderIdHidden').val(order.id);
+            $('#editingBadge').show();
+            $('#editingOrderId').text(order.id);
+            $('#checkoutBtn, #checkoutBtnDesktop').text('Update & Print');
+
+            renderCart();
+
+            // trigger product sync so when renderProducts runs, it will set inputs properly
+            $(document).trigger('renderProductsSync');
+        }
+
+        /* -------------------------
+           Initial render
+           ------------------------*/
+        renderProducts();
+        renderCart();
+
+        // make sure when page re-renders product list we sync product qty values from cart
+        const origRenderProducts = renderProducts;
+        renderProducts = function () {
+            origRenderProducts();
+            $(document).trigger('renderProductsSync');
+        };
+
+        // =========================
+        // Receipt / RawBT functions (kept as your original)
+        // =========================
+         function generateInvoicePDF() {
+                        const receiptHTML = document.getElementById("invoiceSection").innerHTML;
+                        const encoded = btoa(unescape(encodeURIComponent(receiptHTML)));
+                        window.location.href = "rawbt:base64," + encoded;
+                    }
+
+
+
+        function printPlainReceipt80mm(orgTitle, address, invoiceNo, date, customerName, productList, grandTotal = 0,Contact,Mode,TableNo)
+        {
+               const ESC = "\x1B";
+        const DOUBLE = ESC + "!" + "\x38";        // Big font
+        const MEDIUM = ESC + "!" + "\x20";        // Medium (double height)
+        const NORMAL = ESC + "!" + "\x00";        // Normal
+        const SMALL = ESC + "M" + "\x01";         // Small font
+        const NORMAL_FONT = ESC + "M" + "\x00";
+
+        // Split long text into lines
+        function wrapText(text, max) {
+            let lines = [];
+            while (text.length > 0) {
+                lines.push(text.substring(0, max));
+                text = text.substring(max);
+            }
+            return lines;
+        }
+
+        // 80mm normal width = 48 chars
+        function center48(text) {
+            const total = 48;
+            let pad = Math.max(0, Math.floor((total - text.length) / 2));
+            return " ".repeat(pad) + text;
+        }
+
+        // 80mm double-width = 24 chars
+        function center24(text) {
+            text = text.substring(0, 24);
+            const total = 24;
+            let pad = Math.max(0, Math.floor((total - text.length) / 2));
+            return " ".repeat(pad) + text;
+        }
+
+        // Clean date (remove seconds)
+        let cleanDate = date.split(":");
+        if (cleanDate.length >= 2) {
+            cleanDate = cleanDate[0] + ":" + cleanDate[1];
+        } else {
+            cleanDate = date;
+        }
+
+        let receipt = "";
+        receipt += "------------------------------------------------\n";
+
+        // ---- Title (Medium Font + Auto Wrap) ----
+        let titleLines = wrapText(orgTitle, 24).slice(0, 2);
+
+        titleLines.forEach(line => {
+            receipt += MEDIUM + center24(line) + NORMAL + "\n";
+        });
+
+        // ---- Address (Auto Wrap in 48 chars) ----
+        let addressLines = wrapText(address, 48).slice(0, 2);
+        addressLines.forEach(line => {
+            receipt += center48(line) + "\n";
+        });
+
+        receipt +=  center24(Contact) + "\n";
+        receipt += "------------------------------------------------\n";
+
+        // Invoice details
+        receipt += `Invoice#: ${invoiceNo}\n`;
+        if (TableNo) receipt += `Table No: ${TableNo}\n`;
+        receipt += `Customer : ${customerName}\n`;
+        receipt += `Date     : ${cleanDate}\n`;
+        receipt += `Mode     : ${Mode}\n`;
+        receipt += "------------------------------------------------\n";
+
+        // 80mm Table Header (48 chars)
+        receipt += "Item                     Qty    Rate     Total\n";
+        receipt += "------------------------------------------------\n";
+
+        // Items
+        productList.forEach(p => {
+            const product = allProducts.find(w => w.Id === p.productId);
+
+            const name = (product?.Name || "").padEnd(21, " ").substring(0, 21); // 21 chars
+            const qty = String(p.qty).padStart(5, " ");                          // 5 chars
+            const rate = String(p.price).padStart(8, " ");                       // 8 chars
+            const total = String(p.qty * p.price).padStart(10, " ");             // 10 chars
+
+            // Total length = 21 + 1 + 5 + 1 + 8 + 1 + 10 = 47–48 chars
+            receipt += `${name} ${qty} ${rate} ${total}\n`;
+
+            grandTotal += p.qty * p.price;
+        });
+
+        receipt += "------------------------------------------------\n";
+
+        // Grand Total (Medium font, centered)
+        const grandText = "Total: " + grandTotal + "/-";
+        receipt += MEDIUM + center24(grandText) + NORMAL + "\n";
+
+        receipt += "------------------------------------------------\n";
+
+        // Footer small text
+        receipt += center48("Thank you, visit again!") + "\n\n";
+        receipt += SMALL + center48("Aviraj Innovations Pvt. Ltd.") + "\n";
+        receipt += center48("Inquiry On: +91 9096152118") + "\n";
+        receipt += NORMAL_FONT + "\n";
+
+        // Print using RAWBT
+        const encoded = btoa(unescape(encodeURIComponent(receipt)));
+        window.location.href = "rawbt:base64," + encoded;
+
+        window.onfocus = function () {
+            location.reload();
+        };
         }
 
 
-                // Open Cart Modal
+        function printPlainReceipt58mm(orgTitle, address, invoiceNo, date, customerName, productList, grandTotal = 0, Contact, Mode, TableNo) {
+
+                const ESC = "\x1B";
+                const DOUBLE = ESC + "!" + "\x38";        // Big font
+                const MEDIUM = ESC + "!" + "\x20";        // Medium (double height)
+                const NORMAL = ESC + "!" + "\x00";        // Normal
+                const SMALL = ESC + "M" + "\x01";         // Small font
+                const NORMAL_FONT = ESC + "M" + "\x00";
+
+                // Split long text into lines of fixed width
+                function wrapText(text, max) {
+                    let lines = [];
+                    while (text.length > 0) {
+                        lines.push(text.substring(0, max));
+                        text = text.substring(max);
+                    }
+                    return lines;
+                }
+
+                // Center 32-wide lines
+                function center32(text) {
+                    const total = 32;
+                    let pad = Math.max(0, Math.floor((total - text.length) / 2));
+                    return " ".repeat(pad) + text;
+                }
+
+                // Center 16-wide lines (medium / double-width)
+                function center16(text) {
+                    text = text.substring(0, 16);
+                    const total = 16;
+                    let pad = Math.max(0, Math.floor((total - text.length) / 2));
+                    return " ".repeat(pad) + text;
+                }
+
+                // Format date (remove seconds)
+                let cleanDate = date.split(":");
+                if (cleanDate.length >= 2) {
+                    cleanDate = cleanDate[0] + ":" + cleanDate[1]; // keep HH:mm only
+                } else {
+                    cleanDate = date;
+                }
+
+                let receipt = "";
+                receipt += "--------------------------------\n";
+
+                // ---- Title (Medium Font + Auto wrap) ----
+                let titleLines = wrapText(orgTitle, 16).slice(0, 2); // max 2 lines
+
+                titleLines.forEach(line => {
+                    receipt += MEDIUM + center16(line) + NORMAL + "\n";
+                });
+
+                // ---- Address (Auto Wrap in 32) ----
+                let addressLines = wrapText(address, 32).slice(0, 2);
+                addressLines.forEach(line => {
+                    receipt += center32(line) + "\n";
+                });
+
+                receipt += "Contact : " + Contact + "\n";
+                receipt += "--------------------------------\n";
+
+                // Invoice details
+                receipt += `Invoice#: ${invoiceNo}\n`;
+                if (TableNo) receipt += `Table No: ${TableNo}\n`;
+                receipt += `Customer : ${customerName}\n`;
+                receipt += `Date     : ${cleanDate}\n`;
+                receipt += `Mode     : ${Mode}\n`;
+                receipt += "--------------------------------\n";
+
+                // Table header
+                receipt += "Item            Qty  Rate  Total\n";
+                receipt += "--------------------------------\n";
+
+                // Items
+                productList.forEach(p => {
+                    const product = allProducts.find(w => w.Id === p.productId);
+
+                    const name = (product?.Name || "").padEnd(14, " ").substring(0, 14);
+                    const qty = String(p.qty).padStart(3, " ");
+                    const rate = String(p.price).padStart(5, " ");
+                    const total = String(p.qty * p.price).padStart(7, " ");
+
+                    receipt += `${name} ${qty} ${rate} ${total}\n`;
+
+                    grandTotal += p.qty * p.price;
+                });
+
+                receipt += "--------------------------------\n";
+
+                // Grand total – Medium font centered
+                const grandText = "Total: " + grandTotal + "/-";
+                receipt += MEDIUM + center16(grandText) + NORMAL + "\n";
+
+                receipt += "--------------------------------\n";
+
+                // Footer small text
+                receipt += center32("Thank you, visit again!") + "\n\n";
+                receipt += SMALL + center32("Aviraj Innovations Pvt. Ltd.") + "\n";
+                receipt += center32("Inquiry On: +91 9096152118") + "\n";
+                receipt += NORMAL_FONT + "\n";
+
+                // Print
+                const encoded = btoa(unescape(encodeURIComponent(receipt)));
+                window.location.href = "rawbt:base64," + encoded;
+
+                window.onfocus = function () {
+                    location.reload();
+                };
+            }
+
+
+        // Open Cart Modal
         $("#btnMobileViewCart").click(function () {
             $("#cartModal").modal("show");
         });
@@ -1142,7 +1282,7 @@
             $("#checkoutBtn").click();
         });
 
-             function updateProductHighlight(productId, qty) {
+        function updateProductHighlight(productId, qty) {
             let card = $('.product-card[data-id="' + productId + '"]');
 
             if (!card.length) return;
@@ -1153,8 +1293,9 @@
                 card.removeClass("product-added");
             }
         }
-
     </script>
+
+    <!-- moment.js optional for nicer date formatting in history modal.
+         If you don't have moment on page, the code will fall back to raw date. -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js" integrity="sha512-Cd4a..." crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 }
-
-
