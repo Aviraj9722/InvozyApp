@@ -37,10 +37,15 @@
 
 <form asp-action="Report2" class="d-flex align-items-center gap-2 mb-3">
     <label class="me-2 mb-0">From Date:</label>
-    <input type="date" id="fromDT" name="fromDT" class="form-control" style="max-width: 250px;" />
+    <input type="date" id="fromDT" name="fromDT"
+           value="@ViewBag.FromDate"
+           class="form-control" style="max-width: 250px;" />
 
     <label class="ms-3 me-2 mb-0">To Date:</label>
-    <input type="date" id="toDT" name="toDT" class="form-control" style="max-width: 250px;" />
+    <input type="date" id="toDT" name="toDT"
+           value="@ViewBag.ToDate"
+           class="form-control" style="max-width: 250px;" />
+
 
     <button type="submit" class="btn btn-success ms-3">Generate</button>
 

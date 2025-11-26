@@ -1,17 +1,4 @@
-﻿@{
-    ViewData["Title"] = "Feedback";
-}
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-
-<div class="container mt-5 text-center">
-    <button class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#feedbackModal">
-        Give Feedback
-    </button>
-</div>
-
-<!-- FEEDBACK MODAL -->
-<div class="modal fade" id="feedbackModal">
+﻿<div class="modal fade" id="feedbackModal">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content shadow">
 
@@ -40,7 +27,6 @@
                         <textarea name="Feedback" id="Feedback" class="form-control"></textarea>
                     </div>
 
-                    <!-- RATING -->
                     <div class="mb-3">
                         <label class="form-label">Rating</label>
                         <select name="Ratings" id="Ratings" class="form-select">
@@ -64,12 +50,7 @@
     </div>
 </div>
 
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
 <script>
-
     $("#btnSubmitFeedback").click(function () {
 
         var formData = new FormData(document.getElementById("feedbackForm"));
@@ -85,11 +66,10 @@
                 $("#feedbackForm")[0].reset();
                 $("#feedbackModal").modal("hide");
             },
-            error: function (xhr) {
+            error: function () {
                 alert("Error submitting feedback.");
-                console.log(xhr.responseText);
             }
         });
-    });
 
+    });
 </script>

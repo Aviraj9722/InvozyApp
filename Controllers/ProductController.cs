@@ -67,7 +67,7 @@ namespace eOrderTouchApp.Controllers
             }
 
             await _context.SaveChangesAsync();
-            return RedirectToAction("Index");
+            return Json(new { success = true, message = "Product saved successfully" });
         }
 
         [HttpPost]

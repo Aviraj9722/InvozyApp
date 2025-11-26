@@ -106,7 +106,7 @@
 
             <!-- Feedback -->
             <div class="dash-col mobile-col">
-                <a asp-controller="Feedback" asp-action="Index" class="text-decoration-none">
+                <a href="javascript:void(0)" id="btnOpenFeedback" class="text-decoration-none">
                     <div class="dashboard-card text-center shadow-sm border-0">
                         <div class="card-body p-3">
                             <i class="fas fa-comment-dots fa-2x text-primary mb-2"></i>
@@ -143,6 +143,10 @@
         </div>
     </div>
 }
+
+<!-- FEEDBACK MODAL WILL LOAD HERE -->
+<div id="feedbackModalContainer"></div>
+
 
 <style>
     /* Base card style */
@@ -267,3 +271,17 @@
 
 <link rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $("#btnOpenFeedback").click(function () {
+
+        $.get("/Feedback/IndexPartial", function (html) {
+
+            $("#feedbackModalContainer").html(html);
+
+            $("#feedbackModal").modal("show");
+        });
+
+    });
+</script>
