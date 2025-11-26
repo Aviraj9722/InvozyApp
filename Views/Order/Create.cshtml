@@ -9,6 +9,8 @@
     var Org = (eOrderTouchApp.Models.TblBusiness)ViewBag.Orgnization;
 }
 <style>
+
+
     /* (Your entire CSS kept unchanged) */
     /* ----- MOBILE BOTTOM BAR ----- */
     @@media (max-width: 991px) {
@@ -284,8 +286,8 @@
         #cartToggleBtn {
             display: inline-block;
             position: fixed;
-            top: 16px;
-            right: 16px;
+            top: 2px;
+            right: 10px;
             z-index: 9999;
         }
 
@@ -324,12 +326,26 @@
         border-radius: 12px;
         transition: 0.25s ease-in-out;
     }
+
+    .order-card {
+        border-radius: 10px;
+        border: 1px solid #ddd;
+    }
+
+    #historyBodyCards::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    #historyBodyCards::-webkit-scrollbar-thumb {
+        background: #bbb;
+        border-radius: 10px;
+    }
 </style>
 
 
 <h3 style="display:flex;align-items:center;gap:12px;">
     Create Order
-    <button id="openHistoryBtn" class="btn btn-outline-secondary btn-sm">Order History</button>
+   
     <span id="editingBadge" class="badge bg-warning text-dark" style="display:none;">Editing Order: <span id="editingOrderId"></span></span>
 </h3>
 
@@ -367,10 +383,30 @@
             </div>
         </div>
 
-        <div style="margin-top:10px; display:flex; gap:8px;">
-            <button id="checkoutBtnDesktop" class="btn btn-success btn-sm flex-grow-1">Save & Print</button>
-            <button id="clearCartDesktop" class="btn btn-outline-danger btn-sm">Clear</button>
+        <div style="margin-top:10px; display:flex; gap:8px; flex-wrap:wrap;">
+
+            <!-- Save -->
+            <button class="btnDesktopSave btn btn-warning btn-sm">
+                <i class="bi bi-save me-1"></i> Save
+            </button>
+
+            <!-- Print -->
+            <button id="checkoutBtnDesktop" class="btn btn-success btn-sm flex-grow-1">
+                <i class="bi bi-printer me-1"></i> Print
+            </button>
+
+            <!-- Clear -->
+            <button id="clearCartDesktop" class="btn btn-outline-danger btn-sm">
+                <i class="bi bi-trash me-1"></i> Clear
+            </button>
+
+            <!-- Pending Orders -->
+            <button class="openHistoryBtn btn btn-outline-danger btn-sm">
+                <i class="bi bi-clock-history me-1"></i> Pending Orders
+            </button>
+
         </div>
+
     </div>
 
     <div class="product-area">
@@ -437,8 +473,16 @@
                     <label><input type="radio" name="paymentMobile" value="Online"> Online</label>&nbsp;
                     <label><input type="radio" name="paymentMobile" value="Free"> Free</label>
                 </div>
+                <div class="col-12 text-end">
+                    <button class="btnMobileSave btn btn-warning btn-sm">
+                        <i class="bi bi-save me-1"></i> Save
+                    </button>
 
-                <button id="checkoutBtn" class="btn btn-success w-100 mt-2">Save & Print</button>
+                    <button id="checkoutBtn" class="btn btn-success btn-sm">
+                        <i class="bi bi-printer me-1"></i> Print
+                    </button>
+                </div>
+              
             </div>
         </div>
     </div>
@@ -449,25 +493,11 @@
     <div class="modal-dialog modal-lg modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Recent Orders</h5>
+                <h5 class="modal-title">Pending Orders</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <table class="table table-sm table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Order ID</th>
-                            <th>Customer</th>
-                            <th>Table No</th>
-                            <th>Grand Total</th>
-                            <th>Date</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody id="historyBody">
-                        <tr><td colspan="6" class="text-center text-muted">Loading...</td></tr>
-                    </tbody>
-                </table>
+            <div class="modal-body" id="PendingOrders">
+               
             </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -501,10 +531,26 @@
 </div>
 <!-- Bottom Mobile Bar -->
 <div class="mobile-bottom-bar d-md-none">
-    <a href="@Url.Action("Dashboard", "Home")">Dashboard</a>
-    <button id="btnMobileViewCart">View Cart</button>
-    <button id="btnMobileSave">Save</button>
-    <button id="btnMobilePrint">Print</button>
+  @*   <a href="@Url.Action("Dashboard", "Home")"><<</a> *@
+    <!-- Pending Orders -->
+    <button class="openHistoryBtn btn btn-primary">
+        <i class="bi bi-clock-history me-1"></i> Orders
+    </button>
+
+    <!-- View Cart -->
+    <button id="btnMobileViewCart" class="btn btn-info text-white">
+        <i class="bi bi-cart4 me-1"></i>  Cart
+    </button>
+
+    <!-- Save -->
+    <button id="btnMobileSave" class="btnMobileSave btn btn-success">
+        <i class="bi bi-save me-1"></i> Save
+    </button>
+
+    <!-- Print -->
+    <button id="btnMobilePrint" class="btn btn-secondary">
+        <i class="bi bi-printer me-1"></i> Print
+    </button>
 </div>
 
 <!-- Hidden state -->
@@ -671,7 +717,7 @@
             $('#editingOrderIdHidden').val('');
             $('#editingBadge').hide();
             $('#editingOrderId').text('');
-            $('#checkoutBtn, #checkoutBtnDesktop').text('Save & Print');
+            $('#checkoutBtn, #checkoutBtnDesktop').text('Print');
         }
 
         /* -------------------------
@@ -826,7 +872,7 @@
         });
 
         // Checkout handlers (desktop & mobile share same AJAX call)
-        function doCheckout(customerName, tableDetail, paymentMode) {
+        function doCheckout(customerName, tableDetail, paymentMode,IsPaymentDone,IsPrinted) {
             if (cart.length === 0) {
                 alert("Cart is empty. Please add some items for sale.");
                 return;
@@ -838,6 +884,8 @@
                 customerName: customerName,
                 tableDetail: tableDetail,
                 paymentMode: paymentMode,
+                isPaymentDone: IsPaymentDone,
+                isPrinted:IsPrinted,
                 items: cart.map(item => ({
                     productId: item.id,
                     qty: item.qty,
@@ -859,14 +907,30 @@
                             const paymentMode = isDesktop
                                 ? document.querySelector('input[name="paymentDesktop"]:checked').value
                                 : document.querySelector('input[name="paymentMobile"]:checked').value;
+                           
+                                let card = $('.product-card');
+                                    card.removeClass("product-added");
 
-                            if ('@Org.PrinterSizeId' == '2') {
-                                printPlainReceipt80mm('@Org.BusinessName', '@Org.Address', res.orderId, new Date().toLocaleString(), order.customerName, order.items, 0, '@Org.MobileNo', paymentMode, tableNo);
 
-                            } else {
-                                printPlainReceipt58mm('@Org.BusinessName', '@Org.Address', res.orderId, new Date().toLocaleString(), order.customerName, order.items, 0, '@Org.MobileNo', paymentMode, tableNo);
+                            if(IsPrinted==true){
 
+                                try 
+                                {
+                                   
+                                     //debugger;
+                                    if ('@Org.PrinterSizeId' == '2') {
+                                        printPlainReceipt80mm('@Org.BusinessName', '@Org.Address', res.orderId, new Date().toLocaleString(), order.customerName, order.items, 0, '@Org.MobileNo', paymentMode, tableNo);
+
+                                    } else {
+                                        printPlainReceipt58mm('@Org.BusinessName', '@Org.Address', res.orderId, new Date().toLocaleString(), order.customerName, order.items, 0, '@Org.MobileNo', paymentMode, tableNo);
+
+                                    }
+                                }catch(er){
+                                    console.log('printing issue');
+                                }
+                               
                             }
+                                  
 
                             $('#invoiceSection').hide();
                             // after print clear cart
@@ -874,7 +938,8 @@
                             $('#checkoutBtn, #checkoutBtnDesktop').prop('disabled', false);
                             // close modal if on mobile
                             $('#cartModal').modal('hide');
-                        }, 500);
+
+                        }, 50);
                     } else {
                         alert("Error: " + res.message);
                         $('#checkoutBtn, #checkoutBtnDesktop').prop('disabled', false);
@@ -892,7 +957,7 @@
             const tableDetail = $("#ddlTableMobile option:selected").val();
             const paymentMode = $('[name="paymentMobile"]:checked').val();
 
-            doCheckout(customerName, tableDetail, paymentMode);
+            doCheckout(customerName, tableDetail, paymentMode,true,true);
         });
 
         $('#checkoutBtnDesktop').click(function () {
@@ -900,7 +965,7 @@
             const tableDetail = $("#ddlTableDesktop option:selected").val();
             const paymentMode = $('[name="paymentDesktop"]:checked').val();
 
-            doCheckout(customerName, tableDetail, paymentMode);
+            doCheckout(customerName, tableDetail, paymentMode,true,true);
         });
 
         /* -------------------------
@@ -908,7 +973,7 @@
            ------------------------*/
 
         // Open history modal and load data
-        $('#openHistoryBtn').click(function () {
+        $('.openHistoryBtn').click(function () {
             $('#historyBody').html('<tr><td colspan="6" class="text-center text-muted">Loading...</td></tr>');
             $('#orderHistoryModal').modal('show');
             fetchHistory();
@@ -920,25 +985,28 @@
                 type: 'GET',
                 success: function (res) {
                     if (!res.success) {
-                        $('#historyBody').html('<tr><td colspan="6" class="text-center text-danger">Failed to load</td></tr>');
+                        $('#PendingOrders').html('');
                         return;
                     }
                   //  debugger;
-                    const rows = res.data.map(o => `
-                        <tr>
-                            <td>${o.id}</td>
-                            <td>${htmlEscape(o.customerName)}</td>
-                            <td>${htmlEscape(o.tableDetails || '')}</td>
-                            <td>₹${(o.grandTotal || 0).toFixed(2)}</td>
-                            <td>${moment ? moment(o.dateOfOrder).format('DD-MM-YYYY HH:mm') : (o.dateOfOrder || '')}</td>
-                            <td><button class="btn btn-sm btn-primary edit-order-btn" data-id="${o.id}">Edit</button></td>
-                        </tr>
+                    const rows = res.data.map(o => `<div class="order-card shadow-sm mb-2 p-2">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <strong class="order-id">#${o.id}</strong>
+                                <span class="text-muted small">${moment ? moment(o.dateOfOrder).format('DD-MM-YYYY HH:mm') : (o.dateOfOrder || '')}</span>
+                                <button class="btn btn-sm btn-primary edit-order-btn" data-id="${o.id}">Edit</button>
+                            </div>
+                            <div class="d-flex justify-content-between text-dark small">
+                                <span><i class="bi bi-person"></i> ${htmlEscape(o.customerName)}</span>
+                                <span><i class="bi bi-grid-3x3-gap"></i> ${htmlEscape(o.tableDetails || '')}</span>
+                                <span><i class="bi bi-cash"></i> ₹${(o.grandTotal || 0).toFixed(2)}</span>
+                            </div>
+                      </div>
                     `).join('');
 
-                    $('#historyBody').html(rows || '<tr><td colspan="6" class="text-center text-muted">No recent orders</td></tr>');
+                    $('#PendingOrders').html(rows || 'No recent orders');
                 },
                 error: function () {
-                    $('#historyBody').html('<tr><td colspan="6" class="text-center text-danger">Error</td></tr>');
+                    $('#PendingOrders').html('Error');
                 }
             });
         }
@@ -973,7 +1041,7 @@
         function repopulateCartFromOrder(order) {
             // Clear existing cart
             cart = [];
-            debugger;
+            //debugger;
 
             // ensure product qty inputs reset
             $('.product-qty').val(0);
@@ -1008,7 +1076,7 @@
             $('#editingOrderIdHidden').val(order.id);
             $('#editingBadge').show();
             $('#editingOrderId').text(order.id);
-            $('#checkoutBtn, #checkoutBtnDesktop').text('Update & Print');
+            $('#checkoutBtn, #checkoutBtnDesktop').text('Print');
 
             renderCart();
 
@@ -1032,17 +1100,17 @@
         // =========================
         // Receipt / RawBT functions (kept as your original)
         // =========================
-         function generateInvoicePDF() {
-                        const receiptHTML = document.getElementById("invoiceSection").innerHTML;
-                        const encoded = btoa(unescape(encodeURIComponent(receiptHTML)));
-                        window.location.href = "rawbt:base64," + encoded;
-                    }
+        function generateInvoicePDF() {
+            const receiptHTML = document.getElementById("invoiceSection").innerHTML;
+            const encoded = btoa(unescape(encodeURIComponent(receiptHTML)));
+            window.location.href = "rawbt:base64," + encoded;
+        }
 
 
 
         function printPlainReceipt80mm(orgTitle, address, invoiceNo, date, customerName, productList, grandTotal = 0,Contact,Mode,TableNo)
         {
-               const ESC = "\x1B";
+        const ESC = "\x1B";
         const DOUBLE = ESC + "!" + "\x38";        // Big font
         const MEDIUM = ESC + "!" + "\x20";        // Medium (double height)
         const NORMAL = ESC + "!" + "\x00";        // Normal
@@ -1146,9 +1214,10 @@
         const encoded = btoa(unescape(encodeURIComponent(receipt)));
         window.location.href = "rawbt:base64," + encoded;
 
-        window.onfocus = function () {
-            location.reload();
-        };
+        // window.onfocus = function () {
+        //     location.reload();
+        // };
+          
         }
 
 
@@ -1257,9 +1326,9 @@
                 const encoded = btoa(unescape(encodeURIComponent(receipt)));
                 window.location.href = "rawbt:base64," + encoded;
 
-                window.onfocus = function () {
-                    location.reload();
-                };
+                // window.onfocus = function () {
+                //     location.reload();
+                // };
             }
 
 
@@ -1269,8 +1338,21 @@
         });
 
         // Save button → same as checkout button
-        $("#btnMobileSave").click(function () {
-            $("#checkoutBtn").click();
+        $(".btnMobileSave").click(function () {
+            const customerName = $("#txtCustNameMobile").val();
+            const tableDetail = $("#ddlTableMobile option:selected").val();
+            const paymentMode = $('[name="paymentMobile"]:checked').val();
+
+            doCheckout(customerName, tableDetail, paymentMode,false,false);
+        });
+
+         // Save button → same as checkout button
+        $(".btnDesktopSave").click(function () {
+            const customerName = $("#txtCustNameDesktop").val();
+            const tableDetail = $("#ddlTableDesktop option:selected").val();
+            const paymentMode = $('[name="paymentDesktop"]:checked').val();
+
+            doCheckout(customerName, tableDetail, paymentMode,false,false);
         });
 
         // Print just opens cart print if items exist
