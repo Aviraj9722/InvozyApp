@@ -67,6 +67,9 @@ public class OrderController : Controller
         ViewBag.Online = Orders.Where(w => w.PaymentMode == "Online").Sum(s => s.GrandTotal);
         ViewBag.Free = Orders.Where(w => w.PaymentMode == "Free").Sum(s => s.GrandTotal);
         ViewBag.Materials = _context.TblProducts.ToList();
+        //To keep the dates after posting the data//
+        ViewBag.FromDate = fromDT.ToString("yyyy-MM-dd");
+        ViewBag.ToDate = toDT.ToString("yyyy-MM-dd");
 
         return View("Report", Orders);
     }

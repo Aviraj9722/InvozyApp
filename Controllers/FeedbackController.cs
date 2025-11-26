@@ -12,10 +12,10 @@ namespace eOrderTouchApp.Controllers
             _context = context;
         }
 
-        // PUBLIC PAGE TO SHOW FEEDBACK BUTTON & MODAL
-        public IActionResult Index()
+
+        public IActionResult IndexPartial()
         {
-            return View();
+            return PartialView("_FeedbackModal");
         }
 
         // SAVE FEEDBACK (POST)

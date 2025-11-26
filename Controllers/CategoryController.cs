@@ -55,12 +55,13 @@ namespace eOrderTouchApp.Controllers
         {
             int businessId = Convert.ToInt32(User.FindFirst("OrgId")?.Value);
 
-            var category = await _context.TblCategories.Where(w=>w.BusinessId==businessId).FirstOrDefaultAsync();
+            var category = await _context.TblCategories.Where(w => w.Id == id && w.BusinessId == businessId).FirstOrDefaultAsync();
             if (category == null)
-                return Json(new { success = false });
+                return Json(new { success = false, message = "Category not found" });
 
             _context.TblCategories.Remove(category);
-            await _context.SaveChangesAsync();
+
+            await _context.SaveChangesAsync(); 
             return Json(new { success = true });
         }
     }

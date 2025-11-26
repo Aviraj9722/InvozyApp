@@ -139,7 +139,7 @@
             });
 
             // EDIT CATEGORY
-            $('.editCategory').click(function () {
+            $('#categoryTable').on('click', '.editCategory', function () {
                 let row = $(this).closest('tr');
 
                 $('#formTitle').text("Edit Category");
@@ -148,7 +148,8 @@
             });
 
             // DELETE CATEGORY
-            $('.deleteCategory').click(function () {
+            $('#categoryTable').on('click', '.deleteCategory', function () {
+                debugger;
                 if (!confirm("Are you sure you want to delete this category?")) return;
 
                 let id = $(this).closest('tr').data('id');
