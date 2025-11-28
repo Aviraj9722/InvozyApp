@@ -54,6 +54,15 @@
                     <span class="text-danger" id="err_Mobile"></span>
                 </div>
                 <div class="mb-2">
+                    <label class="form-label">Role</label>
+                    <select id="role" name="role" class="form-control" required>
+                        @foreach (var x in ViewBag.Roles)
+                        {
+                            <option value="@x.key">@x.value</option>
+                        }
+                    </select>
+                </div>
+                <div class="mb-2">
                     <label class="form-label">Is Active?</label><br />
                     <input type="checkbox" id="isactive" class="form-check-control" />
                 </div>
@@ -86,6 +95,7 @@
                             <th>Name</th>
                             <th>EmailId</th>
                             <th>Mobile Number</th>
+                            <th>Role</th>
                             <th>Is Active?</th>
                             <th>UserName</th>
                             <th>Password</th>
@@ -100,6 +110,7 @@
                                 <td>@user.Name</td>
                                 <td>@user.EmailId</td>
                                 <td>@user.MobileNumber</td>
+                                <td>@user.Role</td>
                                 <td>@user.IsActive</td>
 
                                 <td>@user.UserName</td>
@@ -112,6 +123,7 @@
                                                 data-name="@user.Name"
                                                 data-email="@user.EmailId"
                                                 data-mobile="@user.MobileNumber"
+                                                data-role="@user.Role"
                                                 data-active="@user.IsActive"
                                                 data-username="@user.UserName"
                                                 data-password="@user.Password">
@@ -240,6 +252,7 @@
                 Name: $('#name').val(),
                 EmailId: $('#emailid').val(),
                 MobileNumber: $('#mobilenumber').val(),
+                 Role: $('#role').val(),
                 IsActive: $('#isactive').is(':checked'),
                 UserName: $('#username').val(),
                 Password: $('#password').val()
@@ -262,7 +275,7 @@
 
             // Edit User
             $('#userTable').on('click', '.editUser',function () {
-
+            
                 $('#formTitle').text('Edit User');
 
                 $('#userId').val($(this).data('id'));
@@ -272,6 +285,7 @@
                 $('#isactive').prop('checked', $(this).data('active'));
                 $('#username').val($(this).data('username'));
                 $('#password').val($(this).data('password'));
+                $('#role').val($(this).data('role'))
             });
 
             // Delete User

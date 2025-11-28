@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using eOrderTouchApp.Models;
+﻿using eOrderTouchApp.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Runtime.CompilerServices;
 using System.Transactions;
 
 [Authorize]
@@ -28,6 +29,9 @@ public class OrderController : Controller
         public string customerName { get; set; }
         public string tableDetail { get; set; }
         public string paymentMode { get; set; }
+        public bool isPaymentDone { get; set; }
+        public bool isPrinted { get; set; }
+
         public List<OrderItemDto> items { get; set; }
     }
 
@@ -103,7 +107,7 @@ public class OrderController : Controller
         int businessId = Convert.ToInt32(User.FindFirst("OrgId")?.Value);
 
         var orders = await _context.TblOrderMasters
-            .Where(w => w.BuisnessId == businessId)
+            .Where(w => w.BuisnessId == businessId && w.PaymentStatus!=true)
             .OrderByDescending(o => o.Id)
             .Select(o => new
             {
@@ -113,7 +117,7 @@ public class OrderController : Controller
                 GrandTotal = o.GrandTotal,
                 DateOfOrder = o.DateOfOrder
             })
-            .Take(5)
+           // .Take(5)
             .ToListAsync();
 
         return Json(new { success = true, data = orders });
@@ -183,6 +187,8 @@ public class OrderController : Controller
                     existingMaster.CustomerName = orderDto.customerName;
                     existingMaster.TableDetails = orderDto.tableDetail;
                     existingMaster.PaymentMode = orderDto.paymentMode;
+                    existingMaster.PaymentStatus = orderDto.isPaymentDone;
+                    existingMaster.Printed = orderDto.isPrinted;
                     existingMaster.GrandTotal = grandTotal;
                     existingMaster.TotalAmount = grandTotal; // you can change this logic if needed
                     existingMaster.Gsttotal = 0; // keep as 0 unless you want to calculate
@@ -232,10 +238,10 @@ public class OrderController : Controller
                 GrandTotal = grandTotal,
                 TotalAmount = grandTotal,
                 Gsttotal = 0,
-                PaymentStatus = false,
-                Printed = false,
+                PaymentStatus = orderDto.isPaymentDone,
+                Printed = orderDto.isPrinted,
                 UserId = UserId,
-                BuisnessId = businessId,
+                BuisnessId = businessId,             
                 PaymentMode = orderDto.paymentMode,
                 TableDetails = orderDto.tableDetail,
                 CreatedOn = DateTime.Now,
