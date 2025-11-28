@@ -37,6 +37,7 @@ namespace eOrderTouchApp.Controllers
             var users = await _context.TblUsers.Where(w=>w.BussinessId == OrgId).ToListAsync();
             var org = await _context.TblBusinesses.Where(w=>w.Id == OrgId).FirstOrDefaultAsync();
             ViewBag.OrgName = org.BusinessName;
+            ViewBag.Roles = Roles.GetRoles();
             return View(users);
         }
 
