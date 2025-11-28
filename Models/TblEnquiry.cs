@@ -25,4 +25,8 @@ public partial class TblEnquiry
     public string? FollowUpThree { get; set; }
 
     public string? FollowUpFour { get; set; }
+
+    public string? BusinessType { get; set; }
+
+    public int? NoOfTables { get; set; }
 }

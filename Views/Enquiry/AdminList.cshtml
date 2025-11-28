@@ -1,0 +1,161 @@
+﻿@model List<eOrderTouchApp.Models.TblEnquiry>
+
+@{
+    ViewData["Title"] = "Manage Enquiries";
+}
+
+<link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+
+<div class="container mt-4">
+    <h3>Enquiries</h3>
+
+    <table id="enquiryTable" class="table table-striped table-bordered w-100">
+        <thead class="table-dark">
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Mobile</th>
+                <th>Business Type</th>
+                <th>Number of Table</th>
+                <th>Follow Up One </th>
+                <th>Follow Up Two </th>
+                <th>Follow Up Three </th>
+                <th>Follow Up Four </th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var e in Model)
+            {
+                <tr>
+                    <td>@e.Id</td>
+                    <td>@e.Name</td>
+                    <td>@e.EmailId</td>
+                    <td>@e.MobileNo</td>
+                    <td>@e.BusinessType</td>
+                    <td>@e.NoOfTables</td>
+                    <td>@e.FollowUpOne</td>
+                    <td>@e.FollowUpTwo</td>
+                    <td>@e.FollowUpThree</td>
+                    <td>@e.FollowUpFour</td>
+                    <td>
+                        @if (e.Status == "Pending")
+                        {
+                            <span class="badge bg-warning text-dark">Pending</span>
+                        }
+                        else if (e.Status == "In Progress")
+                        {
+                            <span class="badge bg-info text-dark">In Progress</span>
+                        }
+                        else if (e.Status == "Completed")
+                        {
+                            <span class="badge bg-success">Completed</span>
+                        }
+                    </td>
+
+                    <td>
+                        <button class="btn btn-sm btn-primary" onclick="openFollowUp(@e.Id)">Follow-Up</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<!-- Follow-up modal -->
+<div class="modal fade" id="followUpModal">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title">Update Follow-Up</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="followUpForm">
+                    <input type="hidden" id="Id" name="Id" />
+                    <div class="row">
+                        <div class="col-md-4 mb-2">
+                            <label>Status</label>
+                            <select id="Status" name="Status" class="form-select">
+                                <option>Pending</option>
+                                <option>In Progress</option>
+                                <option>Completed</option>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            <label>FollowUp One</label>
+                            <input class="form-control mb-2" id="FollowUpOne" name="FollowUpOne" />
+                            <label>FollowUp Two</label>
+                            <input class="form-control mb-2" id="FollowUpTwo" name="FollowUpTwo" />
+                            <label>FollowUp Three</label>
+                            <input class="form-control mb-2" id="FollowUpThree" name="FollowUpThree" />
+                            <label>FollowUp Four</label>
+                            <input class="form-control mb-2" id="FollowUpFour" name="FollowUpFour" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="btnSaveFollowUp" class="btn btn-success">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- DataTables -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" />
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+    <!-- Buttons Extension -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css" />
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            $("#enquiryTable").DataTable({
+                order: [[0, "desc"]],   // Latest first (Id)
+
+                dom: 'Bfrtip',   // IMPORTANT → enables Export, Search, Pagination, Show Entries
+
+                buttons: [
+                    {
+                        extend: 'excelHtml5',
+                        title: 'Enquiry List',
+                        text: 'Export to Excel'
+                    }
+                ]
+            });
+
+        });
+
+                function openFollowUp(id) {
+            $.get("/Enquiry/GetEnquiry?id=" + id, function (data) {
+                $("#Id").val(data.id);
+                $("#Status").val(data.status);
+                $("#FollowUpOne").val(data.followUpOne);
+                $("#FollowUpTwo").val(data.followUpTwo);
+                $("#FollowUpThree").val(data.followUpThree);
+                $("#FollowUpFour").val(data.followUpFour);
+                $("#followUpModal").modal("show");
+            });
+        }
+
+        $("#btnSaveFollowUp").click(function () {
+            var payload = $("#followUpForm").serialize();
+            $.post("/Enquiry/UpdateFollowUp", payload, function (res) {
+                alert(res.message);
+                if (res.success) location.reload();
+            });
+        });
+    </script>
+
+}
+
