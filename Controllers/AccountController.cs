@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using eOrderTouchApp.Models;
+using eOrderTouchApp.ViewModel;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
-using eOrderTouchApp.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace eOrderTouchApp.Controllers
 { 
@@ -59,5 +60,73 @@ namespace eOrderTouchApp.Controllers
         {
             return View("AccessDenied");
         }
+
+        public IActionResult ForgetPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult ForgetPassword(ForgetPasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+                return View(model);
+
+            // Check if email exists in DB
+            var user = _context.TblUsers.FirstOrDefault(x => x.EmailId == model.Email);
+
+            if (user == null)
+            {
+                ModelState.AddModelError("", "Email not found.");
+                return View(model);
+            }
+
+            // Redirect to ResetPassword Page – pass Email
+            return RedirectToAction("ResetPassword", new { email = model.Email});
+        }
+
+        public IActionResult ResetPassword(string email)
+        {
+            if (string.IsNullOrEmpty(email))
+                return RedirectToAction("ForgetPassword");
+
+            var vm = new ResetPasswordViewModel
+            {
+                Email = email
+            };
+
+            return View(vm);
+        }
+
+        [HttpPost]
+        public IActionResult ResetPassword(ResetPasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+                return View(model);
+
+            if (model.Password != model.ConfirmPassword)
+            {
+                ModelState.AddModelError("", "Passwords do not match.");
+                return View(model);
+            }
+
+            // Find user
+            var user = _context.TblUsers.FirstOrDefault(x => x.EmailId == model.Email);
+
+            if (user == null)
+            {
+                ModelState.AddModelError("", "User not found.");
+                return View(model);
+            }
+
+            // Save new password
+            user.Password = model.Password; // Hash later if required
+            _context.SaveChanges();
+
+            TempData["Success"] = "Password updated successfully.";
+            return RedirectToAction("Login");
+        }
+
+
     }
 }
