@@ -60,23 +60,6 @@ namespace eOrderTouchApp.Controllers
             return Json(new { success = true, message = "Updated" });
         }
 
-        public IActionResult Index()
-        {
-            ViewBag.BusinessTypes = new List<string>
-            {
-                "Restaurant",
-                "Hotel",
-                "Cafe",
-                "Bar",
-                "Fast Food",
-                "Food Truck",
-                "Canteen / Mess",
-                "Bakery",
-                "Dhaba",
-                "Other"
-            };
 
-            return View();
-        }
     }
 }
