@@ -52,8 +52,6 @@ public partial class TblBusiness
 
     public virtual ICollection<TblProduct> TblProducts { get; set; } = new List<TblProduct>();
 
-    public virtual ICollection<TblPurchaseOrderStock> TblPurchaseOrderStocks { get; set; } = new List<TblPurchaseOrderStock>();
-
     public virtual ICollection<TblUom> TblUoms { get; set; } = new List<TblUom>();
 
     public virtual ICollection<TblUser> TblUsers { get; set; } = new List<TblUser>();
