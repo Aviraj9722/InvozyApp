@@ -1,5 +1,6 @@
-using Microsoft.EntityFrameworkCore;
 using eOrderTouchApp.Models; // Namespace where your DbContext will reside
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,16 +12,17 @@ builder.Services.AddControllersWithViews()
         options.JsonSerializerOptions.WriteIndented = true;
     });
 
+
 // Register DbContext
 builder.Services.AddDbContext<eOrderTouchContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("eOrderTouchConnection")));
 
-builder.Services.AddAuthentication("UserCookie")
-    .AddCookie("UserCookie", options =>
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
     {
         options.LoginPath = "/Account/Login";
         options.AccessDeniedPath = "/Account/AccessDenied";
-        options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(120);
     });
 
 builder.Services.AddAuthorization();

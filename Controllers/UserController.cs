@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace eOrderTouchApp.Controllers
 {
-    [Authorize]
+
     public class UserController : Controller
     {
         private readonly eOrderTouchContext _context;
@@ -16,7 +16,7 @@ namespace eOrderTouchApp.Controllers
         }
 
         // GET: User List
-
+        [AuthorizeToRoles("Owner")]
         public async Task<IActionResult> UserList()
         {
             int businessId = Convert.ToInt32(User.FindFirst("OrgId")?.Value);
@@ -26,6 +26,7 @@ namespace eOrderTouchApp.Controllers
            
             return View(users);
         }
+        [AuthorizeToRoles("Admin")]
         public async Task<IActionResult> Index(int OrgId=0)
         {
             if (User.FindFirst("OrgId")!=null && OrgId ==0)
@@ -40,7 +41,7 @@ namespace eOrderTouchApp.Controllers
             ViewBag.Roles = Roles.GetRoles();
             return View(users);
         }
-
+        [AuthorizeToRoles("Admin")]
         [HttpPost]
         public async Task<JsonResult> Create([FromBody] TblUser user)
         {
@@ -54,7 +55,7 @@ namespace eOrderTouchApp.Controllers
             }
             return Json(new { success = false, message = "Invalid data" });
         }
-
+        [AuthorizeToRoles("Admin")]
         [HttpPost]
         public async Task<JsonResult> Edit([FromBody] TblUser user)
         {
@@ -68,7 +69,7 @@ namespace eOrderTouchApp.Controllers
             }
             return Json(new { success = false, message = "Invalid data" });
         }
-
+        [AuthorizeToRoles("Admin")]
         [HttpPost]
         public async Task<JsonResult> Delete(int id)
         {

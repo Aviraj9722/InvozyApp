@@ -437,11 +437,13 @@
                 <i class="bi bi-save me-1"></i> Save
             </button>
 
-            <!-- Print -->
-            <button id="checkoutBtnDesktop" class="btn btn-success btn-sm flex-grow-1">
-                <i class="bi bi-printer me-1"></i> Print
+            @if (User.IsInRole("Admin"))
+            {
+                <!-- Print -->
+                <button id="checkoutBtnDesktop" class="btn btn-success btn-sm flex-grow-1">
+                    <i class="bi bi-printer me-1"></i> Print
             </button>
-
+            }
             <!-- Clear -->
             <button id="clearCartDesktop" class="btn btn-outline-danger btn-sm">
                 <i class="bi bi-trash me-1"></i> Clear
@@ -524,10 +526,12 @@
                     <button class="btnMobileSave btn btn-warning btn-sm">
                         <i class="bi bi-save me-1"></i> Save
                     </button>
-
-                    <button id="checkoutBtn" class="btn btn-success btn-sm">
-                        <i class="bi bi-printer me-1"></i> Print
-                    </button>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <button id="checkoutBtn" class="btn btn-success btn-sm">
+                            <i class="bi bi-printer me-1"></i> Print
+                        </button>
+                    }
                 </div>
               
             </div>
@@ -593,11 +597,13 @@
     <button id="btnMobileSave" class="btnMobileSave btn btn-success">
         <i class="bi bi-save me-1"></i> Save
     </button>
-
-    <!-- Print -->
-    <button id="btnMobilePrint" class="btn btn-secondary">
-        <i class="bi bi-printer me-1"></i> Print
+    @if (User.IsInRole("Admin"))
+    {
+        <!-- Print -->
+        <button id="btnMobilePrint" class="btn btn-secondary">
+            <i class="bi bi-printer me-1"></i> Print
     </button>
+    }
 </div>
 
 <!-- Hidden state -->

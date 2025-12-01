@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace eOrderTouchApp.Controllers
 {
-    [Authorize]
+    [AuthorizeToRoles("Owner")]
     public class ProductController : Controller
     {
         private readonly eOrderTouchContext _context;

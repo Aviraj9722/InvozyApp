@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace eOrderTouchApp.Controllers
 {
+    [AuthorizeToRoles("Admin")]
     public class BusinessesController : Controller
     {
         private readonly eOrderTouchContext _context;
