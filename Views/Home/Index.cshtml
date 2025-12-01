@@ -2,9 +2,6 @@
     ViewData["Title"] = "Home";
 }
 
-@{
-    ViewData["Title"] = "Home";
-}
 
 <!-- ================= HERO SECTION ================= -->
 <section class="hero-section text-center text-white d-flex align-items-center justify-content-center flex-column"
@@ -20,8 +17,12 @@
             Smart Billing. Simplified. <br /> Empowering businesses with effortless invoicing and reports.
         </p>
         <a href="/Account/Login" class="btn btn-light btn-lg fw-semibold shadow-sm animate-bounce">
-            Access Your Account
+            Login to your account
         </a>
+        <button class="btn btn-info btn-lg px-5 shadow-sm animate-bounce"
+                data-bs-toggle="modal" data-bs-target="#enquiryModal">
+            Request a Demo
+        </button>
     </div>
 </section>
 
@@ -92,48 +93,381 @@
     }
 </style>
 
-<!-- ================= FEATURES SECTION ================= -->
-<section class="container py-5">
-    <h2 class="text-center fw-bold mb-5 text-primary">Our Key Features</h2>
+<!-- ================= WORKS BEST FOR ======================== -->
+<section class="bg-light py-5">
+    <h2 class="text-center fw-bold mb-5 text-primary">Invozy Works Best For</h2>
+
     <div class="row text-center">
-        <div class="col-md-4 mb-4 animate-slide-up">
-            <i class="bi bi-speedometer2 fs-1 text-primary"></i>
-            <h5 class="fw-bold">Smart Dashboard</h5>
-            <p class="text-muted">Monitor your billing operations and sales insights in one simple view.</p>
+
+        <!-- Hawkers & Thelas -->
+        <div class="col-md-3 mb-4">
+            <i class="bi bi-cart4 fs-1 text-primary"></i>
+            <h6 class="fw-bold mt-2">Hawkers & Thelas</h6>
+            <p class="text-muted small">Fast mobile billing for fruit, snacks, juice & roadside stalls.</p>
         </div>
-        <div class="col-md-4 mb-4 animate-slide-up">
-            <i class="bi-receipt-cutoff fs-1 text-primary"></i>
-            <h5 class="fw-bold">Instant Invoices</h5>
-            <p class="text-muted">Generate and print professional invoices instantly — anytime, anywhere.</p>
+
+        <!-- Retail Shops -->
+        <div class="col-md-3 mb-4">
+            <i class="bi bi-shop fs-1 text-primary"></i>
+            <h6 class="fw-bold mt-2">Retail Shops</h6>
+            <p class="text-muted small">Grocery, bakery, fashion & more.</p>
         </div>
-        <div class="col-md-4 mb-4 animate-slide-up">
-            <i class="bi-bar-chart-line fs-1 text-primary"></i>
-            <h5 class="fw-bold">Reports & Analytics</h5>
-            <p class="text-muted">Get real-time insights on sales and performance with beautiful reports.</p>
+
+        <!-- Festivals & Exhibitions -->
+        <div class="col-md-3 mb-4">
+            <i class="bi bi-people fs-1 text-primary"></i>
+            <h6 class="fw-bold mt-2">City Festivals & Exhibitions</h6>
+            <p class="text-muted small">Perfect for Rotaract clubs & event stalls with on-the-go billing.</p>
+        </div>
+
+        <!-- Restaurants & Cafés -->
+        <div class="col-md-3 mb-4">
+            <i class="bi bi-cup-hot fs-1 text-primary"></i>
+            <h6 class="fw-bold mt-2">Restaurants & Cafés</h6>
+            <p class="text-muted small">Quick billing, kitchen order notes & easy menu updates.</p>
+        </div>
+
+    </div>
+</section>
+
+<!--Device Support-->
+<section class="container py-5">
+    <div class="row align-items-center">
+        <div class="col-md-6">
+            <img src="/images/invozy.png" class="img-fluid" alt="Device Support">
+        </div>
+
+        <div class="col-md-6">
+            <h2 class="fw-bold text-primary">Works on Any Device</h2>
+            <p class="text-muted">Access Invozy from Mobile, Tablet, Desktop, or POS Machine.</p>
+
+            <ul class="list-unstyled">
+                <li><i class="bi bi-phone text-primary"></i> Android/ios</li>
+                <li><i class="bi bi-laptop text-primary"></i>Laptop/Desktop</li>
+                <li><i class="bi bi-printer text-primary"></i> Supports All POS Printers</li>
+            </ul>
         </div>
     </div>
 </section>
 
-<!-- ================= ABOUT SECTION ================= -->
-<section class="bg-primary text-white py-5 animate-fade">
-    <div class="container text-center">
-        <h2 class="fw-bold mb-4">Why Choose Invozy?</h2>
-        <p class="lead mb-0">
-            Invozy is built to make your billing faster, simpler, and more accurate.
-            Whether you own a café, store, or service business,
-            Invozy handles everything — so you can focus on growth.
-        </p>
+<!-- How it Works-->
+<section class="py-5 text-center bg-light">
+    <div class="container">
+        <h2 class="fw-bold text-primary mb-4">How Invozy Works</h2>
+
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <i class="bi bi-person-check fs-1 text-primary"></i>
+                <h5 class="fw-bold mt-3">1. Create Account</h5>
+                <p class="text-muted">Sign up & set up your business details within minutes.</p>
+            </div>
+
+            <div class="col-md-4">
+                <i class="bi bi-gear fs-1 text-primary"></i>
+                <h5 class="fw-bold mt-3">2. Add Products</h5>
+                <p class="text-muted">Import or manually add products, categories & prices.</p>
+            </div>
+
+            <div class="col-md-4">
+                <i class="bi bi-receipt-cutoff fs-1 text-primary"></i>
+                <h5 class="fw-bold mt-3">3. Start Billing</h5>
+                <p class="text-muted">Generate invoices, track sales, manage inventory.</p>
+            </div>
+        </div>
     </div>
 </section>
+
+<!--       Advanced POS Features                          -->
+<section class="container py-5">
+    <div class="container">
+        <h2 class="text-center fw-bold mb-5 text-primary">Everything You Need in a Modern POS</h2>
+
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <h5><i class="bi bi-upc-scan text-primary"></i> Quick Billing</h5>
+                <p class="text-muted">Select items instantly and reduce billing time drastically.</p>
+
+                <h5><i class="bi bi-box-seam text-primary"></i> Inventory & Stock Alerts</h5>
+                <p class="text-muted">Get automatic low-stock alerts and track every item.</p>
+
+                <h5><i class="bi bi-person-gear text-primary"></i> Admin Controls</h5>
+                <p class="text-muted">Give separate login and access levels to cashiers, managers, staff.</p>
+            </div>
+
+            <div class="col-md-6 mb-4">
+                <h5><i class="bi bi-file-earmark-bar-graph text-primary"></i> Order Reports</h5>
+                <p class="text-muted">Downloads Reports instantly.</p>
+
+                <h5><i class="bi bi-receipt text-primary"></i> Multi-format Invoice Printing</h5>
+                <p class="text-muted">Thermal Printer, A4, POS Printer — fully supported.</p>
+
+                <h5><i class="bi bi-cloud-check text-primary"></i> Cloud Backup</h5>
+                <p class="text-muted">Your data stays safe & accessible anytime, anywhere.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ================= TESTIMONIALS SLIDER ================= -->
+<section class="bg-light py-5">
+    <h2 class="fw-bold text-primary mb-4 text-center">What Our Clients Say</h2>
+
+    <div class="d-flex justify-content-center gap-4 flex-wrap">
+        <!-- Card 1 -->
+        <div class="card testimonial-card shadow-sm">
+            <div class="card-body">
+                <div class="quote-icon"><i class="bi bi-person-fill"></i></div>
+                <p class="testimonial-text mb-3">Billing has become super fast! Invozy helped us save hours daily and reduced billing time drastically.</p>
+                <div class="stars mb-2">★ ★ ★ ★ ★</div>
+                <h6 class="mb-0 fw-bold">— Ajinkya Patil, Shop owner</h6>
+                <small class="text-muted">Old Mumbai Ice-cream Parlour</small>
+            </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="card testimonial-card shadow-sm">
+            <div class="card-body">
+                <div class="quote-icon"><i class="bi bi-person-fill"></i></div>
+                <p class="testimonial-text mb-3">Reports are clean and perfect. The UI is intuitive & user friendly.</p>
+                <div class="stars mb-2">★ ★ ★ ★ ☆</div>
+                <h6 class="mb-0 fw-bold">— Sachin, Owner</h6>
+                <small class="text-muted">Hari-Om Dabeli</small>
+            </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="card testimonial-card shadow-sm">
+            <div class="card-body">
+                <div class="quote-icon"><i class="bi bi-person-fill"></i></div>
+                <p class="testimonial-text mb-3">Multi-device support is excellent for our café.</p>
+                <div class="stars mb-2">★ ★ ★ ★ ★</div>
+                <h6 class="mb-0 fw-bold">— Karan, Café Owner</h6>
+                <small class="text-muted">Café Planet</small>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!--Pricing-->
+<section class="container py-5 text-center">
+    <h2 class="fw-bold text-primary mb-4">Simple & Transparent Pricing</h2>
+
+    <p class="text-muted mb-5">No hidden fees. No long-term commitment.</p>
+
+    <div class="d-flex justify-content-center gap-4">
+        <div class="card shadow" style="width: 18rem;">
+            <div class="card-body animate-bounce">
+                <h5 class="card-title fw-bold">Starter Plan</h5>
+                <h3 class="text-primary fw-bold">₹1999<sup>*</sup>/year</h3>
+                <p>Basic Billing, Reports, Multi User/Device</p>
+                <button class="btn btn-primary mt-2 w-100"
+                        data-bs-toggle="modal"
+                        data-bs-target="#enquiryModal">
+                    Enquiry Now
+                </button>
+            </div>
+
+        </div>
+        <div class="card shadow" style="width: 18rem;">
+            <div class="card-body animate-bounce">
+                <h5 class="card-title fw-bold">Monthly Plan</h5>
+                <h3 class="text-primary fw-bold">₹250<sup>*</sup>/month</h3>
+                <p>Basic Billing, Reports, 1 User/Device</p>
+                <br />
+                <button class="btn btn-primary mt-2 w-100"
+                        data-bs-toggle="modal"
+                        data-bs-target="#enquiryModal">
+                    Enquiry Now
+                </button>
+            </div>
+            
+        </div>
+        <div class="card shadow" style="width: 18rem;">
+            <div class="card-body animate-bounce">
+                <h5 class="card-title fw-bold">Premium Plan</h5>
+                <h3 class="text-primary fw-bold">₹4449<sup>*</sup>/3 years</h3>
+                <p>Billing, Inventory, Staff, Multi-device</p>
+                <br />
+                <button class="btn btn-primary mt-2 w-100"
+                        data-bs-toggle="modal"
+                        data-bs-target="#enquiryModal">
+                    Enquiry Now
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
 
 <!-- ================= CALL TO ACTION ================= -->
-<section class="py-5 text-center">
+<section class="py-5 text-center bg-light">
     <div class="container animate-fade-delay">
         <h3 class="fw-bold text-dark">Start Smart Billing Today!</h3>
         <p class="text-muted mb-4">Join hundreds of happy businesses powered by Invozy.</p>
-        <a href="/Account/Register" class="btn btn-outline-primary btn-lg px-5 shadow-sm">Sent enquiry for purchasing our Services</a>
+        <button class="btn btn-outline-primary btn-lg px-5 shadow-sm"
+                data-bs-toggle="modal" data-bs-target="#enquiryModal">
+            Send enquiry for purchasing our Services
+        </button>
     </div>
 </section>
+
+<!--Enquiry Modal pop-up->
+@{
+    ViewData["Title"] = "Send Enquiry";
+}
+
+<section class="py-5 text-center">
+    <div class="container">
+        <h3 class="fw-bold text-dark">Send Enquiry for Purchasing Our Services</h3>
+        <p class="text-muted mb-4">We will contact you within 24 hours.</p>
+
+        <button id="btnOpenEnquiry" class="btn btn-outline-primary btn-lg px-5 shadow-sm"
+                data-bs-toggle="modal" data-bs-target="#enquiryModal">
+            Open Enquiry Form
+        </button>
+    </div>
+</section>
+
+<!-- ================= ENQUIRY MODAL ================= -->
+<div class="modal fade" id="enquiryModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content shadow">
+
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title">Send Enquiry</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+
+                <form id="enquiryForm">
+
+                    <div class="mb-2">
+                        <label class="form-label">Name</label>
+                        <input type="text" name="Name" class="form-control" required />
+                    </div>
+
+                    <div class="mb-2">
+                        <label class="form-label">Email</label>
+                        <input type="email" name="EmailId" class="form-control" required />
+                    </div>
+
+                    <div class="mb-2">
+                        <label class="form-label">Mobile No</label>
+                        <input type="text" name="MobileNo" class="form-control" required />
+                    </div>
+
+                    <div class="mb-2">
+                        <label class="form-label">Business Type</label>
+                        <select name="BusinessType" class="form-select" required>
+                            <option value="">-- Select Business Type --</option>
+                            @foreach (var item in ViewBag.BusinessTypes)
+                            {
+                                <option value="@item">@item</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="mb-2">
+                        <label class="form-label">Number of Tables</label>
+                        <input type="number" name="NoOfTables" class="form-control" min="0" />
+                    </div>
+
+                    <div class="mb-2">
+                        <label class="form-label">Comments</label>
+                        <textarea name="Comments" class="form-control"></textarea>
+                    </div>
+
+                </form>
+
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-success w-100" id="btnSubmitEnquiry">Submit</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+
+        $("#btnSubmitEnquiry").click(function (e) {
+            e.preventDefault(); // stop browser default popup
+
+            // Hide previous errors
+            $(".error-text").remove();
+
+            let isValid = true;
+
+            let name = $("input[name='Name']").val().trim();
+            let email = $("input[name='EmailId']").val().trim();
+            let mobile = $("input[name='MobileNo']").val().trim();
+            let businessType = $("select[name='BusinessType']").val();
+
+            // ========== NAME VALIDATION ==========
+            if (name.length < 2 || !/^[A-Za-z ]+$/.test(name)) {
+                showError("input[name='Name']", "Please enter a valid name.");
+                isValid = false;
+            }
+
+            // ========== EMAIL VALIDATION ==========
+            let emailRegex = /^[^\s@@]+@@[^\s@@]+\.[^\s@@]+$/;
+            if (!emailRegex.test(email)) {
+                showError("input[name='EmailId']", "Please enter a valid email.");
+                isValid = false;
+            }
+
+            // ========== MOBILE VALIDATION ==========
+            if (!/^[0-9]{10}$/.test(mobile)) {
+                showError("input[name='MobileNo']", "Enter a valid 10-digit mobile number.");
+                isValid = false;
+            }
+
+            // ========== BUSINESS TYPE ==========
+            if (businessType === "") {
+                showError("select[name='BusinessType']", "Please select a business type.");
+                isValid = false;
+            }
+
+            if (!isValid) return;
+
+            // ========== SUBMIT AJAX ==========
+            var formData = new FormData(document.getElementById("enquiryForm"));
+
+            $.ajax({
+                url: "/Enquiry/Submit",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (res) {
+                    alert(res.message);
+                    $("#enquiryForm")[0].reset();
+
+                    let modal = bootstrap.Modal.getInstance(document.getElementById("enquiryModal"));
+                    modal.hide();
+                },
+                error: function () {
+                    alert("Error submitting enquiry.");
+                }
+            });
+        });
+
+        // Helper function : shows red text under field
+        function showError(selector, message) {
+            $(selector).after(`<small class="error-text text-danger">${message}</small>`);
+        }
+    });
+</script>
+
 
 <!-- ================= CUSTOM ANIMATION STYLES ================= -->
 <style>
@@ -218,4 +552,87 @@
     section {
         scroll-margin-top: 80px;
     }
+
+    .testimonial-card {
+        width: 18rem; /* same visual width as pricing cards */
+        border: groove;
+        border-radius: 12px;
+        overflow: hidden;
+        background: linear-gradient(180deg, rgba(255,255,255,1), rgba(250,250,250,1));
+        /* subtle inner edge */
+        box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+        transition: transform .18s ease, box-shadow .18s ease;
+        display: flex;
+        align-items: stretch;
+    }
+
+        .testimonial-card .card-body {
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+        }
+
+    .quote-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 10px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(13,110,253,0.08); /* subtle brand tint */
+        color: #0d6efd;
+        font-size: 18px;
+        margin-bottom: 8px;
+    }
+
+    .testimonial-text {
+        color: #333;
+        line-height: 1.35;
+        min-height: 3.3rem; /* keeps cards visually consistent when text length varies */
+    }
+
+    .testimonial-card .stars {
+        color: #f6c85f; /* gold */
+        font-weight: 600;
+        letter-spacing: 1px;
+        margin-bottom: 6px;
+    }
+
+    .testimonial-card h6 {
+        font-size: 0.95rem;
+        color: #0b2545;
+    }
+
+    .testimonial-card small {
+        display: block;
+        color: #6c757d;
+    }
+
+    /* Responsive — keep same compact cards, stack on small screens */
+    @@media (max-width: 767.98px) {
+        .testimonial-card {
+            width: calc(50% - 1rem); /* two cards per row look on narrow screens */
+            margin-bottom: 12px;
+        }
+
+        .d-flex.justify-content-center.gap-4.flex-wrap {
+            gap: 12px;
+        }
+    }
+
+    /* On very small phones, cards full width */
+    @@media (max-width: 420px) {
+        .testimonial-card {
+            width: 100%;
+        }
+    }
+
 </style>
+
+

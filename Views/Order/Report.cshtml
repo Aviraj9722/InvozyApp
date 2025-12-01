@@ -47,7 +47,11 @@
            class="form-control" style="max-width: 250px;" />
 
 
-    <button type="submit" class="btn btn-success ms-3">Generate</button>
+    <button type="submit" class="btn btn-success ms-3">Generate</button> 
+    
+    <button type="button" id="btnExportExcel" class="btn btn-primary">
+        Export Excel
+    </button>
 
 </form>
 
@@ -114,22 +118,35 @@
     </tbody>
 </table>
 
-<!-- DATATABLE SCRIPTS -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.bootstrap5.min.css">
 
-<script>
-    $(document).ready(function () {
 
-        $('#orderTable').DataTable({
-            paging: true,
-            searching: true,
-            info: true,
-            ordering: true,
-            pageLength: 10,
-            lengthMenu: [5, 10, 25, 50, 100]
+@section Scripts {
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            var table = $('#orderTable').DataTable({
+                dom: 'Bfrtip',
+                buttons: [{
+                    extend: 'excelHtml5',
+                    title: 'Order_Report'
+                }]
+            });
+
+            $("#btnExportExcel").on("click", function () {
+                table.button('.buttons-excel').trigger();
+            });
+
         });
+    </script>
+}
 
-    });
-</script>

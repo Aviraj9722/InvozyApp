@@ -188,6 +188,7 @@
                         <th>Owner</th>
                         <th>City</th>
                         <th>Email</th>
+                        <th>Mobile No</th>
                         <th>GSTN</th>
                         <th>Printer</th>
                         <th>Is GST Applicable?</th>
@@ -234,6 +235,7 @@
                             <td>@item.OwnerName</td>
                             <td>@item.City</td>
                             <td>@item.Email</td>
+                            <td>@item.MobileNo</td>
                             <td>@item.Gstin</td>
                             <td>@item.PrinterSize?.PrinterSize</td>
                             <td>@item.IsGstapplicable</td>
@@ -271,12 +273,12 @@
         });
 
         // FORM VALIDATION
-        function validateForm() {
-            if ($("#BusinessName").val().trim() === "") { alert("Business Name required"); return false; }
-            if ($("#OwnerName").val().trim() === "") { alert("Owner Name required"); return false; }
-            if ($("#Email").val().trim() === "") { alert("Email required"); return false; }
-            return true;
-        }
+        // function validateForm() {
+        //     if ($("#BusinessName").val().trim() === "") { alert("Business Name required"); return false; }
+        //     if ($("#OwnerName").val().trim() === "") { alert("Owner Name required"); return false; }
+        //     if ($("#Email").val().trim() === "") { alert("Email required"); return false; }
+        //     return true;
+        // }
 
          function loadGrid(page = 1) {
              $("#gridContainer").load("/Businesses/Index?page=" + page + " #gridTable");

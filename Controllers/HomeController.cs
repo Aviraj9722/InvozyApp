@@ -15,7 +15,21 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        return View();
+        ViewBag.BusinessTypes = new List<string>
+            {
+                "Restaurant",
+                "Hotel",
+                "Cafe",
+                "Bar",
+                "Fast Food",
+                "Food Truck",
+                "Canteen / Mess",
+                "Bakery",
+                "Dhaba",
+                "Other"
+            };
+
+        return View(); 
     }
 
     public IActionResult Dashboard()

@@ -98,6 +98,7 @@ namespace eOrderTouchApp.Controllers
             });
         }
 
+        
         // =============
         // UPDATE (POST)
         // =============
@@ -157,6 +158,67 @@ namespace eOrderTouchApp.Controllers
             return Ok();
         }
 
+        public async Task<IActionResult> Setting()
+        {
+            ViewBag.BusinessTypes = await _context.TblBusinessTypes.ToListAsync();
+            ViewBag.PrinterSizes = await _context.TblPrinterSizes.ToListAsync();
+            ViewBag.YesNo =new List<ModelYesNo>(){ 
+                new ModelYesNo(){key="true" , value="Yes" },
+                new ModelYesNo(){ key="false" , value="No" },
+            };
+            int businessId = Convert.ToInt32(User.FindFirst("OrgId")?.Value);
+
+            var b = await _context.TblBusinesses.FindAsync(businessId);
+
+            if (b == null)
+                return NotFound();
+
+            return View(b);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SaveSettings([FromForm]TblBusiness business)
+        {
+            ModelState.Remove("Id");
+            ModelState.Remove("IsActive");
+            ModelState.Remove("HideCustomerField");
+            ModelState.Remove("HideTableDropDown");
+            if (!ModelState.IsValid)
+            {
+                var allErrors = ModelState
+          .Where(x => x.Value.Errors.Count > 0)
+          .Select(x => new
+          {
+              Field = x.Key,
+              Errors = x.Value.Errors.Select(e => e.ErrorMessage).ToList()
+          }).ToList();
+
+                return BadRequest(allErrors);
+            }
+
+            var existing = await _context.TblBusinesses.FindAsync(business.Id);
+
+            if (existing == null)
+                return NotFound();
+
+            // Update fields
+            existing.BusinessName = business.BusinessName;
+            existing.BusinessTypeId = business.BusinessTypeId;
+            existing.OwnerName = business.OwnerName;
+            existing.Gstin = business.Gstin;
+            existing.Email = business.Email;
+            existing.MobileNo = business.MobileNo;
+            existing.Address = business.Address;
+            existing.City = business.City;
+            existing.PrinterSizeId = business.PrinterSizeId;
+            existing.IsGstapplicable = business.IsGstapplicable;
+            existing.HideCustomerField = business.HideCustomerField;
+            existing.HideTableDropDown = business.HideTableDropDown;
+            existing.IsActive = business.IsActive;
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Setting");
+        }
         // ==========
         // DELETE
         // ==========
