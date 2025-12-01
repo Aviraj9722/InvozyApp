@@ -7,6 +7,7 @@ using eOrderTouchApp.Models;
 
 namespace eOrderTouchApp.Controllers
 {
+    [AuthorizeToRoles( "Owner")]
     public class UomController : Controller
     {
         private readonly eOrderTouchContext _context;

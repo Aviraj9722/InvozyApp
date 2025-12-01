@@ -1,4 +1,5 @@
-﻿@{
+﻿@model eOrderTouchApp.ViewModel.ForgetPasswordViewModel
+@{
     ViewBag.Title = "Login";
     Layout = "_Layout";
 }
@@ -26,7 +27,14 @@
                 <input type="password" name="password" class="form-control shadow-sm" placeholder="Enter your password" required />
             </div>
 
-            <div class="d-grid mt-4">
+            <!-- FORGOT PASSWORD LINK TO OPEN MODAL -->
+            <div class="text-end mb-3">
+                <a href="#" class="text-primary small fw-semibold" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal">
+                    Forgot password?
+                </a>
+            </div>
+
+            <div class="d-grid mt-3">
                 <button type="submit" class="btn btn-login">Login</button>
             </div>
 
@@ -37,11 +45,49 @@
     </div>
 </div>
 
+<!-- ====================== -->
+<!-- FORGOT PASSWORD MODAL -->
+<!-- ====================== -->
+<div class="modal fade" id="forgotPasswordModal" tabindex="-1" aria-labelledby="forgotLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content p-3">
+
+            <div class="modal-header">
+                <h5 class="modal-title fw-bold text-primary" id="forgotLabel">Forgot Password</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+
+                <!-- FORM FOR FORGET PASSWORD INSIDE POPUP -->
+                <form asp-controller="Account" asp-action="ForgetPassword" method="post">
+
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Enter your Email</label>
+                        <input asp-for="Email" class="form-control shadow-sm" placeholder="Enter Email" required />
+                        <span asp-validation-for="Email" class="text-danger small"></span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100">
+                        Submit
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
 <style>
-    /* Light and professional look */
     .login-page {
         min-height: calc(100vh - 80px);
-        background-color: #f5f9ff; /* Light background */
+        background-color: #f5f9ff;
         background-image: linear-gradient(to bottom right, #f8fbff, #e9f2ff);
         display: flex;
         align-items: center;
@@ -70,7 +116,6 @@
         border-radius: 6px;
         font-weight: 500;
         font-size: 1rem;
-        transition: background-color 0.3s ease;
     }
 
         .btn-login:hover {
@@ -84,15 +129,5 @@
 
     .text-primary {
         color: #0078d7 !important;
-    }
-
-    @@media (max-width: 576px) {
-        .login-container
-
-    {
-        margin: 20px;
-        padding: 30px 25px;
-    }
-
     }
 </style>

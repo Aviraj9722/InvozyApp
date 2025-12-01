@@ -3,6 +3,7 @@ using eOrderTouchApp.Models;
 
 namespace eOrderTouchApp.Controllers
 {
+    [AuthorizeToRoles("User", "Owner")]
     public class FeedbackController : Controller
     {
         private readonly eOrderTouchContext _context;

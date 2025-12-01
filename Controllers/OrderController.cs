@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Runtime.CompilerServices;
 using System.Transactions;
 
-[Authorize]
+[AuthorizeToRoles("User", "Owner")]
 public class OrderController : Controller
 {
     private readonly eOrderTouchContext _context;
@@ -38,7 +38,7 @@ public class OrderController : Controller
     // ---------- Reporting actions (unchanged, kept for reference) ----------
     public async Task<IActionResult> Report()
     {
-        int businessId = Convert.ToInt32(User.FindFirst("OrgId")?.Value);
+        int businessId = Convert.ToInt32(User.FindFirst(System.Security.Claims.ClaimTypes.UserData)?.Value);
 
         var Orders = await _context.TblOrderMasters
             .Where(w => w.BuisnessId == businessId)
