@@ -40,10 +40,10 @@ public partial class eOrderTouchContext : DbContext
     public virtual DbSet<TblUserLicense> TblUserLicenses { get; set; }
 
     public DbSet<TblDealer> TblDealer { get; set; }
-    public DbSet<TblVendor> TblVendor { get; set; }
+    public DbSet<TblVendor> TblVendors { get; set; }
     public DbSet<TblPOMaster> TblPOMaster { get; set; }
     public DbSet<TblPODetails> TblPODetails { get; set; }
-    public DbSet<TblStock> TblStock { get; set; }
+    
 
     //    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
@@ -325,25 +325,6 @@ public partial class eOrderTouchContext : DbContext
                 .HasConstraintName("FK_tblPODetails_tblProduct");
         });
 
-        modelBuilder.Entity<TblStock>(entity =>
-        {
-            entity.ToTable("tblStock");
-
-            entity.HasKey(e => e.Id);
-
-            entity.Property(e => e.DateOfPurchase).HasColumnType("datetime");
-            entity.Property(e => e.Quantity).HasColumnType("int");
-
-            entity.HasOne(e => e.Product)
-                .WithMany(p => p.Stocks)
-                .HasForeignKey(e => e.ProductId)
-                .HasConstraintName("FK_tblStock_tblProduct");
-
-            entity.HasOne(e => e.Vendor)
-                .WithMany(v => v.Stocks)
-                .HasForeignKey(e => e.VendorId)
-                .HasConstraintName("FK_tblStock_tblVendor");
-        });
 
 
         OnModelCreatingPartial(modelBuilder);

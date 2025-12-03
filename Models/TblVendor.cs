@@ -14,7 +14,7 @@ namespace eOrderTouchApp.Models
         public string? Location { get; set; }
 
         public ICollection<TblPOMaster>? POMasters { get; set; }
-        public ICollection<TblStock>? Stocks { get; set; }
+        
     }
 
    

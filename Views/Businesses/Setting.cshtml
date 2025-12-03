@@ -1,251 +1,146 @@
 ﻿@model eOrderTouchApp.Models.TblBusiness
 
+<div class="container mt-4">
 
-<div class="container-fluid mt-3">
-      <!-- LEFT FORM -->
-        <div class="col-md-12">
-            <div class="card shadow-sm p-3">
-                <h5 id="formTitle">Business Settings</h5>
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
 
-                <!-- LEFT SIDE FORM (40%) -->
-                <div class="col-md-12">
-                    <div class="card shadow">
-                        <div class="card-header bg-primary text-white">
-                            <h5 id="form-title">Add Business</h5>
+            <div class="card shadow p-3">
+
+                <div class="card-header bg-primary text-white text-center">
+                    <h5 class="mb-0" id="form-title">Business Settings</h5>
+                </div>
+
+                <div class="card-body">
+
+                    <form id="SaveSettings" asp-action="SaveSettings" asp-controller="Businesses" method="post" enctype="multipart/form-data">
+
+                        <input type="hidden" asp-for="Id" />
+
+                        <!-- Business Name -->
+                        <div class="mb-3">
+                            <label class="fw-semibold">Business Name</label>
+                            <input asp-for="BusinessName" class="form-control" />
+                            <span asp-validation-for="BusinessName" class="text-danger"></span>
                         </div>
 
-                        <div class="card-body">
-                        <form id="SaveSettings" asp-action="SaveSettings" asp-controller="Businesses" method="post" enctype="multipart/form-data">
+                        <!-- Business Type -->
+                        <div class="mb-3">
+                            <label class="fw-semibold">Business Type</label>
 
-                            <input type="hidden" asp-for="Id" />
-                            <!-- Business Name -->
-                                <div class="mb-3">
-                                    <label>Business Name</label>
-                                <input asp-for="BusinessName" class="form-control" />
-                                <span asp-validation-for="BusinessName" class="text-danger"></span>
-                                </div>
+                            @Html.DropDownListFor(
+                            model => model.BusinessTypeId,
+                                                        new SelectList(ViewBag.BusinessTypes, "Id", "BusinessTypeName"),
+                                                        "-- Select --",
+                                                        new { @class = "form-control" }
+                                                        )
 
-                                <!-- Business Type -->
-                                <div class="mb-3">
-                                    <label>Business Type</label>
-
-                                @Html.DropDownListFor(
-                                model => model.BusinessTypeId,
-                                                                new SelectList(ViewBag.BusinessTypes, "Id", "BusinessTypeName"),
-                                                                "-- Select --",
-                                                                new { @class = "form-control" }
-                                                                )
-
-
-                                <span asp-validation-for="BusinessTypeId" class="text-danger"></span>
-                                </div>
-
-                                <!-- Owner Name -->
-                                <div class="mb-3">
-                                    <label>Owner Name</label>
-                                <input asp-for="OwnerName" class="form-control" />
-                                <span asp-validation-for="OwnerName" class="text-danger"></span>
-                                </div>
-
-                                <!-- GSTIN -->
-                                <div class="mb-3">
-                                    <label>GSTIN</label>
-                                <input asp-for="Gstin" class="form-control" />
-                                <span asp-validation-for="Gstin" class="text-danger"></span>
-                                </div>
-
-                                <!-- Email -->
-                                <div class="mb-3">
-                                    <label>Email</label>
-                                <input asp-for="Email" class="form-control" />
-                                <span asp-validation-for="Email" class="text-danger"></span>
-                                </div>
-                                <!-- Mobile -->
-                                <div class="mb-3">
-                                    <label>Mobile No</label>
-                                <input asp-for="MobileNo" class="form-control" />
-                                <span asp-validation-for="MobileNo" class="text-danger"></span>
-                                </div>
-
-                                <!-- Address -->
-                                <div class="mb-3">
-                                    <label>Address</label>
-                                <input asp-for="Address" class="form-control" />
-                                <span asp-validation-for="Address" class="text-danger"></span>
-                                </div>
-
-                                <!-- City -->
-                                <div class="mb-3">
-                                    <label>City</label>
-                                <input asp-for="City" class="form-control" />
-                                <span asp-validation-for="City" class="text-danger"></span>
-                                </div>
-
-                                <!-- Printer Size -->
-                                <div class="mb-3">
-                                    <label>Printer Size</label>
-
-                                @Html.DropDownListFor(
-                                model => model.PrinterSizeId,
-                                                                new SelectList(ViewBag.PrinterSizes, "Id", "PrinterSize"),
-                                                                "-- Select --",
-                                                                new { @class = "form-control" }
-                                                                )
-                                <span asp-validation-for="PrinterSizeId" class="text-danger"></span>
-                                </div>
-
-                                <!-- GST Applicable -->
-                                <div class="mb-3">
-                                    <label>GST Applicable?</label>
-                                      @Html.DropDownListFor(
-                                                                model => model.IsGstapplicable,
-                                                                new SelectList(ViewBag.YesNo, "key", "value"),
-                                                                "-- Select --",
-                                                                new { @class = "form-control" }
-                                                                )
-                                <span asp-validation-for="IsGstapplicable" class="text-danger"></span>
-                                </div>
-
-                                <!-- Hide Customer Field -->
-                                <div class="mb-3">
-                             
-                            
-                                <label class="form-check-label">Hide Customer Field?</label>
-                                @Html.DropDownListFor(
-                                                                model => model.HideCustomerField,
-                                                                new SelectList(ViewBag.YesNo, "key", "value"),
-                                                           
-                                                                new { @class = "form-control" }
-                                                                )
-                                <span asp-validation-for="HideCustomerField" class="text-danger"></span>
-                                </div>
-
-                                <!-- Hide Table Dropdown -->
-                                <div class="mb-3">
-                               <label class="form-check-label">Hide Table Dropdown?</label>
-                                @Html.DropDownListFor(
-                                                                model => model.HideTableDropDown,
-                                                                new SelectList(ViewBag.YesNo, "key", "value"),
-
-                                                                new { @class = "form-control" }
-                                                                )
-                                <span asp-validation-for="HideTableDropDown" class="text-danger"></span>
-                                </div>
-
-                             @*    <!-- Logo Upload -->
-                                <div class="mb-3">
-                                    <label>Logo</label>
-                                    <input type="file" id="Logo" name="LogoFile" class="form-control" accept="image/*" />
-                                    <img id="PreviewLogo" src="" class="img-fluid mt-2" style="max-height:80px;" />
-          
-                                </div>
-
-                                <!-- QR Code Upload -->
-                                <div class="mb-3">
-                                    <label>QR Code</label>
-                                    <input type="file" id="QRCode" name="QRCodeFile" class="form-control" accept="image/*" />
-                                    <img id="PreviewQR" src="" class="img-fluid mt-2" style="max-height:80px;" />
-                                </div> *@
-
-                               @*  <!-- Active -->
-                                <div class="form-check mb-3">
-                                <input type="checkbox" id="IsActive" @(Model.IsActive == true ? "checked" : "") name="IsActive" />
-
-                                    <label class="form-check-label">Is Active</label>
-
-                                </div> *@
-
-                                <button type="submit" class="btn btn-success w-100" id="btnSave">Save</button>
-
-                            </form>
+                            <span asp-validation-for="BusinessTypeId" class="text-danger"></span>
                         </div>
-                    </div>
+
+                        <!-- Owner Name -->
+                        <div class="mb-3">
+                            <label class="fw-semibold">Owner Name</label>
+                            <input asp-for="OwnerName" class="form-control" />
+                            <span asp-validation-for="OwnerName" class="text-danger"></span>
+                        </div>
+
+                        <!-- GSTIN -->
+                        <div class="mb-3">
+                            <label class="fw-semibold">GSTIN</label>
+                            <input asp-for="Gstin" class="form-control" />
+                            <span asp-validation-for="Gstin" class="text-danger"></span>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="mb-3">
+                            <label class="fw-semibold">Email</label>
+                            <input asp-for="Email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+
+                        <!-- Mobile -->
+                        <div class="mb-3">
+                            <label class="fw-semibold">Mobile No</label>
+                            <input asp-for="MobileNo" class="form-control" />
+                            <span asp-validation-for="MobileNo" class="text-danger"></span>
+                        </div>
+
+                        <!-- Address -->
+                        <div class="mb-3">
+                            <label class="fw-semibold">Address</label>
+                            <input asp-for="Address" class="form-control" />
+                            <span asp-validation-for="Address" class="text-danger"></span>
+                        </div>
+
+                        <!-- City -->
+                        <div class="mb-3">
+                            <label class="fw-semibold">City</label>
+                            <input asp-for="City" class="form-control" />
+                            <span asp-validation-for="City" class="text-danger"></span>
+                        </div>
+
+                        <!-- Printer Size -->
+                        <div class="mb-3">
+                            <label class="fw-semibold">Printer Size</label>
+
+                            @Html.DropDownListFor(
+                                                        model => model.PrinterSizeId,
+                                                        new SelectList(ViewBag.PrinterSizes, "Id", "PrinterSize"),
+                                                        "-- Select --",
+                                                        new { @class = "form-control" }
+                                                        )
+
+                            <span asp-validation-for="PrinterSizeId" class="text-danger"></span>
+                        </div>
+
+                        <!-- GST Applicable -->
+                        <div class="mb-3">
+                            <label class="fw-semibold">GST Applicable?</label>
+
+                            @Html.DropDownListFor(
+                                                        model => model.IsGstapplicable,
+                                                        new SelectList(ViewBag.YesNo, "key", "value"),
+                                                        "-- Select --",
+                                                        new { @class = "form-control" }
+                                                        )
+
+                            <span asp-validation-for="IsGstapplicable" class="text-danger"></span>
+                        </div>
+
+                        <!-- Hide Customer Field -->
+                        <div class="mb-3">
+                            <label class="fw-semibold">Hide Customer Field?</label>
+
+                            @Html.DropDownListFor(
+                                                        model => model.HideCustomerField,
+                                                        new SelectList(ViewBag.YesNo, "key", "value"),
+                                                        new { @class = "form-control" }
+                                                        )
+
+                            <span asp-validation-for="HideCustomerField" class="text-danger"></span>
+                        </div>
+
+                        <!-- Hide Table Dropdown -->
+                        <div class="mb-3">
+                            <label class="fw-semibold">Hide Table Dropdown?</label>
+
+                            @Html.DropDownListFor(
+                                                        model => model.HideTableDropDown,
+                                                        new SelectList(ViewBag.YesNo, "key", "value"),
+                                                        new { @class = "form-control" }
+                                                        )
+
+                            <span asp-validation-for="HideTableDropDown" class="text-danger"></span>
+                        </div>
+
+                        <button type="submit" class="btn btn-success w-100 mt-2" id="btnSave">Save</button>
+
+                    </form>
+
                 </div>
             </div>
+
         </div>
+    </div>
 </div>
-
-@section Scripts{
-    <script>
-        $(document).ready(function () {
-            
-            function validateForm() {
-
-                let isValid = true;
-                $(".text-danger").text("");
-                $(".invalid-input").removeClass("invalid-input");
-
-                if ($("#BusinessName").val().trim() === "") {
-                    $("span[data-valmsg-for='BusinessName']").text("Business Name is required");
-                    $("#BusinessName").addClass("invalid-input");
-                    isValid = false;
-                }
-
-                if ($("#OwnerName").val().trim() === "") {
-                    $("span[data-valmsg-for='OwnerName']").text("Owner Name is required");
-                    $("#OwnerName").addClass("invalid-input");
-                    isValid = false;
-                }
-
-                let email = $("#Email").val().trim();
-                let emailPattern = /^[^\s@@]+@@[^\s@@]+\.[^\s@@]+$/;
-
-                if (email === "") {
-                    $("span[data-valmsg-for='Email']").text("Email is required");
-                    $("#Email").addClass("invalid-input");
-                    isValid = false;
-                } else if (!emailPattern.test(email)) {
-                    $("span[data-valmsg-for='Email']").text("Invalid email format");
-                    $("#Email").addClass("invalid-input");
-                    isValid = false;
-                }
-
-                let mobile = $("#MobileNo").val().trim();
-                let mobilePattern = /^[0-9]{10}$/;
-
-                if (mobile === "") {
-                    $("span[data-valmsg-for='MobileNo']").text("Mobile number is required");
-                    $("#MobileNo").addClass("invalid-input");
-                    isValid = false;
-                } else if (!mobilePattern.test(mobile)) {
-                    $("span[data-valmsg-for='MobileNo']").text("Mobile number must be 10 digits");
-                    $("#MobileNo").addClass("invalid-input");
-                    isValid = false;
-                }
-
-                if ($("#BusinessTypeId").val() === "") {
-                    $("span[data-valmsg-for='BusinessTypeId']").text("Select Business Type");
-                    $("#BusinessTypeId").addClass("invalid-input");
-                    isValid = false;
-                }
-
-                if ($("#PrinterSizeId").val() === "") {
-                    $("span[data-valmsg-for='PrinterSizeId']").text("Select Printer Size");
-                    $("#PrinterSizeId").addClass("invalid-input");
-                    isValid = false;
-                }
-
-                if ($("#Address").val().trim() === "") {
-                    $("span[data-valmsg-for='Address']").text("Address is required");
-                    $("#Address").addClass("invalid-input");
-                    isValid = false;
-                }
-
-                if ($("#City").val().trim() === "") {
-                    $("span[data-valmsg-for='City']").text("City is required");
-                    $("#City").addClass("invalid-input");
-                    isValid = false;
-                }
-
-                return isValid;
-            }
-
-            $("#SaveSettings").submit(function () {
-                
-                return validateForm();
-            });
-
-        });
-    </script>
-}
-
