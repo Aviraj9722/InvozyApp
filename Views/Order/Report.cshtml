@@ -59,7 +59,8 @@
 <div class="alert alert-info d-flex gap-4 col-7">
     <div><strong>Total Cash Sales:</strong> ₹@ViewBag.TotalCash</div>
     <div><strong>Total Online Sales:</strong> ₹@ViewBag.Online</div>
-    <div><strong>Free Products:</strong> ₹@ViewBag.Free</div>
+    <div><strong>Total Free Sales:</strong> ₹@ViewBag.Free</div>
+    <div><strong>Total Credit Sales:</strong> ₹@ViewBag.Credit</div>
 </div>
 
 <!-- TABLE -->
@@ -72,6 +73,7 @@
             <th>Grand Total</th>
             <th>Order Date</th>
             <th>Table</th>
+            <th>User</th>
             <th>Payment Mode</th>
             <th>Actions</th>
         </tr>
@@ -104,6 +106,7 @@
                 <td>@item.GrandTotal</td>
                 <td>@item.DateOfOrder</td>
                 <td>@item.TableDetails</td>
+                <td>@item.User?.UserName</td>
                 <td>@item.PaymentMode</td>
                 <td>
                     <div class="d-grid gap-2">

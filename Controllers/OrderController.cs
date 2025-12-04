@@ -43,6 +43,7 @@ public class OrderController : Controller
         var Orders = await _context.TblOrderMasters
             .Where(w => w.BuisnessId == businessId)
             .Include(I => I.TblOrderDetails)
+            .Include(u => u.User)
             .OrderByDescending(o => o.Id)
             .ToListAsync();
 
@@ -59,6 +60,7 @@ public class OrderController : Controller
         var Orders = await _context.TblOrderMasters
             .Where(w => w.BuisnessId == businessId)
             .Include(I => I.TblOrderDetails)
+            .Include(u=> u.User)
             .Where(w => w.DateOfOrder >= fromDT && w.DateOfOrder <= toDT)
             .OrderByDescending(o => o.Id)
             .ToListAsync();
@@ -66,6 +68,7 @@ public class OrderController : Controller
         ViewBag.TotalCash = Orders.Where(w => w.PaymentMode == "Cash").Sum(w => w.GrandTotal);
         ViewBag.Online = Orders.Where(w => w.PaymentMode == "Online").Sum(s => s.GrandTotal);
         ViewBag.Free = Orders.Where(w => w.PaymentMode == "Free").Sum(s => s.GrandTotal);
+        ViewBag.Credit = Orders.Where(w => w.PaymentMode == "Credit").Sum(s => s.GrandTotal);
         ViewBag.Materials = _context.TblProducts.ToList();
         //To keep the dates after posting the data//
         ViewBag.FromDate = fromDT.ToString("yyyy-MM-dd");

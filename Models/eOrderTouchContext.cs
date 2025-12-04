@@ -33,17 +33,21 @@ public partial class eOrderTouchContext : DbContext
 
     public virtual DbSet<TblProduct> TblProducts { get; set; }
 
-    public virtual DbSet<TblPurchaseOrderStock> TblPurchaseOrderStocks { get; set; }
-
     public virtual DbSet<TblUom> TblUoms { get; set; }
 
     public virtual DbSet<TblUser> TblUsers { get; set; }
 
     public virtual DbSet<TblUserLicense> TblUserLicenses { get; set; }
 
-//    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-//        => optionsBuilder.UseSqlServer("Server=DESKTOP-1TNHCLD\\SQLEXPRESS;Database=eOrderTouch;Trusted_Connection=True;TrustServerCertificate=True;");
+    public DbSet<TblDealer> TblDealer { get; set; }
+    public DbSet<TblVendor> TblVendors { get; set; }
+    public DbSet<TblPOMaster> TblPOMaster { get; set; }
+    public DbSet<TblPODetails> TblPODetails { get; set; }
+    
+
+    //    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+    //        => optionsBuilder.UseSqlServer("Server=DESKTOP-1TNHCLD\\SQLEXPRESS;Database=eOrderTouch;Trusted_Connection=True;TrustServerCertificate=True;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -212,22 +216,6 @@ public partial class eOrderTouchContext : DbContext
                 .HasConstraintName("FK_tblProduct_tblUser");
         });
 
-        modelBuilder.Entity<TblPurchaseOrderStock>(entity =>
-        {
-            entity.ToTable("tblPurchaseOrder_Stock");
-
-            entity.Property(e => e.DateOfPurchase).HasColumnType("datetime");
-            entity.Property(e => e.Quantity).HasColumnType("decimal(10, 2)");
-
-            entity.HasOne(d => d.Business).WithMany(p => p.TblPurchaseOrderStocks)
-                .HasForeignKey(d => d.BusinessId)
-                .HasConstraintName("FK_tblPurchaseOrder_Stock_tblBusinesses");
-
-            entity.HasOne(d => d.Product).WithMany(p => p.TblPurchaseOrderStocks)
-                .HasForeignKey(d => d.ProductId)
-                .HasConstraintName("FK_tblPurchaseOrder_Stock_tblProduct");
-        });
-
         modelBuilder.Entity<TblUom>(entity =>
         {
             entity.ToTable("tblUOM");
@@ -269,6 +257,78 @@ public partial class eOrderTouchContext : DbContext
                 .HasForeignKey(d => d.UserId)
                 .HasConstraintName("FK_tblUserLicense_tblUser");
         });
+
+        modelBuilder.Entity<TblDealer>(entity =>
+        {
+            entity.ToTable("tblDealer");
+
+            entity.HasKey(e => e.Id);
+
+            entity.Property(e => e.Name).HasMaxLength(100);
+            entity.Property(e => e.Address).HasMaxLength(250);
+            entity.Property(e => e.MobileNo).HasMaxLength(15);
+            entity.Property(e => e.Location).HasMaxLength(100);
+            entity.Property(e => e.EmailId).HasMaxLength(100);
+            entity.Property(e => e.GSTN).HasMaxLength(20);
+
+            entity.Property(e => e.DealerCode)
+                .HasMaxLength(100)
+                .IsUnicode(false);
+        });
+
+        modelBuilder.Entity<TblVendor>(entity =>
+        {
+            entity.ToTable("tblVendor");
+
+            entity.HasKey(e => e.Id);
+
+            entity.Property(e => e.Name).HasMaxLength(150);
+            entity.Property(e => e.EmailId).HasMaxLength(100);
+            entity.Property(e => e.MobileNo).HasMaxLength(15);
+            entity.Property(e => e.GSTN).HasMaxLength(20);
+            entity.Property(e => e.Address).HasMaxLength(250);
+        });
+
+        modelBuilder.Entity<TblPOMaster>(entity =>
+        {
+            entity.ToTable("tblPOMaster");
+
+            entity.HasKey(e => e.Id);
+
+            entity.Property(e => e.DateOfPurchase).HasColumnType("datetime");
+            entity.Property(e => e.GrandTotal).HasColumnType("decimal(18,2)");
+
+            entity.HasOne(e => e.Business)
+                .WithMany(b => b.POMasters)
+                .HasForeignKey(e => e.BusinessId)
+                .HasConstraintName("FK_tblPOMaster_tblBusinesses");
+
+            entity.HasOne(e => e.Vendor)
+                .WithMany(v => v.POMasters)
+                .HasForeignKey(e => e.VendorId)
+                .HasConstraintName("FK_tblPOMaster_tblVendor");
+        });
+
+        modelBuilder.Entity<TblPODetails>(entity =>
+        {
+            entity.ToTable("tblPODetails");
+
+            entity.HasKey(e => e.Id);
+
+            entity.Property(e => e.Quantity).HasColumnType("int");
+
+            entity.HasOne(e => e.POMaster)
+                .WithMany(m => m.PODetails)
+                .HasForeignKey(e => e.POMasterId)
+                .HasConstraintName("FK_tblPODetails_tblPOMaster");
+
+            entity.HasOne(e => e.Product)
+                .WithMany(p => p.PODetails)
+                .HasForeignKey(e => e.ProductId)
+                .HasConstraintName("FK_tblPODetails_tblProduct");
+        });
+
+
 
         OnModelCreatingPartial(modelBuilder);
     }
