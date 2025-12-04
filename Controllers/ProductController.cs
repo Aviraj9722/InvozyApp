@@ -32,19 +32,21 @@ namespace eOrderTouchApp.Controllers
             int businessId = Convert.ToInt32(User.FindFirst("OrgId")?.Value);
 
 
-            if (photo != null && photo.Length > 0)
+            if (!string.IsNullOrEmpty(Request.Form["croppedImageData"]))
             {
+                string base64 = Request.Form["croppedImageData"];
+                var bytes = Convert.FromBase64String(base64.Replace("data:image/jpeg;base64,", ""));
+
+                if (bytes.Length > 50000)
+                    return Json(new { success = false, message = "Image size must be less than 50KB." });
+
                 string uploads = Path.Combine(_env.WebRootPath, "uploads");
                 Directory.CreateDirectory(uploads);
 
-                string fileName = Guid.NewGuid() + Path.GetExtension(photo.FileName);
+                string fileName = Guid.NewGuid() + ".jpg";
                 string filePath = Path.Combine(uploads, fileName);
 
-                using (var stream = new FileStream(filePath, FileMode.Create))
-                {
-                    await photo.CopyToAsync(stream);
-                }
-
+                System.IO.File.WriteAllBytes(filePath, bytes);
                 product.Photo = "/uploads/" + fileName;
             }
             product.BusinessId = businessId;
@@ -69,19 +71,21 @@ namespace eOrderTouchApp.Controllers
             await _context.SaveChangesAsync();
             return Json(new { success = true, message = "Product saved successfully" });
         }
-
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
             int businessId = Convert.ToInt32(User.FindFirst("OrgId")?.Value);
 
-            var product = await _context.TblProducts.Where(w=>w.Id==id && w.BusinessId == businessId).FirstOrDefaultAsync();
+            var product = await _context.TblProducts
+                .FirstOrDefaultAsync(w => w.Id == id && w.BusinessId == businessId);
+
             if (product != null)
             {
                 _context.TblProducts.Remove(product);
                 await _context.SaveChangesAsync();
             }
-            return RedirectToAction("Index");
+
+            return Json(new { success = true });
         }
     }
 }
