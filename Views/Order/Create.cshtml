@@ -82,7 +82,7 @@
 
 .product-card img {
     height: 120px;
-    object-fit: contain;
+            object-fit: scale-down;
 }
 
 
@@ -218,7 +218,7 @@
         border: 1px solid #e6e6e6;
         padding: 12px;
         border-radius: 8px;
-        height: calc(100vh - 40px);
+        height: auto;/*calc(100vh - 40px);*/
         position: sticky;
         top: 20px;
         overflow-y: auto;
@@ -319,7 +319,7 @@
         .product-card img {
             width: 100%;
             height: 100px;
-            object-fit: cover;
+            object-fit: scale-down;
             border-radius: 6px;
         }
 
@@ -390,10 +390,14 @@
         }
 
         .category-top {
-            position: relative;
+            position: Relative fixed;
             top: 0;
             margin-bottom: 6px;
         }
+    }
+    /* Misc */
+    #productContainer {
+        margin-top: 30px;
     }
 
     @@media (max-width: 575px) {
@@ -401,12 +405,13 @@
             width: calc(100% / 3 - 12px);
         }
         /* 3 per row even on small phones */
+        /* Misc */
+        #productContainer {
+            margin-top: 10px;
+        }
     }
 
-    /* Misc */
-    #productContainer {
-        margin-top: 6px;
-    }
+ 
 
     .badge-count {
         background: #f1f1f1;
@@ -438,20 +443,23 @@
         background: #bbb;
         border-radius: 10px;
     }
+
+    main{
+        padding-bottom: 0px !important;
+    }
 </style>
 
 
-<h3 style="display:flex;align-items:center;gap:12px;">
-    Create Order
-   
-    <span id="editingBadge" class="badge bg-warning text-dark" style="display:none;">Editing Order: <span id="editingOrderId"></span></span>
-</h3>
 
 <div class="order-layout">
+  
     <!-- 🛒 DESKTOP CART -->
     <div class="desktop-cart" id="desktopCart">
-        <h5>Your Cart <span id="desktopCartCount" class="badge-count bg-success text-light">0</span></h5>
-        <div id="desktopCartItems" style="margin-top:8px;overflow-y: auto;height: 400px;"></div>
+        <h5>
+            Your Cart <span id="desktopCartCount" class="badge-count bg-success text-light">0</span> </span>
+            </h3>
+        </h5>
+        <div id="desktopCartItems" style="margin-top:8px;overflow-y: auto;height: 366px;"></div>
 
         <div style="margin-top:12px; display:flex; justify-content:space-between; align-items:center;">
             <strong>Grand Total:</strong>
@@ -517,14 +525,24 @@
             🛒 Cart <span id="cartCount" class="badge bg-light text-dark ms-1">0</span>
         </button> *@
 
-        <!-- Categories: top sticky bar inside product area -->
-        <div class="category-top" id="categoryTop">
-            <div class="category-btn active" data-id="all">All</div>
-            @foreach (var cat in categories)
-            {
-                <div class="category-btn" data-id="@cat.Id">@cat.Name</div>
-            }
+        <div class="category-top d-flex flex-column" id="categoryTop">
+
+            <span id="editingBadge" class="badge bg-warning text-dark mb-2" style="display:none;font-size: 14px;">
+                Editing Order: <span id="editingOrderId"></span>
+            </span>
+
+            <div class="category-scroll">
+                <div class="d-flex flex-nowrap gap-1">
+                    <div class="category-btn active" data-id="all">All</div>
+                    @foreach (var cat in categories)
+                    {
+                        <div class="category-btn" data-id="@cat.Id">@cat.Name</div>
+                    }
+                </div>
+            </div>
+
         </div>
+
 
         <!-- Product container -->
         <div id="productContainer" class="product-grid"></div>
