@@ -145,6 +145,13 @@
                         <label class="form-check-label">Hide Table Dropdown</label>
                     </div>
 
+                    <!-- Hide Table Dropdown -->
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="IsKOTEnabled" name="IsKOTEnabled" />
+                        <label class="form-check-label">Enable KOT</label>
+                    </div>
+
+
                     <!-- Logo Upload -->
                     <div class="mb-3">
                         <label>Logo</label>
@@ -192,6 +199,7 @@
                         <th>GSTN</th>
                         <th>Printer</th>
                         <th>Is GST Applicable?</th>
+                        <th>KOT Enabled?</th>
                         <th>Customer Field</th>
                         <th>Table LOV</th>
                         <th>Active</th>
@@ -239,6 +247,7 @@
                             <td>@item.Gstin</td>
                             <td>@item.PrinterSize?.PrinterSize</td>
                             <td>@item.IsGstapplicable</td>
+                            <td>@item.IsKOTEnabled</td>
                             <td>@item.HideCustomerField</td>
                             <td>@item.HideTableDropDown</td>
                             <td>@(item.IsActive == true ? "Yes" : "No")</td>
@@ -399,6 +408,8 @@
             formData.set("IsActive", $("#IsActive").is(":checked"));
             formData.set("HideCustomerField", $("#HideCustomerField").is(":checked"));
             formData.set("HideTableDropDown", $("#HideTableDropDown").is(":checked"));
+             formData.set("IsKOTEnabled", $("#IsKOTEnabled").is(":checked"));
+            
            // formData.set("IsGstapplicable", $("#IsGstapplicable").is(":checked"));
             $.ajax({
                 url: url,
@@ -437,6 +448,8 @@
                  $("#HideCustomerField").prop('checked', data.hideCustomerField);
                 $("#HideTableDropDown").prop('checked', data.hideTableDropDown);
 
+                $("#IsKOTEnabled").prop('checked', data.isKOTEnabled);
+                
                 $("#btnSave").text("Update");
             });
         }

@@ -17,13 +17,23 @@ namespace eOrderTouchApp.Controllers
         [HttpPost]
         public IActionResult Submit(TblEnquiry model)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState);
 
-            model.Status = "Pending";   
+                model.Status = "Pending";
 
-            _context.TblEnquiries.Add(model);
-            _context.SaveChanges();
+                _context.TblEnquiries.Add(model);
+                _context.SaveChanges();
+                return Ok(new { message = "Enquiry submitted successfully!" });
+            }
+            catch (Exception er)
+            {
+
+                throw;
+            }
+          
 
             return Ok(new { message = "Enquiry submitted successfully!" });
         }

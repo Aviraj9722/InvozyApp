@@ -25,4 +25,5 @@ public partial class TblOrderDetail
     public virtual TblOrderMaster? OidNavigation { get; set; }
 
     public virtual TblProduct? Product { get; set; }
+    public bool? IsKOTPrinted { get; set; }
 }

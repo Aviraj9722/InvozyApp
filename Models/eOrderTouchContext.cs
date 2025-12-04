@@ -67,6 +67,9 @@ public partial class eOrderTouchContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("QRCode");
 
+            entity.Property(e => e.IsGstapplicable).HasColumnType("bit");
+            
+
             entity.HasOne(d => d.BusinessType).WithMany(p => p.TblBusinesses)
                 .HasForeignKey(d => d.BusinessTypeId)
                 .HasConstraintName("FK_tblBusinesses_tblBusinessType");
@@ -136,7 +139,7 @@ public partial class eOrderTouchContext : DbContext
             entity.Property(e => e.Price).HasColumnType("decimal(18, 2)");
             entity.Property(e => e.Qty).HasColumnType("decimal(18, 2)");
             entity.Property(e => e.Total).HasColumnType("decimal(18, 2)");
-
+            entity.Property(e => e.IsKOTPrinted).HasColumnType("bit");
             entity.HasOne(d => d.OidNavigation).WithMany(p => p.TblOrderDetails)
                 .HasForeignKey(d => d.Oid)
                 .HasConstraintName("FK_tblOrderDetails_tblOrderMaster");

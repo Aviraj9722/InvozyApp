@@ -7,9 +7,7 @@
     ViewBag.HideNav = true;
 
     var Org = (eOrderTouchApp.Models.TblBusiness)ViewBag.Orgnization;
-
 }
-
 <style>
     .desktop-qty-down {
         background: #832a2a;
@@ -636,30 +634,6 @@
     <p><strong>Grand Total: <span id="invTotal"></span></strong></p>
     <p>Thank you!</p>
 </div>
-
-<!-- KOT PREVIEW MODAL -->
-<div class="modal fade" id="kotModal" tabindex="-1">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-
-            <div class="modal-header bg-dark text-white py-2" style="background: #515b52 !important;">
-                <h5 class="modal-title">Kichen Order Ticket</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-
-            <div class="modal-body" id="kotModalBody" style="background: #606a61 !important;">
-                <!-- Dynamic KOT items will be injected here -->
-            </div>
-
-            <div class="modal-footer py-2" style="background: #515b52 !important;">
-                <button id="btnPrintKOT" class="btn btn-primary btn-sm">
-                    Print KOT
-                </button>
-            </div>
-
-        </div>
-    </div>
-</div>
 <!-- Bottom Mobile Bar -->
 <div class="mobile-bottom-bar d-md-none">
   @*   <a href="@Url.Action("Dashboard", "Home")"><<</a> *@
@@ -672,6 +646,7 @@
     <button id="btnMobileViewCart" class="btn btn-info text-white">
         <i class="bi bi-cart4 me-1"></i>  Cart<span id="cartCount" class="badge bg-success text-light ms-1 " style="font-size:20px;top: 2px;">0</span>
     </button>
+
     <!-- Save -->
     <button id="btnMobileSave" class="btnMobileSave btn btn-success">
         <i class="bi bi-save me-1"></i> Save
@@ -697,56 +672,6 @@
         let currentPage = 1;
         let filteredProducts = [...allProducts];
         let cart = [];
-
-        $("#btnPrintKOT").click(function () {
-            let orderId = $(this).data("orderid");
-            $.ajax({
-            url: '/Order/PrintKOT?orderId=' + orderId,
-            type: 'GET',
-            success: function (txt) {
-                // txt contains the KOT print text
-                kotText = txt; // store in your variable
-
-                // OPTIONAL: Show in modal or console
-                console.log("KOT TEXT:\n" + kotText);
-
-                // Use your own printing function
-                 printKotText(kotText);
-                  $("#kotModal").modal("hide");
-            },
-            error: function () {
-              alert("Failed to load KOT content.");
-            }
-            });
-        });
-
-        function printKotText(txt) {
-
-            const ESC = "\x1B";
-            const DOUBLE = ESC + "!" + "\x38";    // Big bold
-            const MEDIUM = ESC + "!" + "\x20";    // Medium
-            const NORMAL = ESC + "!" + "\x00";    // Normal font
-            const SMALL = ESC + "M" + "\x01";
-            const NORMAL_FONT = ESC + "M" + "\x00";
-
-            // Format header
-            let receipt = "";
-            receipt += NORMAL;
-
-            receipt += "------------------------------\n";
-            receipt += MEDIUM + "  KITCHEN ORDER\n" + NORMAL;
-            receipt += "------------------------------\n\n";
-
-            //Add the pure text returned by PrintKOT API
-            receipt += txt + "\n";
-
-            receipt += NORMAL_FONT;
-            receipt += "\n"; // Feed paper
-
-            // RAWBT print
-            const encoded = btoa(unescape(encodeURIComponent(receipt)));
-            window.location.href = "rawbt:base64," + encoded;
-        }
 
         /* -------------------------
            Rendering: Categories & Products
@@ -844,7 +769,7 @@
             cart.forEach(item => {
                 grandTotal += item.total;
                 itemCount += item.qty;
-             
+                updateProductHighlight(item.id, item.qty)
                 // mobile row (table)
                 mobileTable.append(`
                     <tr data-id="${item.id}">
@@ -875,7 +800,6 @@
                         <div><button class="btn btn-sm remove-item" data-id="${item.id}">✖</button></div>
                     </div>
                 `);
-                    updateProductHighlight(item.id, item.qty);
             });
 
             // if cart empty, show placeholder in desktop
@@ -996,7 +920,6 @@
             $(`#qty-${id}`).val(0);
             cart = cart.filter(x => x.id !== id);
             renderCart();
-             updateProductHighlight(id, 0);
         });
 
         // desktop qty buttons & input
@@ -1059,16 +982,14 @@
         $('#clearCartDesktop').click(function () {
             if (!confirm('Clear cart?')) return;
             clearCartUI();
-            $(".product-card").removeClass("product-added");
         });
 
-                function doCheckout(customerName, tableDetail, paymentMode, IsPaymentDone, IsPrinted) {
-
+        // Checkout handlers (desktop & mobile share same AJAX call)
+        function doCheckout(customerName, tableDetail, paymentMode,IsPaymentDone,IsPrinted) {
             if (cart.length === 0) {
                 alert("Cart is empty. Please add some items for sale.");
                 return;
             }
-
             $('#checkoutBtn, #checkoutBtnDesktop').prop('disabled', true);
 
             const order = {
@@ -1077,7 +998,7 @@
                 tableDetail: tableDetail,
                 paymentMode: paymentMode,
                 isPaymentDone: IsPaymentDone,
-                isPrinted: IsPrinted,
+                isPrinted:IsPrinted,
                 items: cart.map(item => ({
                     productId: item.id,
                     qty: item.qty,
@@ -1091,123 +1012,47 @@
                 contentType: 'application/json',
                 data: JSON.stringify(order),
                 success: function (res) {
-
                     if (res.success) {
-                            $("#txtCustNameMobile").val("");
-                            $('#ddlTableMobile option:first').prop('selected', true);
-                          
-                        //-------------------------------------------------------
-                        //  KOT LOGIC — OPEN PRINT WINDOW IF NEW ITEMS EXIST
-                        //-------------------------------------------------------
-                        if (res.kotItems && res.kotItems.length > 0) {
-                            try {
-                             //   window.open('/Order/PrintKOT?orderId=' + res.orderId, '_blank');
-                                     //-------------------------------------------------------
-                                        // SHOW POPUP FOR KOT ITEMS
-                                        //-------------------------------------------------------
-                                        if (res.kotItems && res.kotItems.length > 0) {
-
-                                            let html = `<div>${tableDetail}</div>`;
-                                            html += `<table class="table table-bordered table-sm mt-2">
-                                                        <thead>
-                                                          <tr>
-                                                            <th style='background: #606a61 !important;'>Item</th>
-                                                            <th style='background:#606a61 !important;'>Qty</th>
-                                                          </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                    `;
-
-                                            res.kotItems.forEach(k => {
-                                                const product = allProducts.find(p => p.Id === k.productId);  // your existing products list
-                                                html += `
-                                                    <tr>
-                                                        <td style='background: #606a61 !important;'>${product?.Name || ''}</td>
-                                                        <td style='background: #606a61 !important;'>${k.qty}</td>
-                                                    </tr>
-                                                `;
-                                            });
-
-                                            html += `</tbody></table>`;
-                                     
-                                            $("#kotModalBody").html(html);
-                                          
-                                            if('@Org.IsKOTEnabled'.toLowerCase()=='true')
-                                            { $("#kotModal").modal("show");
-                                            }
-
-                                            // Store order ID for printing
-                                            $("#btnPrintKOT").data("orderid", res.orderId);
-                                        }
-
-                            } catch (er) {
-                                console.log("KOT print failed.");
-                            }
-                        }
-
-                        //-------------------------------------------------------
-                        //  EXISTING BILL PRINT LOGIC — NO CHANGE
-                        //-------------------------------------------------------
+                        // printing logic remains same
                         setTimeout(() => {
                             const isDesktop = window.innerWidth > 991;
                             const tableNo = isDesktop ? $("#ddlTableDesktop").val() : $("#ddlTableMobile").val();
-
                             const paymentMode = isDesktop
                                 ? document.querySelector('input[name="paymentDesktop"]:checked').value
                                 : document.querySelector('input[name="paymentMobile"]:checked').value;
+                           
+                               let card = $('.product-card');
+                                    card.removeClass("product-added");
 
-                            let card = $('.product-card');
-                            card.removeClass("product-added");
 
-                            if (IsPrinted == true) {
-                                try {
+                            if(IsPrinted==true){
 
+                                try 
+                                {
+                                   
+                                     //debugger;
                                     if ('@Org.PrinterSizeId' == '2') {
-                                        printPlainReceipt80mm(
-                                            '@Org.BusinessName',
-                                            '@Org.Address',
-                                            res.orderId,
-                                            new Date().toLocaleString(),
-                                            order.customerName,
-                                            order.items,
-                                            0,
-                                            '@Org.MobileNo',
-                                            paymentMode,
-                                            tableNo
-                                        );
+                                        printPlainReceipt80mm('@Org.BusinessName', '@Org.Address', res.orderId, new Date().toLocaleString(), order.customerName, order.items, 0, '@Org.MobileNo', paymentMode, tableNo);
 
                                     } else {
-                                        printPlainReceipt58mm(
-                                            '@Org.BusinessName',
-                                            '@Org.Address',
-                                            res.orderId,
-                                            new Date().toLocaleString(),
-                                            order.customerName,
-                                            order.items,
-                                            0,
-                                            '@Org.MobileNo',
-                                            paymentMode,
-                                            tableNo
-                                        );
+                                        printPlainReceipt58mm('@Org.BusinessName', '@Org.Address', res.orderId, new Date().toLocaleString(), order.customerName, order.items, 0, '@Org.MobileNo', paymentMode, tableNo);
+
                                     }
-
-                                } catch (er) {
-                                    console.log("Billing print issue.");
+                                }catch(er){
+                                    console.log('printing issue');
                                 }
+                               
                             }
+                                  
 
-                            //-------------------------------------------------------
-                            //  Clear UI
-                            //-------------------------------------------------------
                             $('#invoiceSection').hide();
-                       
-
+                            // after print clear cart
                             clearCartUI();
                             $('#checkoutBtn, #checkoutBtnDesktop').prop('disabled', false);
+                            // close modal if on mobile
                             $('#cartModal').modal('hide');
 
                         }, 50);
-
                     } else {
                         alert("Error: " + res.message);
                         $('#checkoutBtn, #checkoutBtnDesktop').prop('disabled', false);
@@ -1219,88 +1064,6 @@
                 }
             });
         }
-
-
-        // Checkout handlers (desktop & mobile share same AJAX call)
-        // function doCheckout(customerName, tableDetail, paymentMode,IsPaymentDone,IsPrinted) {
-        //     if (cart.length === 0) {
-        //         alert("Cart is empty. Please add some items for sale.");
-        //         return;
-        //     }
-        //     $('#checkoutBtn, #checkoutBtnDesktop').prop('disabled', true);
-
-        //     const order = {
-        //         editOrderId: $('#isEditing').val() === '1' ? parseInt($('#editingOrderIdHidden').val() || '0') : null,
-        //         customerName: customerName,
-        //         tableDetail: tableDetail,
-        //         paymentMode: paymentMode,
-        //         isPaymentDone: IsPaymentDone,
-        //         isPrinted:IsPrinted,
-        //         items: cart.map(item => ({
-        //             productId: item.id,
-        //             qty: item.qty,
-        //             price: item.price
-        //         }))
-        //     };
-
-        //     $.ajax({
-        //         url: '/Order/SaveOrder',
-        //         type: 'POST',
-        //         contentType: 'application/json',
-        //         data: JSON.stringify(order),
-        //         success: function (res) {
-        //             if (res.success) {
-        //                 // printing logic remains same
-        //                 setTimeout(() => {
-        //                     const isDesktop = window.innerWidth > 991;
-        //                     const tableNo = isDesktop ? $("#ddlTableDesktop").val() : $("#ddlTableMobile").val();
-        //                     const paymentMode = isDesktop
-        //                         ? document.querySelector('input[name="paymentDesktop"]:checked').value
-        //                         : document.querySelector('input[name="paymentMobile"]:checked').value;
-                           
-        //                        let card = $('.product-card');
-        //                             card.removeClass("product-added");
-
-
-        //                     if(IsPrinted==true){
-
-        //                         try 
-        //                         {
-                                   
-        //                              //debugger;
-        //                             if ('@Org.PrinterSizeId' == '2') {
-        //                                 printPlainReceipt80mm('@Org.BusinessName', '@Org.Address', res.orderId, new Date().toLocaleString(), order.customerName, order.items, 0, '@Org.MobileNo', paymentMode, tableNo);
-
-        //                             } else {
-        //                                 printPlainReceipt58mm('@Org.BusinessName', '@Org.Address', res.orderId, new Date().toLocaleString(), order.customerName, order.items, 0, '@Org.MobileNo', paymentMode, tableNo);
-
-        //                             }
-        //                         }catch(er){
-        //                             console.log('printing issue');
-        //                         }
-                               
-        //                     }
-                                  
-
-        //                     $('#invoiceSection').hide();
-        //                     // after print clear cart
-        //                     clearCartUI();
-        //                     $('#checkoutBtn, #checkoutBtnDesktop').prop('disabled', false);
-        //                     // close modal if on mobile
-        //                     $('#cartModal').modal('hide');
-
-        //                 }, 50);
-        //             } else {
-        //                 alert("Error: " + res.message);
-        //                 $('#checkoutBtn, #checkoutBtnDesktop').prop('disabled', false);
-        //             }
-        //         },
-        //         error: function (err) {
-        //             alert("Save order failed.");
-        //             $('#checkoutBtn, #checkoutBtnDesktop').prop('disabled', false);
-        //         }
-        //     });
-        // }
 
         $('#checkoutBtn').click(function () {
             const customerName = $("#txtCustNameMobile").val();
@@ -1715,7 +1478,7 @@
         });
 
         function updateProductHighlight(productId, qty) {
-           // debugger;
+            debugger;
             let card = $('.product-card[data-id="' + productId + '"]');
 
             if (!card.length) return;
