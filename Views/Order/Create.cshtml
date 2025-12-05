@@ -11,6 +11,9 @@
 }
 
 <style>
+    body{
+        background: #bdb8b3;
+    }
     .desktop-qty-down {
         background: #832a2a;
         font-weight: 900;
@@ -324,7 +327,7 @@
         }
 
         .product-card h6 {
-            font-size: 0.85rem;
+            font-size: 1rem;
             margin: 6px 0 4px;
             white-space: nowrap;
             overflow: hidden;
@@ -334,6 +337,7 @@
         .product-card p.price {
             margin: 0 0 6px;
             font-weight: 700;
+            font-size: 16px;
         }
 
     .qty-controls {
@@ -787,16 +791,17 @@
             paginated.forEach(p => {
                 const img = p.Photo
                     ? `<img src="${p.Photo}" alt="${htmlEscape(p.Name)}" />`
-                    : `<div style="height:100px;background:#eee;display:flex;align-items:center;justify-content:center;border-radius:6px;">No Image</div>`;
+                    :`<h4>${p.Name}</h4>`;
+                    //: `<div style="height:100px;background:#eee;display:flex;align-items:center;justify-content:center;border-radius:6px;">No Image</div>`;
 
                 // find current qty in cart (if any) so product card can show the qty
                 const existing = cart.find(x => x.id === p.Id);
                 const currentQty = existing ? existing.qty : 0;
-
+              
                 container.append(`
                     <div class="product-card" data-id="${p.Id}">
                         ${img}
-                        <h6 title="${htmlEscape(p.Name)}">${htmlEscape(p.Name)}</h6>
+                        <h6 title="${htmlEscape(p.Name)}">${htmlEscape(p.Photo?p.Name:'')}</h6>
                         <p class="price">₹${p.Price}</p>
                         <div class="qty-controls">
                             <button class="btn btn-sm btn-outline-secondary qty-down" data-id="${p.Id}">-</button>
