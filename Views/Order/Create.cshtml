@@ -216,7 +216,7 @@
     /* Desktop Cart (left column) */
     .desktop-cart {
         flex: 0 0 600px;
-        max-width: 600px;
+        max-width: 500px;
         background: #fff;
         border: 1px solid #e6e6e6;
         padding: 12px;
@@ -348,7 +348,7 @@
     }
 
         .qty-controls input {
-            width: 48px;
+           /* width: 48px; */
             text-align: center;
             padding: 4px;
         }
@@ -453,7 +453,21 @@
     }
 
     
+    .product-card-WithoutImage
+    {
+        background: #4b3417;
+            color: white;
+    }
 
+    .product-card-WithoutImage button {
+            background: #971522;
+            color: white;
+        }
+
+    .product-card-WithoutImage h4{
+            font-size: 18px;
+            height: 50px;
+    }
 </style>
 
 
@@ -799,9 +813,9 @@
                 const currentQty = existing ? existing.qty : 0;
               
                 container.append(`
-                    <div class="product-card" data-id="${p.Id}">
+                    <div class="product-card ${p.Photo?'':'product-card-WithoutImage'}" data-id="${p.Id}">
                         ${img}
-                        <h6 title="${htmlEscape(p.Name)}">${htmlEscape(p.Photo?p.Name:'')}</h6>
+                        <h6  title="${htmlEscape(p.Name)}">${htmlEscape(p.Photo?p.Name:'')}</h6>
                         <p class="price">₹${p.Price}</p>
                         <div class="qty-controls">
                             <button class="btn btn-sm btn-outline-secondary qty-down" data-id="${p.Id}">-</button>
@@ -954,7 +968,7 @@
             const id = $(this).data('id');
             const card = $(this).closest('.product-card');
             const input = $(`#qty-${id}`);
-            const name = card.find('h6').text().trim();
+             const name = card.find('h6').attr('title').trim();
             const price = parseFloat(card.find('p.price').text().replace(/[^\d.]/g, '')) || 0;
 
             let qty = +input.val() + 1;
@@ -971,7 +985,7 @@
             if (!id) return;
 
             const input = $(`#qty-${id}`);
-            const name = card.find('h6').text().trim();
+              const name = card.find('h6').attr('title').trim();
             const price = parseFloat(card.find('p.price').text().replace(/[^\d.]/g, '')) || 0;
 
             let qty = +input.val() + 1;
@@ -984,7 +998,7 @@
             const id = $(this).data('id');
             const card = $(this).closest('.product-card');
             const input = $(`#qty-${id}`);
-            const name = card.find('h6').text().trim();
+              const name = card.find('h6').attr('title').trim();
             const price = parseFloat(card.find('p.price').text().replace(/[^\d.]/g, '')) || 0;
 
             let qty = +input.val();
