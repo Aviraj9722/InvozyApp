@@ -38,7 +38,7 @@ public partial class TblBusiness
 
     public string? Qrcode { get; set; }
 
-
+    public bool? IsKOTEnabled { get; set; }
     public string? MobileNo { get; set; }
     public virtual TblBusinessType? BusinessType { get; set; }
 

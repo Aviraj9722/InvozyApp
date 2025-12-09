@@ -40,9 +40,10 @@ public partial class eOrderTouchContext : DbContext
     public virtual DbSet<TblUserLicense> TblUserLicenses { get; set; }
 
     public DbSet<TblDealer> TblDealer { get; set; }
-    public DbSet<TblVendor> TblVendor { get; set; }
+    public DbSet<TblVendor> TblVendors { get; set; }
     public DbSet<TblPOMaster> TblPOMaster { get; set; }
     public DbSet<TblPODetails> TblPODetails { get; set; }
+    public DbSet<TblCustomer> TblCustomers { get; set; }
 
     //    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
@@ -69,6 +70,9 @@ public partial class eOrderTouchContext : DbContext
             entity.Property(e => e.Qrcode)
                 .IsUnicode(false)
                 .HasColumnName("QRCode");
+
+            entity.Property(e => e.IsGstapplicable).HasColumnType("bit");
+            
 
             entity.HasOne(d => d.BusinessType).WithMany(p => p.TblBusinesses)
                 .HasForeignKey(d => d.BusinessTypeId)
@@ -137,9 +141,9 @@ public partial class eOrderTouchContext : DbContext
                 .HasColumnName("GSTPercentage");
             entity.Property(e => e.Oid).HasColumnName("OID");
             entity.Property(e => e.Price).HasColumnType("decimal(18, 2)");
-            entity.Property(e => e.Qty).HasColumnType("int");
+            entity.Property(e => e.Qty).HasColumnType("decimal(18, 2)");
             entity.Property(e => e.Total).HasColumnType("decimal(18, 2)");
-
+            entity.Property(e => e.IsKOTPrinted).HasColumnType("bit");
             entity.HasOne(d => d.OidNavigation).WithMany(p => p.TblOrderDetails)
                 .HasForeignKey(d => d.Oid)
                 .HasConstraintName("FK_tblOrderDetails_tblOrderMaster");
@@ -324,6 +328,12 @@ public partial class eOrderTouchContext : DbContext
                 .HasForeignKey(e => e.ProductId)
                 .HasConstraintName("FK_tblPODetails_tblProduct");
         });
+
+        modelBuilder.Entity<TblCustomer>()
+        .HasOne(c => c.Business)
+        .WithMany()
+        .HasForeignKey(c => c.BusinessId)
+        .OnDelete(DeleteBehavior.NoAction);
 
 
         OnModelCreatingPartial(modelBuilder);

@@ -116,6 +116,30 @@
                 </a>
             </div>
 
+            <!-- Vendor -->
+            <div class="dash-col mobile-col">
+                <a asp-controller="Vendor" asp-action="Index" class="text-decoration-none">
+                    <div class="dashboard-card text-center shadow-sm border-0">
+                        <div class="card-body p-3">
+                            <i class="fas fa-store fa-2x text-primary mb-2"></i>
+                            <h6 class="fw-semibold text-dark mb-0">Vendor's</h6>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- GST -->
+            <div class="dash-col mobile-col">
+                <a asp-controller="GST" asp-action="Index" class="text-decoration-none">
+                    <div class="dashboard-card text-center shadow-sm border-0">
+                        <div class="card-body p-3">
+                            <i class="fas fa-file-invoice fa-2x text-primary mb-2"></i>
+                            <h6 class="fw-semibold text-dark mb-0">GST</h6>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
            
 
             <!-- Logout -->
@@ -139,6 +163,9 @@
 
 
 <style>
+    footer {
+        display: none;
+    }
     /* Base card style */
     .dashboard-card {
         border-radius: 18px;

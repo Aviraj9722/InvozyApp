@@ -1,0 +1,281 @@
+﻿@model IEnumerable<eOrderTouchApp.Models.TblDealer>
+
+@{
+    ViewData["Title"] = "Manage Dealers";
+}
+
+<style>
+    .invalid-input {
+        border: 1px solid red !important;
+        background-color: #fff6f6;
+    }
+    /* Align "Show X entries" & Search box */
+    .dataTables_wrapper .dataTables_length,
+    .dataTables_wrapper .dataTables_filter {
+        display: flex;
+        align-items: center;
+        gap: 10px !important;
+        margin-bottom: 12px !important; /* ⬅️ ADDED spacing under Search box */
+    }
+
+    /* Fix dropdown arrow + number overlap */
+    .dataTables_length select {
+        padding-right: 28px !important;
+        padding-left: 6px !important;
+        height: 32px;
+    }
+
+    .dataTables_wrapper .dataTables_filter input {
+        margin-left: 6px !important;
+    }
+
+    /* Pagination gap consistency */
+    .dataTables_wrapper .dataTables_paginate {
+        margin-top: 12px !important;
+    }
+</style>
+
+<div class="row">
+    <!-- LEFT SIDE FORM -->
+    <div class="col-md-4">
+        <div class="card p-3 shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h5 id="form-title">Add Dealer</h5>
+            </div>
+
+
+            <form id="dealerForm">
+                <input type="hidden" id="Id" name="Id" value="0" />
+
+                <div class="mb-2">
+                    <label>Name</label>
+                    <input type="text" class="form-control" id="Name" name="Name"/>
+                    <span class="text-danger" id="err_Name"></span>
+                </div>
+
+                <div class="mb-2">
+                    <label>Dealer Code</label>
+                    <input type="text" class="form-control" id="DealerCode" name="DealerCode" />
+                    <span class="text-danger" id="err_DealerCode"></span>
+                </div>
+
+                <div class="mb-2">
+                    <label>Email</label>
+                    <input type="email" class="form-control" id="EmailId" name="EmailId"/>
+                    <span class="text-danger" id="err_EmailId"></span>
+                </div>
+
+                <div class="mb-2">
+                    <label>Mobile No</label>
+                    <input type="text" class="form-control" id="MobileNo" name="MobileNo" />
+                    <span class="text-danger" id="err_MobileNo"></span>
+                </div>
+
+                <div class="mb-2">
+                    <label>GSTN</label>
+                    <input type="text" class="form-control" id="GSTN" name="GSTN"  />
+                    <span class="text-danger" id="err_GSTN"></span>
+                </div>
+
+                <div class="mb-2">
+                    <label>Address</label>
+                    <textarea class="form-control" id="Address" name="Address"></textarea>
+                    <span class="text-danger" id="err_Address"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label>Location</label>
+                    <input type="text" class="form-control" id="Location" name="Location" />
+                    <span class="text-danger" id="err_Location"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100">Save</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- RIGHT SIDE GRID -->
+    <div class="col-md-8">
+       @*  <div class="card p-3 shadow-sm ">
+            
+            <table id="dealerTable" class="table table-bordered table-striped">
+                <thead class="table-dark"> *@
+        <div class="card-body" id="gridContainer" style="overflow-x:auto;">
+            <table class="table table-bordered datatable" id="dealerTable">
+                <thead class="table-dark">
+                    <tr>
+                        <th style="width: 150px;">Action</th>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Dealer Code</th>
+                        <th>Email</th>
+                        <th>Mobile</th>
+                        <th>GSTN</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var d in Model)
+                    {
+                        <tr>
+                            <td>
+                                <button class="btn btn-sm btn-warning editBtn" data-id="@d.Id">Edit</button>
+                                <button class="btn btn-sm btn-danger deleteBtn" data-id="@d.Id">Delete</button>
+                            </td>
+                            <td>@d.Id</td>
+                            <td>@d.Name</td>
+                            <td>@d.DealerCode</td>
+                            <td>@d.EmailId</td>
+                            <td>@d.MobileNo</td>
+                            <td>@d.GSTN</td>
+                            
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            $('#dealerTable').DataTable();
+
+            // -----------------------------
+            // VALIDATION 
+            // -----------------------------
+            function validateDealerForm() {
+
+                let valid = true;
+
+                // Remove previous error styles
+                $('.form-control').removeClass('invalid-input');
+                $('.text-danger').text('');
+
+                // Name
+                if ($('#Name').val().trim() === "") {
+                    $('#err_Name').text("Name is required");
+                    $('#Name').addClass('invalid-input');
+                    valid = false;
+                }
+
+                // Dealer Code
+                if ($('#DealerCode').val().trim() === "") {
+                    $('#err_DealerCode').text("Dealer Code is required");
+                    $('#DealerCode').addClass('invalid-input');
+                    valid = false;
+                }
+
+                // Email
+                let email = $("#EmailId").val().trim();
+                let emailPattern = /^[^\s@@]+@@[^\s@@]+\.[^\s@@]+$/;
+
+                if (email === "") {
+                    $("#err_EmailId").text("Email is required");
+                    $("#EmailId").addClass("invalid-input");
+                    isValid = false;
+                }
+                 else if (!emailPattern.test(email)) {
+                     $("#err_EmailId").text("Invalid email format");
+                     $("#EmailId").addClass("invalid-input");
+                     isValid = false;
+                 }
+
+             // Mobile Validation
+                 let mobile = $("#MobileNo").val().trim();
+                 let mobilePattern = /^[0-9]{10}$/;
+
+                 if (mobile === "") {
+                     $("#err_MobileNo").text("Mobile number is required");
+                     $("#MobileNo").addClass("invalid-input");
+                     isValid = false;
+                 }
+                 else if (!mobilePattern.test(mobile)) {
+                     $("#err_MobileNo").text("Mobile number must be 10 digits");
+                     $("#MobileNo").addClass("invalid-input");
+                     isValid = false;
+                 }
+
+
+                // GSTN
+                if ($('#GSTN').val().trim() === "") {
+                    $('#err_GSTN').text("GSTN is required");
+                    $('#GSTN').addClass('invalid-input');
+                    valid = false;
+                }
+
+                // Location
+                if ($('#Location').val().trim() === "") {
+                    $('#err_Location').text("Location is required");
+                    $('#Location').addClass('invalid-input');
+                    valid = false;
+                }
+
+                return valid;
+            }
+
+            // -----------------------------
+            // SAVE (Create / Update)
+            // -----------------------------
+            $('#dealerForm').submit(function (e) {
+                debugger;
+                e.preventDefault();
+
+                if (!validateDealerForm()) return;
+
+                $.ajax({
+                    url: '/Dealer/SaveDealer',
+                    type: 'POST',
+                    data: $(this).serialize(),
+                    success: function (res) {
+                        alert(res.message);
+                        location.reload();
+                    }
+                });
+            });
+
+            // -----------------------------
+            // EDIT RECORD
+            // -----------------------------
+            $(document).on("click", ".editBtn", function () {
+                const id = $(this).data('id');
+
+                $.get('/Dealer/GetDealer?id=' + id, function (data) {
+
+                    $('#formTitle').text("Edit Dealer");
+
+                    $('#Id').val(data.id);
+                    $('#Name').val(data.name);
+                    $('#DealerCode').val(data.dealerCode);
+                    $('#EmailId').val(data.emailId);
+                    $('#MobileNo').val(data.mobileNo);
+                    $('#GSTN').val(data.gstn);
+                    $('#Address').val(data.address);
+                    $('#Location').val(data.location);
+                });
+            });
+
+            // -----------------------------
+            // DELETE RECORD
+            // -----------------------------
+            $(document).on("click", ".deleteBtn", function () {
+
+                const id = $(this).data('id');
+
+                if (confirm("Are you sure you want to delete?")) {
+                    $.get('/Dealer/Delete?id=' + id, function (res) {
+                        alert(res.message);
+                        location.reload();
+                    });
+                }
+            });
+
+        });
+    </script>
+}
+

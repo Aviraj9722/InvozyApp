@@ -7,13 +7,8 @@
     ViewBag.HideNav = true;
 
     var Org = (eOrderTouchApp.Models.TblBusiness)ViewBag.Orgnization;
-
 }
-
 <style>
-    body{
-        background: #bdb8b3;
-    }
     .desktop-qty-down {
         background: #832a2a;
         font-weight: 900;
@@ -85,7 +80,7 @@
 
 .product-card img {
     height: 120px;
-            object-fit: scale-down;
+    object-fit: contain;
 }
 
 
@@ -216,12 +211,12 @@
     /* Desktop Cart (left column) */
     .desktop-cart {
         flex: 0 0 600px;
-        max-width: 500px;
+        max-width: 600px;
         background: #fff;
         border: 1px solid #e6e6e6;
         padding: 12px;
         border-radius: 8px;
-        height: auto;/*calc(100vh - 40px);*/
+        height: calc(100vh - 40px);
         position: sticky;
         top: 20px;
         overflow-y: auto;
@@ -273,7 +268,7 @@
     .category-top {
         display: flex;
         gap: 8px;
-        align-items:left;
+        align-items: center;
         padding: 10px;
         background: #fff;
         border-radius: 8px;
@@ -322,12 +317,12 @@
         .product-card img {
             width: 100%;
             height: 100px;
-            object-fit: scale-down;
+            object-fit: cover;
             border-radius: 6px;
         }
 
         .product-card h6 {
-            font-size: 1rem;
+            font-size: 0.85rem;
             margin: 6px 0 4px;
             white-space: nowrap;
             overflow: hidden;
@@ -337,7 +332,6 @@
         .product-card p.price {
             margin: 0 0 6px;
             font-weight: 700;
-            font-size: 16px;
         }
 
     .qty-controls {
@@ -348,7 +342,7 @@
     }
 
         .qty-controls input {
-           /* width: 48px; */
+            width: 48px;
             text-align: center;
             padding: 4px;
         }
@@ -394,14 +388,10 @@
         }
 
         .category-top {
-            position: Relative fixed;
+            position: relative;
             top: 0;
             margin-bottom: 6px;
         }
-    }
-    /* Misc */
-    #productContainer {
-        margin-top: 30px;
     }
 
     @@media (max-width: 575px) {
@@ -409,13 +399,12 @@
             width: calc(100% / 3 - 12px);
         }
         /* 3 per row even on small phones */
-        /* Misc */
-        #productContainer {
-            margin-top: 10px;
-        }
     }
 
- 
+    /* Misc */
+    #productContainer {
+        margin-top: 6px;
+    }
 
     .badge-count {
         background: #f1f1f1;
@@ -447,40 +436,20 @@
         background: #bbb;
         border-radius: 10px;
     }
-
-    main{
-        padding-bottom: 0px !important;
-    }
-
-    
-    .product-card-WithoutImage
-    {
-        background: #4b3417;
-            color: white;
-    }
-
-    .product-card-WithoutImage button {
-            background: #971522;
-            color: white;
-        }
-
-    .product-card-WithoutImage h4{
-            font-size: 18px;
-            height: 50px;
-    }
 </style>
 
 
+<h3 style="display:flex;align-items:center;gap:12px;">
+    Create Order
+   
+    <span id="editingBadge" class="badge bg-warning text-dark" style="display:none;">Editing Order: <span id="editingOrderId"></span></span>
+</h3>
 
 <div class="order-layout">
-  
     <!-- 🛒 DESKTOP CART -->
     <div class="desktop-cart" id="desktopCart">
-        <h5>
-            Your Cart <span id="desktopCartCount" class="badge-count bg-success text-light">0</span> </span>
-            </h3>
-        </h5>
-        <div id="desktopCartItems" style="margin-top:8px;overflow-y: auto;height: 366px;"></div>
+        <h5>Your Cart <span id="desktopCartCount" class="badge-count bg-success text-light">0</span></h5>
+        <div id="desktopCartItems" style="margin-top:8px;overflow-y: auto;height: 400px;"></div>
 
         <div style="margin-top:12px; display:flex; justify-content:space-between; align-items:center;">
             <strong>Grand Total:</strong>
@@ -546,24 +515,14 @@
             🛒 Cart <span id="cartCount" class="badge bg-light text-dark ms-1">0</span>
         </button> *@
 
-        <div class="category-top d-flex flex-column" id="categoryTop">
-
-            <span id="editingBadge" class="badge bg-warning text-dark mb-2" style="display:none;font-size: 14px;">
-                Editing Order: <span id="editingOrderId"></span>
-            </span>
-
-            <div class="category-scroll">
-                <div class="d-flex flex-nowrap gap-1">
-                    <div class="category-btn active" data-id="all">All</div>
-                    @foreach (var cat in categories)
-                    {
-                        <div class="category-btn" data-id="@cat.Id">@cat.Name</div>
-                    }
-                </div>
-            </div>
-
+        <!-- Categories: top sticky bar inside product area -->
+        <div class="category-top" id="categoryTop">
+            <div class="category-btn active" data-id="all">All</div>
+            @foreach (var cat in categories)
+            {
+                <div class="category-btn" data-id="@cat.Id">@cat.Name</div>
+            }
         </div>
-
 
         <!-- Product container -->
         <div id="productContainer" class="product-grid"></div>
@@ -675,30 +634,6 @@
     <p><strong>Grand Total: <span id="invTotal"></span></strong></p>
     <p>Thank you!</p>
 </div>
-
-<!-- KOT PREVIEW MODAL -->
-<div class="modal fade" id="kotModal" tabindex="-1">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-
-            <div class="modal-header bg-dark text-white py-2" style="background: #515b52 !important;">
-                <h5 class="modal-title">Kichen Order Ticket</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-
-            <div class="modal-body" id="kotModalBody" style="background: #606a61 !important;">
-                <!-- Dynamic KOT items will be injected here -->
-            </div>
-
-            <div class="modal-footer py-2" style="background: #515b52 !important;">
-                <button id="btnPrintKOT" class="btn btn-primary btn-sm">
-                    Print KOT
-                </button>
-            </div>
-
-        </div>
-    </div>
-</div>
 <!-- Bottom Mobile Bar -->
 <div class="mobile-bottom-bar d-md-none">
   @*   <a href="@Url.Action("Dashboard", "Home")"><<</a> *@
@@ -711,6 +646,7 @@
     <button id="btnMobileViewCart" class="btn btn-info text-white">
         <i class="bi bi-cart4 me-1"></i>  Cart<span id="cartCount" class="badge bg-success text-light ms-1 " style="font-size:20px;top: 2px;">0</span>
     </button>
+
     <!-- Save -->
     <button id="btnMobileSave" class="btnMobileSave btn btn-success">
         <i class="bi bi-save me-1"></i> Save
@@ -737,56 +673,6 @@
         let filteredProducts = [...allProducts];
         let cart = [];
 
-        $("#btnPrintKOT").click(function () {
-            let orderId = $(this).data("orderid");
-            $.ajax({
-            url: '/Order/PrintKOT?orderId=' + orderId,
-            type: 'GET',
-            success: function (txt) {
-                // txt contains the KOT print text
-                kotText = txt; // store in your variable
-
-                // OPTIONAL: Show in modal or console
-                console.log("KOT TEXT:\n" + kotText);
-
-                // Use your own printing function
-                 printKotText(kotText);
-                  $("#kotModal").modal("hide");
-            },
-            error: function () {
-              alert("Failed to load KOT content.");
-            }
-            });
-        });
-
-        function printKotText(txt) {
-
-            const ESC = "\x1B";
-            const DOUBLE = ESC + "!" + "\x38";    // Big bold
-            const MEDIUM = ESC + "!" + "\x20";    // Medium
-            const NORMAL = ESC + "!" + "\x00";    // Normal font
-            const SMALL = ESC + "M" + "\x01";
-            const NORMAL_FONT = ESC + "M" + "\x00";
-
-            // Format header
-            let receipt = "";
-            receipt += NORMAL;
-
-            receipt += "------------------------------\n";
-            receipt += MEDIUM + "  KITCHEN ORDER\n" + NORMAL;
-            receipt += "------------------------------\n\n";
-
-            //Add the pure text returned by PrintKOT API
-            receipt += txt + "\n";
-
-            receipt += NORMAL_FONT;
-            receipt += "\n"; // Feed paper
-
-            // RAWBT print
-            const encoded = btoa(unescape(encodeURIComponent(receipt)));
-            window.location.href = "rawbt:base64," + encoded;
-        }
-
         /* -------------------------
            Rendering: Categories & Products
            ------------------------*/
@@ -805,17 +691,16 @@
             paginated.forEach(p => {
                 const img = p.Photo
                     ? `<img src="${p.Photo}" alt="${htmlEscape(p.Name)}" />`
-                    :`<h4>${p.Name}</h4>`;
-                    //: `<div style="height:100px;background:#eee;display:flex;align-items:center;justify-content:center;border-radius:6px;">No Image</div>`;
+                    : `<div style="height:100px;background:#eee;display:flex;align-items:center;justify-content:center;border-radius:6px;">No Image</div>`;
 
                 // find current qty in cart (if any) so product card can show the qty
                 const existing = cart.find(x => x.id === p.Id);
                 const currentQty = existing ? existing.qty : 0;
-              
+
                 container.append(`
-                    <div class="product-card ${p.Photo?'':'product-card-WithoutImage'}" data-id="${p.Id}">
+                    <div class="product-card" data-id="${p.Id}">
                         ${img}
-                        <h6  title="${htmlEscape(p.Name)}">${htmlEscape(p.Photo?p.Name:'')}</h6>
+                        <h6 title="${htmlEscape(p.Name)}">${htmlEscape(p.Name)}</h6>
                         <p class="price">₹${p.Price}</p>
                         <div class="qty-controls">
                             <button class="btn btn-sm btn-outline-secondary qty-down" data-id="${p.Id}">-</button>
@@ -884,7 +769,7 @@
             cart.forEach(item => {
                 grandTotal += item.total;
                 itemCount += item.qty;
-             
+                updateProductHighlight(item.id, item.qty)
                 // mobile row (table)
                 mobileTable.append(`
                     <tr data-id="${item.id}">
@@ -915,7 +800,6 @@
                         <div><button class="btn btn-sm remove-item" data-id="${item.id}">✖</button></div>
                     </div>
                 `);
-                    updateProductHighlight(item.id, item.qty);
             });
 
             // if cart empty, show placeholder in desktop
@@ -968,7 +852,7 @@
             const id = $(this).data('id');
             const card = $(this).closest('.product-card');
             const input = $(`#qty-${id}`);
-             const name = card.find('h6').attr('title').trim();
+            const name = card.find('h6').text().trim();
             const price = parseFloat(card.find('p.price').text().replace(/[^\d.]/g, '')) || 0;
 
             let qty = +input.val() + 1;
@@ -985,7 +869,7 @@
             if (!id) return;
 
             const input = $(`#qty-${id}`);
-              const name = card.find('h6').attr('title').trim();
+            const name = card.find('h6').text().trim();
             const price = parseFloat(card.find('p.price').text().replace(/[^\d.]/g, '')) || 0;
 
             let qty = +input.val() + 1;
@@ -998,7 +882,7 @@
             const id = $(this).data('id');
             const card = $(this).closest('.product-card');
             const input = $(`#qty-${id}`);
-              const name = card.find('h6').attr('title').trim();
+            const name = card.find('h6').text().trim();
             const price = parseFloat(card.find('p.price').text().replace(/[^\d.]/g, '')) || 0;
 
             let qty = +input.val();
@@ -1036,7 +920,6 @@
             $(`#qty-${id}`).val(0);
             cart = cart.filter(x => x.id !== id);
             renderCart();
-             updateProductHighlight(id, 0);
         });
 
         // desktop qty buttons & input
@@ -1099,16 +982,14 @@
         $('#clearCartDesktop').click(function () {
             if (!confirm('Clear cart?')) return;
             clearCartUI();
-            $(".product-card").removeClass("product-added");
         });
 
-                function doCheckout(customerName, tableDetail, paymentMode, IsPaymentDone, IsPrinted) {
-
+        // Checkout handlers (desktop & mobile share same AJAX call)
+        function doCheckout(customerName, tableDetail, paymentMode,IsPaymentDone,IsPrinted) {
             if (cart.length === 0) {
                 alert("Cart is empty. Please add some items for sale.");
                 return;
             }
-
             $('#checkoutBtn, #checkoutBtnDesktop').prop('disabled', true);
 
             const order = {
@@ -1117,7 +998,7 @@
                 tableDetail: tableDetail,
                 paymentMode: paymentMode,
                 isPaymentDone: IsPaymentDone,
-                isPrinted: IsPrinted,
+                isPrinted:IsPrinted,
                 items: cart.map(item => ({
                     productId: item.id,
                     qty: item.qty,
@@ -1131,123 +1012,47 @@
                 contentType: 'application/json',
                 data: JSON.stringify(order),
                 success: function (res) {
-                    
                     if (res.success) {
-                            $("#txtCustNameMobile").val("");
-                            $('#ddlTableMobile option:first').prop('selected', true);
-                          
-                        //-------------------------------------------------------
-                        //  KOT LOGIC — OPEN PRINT WINDOW IF NEW ITEMS EXIST
-                        //-------------------------------------------------------
-                        if (res.kotItems && res.kotItems.length > 0) {
-                            try {
-                             //   window.open('/Order/PrintKOT?orderId=' + res.orderId, '_blank');
-                                     //-------------------------------------------------------
-                                        // SHOW POPUP FOR KOT ITEMS
-                                        //-------------------------------------------------------
-                                        if (res.kotItems && res.kotItems.length > 0) {
-
-                                            let html = `<div>${tableDetail}</div>`;
-                                            html += `<table class="table table-bordered table-sm mt-2">
-                                                        <thead>
-                                                          <tr>
-                                                            <th style='background: #606a61 !important;'>Item</th>
-                                                            <th style='background:#606a61 !important;'>Qty</th>
-                                                          </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                    `;
-
-                                            res.kotItems.forEach(k => {
-                                                const product = allProducts.find(p => p.Id === k.productId);  // your existing products list
-                                                html += `
-                                                    <tr>
-                                                        <td style='background: #606a61 !important;'>${product?.Name || ''}</td>
-                                                        <td style='background: #606a61 !important;'>${k.qty}</td>
-                                                    </tr>
-                                                `;
-                                            });
-
-                                            html += `</tbody></table>`;
-                                     
-                                            $("#kotModalBody").html(html);
-                                          
-                                            if('@Org.IsKOTEnabled'.toLowerCase()=='true')
-                                            { $("#kotModal").modal("show");
-                                            }
-
-                                            // Store order ID for printing
-                                            $("#btnPrintKOT").data("orderid", res.orderId);
-                                        }
-
-                            } catch (er) {
-                                console.log("KOT print failed.");
-                            }
-                        }
-
-                        //-------------------------------------------------------
-                        //  EXISTING BILL PRINT LOGIC — NO CHANGE
-                        //-------------------------------------------------------
+                        // printing logic remains same
                         setTimeout(() => {
                             const isDesktop = window.innerWidth > 991;
                             const tableNo = isDesktop ? $("#ddlTableDesktop").val() : $("#ddlTableMobile").val();
-
                             const paymentMode = isDesktop
                                 ? document.querySelector('input[name="paymentDesktop"]:checked').value
                                 : document.querySelector('input[name="paymentMobile"]:checked').value;
+                           
+                               let card = $('.product-card');
+                                    card.removeClass("product-added");
 
-                            let card = $('.product-card');
-                            card.removeClass("product-added");
 
-                            if (IsPrinted == true) {
-                                try {
+                            if(IsPrinted==true){
 
+                                try 
+                                {
+                                   
+                                     //debugger;
                                     if ('@Org.PrinterSizeId' == '2') {
-                                        printPlainReceipt80mm(
-                                            '@Org.BusinessName',
-                                            '@Org.Address',
-                                            res.orderId,
-                                            new Date().toLocaleString(),
-                                            order.customerName,
-                                            order.items,
-                                            0,
-                                            '@Org.MobileNo',
-                                            paymentMode,
-                                            tableNo
-                                        );
+                                        printPlainReceipt80mm('@Org.BusinessName', '@Org.Address', res.orderId, new Date().toLocaleString(), order.customerName, order.items, 0, '@Org.MobileNo', paymentMode, tableNo);
 
                                     } else {
-                                        printPlainReceipt58mm(
-                                            '@Org.BusinessName',
-                                            '@Org.Address',
-                                            res.orderId,
-                                            new Date().toLocaleString(),
-                                            order.customerName,
-                                            order.items,
-                                            0,
-                                            '@Org.MobileNo',
-                                            paymentMode,
-                                            tableNo
-                                        );
+                                        printPlainReceipt58mm('@Org.BusinessName', '@Org.Address', res.orderId, new Date().toLocaleString(), order.customerName, order.items, 0, '@Org.MobileNo', paymentMode, tableNo);
+
                                     }
-
-                                } catch (er) {
-                                    console.log("Billing print issue.");
+                                }catch(er){
+                                    console.log('printing issue');
                                 }
+                               
                             }
+                                  
 
-                            //-------------------------------------------------------
-                            //  Clear UI
-                            //-------------------------------------------------------
                             $('#invoiceSection').hide();
-                       
-
+                            // after print clear cart
                             clearCartUI();
                             $('#checkoutBtn, #checkoutBtnDesktop').prop('disabled', false);
+                            // close modal if on mobile
                             $('#cartModal').modal('hide');
 
                         }, 50);
-
                     } else {
                         alert("Error: " + res.message);
                         $('#checkoutBtn, #checkoutBtnDesktop').prop('disabled', false);
@@ -1259,88 +1064,6 @@
                 }
             });
         }
-
-
-        // Checkout handlers (desktop & mobile share same AJAX call)
-        // function doCheckout(customerName, tableDetail, paymentMode,IsPaymentDone,IsPrinted) {
-        //     if (cart.length === 0) {
-        //         alert("Cart is empty. Please add some items for sale.");
-        //         return;
-        //     }
-        //     $('#checkoutBtn, #checkoutBtnDesktop').prop('disabled', true);
-
-        //     const order = {
-        //         editOrderId: $('#isEditing').val() === '1' ? parseInt($('#editingOrderIdHidden').val() || '0') : null,
-        //         customerName: customerName,
-        //         tableDetail: tableDetail,
-        //         paymentMode: paymentMode,
-        //         isPaymentDone: IsPaymentDone,
-        //         isPrinted:IsPrinted,
-        //         items: cart.map(item => ({
-        //             productId: item.id,
-        //             qty: item.qty,
-        //             price: item.price
-        //         }))
-        //     };
-
-        //     $.ajax({
-        //         url: '/Order/SaveOrder',
-        //         type: 'POST',
-        //         contentType: 'application/json',
-        //         data: JSON.stringify(order),
-        //         success: function (res) {
-        //             if (res.success) {
-        //                 // printing logic remains same
-        //                 setTimeout(() => {
-        //                     const isDesktop = window.innerWidth > 991;
-        //                     const tableNo = isDesktop ? $("#ddlTableDesktop").val() : $("#ddlTableMobile").val();
-        //                     const paymentMode = isDesktop
-        //                         ? document.querySelector('input[name="paymentDesktop"]:checked').value
-        //                         : document.querySelector('input[name="paymentMobile"]:checked').value;
-                           
-        //                        let card = $('.product-card');
-        //                             card.removeClass("product-added");
-
-
-        //                     if(IsPrinted==true){
-
-        //                         try 
-        //                         {
-                                   
-        //                              //debugger;
-        //                             if ('@Org.PrinterSizeId' == '2') {
-        //                                 printPlainReceipt80mm('@Org.BusinessName', '@Org.Address', res.orderId, new Date().toLocaleString(), order.customerName, order.items, 0, '@Org.MobileNo', paymentMode, tableNo);
-
-        //                             } else {
-        //                                 printPlainReceipt58mm('@Org.BusinessName', '@Org.Address', res.orderId, new Date().toLocaleString(), order.customerName, order.items, 0, '@Org.MobileNo', paymentMode, tableNo);
-
-        //                             }
-        //                         }catch(er){
-        //                             console.log('printing issue');
-        //                         }
-                               
-        //                     }
-                                  
-
-        //                     $('#invoiceSection').hide();
-        //                     // after print clear cart
-        //                     clearCartUI();
-        //                     $('#checkoutBtn, #checkoutBtnDesktop').prop('disabled', false);
-        //                     // close modal if on mobile
-        //                     $('#cartModal').modal('hide');
-
-        //                 }, 50);
-        //             } else {
-        //                 alert("Error: " + res.message);
-        //                 $('#checkoutBtn, #checkoutBtnDesktop').prop('disabled', false);
-        //             }
-        //         },
-        //         error: function (err) {
-        //             alert("Save order failed.");
-        //             $('#checkoutBtn, #checkoutBtnDesktop').prop('disabled', false);
-        //         }
-        //     });
-        // }
 
         $('#checkoutBtn').click(function () {
             const customerName = $("#txtCustNameMobile").val();
@@ -1755,7 +1478,7 @@
         });
 
         function updateProductHighlight(productId, qty) {
-           // debugger;
+            debugger;
             let card = $('.product-card[data-id="' + productId + '"]');
 
             if (!card.length) return;

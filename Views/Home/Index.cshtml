@@ -677,5 +677,19 @@
     }
 
 </style>
+@section Scripts {
 
 
+    <script>
+            $(document).ready(function () {
+               const params = new URLSearchParams(window.location.search);
+
+             if (params.get("inquiry") === "1") {
+                var myModal = new bootstrap.Modal(document.getElementById('enquiryModal'));
+                 myModal.show();
+             }
+        });
+    </script>
+
+
+}

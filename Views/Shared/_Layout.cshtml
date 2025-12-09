@@ -51,9 +51,15 @@
                                     <li class="nav-item">
                                         <a class="nav-link text-dark" asp-controller="Businesses" asp-action="Index">Businesses</a>
                                     </li>
-
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-controller="Dealer" asp-action="Index">Dealers</a>
+                                    </li>
                                     <li class="nav-item">
                                         <a class="nav-link text-dark" asp-controller="Enquiry" asp-action="AdminList">Enquiries</a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-controller="Dealer" asp-action="Index">Dealers</a>
                                     </li>
 
                                     <li class="nav-item d-flex align-items-center bg-info text-dark px-3 rounded">
@@ -85,6 +91,12 @@
                                     <li class="nav-item">
                                         <a class="nav-link text-dark" asp-controller="Product" asp-action="Index">Products</a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-controller="Vendor" asp-action="Index">Vendors</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-controller="Customer" asp-action="Index">Customers</a>
+                                    </li>
 
                                     <li class="nav-item d-flex align-items-center bg-info text-dark px-3 rounded">
                                         <span class="me-2">Hello, @User.Identity.Name</span>
@@ -101,7 +113,7 @@
     }
 
     <div class="container-fluid">
-        <main role="main" class="pb-3">
+        <main role="main" >
             @RenderBody()
         </main>
     </div>
@@ -127,8 +139,6 @@
 
     <!-- DataTables JS -->
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-
-   
 
     @await RenderSectionAsync("Scripts", required: false)
     <script>

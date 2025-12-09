@@ -118,7 +118,7 @@ public class StockController : Controller
     {
         int businessId = Convert.ToInt32(User.FindFirst("OrgId")?.Value);
 
-        ViewBag.Vendors = new SelectList(_context.TblVendor.Where(w => w.BusinessId == businessId).ToList(), "Id", "Name");
+        ViewBag.Vendors = new SelectList(_context.TblVendors.Where(w => w.BusinessId == businessId).ToList(), "Id", "Name");
 
 
     }
