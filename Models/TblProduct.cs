@@ -40,10 +40,7 @@ public partial class TblProduct
 
     public virtual ICollection<TblOrderDetail> TblOrderDetails { get; set; } = new List<TblOrderDetail>();
 
-    public virtual ICollection<TblPurchaseOrderStock> TblPurchaseOrderStocks { get; set; } = new List<TblPurchaseOrderStock>();
-
     public virtual TblUser? User { get; set; }
 
     public ICollection<TblPODetails>? PODetails { get; set; }
-    public ICollection<TblStock>? Stocks { get; set; }
 }

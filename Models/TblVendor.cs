@@ -13,8 +13,10 @@ namespace eOrderTouchApp.Models
         public string? Address { get; set; }
         public string? Location { get; set; }
 
+        public int? BusinessId { get; set; }
+
+        public TblBusiness? Business { get; set; }
         public ICollection<TblPOMaster>? POMasters { get; set; }
-        public ICollection<TblStock>? Stocks { get; set; }
     }
 
    

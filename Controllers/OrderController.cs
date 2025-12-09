@@ -19,7 +19,7 @@ public class OrderController : Controller
     public class OrderItemDto
     {
         public int productId { get; set; }
-        public decimal qty { get; set; }
+        public int qty { get; set; }
         public decimal price { get; set; }
     }
 

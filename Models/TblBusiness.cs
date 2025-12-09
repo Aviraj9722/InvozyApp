@@ -57,4 +57,6 @@ public partial class TblBusiness
     public virtual ICollection<TblUser> TblUsers { get; set; } = new List<TblUser>();
 
     public ICollection<TblPOMaster>? POMasters { get; set; }
+
+    public ICollection<TblVendor>? Vendors { get; set; }
 }
