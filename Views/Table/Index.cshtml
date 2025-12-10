@@ -1,0 +1,104 @@
+﻿@model IEnumerable<eOrderTouchApp.Models.TblTable>
+
+<link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+
+<div class="container-fluid mt-3">
+    <div class="row">
+
+        <!-- FORM -->
+        <div class="col-md-4">
+            <div class="card shadow-sm p-3">
+                <h5>Add / Edit Table</h5>
+
+                <input type="hidden" id="tableId" value="0" />
+
+                <div class="mb-3">
+                    <label>Table Name</label>
+                    <input type="text" id="tableName" class="form-control" />
+                </div>
+
+                <button id="btnSave" class="btn btn-primary w-100">Save</button>
+                <button id="btnClear" class="btn btn-secondary w-100 mt-2">Clear</button>
+            </div>
+        </div>
+
+        <!-- LIST -->
+        <div class="col-md-8">
+            <table id="tableGrid" class="table table-bordered">
+                <thead class="table-dark">
+                    <tr>
+                        <th>#</th>
+                        <th>Table Name</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var t in Model)
+                    {
+                        <tr data-id="@t.Id" data-name="@t.Name">
+                            <td>@t.Id</td>
+                            <td>@t.Name</td>
+                            <td>
+                                <button class="btn btn-sm btn-primary editBtn">Edit</button>
+                                <button class="btn btn-sm btn-danger deleteBtn">Delete</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+    <script>
+        $(function () {
+
+            $('#tableGrid').DataTable();
+
+            $('#btnSave').click(function () {
+
+                let obj = {
+                    Id: $('#tableId').val(),
+                    Name: $('#tableName').val()
+                };
+
+                let url = obj.Id == 0 ? '/Table/Create' : '/Table/Edit';
+
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(obj),
+                    success: function (res) {
+                        if (res.success) location.reload();
+                    }
+                });
+            });
+
+            $('.editBtn').click(function () {
+                let row = $(this).closest('tr');
+                $('#tableId').val(row.data('id'));
+                $('#tableName').val(row.data('name'));
+            });
+
+            $('.deleteBtn').click(function () {
+                if (!confirm('Delete this table?')) return;
+                let id = $(this).closest('tr').data('id');
+
+                $.post('/Table/Delete', { id: id }, function(res){
+                    if(res.success) location.reload();
+                });
+            });
+
+            $('#btnClear').click(function(){
+                $('#tableId').val(0);
+                $('#tableName').val('');
+            });
+
+        });
+    </script>
+}

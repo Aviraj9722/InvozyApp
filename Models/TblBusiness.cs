@@ -54,9 +54,13 @@ public partial class TblBusiness
 
     public virtual ICollection<TblUom> TblUoms { get; set; } = new List<TblUom>();
 
-    public virtual ICollection<TblUser> TblUsers { get; set; } = new List<TblUser>();
+    public virtual ICollection<TblUser> TblUsers { get; set; } = new List<TblUser>(); 
 
     public ICollection<TblPOMaster>? POMasters { get; set; }
 
     public ICollection<TblVendor>? Vendors { get; set; }
+
+    public virtual ICollection<TblGST> TblGsts { get; set; } = new List<TblGST>();
+
+    public virtual ICollection<TblTable> TblTables { get; set; } = new List<TblTable>();
 }

@@ -1,0 +1,119 @@
+﻿@model IEnumerable<eOrderTouchApp.Models.TblGST>
+
+<link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+
+<div class="container-fluid mt-3">
+    <div class="row">
+
+        <!-- LEFT FORM -->
+        <div class="col-md-4">
+            <div class="card shadow-sm p-3">
+                <h5 id="formTitle">Add / Edit GST</h5>
+
+                <input type="hidden" id="gstId" value="0" />
+
+                <div class="mb-3">
+                    <label>GST %</label>
+                    <input type="number" id="gstValue" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label>Display Name</label>
+                    <input type="text" id="displayName" class="form-control" />
+                </div>
+
+                <div class="d-grid gap-2">
+                    <button type="button" id="btnSave" class="btn btn-primary">Save</button>
+                    <button type="button" id="btnClear" class="btn btn-secondary">Clear</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT TABLE -->
+        <div class="col-md-8">
+            <table id="gstTable" class="table table-bordered">
+                <thead class="table-dark">
+                    <tr>
+                        <th>#</th>
+                        <th>GST%</th>
+                        <th>Name</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var g in Model)
+                    {
+                        <tr data-id="@g.Id"
+                            data-value="@g.GSTValue"
+                            data-name="@g.DisplayName">
+
+                            <td>@g.Id</td>
+                            <td>@g.GSTValue</td>
+                            <td>@g.DisplayName</td>
+                            <td>
+                                <button class="btn btn-sm btn-primary editBtn">Edit</button>
+                                <button class="btn btn-sm btn-danger deleteBtn">Delete</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+    <script>
+        $(function () {
+
+            $('#gstTable').DataTable();
+
+            $('#btnSave').click(function () {
+
+                let obj = {
+                    Id: $('#gstId').val(),
+                    GSTValue: $('#gstValue').val(),
+                    DisplayName: $('#displayName').val()
+                };
+
+                let url = obj.Id == 0 ? '/GST/Create' : '/GST/Edit';
+
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(obj),
+                    success: function (res) {
+                        if (res.success) location.reload();
+                    }
+                });
+            });
+
+            $('.editBtn').click(function () {
+                let row = $(this).closest('tr');
+                $('#gstId').val(row.data('id'));
+                $('#gstValue').val(row.data('value'));
+                $('#displayName').val(row.data('name'));
+            });
+
+            $('.deleteBtn').click(function () {
+                if (!confirm('Delete this GST?')) return;
+                let id = $(this).closest('tr').data('id');
+
+                $.post('/GST/Delete', { id: id }, function (res) {
+                    if (res.success) location.reload();
+                });
+            });
+
+            $('#btnClear').click(function () {
+                $('#gstId').val(0);
+                $('#gstValue').val('');
+                $('#displayName').val('');
+            });
+
+        });
+    </script>
+}
