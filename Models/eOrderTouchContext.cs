@@ -72,7 +72,11 @@ public partial class eOrderTouchContext : DbContext
                 .HasColumnName("QRCode");
 
             entity.Property(e => e.IsGstapplicable).HasColumnType("bit");
-            
+
+            entity.Property(e => e.IsCustomerMandetory).HasColumnType("bit");
+            entity.Property(e => e.BarcodeEnabled).HasColumnType("bit");
+            entity.Property(e => e.KichenPrinterName).HasMaxLength(100);
+            entity.Property(e => e.CounterPrinterName).HasMaxLength(100);
 
             entity.HasOne(d => d.BusinessType).WithMany(p => p.TblBusinesses)
                 .HasForeignKey(d => d.BusinessTypeId)

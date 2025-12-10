@@ -59,4 +59,8 @@ public partial class TblBusiness
     public ICollection<TblPOMaster>? POMasters { get; set; }
 
     public ICollection<TblVendor>? Vendors { get; set; }
+    public bool? IsCustomerMandetory { get;  set; }
+    public bool? BarcodeEnabled { get;  set; }
+    public string? KichenPrinterName { get;  set; }
+    public string? CounterPrinterName { get;  set; }
 }

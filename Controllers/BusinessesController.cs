@@ -48,6 +48,8 @@ namespace eOrderTouchApp.Controllers
             ModelState.Remove("HideCustomerField");
             ModelState.Remove("HideTableDropDown");
             ModelState.Remove("IsKOTEnabled");
+            ModelState.Remove("IsCustomerMandetory");
+            ModelState.Remove("BarcodeEnabled");
             if (!ModelState.IsValid)
             {
                 var allErrors = ModelState
@@ -95,6 +97,10 @@ namespace eOrderTouchApp.Controllers
                 hideCustomerField = b.HideCustomerField,
                 hideTableDropDown = b.HideTableDropDown,
                 isKOTEnabled = b.IsKOTEnabled,
+                barcodeEnabled = b.BarcodeEnabled,
+                IsCustomerMandetory = b.IsCustomerMandetory,
+                kichenPrinterName = b.KichenPrinterName,
+               counterPrinterName = b.CounterPrinterName,
                 isActive = b.IsActive,
                 logo = b.Logo,
                 mobileNo = b.MobileNo,
@@ -115,6 +121,8 @@ namespace eOrderTouchApp.Controllers
             ModelState.Remove("HideCustomerField");
             ModelState.Remove("HideTableDropDown");
             ModelState.Remove("IsKOTEnabled");
+            ModelState.Remove("IsCustomerMandetory");
+            ModelState.Remove("BarcodeEnabled");
             if (!ModelState.IsValid)
             {
                 var allErrors = ModelState
@@ -148,6 +156,11 @@ namespace eOrderTouchApp.Controllers
             existing.HideTableDropDown = business.HideTableDropDown;
             existing.IsKOTEnabled = business.IsKOTEnabled;
             existing.IsActive = business.IsActive;
+
+            existing.BarcodeEnabled = business.BarcodeEnabled;
+            existing.IsCustomerMandetory = business.IsCustomerMandetory;
+            existing.KichenPrinterName = business.KichenPrinterName;
+            existing.CounterPrinterName = business.CounterPrinterName;
 
             //// Replace logo if file selected
             //if (LogoFile != null)

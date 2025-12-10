@@ -115,7 +115,6 @@
                             <option value="">-- Select --</option>
 
                             @foreach (var x in ViewBag.PrinterSizes)
-
                             {
                                 <option value="@x.Id">@x.PrinterSize</option>
 
@@ -145,12 +144,37 @@
                         <label class="form-check-label">Hide Table Dropdown</label>
                     </div>
 
-                    <!-- Hide Table Dropdown -->
+                    <!-- Enable KOT -->
                     <div class="form-check mb-3">
                         <input class="form-check-input" type="checkbox" id="IsKOTEnabled" name="IsKOTEnabled" />
                         <label class="form-check-label">Enable KOT</label>
                     </div>
 
+                    <!-- IsCustomerMandetory  -->
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="IsCustomerMandetory" name="IsCustomerMandetory" />
+                        <label class="form-check-label">Is Customer Mandatory?</label>
+                    </div>
+
+                    <!-- Barcode Enabled  -->
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="BarcodeEnabled" name="BarcodeEnabled" />
+                        <label class="form-check-label">Barcode Enabled?</label>
+                    </div>
+
+                    <!-- Kichen Printer Name  -->
+                    <div class="b-3">
+                        <label class="form-label">Kichen Printer Name</label>
+                        <input class="form-control" type="text" id="KichenPrinterName" name="KichenPrinterName" />
+                     
+                    </div>
+
+                    <!-- Counter Printer Name  -->
+                    <div class="mb-3">
+                        <label class="form-label">Kichen Printer Name</label>
+                        <input class="form-control" type="text" id="CounterPrinterName" name="CounterPrinterName" />
+                       
+                    </div>
 
                     <!-- Logo Upload -->
                     <div class="mb-3">
@@ -165,6 +189,8 @@
                         <input type="file" id="QRCode" name="QRCodeFile" class="form-control" accept="image/*" />
                         <img id="PreviewQR" src="" class="img-fluid mt-2" style="max-height:80px;" />
                     </div>
+
+
 
                     <!-- Active -->
                     <div class="form-check mb-3">
@@ -202,6 +228,10 @@
                         <th>KOT Enabled?</th>
                         <th>Customer Field</th>
                         <th>Table LOV</th>
+                         <th>Barcode Enabled?</th>
+                        <th>Customer Required?</th>
+                        <th>Counter Printer</th>
+                        <th>Kichen Printer</th>
                         <th>Active</th>
                     </tr>
                 </thead>
@@ -251,9 +281,10 @@
                             <td>@item.HideCustomerField</td>
                             <td>@item.HideTableDropDown</td>
                             <td>@(item.IsActive == true ? "Yes" : "No")</td>
-
-
-
+                            <td>@item.BarcodeEnabled</td>
+                            <td>@item.IsCustomerMandetory</td>
+                            <td>@item.CounterPrinterName</td>
+                            <td>@item.KichenPrinterName</td>
                         </tr>
 
                     }
@@ -409,6 +440,9 @@
             formData.set("HideCustomerField", $("#HideCustomerField").is(":checked"));
             formData.set("HideTableDropDown", $("#HideTableDropDown").is(":checked"));
              formData.set("IsKOTEnabled", $("#IsKOTEnabled").is(":checked"));
+
+              formData.set("IsCustomerMandetory", $("#IsCustomerMandetory").is(":checked"));
+               formData.set("BarcodeEnabled", $("#BarcodeEnabled").is(":checked"));
             
            // formData.set("IsGstapplicable", $("#IsGstapplicable").is(":checked"));
             $.ajax({
@@ -445,10 +479,15 @@
                 $("#PrinterSizeId").val(data.printerSizeId);
                 $("#IsGSTApplicable").val(data.isGstApplicable.toString());
 
-                 $("#HideCustomerField").prop('checked', data.hideCustomerField);
+                $("#HideCustomerField").prop('checked', data.hideCustomerField);
                 $("#HideTableDropDown").prop('checked', data.hideTableDropDown);
 
                 $("#IsKOTEnabled").prop('checked', data.isKOTEnabled);
+
+                $("#IsCustomerMandetory").prop('checked', data.isCustomerMandetory);
+                $("#BarcodeEnabled").prop('checked', data.barcodeEnabled);
+                $("#KichenPrinterName").val(data.kichenPrinterName);
+                $("#CounterPrinterName").val(data.counterPrinterName);
                 
                 $("#btnSave").text("Update");
             });
@@ -473,10 +512,14 @@
             $("#PreviewLogo").attr("src", "");
             $("#PreviewQR").attr("src", "");
 
+            $("#IsActive").prop("checked",false);
+            $("#HideCustomerField").prop("checked",false);
+            $("#HideTableDropDown").prop("checked",false);
 
-           $("#IsActive").prop("checked",false)
-             $("#HideCustomerField").prop("checked",false)
-               $("#HideTableDropDown").prop("checked",false)
+            $("#IsCustomerMandetory").prop("checked",false);
+            $("#BarcodeEnabled").prop("checked",false);
+            $("#KichenPrinterName").val("");
+            $("#CounterPrinterName").val("");
         }
 
     </script>

@@ -457,6 +457,37 @@ public class OrderController : Controller
 
         return Content(kotText, "text/plain");
     }
+    [HttpGet]
+    public async Task<IActionResult> GetCustomers(string search)
+    {
+        int businessId = Convert.ToInt32(User.FindFirst("OrgId")?.Value);
+        
+
+        var query = _context.TblCustomers
+                    .Where(c => c.BusinessId == businessId);
+
+        if (!string.IsNullOrEmpty(search))
+        {
+            search = search.ToLower();
+            query = query.Where(c =>
+                   c.Name.ToLower().Contains(search) ||
+                   c.MobileNo.Contains(search) ||
+                   c.Location.ToLower().Contains(search));
+        }
+
+        var customers = await query
+            .OrderBy(c => c.Name)
+            .Select(c => new
+            {
+                c.Id,
+                c.Name,
+                c.Location,
+                c.MobileNo
+            })
+            .ToListAsync();
+
+        return Json(customers);
+    }
 
     // ---------- SaveOrder: INSERT or UPDATE based on incoming DTO ----------
     //[HttpPost]
@@ -566,5 +597,5 @@ public class OrderController : Controller
 
     //        return Json(new { success = true, orderId = master.Id });
     //    }
-//}
+    //}
 }

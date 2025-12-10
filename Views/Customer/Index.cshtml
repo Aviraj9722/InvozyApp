@@ -96,7 +96,13 @@
                     <tbody>
                         @foreach (var c in Model)
                         {
-                            <tr>
+                            <tr data-id="@c.Id"
+                                data-name="@c.Name"
+                                data-mobile="@c.MobileNo"
+                                data-email="@c.EmailId"
+                                data-gstn="@c.GSTN"
+                                data-address="@c.Address"
+                                data-location="@c.Location">
                                 <td>@c.Id</td>
                                 <td>@c.Name</td>
                                 <td>@c.MobileNo</td>
@@ -246,7 +252,7 @@
             });
 
             // EDIT CUSTOMER (delegated event — works on pagination ✅)
-            $('#customerTable').on('click', '.editCustomer', function () {
+            $('#customerTable').on('click', '.editBtn', function () {
                 let row = $(this).closest('tr');
 
                 $('#formTitle').text("Edit Customer");
@@ -261,7 +267,7 @@
             });
 
             // DELETE CUSTOMER (delegated ✅)
-            $('#customerTable').on('click', '.deleteCustomer', function () {
+            $('#customerTable').on('click', '.deleteBtn', function () {
 
                 if (!confirm("Are you sure you want to delete this customer?")) return;
 
