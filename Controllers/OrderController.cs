@@ -38,16 +38,30 @@ public class OrderController : Controller
     // ---------- Reporting actions (unchanged, kept for reference) ----------
     public async Task<IActionResult> Report()
     {
-        int businessId = Convert.ToInt32(User.FindFirst(System.Security.Claims.ClaimTypes.UserData)?.Value);
+        int businessId = Convert.ToInt32(User.FindFirst("OrgId")?.Value ?? "0");
+
+        DateTime todayStart = DateTime.Today;
+        DateTime todayEnd = DateTime.Today.AddDays(1).AddTicks(-1);
 
         var Orders = await _context.TblOrderMasters
-            .Where(w => w.BuisnessId == businessId)
+            .Where(w => w.BuisnessId == businessId
+                && w.DateOfOrder.HasValue
+                && w.DateOfOrder.Value.Date == DateTime.Today)   
             .Include(I => I.TblOrderDetails)
             .Include(u => u.User)
             .OrderByDescending(o => o.Id)
             .ToListAsync();
 
+
         ViewBag.Materials = _context.TblProducts.ToList();
+
+        ViewBag.TotalCash = Orders.Where(w => w.PaymentMode == "Cash").Sum(w => w.GrandTotal);
+        ViewBag.Online = Orders.Where(w => w.PaymentMode == "Online").Sum(s => s.GrandTotal);
+        ViewBag.Free = Orders.Where(w => w.PaymentMode == "Free").Sum(s => s.GrandTotal);
+        ViewBag.Credit = Orders.Where(w => w.PaymentMode == "Credit").Sum(s => s.GrandTotal);
+
+        ViewBag.FromDate = todayStart.ToString("yyyy-MM-dd");
+        ViewBag.ToDate = todayStart.ToString("yyyy-MM-dd");
 
         return View(Orders);
     }
@@ -56,20 +70,25 @@ public class OrderController : Controller
     public async Task<IActionResult> Report2(DateTime fromDT, DateTime toDT)
     {
         int businessId = Convert.ToInt32(User.FindFirst("OrgId")?.Value);
+        DateTime startDate = fromDT.Date;
+        DateTime endDate = toDT.Date.AddDays(1).AddTicks(-1);
 
         var Orders = await _context.TblOrderMasters
-            .Where(w => w.BuisnessId == businessId)
-            .Include(I => I.TblOrderDetails)
-            .Include(u=> u.User)
-            .Where(w => w.DateOfOrder >= fromDT && w.DateOfOrder <= toDT)
-            .OrderByDescending(o => o.Id)
-            .ToListAsync();
+        .Where(w => w.BuisnessId == businessId
+            && w.DateOfOrder.HasValue
+            && w.DateOfOrder.Value.Date >= fromDT.Date
+            && w.DateOfOrder.Value.Date <= toDT.Date)
+        .Include(I => I.TblOrderDetails)
+        .Include(u => u.User)
+        .OrderByDescending(o => o.Id)
+        .ToListAsync();
 
         ViewBag.TotalCash = Orders.Where(w => w.PaymentMode == "Cash").Sum(w => w.GrandTotal);
         ViewBag.Online = Orders.Where(w => w.PaymentMode == "Online").Sum(s => s.GrandTotal);
         ViewBag.Free = Orders.Where(w => w.PaymentMode == "Free").Sum(s => s.GrandTotal);
         ViewBag.Credit = Orders.Where(w => w.PaymentMode == "Credit").Sum(s => s.GrandTotal);
         ViewBag.Materials = _context.TblProducts.ToList();
+        
         //To keep the dates after posting the data//
         ViewBag.FromDate = fromDT.ToString("yyyy-MM-dd");
         ViewBag.ToDate = toDT.ToString("yyyy-MM-dd");
