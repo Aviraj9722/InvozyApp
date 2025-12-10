@@ -43,5 +43,4 @@ public partial class TblProduct
     public virtual TblUser? User { get; set; }
 
     public ICollection<TblPODetails>? PODetails { get; set; }
-   
 }

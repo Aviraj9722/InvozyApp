@@ -43,7 +43,7 @@ public partial class eOrderTouchContext : DbContext
     public DbSet<TblVendor> TblVendors { get; set; }
     public DbSet<TblPOMaster> TblPOMaster { get; set; }
     public DbSet<TblPODetails> TblPODetails { get; set; }
-    
+    public DbSet<TblCustomer> TblCustomers { get; set; }
 
     //    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
@@ -287,6 +287,7 @@ public partial class eOrderTouchContext : DbContext
             entity.Property(e => e.MobileNo).HasMaxLength(15);
             entity.Property(e => e.GSTN).HasMaxLength(20);
             entity.Property(e => e.Address).HasMaxLength(250);
+            entity.Property(e => e.BusinessId).HasColumnName("BusinessId");
         });
 
         modelBuilder.Entity<TblPOMaster>(entity =>
@@ -328,6 +329,11 @@ public partial class eOrderTouchContext : DbContext
                 .HasConstraintName("FK_tblPODetails_tblProduct");
         });
 
+        modelBuilder.Entity<TblCustomer>()
+        .HasOne(c => c.Business)
+        .WithMany()
+        .HasForeignKey(c => c.BusinessId)
+        .OnDelete(DeleteBehavior.NoAction);
 
 
         OnModelCreatingPartial(modelBuilder);

@@ -38,7 +38,7 @@ public partial class TblBusiness
 
     public string? Qrcode { get; set; }
 
-    public bool IsKOTEnabled { get; set; }
+    public bool? IsKOTEnabled { get; set; }
     public string? MobileNo { get; set; }
     public virtual TblBusinessType? BusinessType { get; set; }
 
@@ -57,4 +57,6 @@ public partial class TblBusiness
     public virtual ICollection<TblUser> TblUsers { get; set; } = new List<TblUser>();
 
     public ICollection<TblPOMaster>? POMasters { get; set; }
+
+    public ICollection<TblVendor>? Vendors { get; set; }
 }
