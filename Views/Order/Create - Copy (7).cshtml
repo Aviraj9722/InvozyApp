@@ -90,82 +90,82 @@
 
 
 
-/* (Your entire CSS kept unchanged) */
-/* ----- MOBILE BOTTOM BAR ----- */
-@@media (max-width: 991px) {
-    /* Make the table borderless and dark */
-    .table {
-        border: none !important;
-        background-color: #3A4A3D; /* dark green/gray */
-        color: #ffffff; /* white text */
-    }
-
-        .table thead th {
+    /* (Your entire CSS kept unchanged) */
+    /* ----- MOBILE BOTTOM BAR ----- */
+    @@media (max-width: 991px) {
+        /* Make the table borderless and dark */
+        .table {
             border: none !important;
-            background-color: #3A4A3D; /* slightly lighter dark */
-            color: #ffffff;
+            background-color: #3A4A3D; /* dark green/gray */
+            color: #ffffff; /* white text */
         }
 
-        .table tbody td {
-            border: none !important;
-            background-color: #3A4A3D;
-            color: #ffffff;
-        }
-        /* Optional: add soft row separators */
-        .table tbody tr {
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-    .mobile-bottom-bar {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background: #222;
-        color: #fff;
-        display: flex;
-        justify-content: space-around;
-        padding: 10px 0;
-        z-index: 99999;
-        border-top: 2px solid #000;
-    }
+            .table thead th {
+                border: none !important;
+                background-color: #3A4A3D; /* slightly lighter dark */
+                color: #ffffff;
+            }
 
-    .mobile-bottom-bar button,
-    .mobile-bottom-bar a {
-            flex: 1;
-            margin: 0 5px;
-            border-radius: 6px;
-            font-weight: 600;
-            padding: 10px 5px;
-            text-align: center;
-            background: #333;
-            color: #fff !important;
-            border: none;
+            .table tbody td {
+                border: none !important;
+                background-color: #3A4A3D;
+                color: #ffffff;
+            }
+            /* Optional: add soft row separators */
+            .table tbody tr {
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+            }
+        .mobile-bottom-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #222;
+            color: #fff;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            z-index: 99999;
+            border-top: 2px solid #000;
         }
 
-    body {
-        padding-bottom: 70px !important; /* prevents content from hiding under bar */
-    }
-}
+            .mobile-bottom-bar button,
+            .mobile-bottom-bar a {
+                flex: 1;
+                margin: 0 5px;
+                border-radius: 6px;
+                font-weight: 600;
+                padding: 10px 5px;
+                text-align: center;
+                background: #333;
+                color: #fff !important;
+                border: none;
+            }
 
-@@media (max-width: 600px) {
-    input, select, textarea, button {
-        font-size: 16px !important;
+        body {
+            padding-bottom: 70px !important; /* prevents content from hiding under bar */
+        }
     }
 
-    .cart-item-row {
-        overflow: hidden;
-    }
-
-        .cart-item-row > * {
-            min-width: 0;
+    @@media (max-width: 600px) {
+        input, select, textarea, button {
+            font-size: 16px !important;
         }
 
-    .product-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-        gap: 12px;
+        .cart-item-row {
+            overflow: hidden;
+        }
+
+            .cart-item-row > * {
+                min-width: 0;
+            }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 12px;
+        }
     }
-}
 
 
     /* ================================
@@ -353,8 +353,6 @@
             padding: 4px;
         }
 
-
-
     /* ================================
                    Responsive breakpoints
                 =================================*/
@@ -470,12 +468,6 @@
             font-size: 18px;
             height: 50px;
     }
-
-    .cart-highlight {
-        background-color: #972323 !important;
-        color: #fff !important;
-        transition: background-color 0.8s ease;
-    }
 </style>
 
 
@@ -569,11 +561,7 @@
                     }
                 </div>
             </div>
-            <div class="input-group mb-2">
-                <span class="input-group-text"><i class="bi bi-search mt-1 me-1"></i></span>
-                <input type="text" id="txtSearchItem" class="form-control" placeholder="Search items...">
-            </div>
-            <input type="text" id="barcodeInput" style="position:absolute;opacity:0;pointer-events:none;" />
+
         </div>
 
 
@@ -749,20 +737,6 @@
         let filteredProducts = [...allProducts];
         let cart = [];
 
-
-                // SEARCH FILTER
-        document.getElementById("txtSearchItem").addEventListener("keyup", function () {
-            debugger;
-            const query = this.value.toLowerCase();
-            document.querySelectorAll(".product-card").forEach(card => {
-                const name = card.querySelector("h6").innerText.toLowerCase();
-                if (name.includes(query)) {
-                    card.style.display = "";
-                } else {
-                    card.style.display = "none";
-                }
-            });
-        });
         $("#btnPrintKOT").click(function () {
             let orderId = $(this).data("orderid");
             $.ajax({
@@ -956,7 +930,7 @@
             $('#desktopCartCount').text(itemCount);
              let container = $("#tableContainer");
             mobileTable.scrollTop(mobileTable[0].scrollHeight);
-         barcodeInput.focus();
+         
         }
 
         function clearCartUI() {
@@ -1157,7 +1131,7 @@
                 contentType: 'application/json',
                 data: JSON.stringify(order),
                 success: function (res) {
-                    
+
                     if (res.success) {
                             $("#txtCustNameMobile").val("");
                             $('#ddlTableMobile option:first').prop('selected', true);
@@ -1751,7 +1725,6 @@
         // Open Cart Modal
         $("#btnMobileViewCart").click(function () {
             $("#cartModal").modal("show");
-           
         });
 
         // Save button → same as checkout button
@@ -1793,106 +1766,6 @@
                 card.removeClass("product-added");
             }
         }
-    </script>
-
-    
-    <script>
-        let scanBuffer = "";
-        let scanTimer = null;
-
-        const barcodeInput = document.getElementById("barcodeInput");
-
-
-        function safeFocusBarcode() {
-            const active = document.activeElement.id;
-
-            // If user is typing in search box → DO NOT steal focus
-            if (active === "txtSearchItem") return;
-
-            if (active === "txtCustNameDesktop") return;
-
-            if (active === "ddlTableDesktop") return;
-
-             if (active === "txtCustNameMobile") return;
-
-            if (active === "ddlTableMobile") return;
-
-
-            barcodeInput.focus();
-        }
-        // Always keep focus
-        setInterval(() => {
-            if (document.activeElement !== barcodeInput) {
-            //    barcodeInput.focus();
-            safeFocusBarcode();
-            }
-        }, 300);
-
-        // Capture fast input from scanner
-        barcodeInput.addEventListener("input", function () {
-
-            const value = this.value;
-
-            // Add new characters to buffer
-            scanBuffer += value;
-
-            // Clear the visible textbox so it stays empty
-            this.value = "";
-
-            // Clear existing timer
-            if (scanTimer) clearTimeout(scanTimer);
-
-            // If no new input for 60ms → scan finished
-            scanTimer = setTimeout(() => {
-                let code = scanBuffer.trim();
-                scanBuffer = ""; // reset buffer
-
-                if (code.length > 0) {
-                    console.log("FINAL BARCODE:", code);
-                    processBarcode(code);      // your function
-                }
-
-            }, 60);
-        });
-
-              function processBarcode(code) {
-
-            fetch(`/Order/GetProductByBarcode?code=${code}`)
-                .then(r => r.json())
-                .then(res => {
-                    if (!res.success) {
-                        alert("Barcode not found");
-                        return;
-                    }
-
-                    let p = res.data;
-
-                    const id = p.id;
-                    const price = parseFloat(p.price);
-                    const name = p.name;
-
-                    const input = $(`#qty-${id}`);
-                    let qty = 1;
-
-                    if (input.length > 0) {
-                        qty = parseInt(input.val()) + 1;
-                        input.val(qty);
-                    }
-
-                    updateCart(id, name, price, qty);
-
-                    // 🔥 Highlight cart row (DIV)
-                    setTimeout(() => {
-                        const row = $(`.cart-item-row[data-id="${id}"]`);
-                        row.addClass("cart-highlight");
-
-                        setTimeout(() => {
-                            row.removeClass("cart-highlight");
-                        }, 600);
-                    }, 100);
-                });
-        }
-
     </script>
 
     <!-- moment.js optional for nicer date formatting in history modal.

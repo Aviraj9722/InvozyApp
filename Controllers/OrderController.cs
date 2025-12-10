@@ -66,6 +66,7 @@ public class OrderController : Controller
         return View(Orders);
     }
 
+
     [HttpPost]
     public async Task<IActionResult> Report2(DateTime fromDT, DateTime toDT)
     {
@@ -177,6 +178,8 @@ public class OrderController : Controller
         return Json(new { success = true, data = dto });
     }
 
+
+
     // ---------- SaveOrder: INSERT or UPDATE based on incoming DTO ----------
     [HttpPost]
     public async Task<IActionResult> SaveOrder([FromBody] OrderDto orderDto)
@@ -287,23 +290,45 @@ public class OrderController : Controller
                             existingItem.Qty = dtoItem.qty;
                             existingItem.Total = existingItem.Price * dtoItem.qty;
                         }
+                        
+                        // BLOCK QTY DECREASE only if item KOT already printed
+                        if (dtoItem.qty < existingItem.Qty && existingItem.IsKOTPrinted==true && orderDto.isPaymentDone!=true)
+                        {
+                            return Json(new
+                            {
+                                success = false,
+                                message = "Cannot reduce quantity because KOT already printed."
+                            });
+                        }
                         else
                         {
-                            // BLOCK QTY DECREASE if item KOT already printed
-                            if (dtoItem.qty < existingItem.Qty)
+                            if (orderDto.isPaymentDone != true)
                             {
-                                return Json(new
-                                {
-                                    success = false,
-                                    message = "Cannot reduce quantity because KOT already printed."
-                                });
+                                // Allow decrease if KOT not printed
+                                existingItem.Qty = dtoItem.qty;
+                                existingItem.Price = dtoItem.price;
+                                existingItem.Total = dtoItem.qty * dtoItem.price;
                             }
-
-                            // normal update
-                            existingItem.Qty = dtoItem.qty;
-                            existingItem.Price = dtoItem.price;
-                            existingItem.Total = dtoItem.qty * dtoItem.price;
+                           
                         }
+
+                        //else
+                        //{
+                        //    // BLOCK QTY DECREASE if item KOT already printed
+                        //    if (dtoItem.qty < existingItem.Qty)
+                        //    {
+                        //        return Json(new
+                        //        {
+                        //            success = false,
+                        //            message = "Cannot reduce quantity because KOT already printed."
+                        //        });
+                        //    }
+
+                        //    // normal update
+                        //    existingItem.Qty = dtoItem.qty;
+                        //    existingItem.Price = dtoItem.price;
+                        //    existingItem.Total = dtoItem.qty * dtoItem.price;
+                        //}
                     }
 
                     // ---------- Save updated master ----------
@@ -385,7 +410,27 @@ public class OrderController : Controller
         });
     }
 
+    [HttpGet]
+    public async Task<IActionResult> GetProductByBarcode(string code)
+    {
+        int businessId = Convert.ToInt32(User.FindFirst("OrgId")?.Value);
 
+        var product = await _context.TblProducts
+            .Where(p => p.BusinessId == businessId && p.Code == code)
+            .Select(p => new {
+                p.Id,
+                p.Name,
+                p.Price,
+                p.Photo,
+                p.Code
+            })
+            .FirstOrDefaultAsync();
+
+        if (product == null)
+            return Json(new { success = false, message = "Product not found" });
+
+        return Json(new { success = true, data = product });
+    }
 
     [HttpGet]
     public async Task<IActionResult> PrintKOT(int orderId, bool reprint = false)
