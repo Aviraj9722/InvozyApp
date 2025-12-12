@@ -22,6 +22,11 @@ public partial class TblOrderDetail
 
     public decimal? Gstamount { get; set; }
 
+    public decimal? SGST { get; set; }
+    public decimal? CGST { get; set; }
+    public decimal? IGST { get; set; }
+
+
     public virtual TblOrderMaster? OidNavigation { get; set; }
 
     public virtual TblProduct? Product { get; set; }

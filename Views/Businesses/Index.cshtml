@@ -162,6 +162,19 @@
                         <label class="form-check-label">Barcode Enabled?</label>
                     </div>
 
+                    <!-- Multilenguage Enabled  -->
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="IsMultilengual" name="IsMultilengual" />
+                        <label class="form-check-label">Multilanguage Enabled ?</label>
+                    </div>
+
+                    <!-- IsTableNoRequired Enabled  -->
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="IsTableNoRequired" name="IsTableNoRequired" />
+                        <label class="form-check-label">Is TableNo Required?</label>
+                    </div>
+                    
+
                     <!-- Kichen Printer Name  -->
                     <div class="b-3">
                         <label class="form-label">Kichen Printer Name</label>
@@ -224,14 +237,16 @@
                         <th>Mobile No</th>
                         <th>GSTN</th>
                         <th>Printer</th>
-                        <th>Is GST Applicable?</th>
+                        <th>Is GST?</th>
                         <th>KOT Enabled?</th>
                         <th>Customer Field</th>
                         <th>Table LOV</th>
-                         <th>Barcode Enabled?</th>
-                        <th>Customer Required?</th>
+                         <th>Barcode?</th>
+                        <th>Multilanguage?</th>
+                        <th>Customer?</th>
                         <th>Counter Printer</th>
                         <th>Kichen Printer</th>
+                        <th>TableNo Required?</th>
                         <th>Active</th>
                     </tr>
                 </thead>
@@ -282,9 +297,12 @@
                             <td>@item.HideTableDropDown</td>
                             <td>@(item.IsActive == true ? "Yes" : "No")</td>
                             <td>@item.BarcodeEnabled</td>
+                            <td>@item.IsMultilengual</td>
                             <td>@item.IsCustomerMandetory</td>
                             <td>@item.CounterPrinterName</td>
                             <td>@item.KichenPrinterName</td>
+                            <td>@item.IsTableNoRequired</td>
+                            
                         </tr>
 
                     }
@@ -336,10 +354,10 @@
         //     VALIDATION FUNCTION
         // ==========================
         function validateForm() {
-
+              debugger;
              let isValid = true;
              $(".text-danger").text("");
-
+           
              // Business Name
              if ($("#BusinessName").val().trim() === "") {
                  $("#err_BusinessName").text("Business Name is required");
@@ -370,19 +388,19 @@
              }
 
              // Mobile Validation
-             let mobile = $("#MobileNo").val().trim();
-             let mobilePattern = /^[0-9]{10}$/;
+             // let mobile = $("#MobileNo").val().trim();
+             // let mobilePattern = /^[0-9]{10}$/;
 
-             if (mobile === "") {
-                 $("#err_Mobile").text("Mobile number is required");
-                 $("#MobileNo").addClass("invalid-input");
-                 isValid = false;
-             }
-             else if (!mobilePattern.test(mobile)) {
-                 $("#err_Mobile").text("Mobile number must be 10 digits");
-                 $("#MobileNo").addClass("invalid-input");
-                 isValid = false;
-             }
+             // if (mobile === "") {
+             //     $("#err_Mobile").text("Mobile number is required");
+             //     $("#MobileNo").addClass("invalid-input");
+             //     isValid = false;
+             // }
+             // else if (!mobilePattern.test(mobile)) {
+             //     $("#err_Mobile").text("Mobile number must be 10 digits");
+             //     $("#MobileNo").addClass("invalid-input");
+             //     isValid = false;
+             // }
 
              // // GSTIN Validation
              // let gst = $("#GSTIN").val().trim();
@@ -435,7 +453,7 @@
             var url = ($("#Id").val() == "" || $("#Id").val() == "0")
                 ? "/Businesses/Create"
                 : "/Businesses/Update";
-
+                debugger;
             formData.set("IsActive", $("#IsActive").is(":checked"));
             formData.set("HideCustomerField", $("#HideCustomerField").is(":checked"));
             formData.set("HideTableDropDown", $("#HideTableDropDown").is(":checked"));
@@ -443,6 +461,8 @@
 
               formData.set("IsCustomerMandetory", $("#IsCustomerMandetory").is(":checked"));
                formData.set("BarcodeEnabled", $("#BarcodeEnabled").is(":checked"));
+                 formData.set("IsMultilengual", $("#IsMultilengual").is(":checked"));
+                   formData.set("IsTableNoRequired", $("#IsTableNoRequired").is(":checked"));
             
            // formData.set("IsGstapplicable", $("#IsGstapplicable").is(":checked"));
             $.ajax({
@@ -486,9 +506,12 @@
 
                 $("#IsCustomerMandetory").prop('checked', data.isCustomerMandetory);
                 $("#BarcodeEnabled").prop('checked', data.barcodeEnabled);
+                   $("#IsMultilengual").prop('checked', data.isMultilengual);
+                     $("#IsTableNoRequired").prop('checked', data.isTableNoRequired);
+                
                 $("#KichenPrinterName").val(data.kichenPrinterName);
                 $("#CounterPrinterName").val(data.counterPrinterName);
-                
+                        
                 $("#btnSave").text("Update");
             });
         }
@@ -515,11 +538,13 @@
             $("#IsActive").prop("checked",false);
             $("#HideCustomerField").prop("checked",false);
             $("#HideTableDropDown").prop("checked",false);
-
+              $("#IsMultilengual").prop("checked",false);
             $("#IsCustomerMandetory").prop("checked",false);
             $("#BarcodeEnabled").prop("checked",false);
             $("#KichenPrinterName").val("");
             $("#CounterPrinterName").val("");
+              $("#IsTableNoRequired").prop("checked",false);
+            
         }
 
     </script>

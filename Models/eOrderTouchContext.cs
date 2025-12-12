@@ -36,6 +36,7 @@ public partial class eOrderTouchContext : DbContext
     public virtual DbSet<TblUom> TblUoms { get; set; }
 
     public virtual DbSet<TblUser> TblUsers { get; set; }
+    public virtual DbSet<TblKOTDetail> TblKOTDetails { get; set; }
 
     public virtual DbSet<TblUserLicense> TblUserLicenses { get; set; }
 
@@ -77,6 +78,8 @@ public partial class eOrderTouchContext : DbContext
 
             entity.Property(e => e.IsCustomerMandetory).HasColumnType("bit");
             entity.Property(e => e.BarcodeEnabled).HasColumnType("bit");
+            entity.Property(e => e.IsMultilengual).HasColumnType("bit");
+           entity.Property(e => e.IsTableNoRequired).HasColumnType("bit");
             entity.Property(e => e.KichenPrinterName).HasMaxLength(100);
             entity.Property(e => e.CounterPrinterName).HasMaxLength(100);
 
@@ -107,6 +110,34 @@ public partial class eOrderTouchContext : DbContext
                 .HasForeignKey(d => d.BusinessId)
                 .HasConstraintName("FK_tblCategories_tblBusinesses");
         });
+
+
+        modelBuilder.Entity<TblKOTDetail>(entity =>
+        {
+            entity.ToTable("TblKOTDetail");
+
+            entity.Property(e => e.KotType)
+                .HasMaxLength(20)
+                .IsRequired();
+
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("GETDATE()");
+
+            entity.Property(e => e.Qty)
+                .IsRequired();
+
+            entity.Property(e => e.ProductId)
+                .IsRequired();
+
+            // Foreign Key: OrderId → TblOrderMaster(Id)
+            entity.HasOne(d => d.Order)
+                .WithMany(p => p.TblKOTDetails)
+                .HasForeignKey(d => d.OrderId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_TblKOTDetail_TblOrderMaster");
+        });
+
+
 
         modelBuilder.Entity<TblEnquiry>(entity =>
         {
@@ -145,11 +176,17 @@ public partial class eOrderTouchContext : DbContext
             entity.Property(e => e.Gstpercentage)
                 .HasColumnType("decimal(10, 2)")
                 .HasColumnName("GSTPercentage");
+
             entity.Property(e => e.Oid).HasColumnName("OID");
             entity.Property(e => e.Price).HasColumnType("decimal(18, 2)");
             entity.Property(e => e.Qty).HasColumnType("decimal(18, 2)");
             entity.Property(e => e.Total).HasColumnType("decimal(18, 2)");
             entity.Property(e => e.IsKOTPrinted).HasColumnType("bit");
+
+            entity.Property(e => e.SGST).HasColumnType("float");
+            entity.Property(e => e.CGST).HasColumnType("float");
+            entity.Property(e => e.IGST).HasColumnType("float");
+
             entity.HasOne(d => d.OidNavigation).WithMany(p => p.TblOrderDetails)
                 .HasForeignKey(d => d.Oid)
                 .HasConstraintName("FK_tblOrderDetails_tblOrderMaster");
@@ -169,11 +206,17 @@ public partial class eOrderTouchContext : DbContext
             entity.Property(e => e.CustomerName).HasMaxLength(255);
             entity.Property(e => e.DateOfOrder).HasColumnType("datetime");
             entity.Property(e => e.GrandTotal).HasColumnType("decimal(18, 2)");
+
             entity.Property(e => e.Gsttotal)
                 .HasColumnType("decimal(10, 2)")
                 .HasColumnName("GSTTotal");
             entity.Property(e => e.PaymentMode).HasMaxLength(20);
             entity.Property(e => e.TotalAmount).HasColumnType("decimal(10, 2)");
+
+            entity.Property(e => e.IsCanceled).HasColumnType("bit");
+            entity.Property(e => e.CancelNote).HasMaxLength(500);
+            entity.Property(e => e.DiscountPercent).HasColumnType("float");
+            entity.Property(e => e.DiscountedPrice).HasColumnType("float");
 
             entity.HasOne(d => d.Buisness).WithMany(p => p.TblOrderMasters)
                 .HasForeignKey(d => d.BuisnessId)
