@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace eOrderTouchApp.Controllers
 {
+    [AuthorizeToRoles("Owner")]
     public class VendorController : Controller
     {
         private readonly eOrderTouchContext _context;
@@ -15,7 +16,8 @@ namespace eOrderTouchApp.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var vendors = await _context.TblVendors.ToListAsync();
+            int businessId = Convert.ToInt32(User.FindFirst("OrgId")?.Value);
+            var vendors = await _context.TblVendors.Where(w=>w.BusinessId == businessId).ToListAsync();
             return View(vendors);
         }
 
@@ -23,9 +25,10 @@ namespace eOrderTouchApp.Controllers
         [HttpPost]
         public async Task<IActionResult> SaveVendor(TblVendor vendor)
         {
+            int businessId = Convert.ToInt32(User.FindFirst("OrgId")?.Value);
             if (!ModelState.IsValid)
                 return BadRequest("Invalid data");
-
+            vendor.BusinessId = businessId;
             if (vendor.Id == 0)
             {
                 _context.TblVendors.Add(vendor);
@@ -42,6 +45,8 @@ namespace eOrderTouchApp.Controllers
         // GET BY ID (AJAX)
         public async Task<IActionResult> GetVendor(int id)
         {
+
+
             var vendor = await _context.TblVendors.FindAsync(id);
             if (vendor == null) return NotFound();
 

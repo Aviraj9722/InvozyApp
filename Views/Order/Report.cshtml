@@ -47,7 +47,7 @@
            class="form-control" style="max-width: 250px;" />
 
 
-    <button type="submit" class="btn btn-success ms-3">Generate</button> 
+    <button type="submit" id="btnGen" class="btn btn-success ms-3">Generate</button> 
     
     <button type="button" id="btnExportExcel" class="btn btn-primary">
         Export Excel
@@ -139,6 +139,7 @@
 
             var table = $('#orderTable').DataTable({
                 dom: 'Bfrtip',
+                order: [[0, 'desc']],
                 buttons: [{
                     extend: 'excelHtml5',
                     title: 'Order_Report'
@@ -149,6 +150,7 @@
                 table.button('.buttons-excel').trigger();
             });
 
+       
         });
     </script>
 }

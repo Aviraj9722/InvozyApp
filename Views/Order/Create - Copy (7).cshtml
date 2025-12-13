@@ -11,10 +11,9 @@
 }
 
 <style>
-    body {
+    body{
         background: #bdb8b3;
     }
-
     .desktop-qty-down {
         background: #832a2a;
         font-weight: 900;
@@ -26,11 +25,9 @@
         font-weight: 900;
         color: white;
     }
-
-    footer {
-        display: none;
+    footer{
+        display:none;
     }
-
     #desktopCartItems {
         margin-top: 8px;
         overflow-y: auto;
@@ -44,21 +41,18 @@
         BACKGROUND: #2E3B32;
         color: white;
     }
-
     .product-name {
-        font-size: 18px;
-        font-weight: 600;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+    font-size: 18px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     }
-
     .price-tag {
-        font-size: 16px;
-        font-weight: 700;
-        color: #333;
+    font-size: 16px;
+    font-weight: 700;
+    color: #333;
     }
-
     .category-chip {
         border-radius: 20px;
         padding: 8px 16px;
@@ -70,7 +64,6 @@
             background: #007bff;
             color: white;
         }
-
     .qty-btn {
         width: 32px;
         height: 32px;
@@ -79,21 +72,21 @@
     }
 
     .product-card {
-        border-radius: 14px;
-        padding: 10px;
-        box-shadow: 0 3px 8px rgba(0,0,0,0.1);
-        transition: 0.2s;
-    }
+    border-radius: 14px;
+    padding: 10px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    transition: 0.2s;
+}
 
-        .product-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
-        }
+.product-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+}
 
-        .product-card img {
-            height: 120px;
+.product-card img {
+    height: 120px;
             object-fit: scale-down;
-        }
+}
 
 
 
@@ -122,7 +115,6 @@
             .table tbody tr {
                 border-bottom: 1px solid rgba(255,255,255,0.1);
             }
-
         .mobile-bottom-bar {
             position: fixed;
             bottom: 0;
@@ -177,8 +169,8 @@
 
 
     /* ================================
-                       PRINTABLE RECEIPT STYLES
-                    =================================*/
+                   PRINTABLE RECEIPT STYLES
+                =================================*/
     .printable-area {
         width: 80mm;
         padding: 6px;
@@ -213,8 +205,8 @@
         }
 
     /* ================================
-                       LAYOUT: DESKTOP CART + PRODUCT AREA
-                    =================================*/
+                   LAYOUT: DESKTOP CART + PRODUCT AREA
+                =================================*/
     .order-layout {
         display: flex;
         gap: 18px;
@@ -229,7 +221,7 @@
         border: 1px solid #e6e6e6;
         padding: 12px;
         border-radius: 8px;
-        height: auto; /*calc(100vh - 40px);*/
+        height: auto;/*calc(100vh - 40px);*/
         position: sticky;
         top: 20px;
         overflow-y: auto;
@@ -281,7 +273,7 @@
     .category-top {
         display: flex;
         gap: 8px;
-        align-items: left;
+        align-items:left;
         padding: 10px;
         background: #fff;
         border-radius: 8px;
@@ -356,16 +348,14 @@
     }
 
         .qty-controls input {
-            /* width: 48px; */
+           /* width: 48px; */
             text-align: center;
             padding: 4px;
         }
 
-
-
     /* ================================
-                       Responsive breakpoints
-                    =================================*/
+                   Responsive breakpoints
+                =================================*/
     @@media (max-width: 1400px) {
         .product-card {
             width: calc(100% / 5 - 12px);
@@ -425,7 +415,7 @@
         }
     }
 
-
+ 
 
     .badge-count {
         background: #f1f1f1;
@@ -458,37 +448,32 @@
         border-radius: 10px;
     }
 
-    main {
+    main{
         padding-bottom: 0px !important;
     }
 
-
-    .product-card-WithoutImage {
+    
+    .product-card-WithoutImage
+    {
         background: #4b3417;
-        color: white;
+            color: white;
     }
 
-        .product-card-WithoutImage button {
+    .product-card-WithoutImage button {
             background: #971522;
             color: white;
         }
 
-        .product-card-WithoutImage h4 {
+    .product-card-WithoutImage h4{
             font-size: 18px;
             height: 50px;
-        }
-
-    .cart-highlight {
-        background-color: #972323 !important;
-        color: #fff !important;
-        transition: background-color 0.8s ease;
     }
 </style>
 
 
 
 <div class="order-layout">
-
+  
     <!-- 🛒 DESKTOP CART -->
     <div class="desktop-cart" id="desktopCart">
         <h5>
@@ -502,48 +487,31 @@
             <strong>₹<span id="desktopCartTotal">0.00</span></strong>
         </div>
 
-
-
-
         <div style="margin-top:12px;">
-            <div style="margin-top:12px; position:relative;">
-                <input id="txtCustNameDesktop"
-                       class="form-control form-control-sm"
-                       placeholder="Customer name / mobile"
-                       @(Convert.ToBoolean(Org.IsCustomerMandetory) ? "readonly" : "") />
-
-                <button type="button"
-                        class="btn btn-sm btn-primary"
-                        style="position:absolute; right:1px; top:0px;"
-                        onclick="openCustomerModal()">
-                    <i class="bi bi-search"></i>
-                </button>
-            </div>
-            @* <input id="txtCustNameDesktop" class="form-control form-control-sm" placeholder="Customer name / mobile" /> *@
+            <input id="txtCustNameDesktop" class="form-control form-control-sm" placeholder="Customer name / mobile" />
         </div>
 
         <div style="margin-top:8px;">
-            <select id="ddlTableDesktop" class="form-select form-select-sm" >
+            <select id="ddlTableDesktop" class="form-select form-select-sm">
                 <option value="">-- Select Table (optional) --</option>
-
-                @foreach (var t in ViewBag.Tables)
+                @for (int i = 1; i <= 10; i++)
                 {
-                    <option value="@t.Name">@t.Name</option>
+                    <option value="Table @i">Table @i</option>
                 }
             </select>
         </div>
-        @if (User.IsInRole("Owner"))
-        {
-            <div style="margin-top:8px;">
-                <label class="form-label mb-1"><b>Payment Mode:</b></label>
-                <div>
-                    <label><input type="radio" name="paymentDesktop" value="Cash" checked> Cash</label>&nbsp;
-                    <label><input type="radio" name="paymentDesktop" value="Online"> Online</label>&nbsp;
+         @if (User.IsInRole("Owner"))
+                {
+        <div style="margin-top:8px;">
+            <label class="form-label mb-1"><b>Payment Mode:</b></label>
+            <div>
+                <label><input type="radio" name="paymentDesktop" value="Cash" checked> Cash</label>&nbsp;
+                <label><input type="radio" name="paymentDesktop" value="Online"> Online</label>&nbsp;
                     <label><input type="radio" name="paymentDesktop" value="Credit"> Credit</label>&nbsp;
-                    <label><input type="radio" name="paymentDesktop" value="Free"> Free</label>
-                </div>
+                <label><input type="radio" name="paymentDesktop" value="Free"> Free</label>
             </div>
-        }
+        </div>
+                }
         <div style="margin-top:10px; display:flex; gap:8px; flex-wrap:wrap;">
 
             <!-- Save -->
@@ -555,11 +523,8 @@
             {
                 <!-- Print -->
                 <button id="checkoutBtnDesktop" class="btn btn-success btn-sm flex-grow-1">
-                    <i class="bi bi-printer me-1"></i>   
-                   
-                        Checkout
-
-                </button>
+                    <i class="bi bi-printer me-1"></i> Save & Print
+            </button>
             }
             <!-- Clear -->
             <button id="clearCartDesktop" class="btn btn-danger btn-sm">
@@ -577,7 +542,7 @@
 
     <div class="product-area">
         <!-- Cart button for mobile (hidden on desktop) -->
-        @*    <button id="cartToggleBtn" class="btn btn-primary shadow d-md-inline-block" data-bs-toggle="modal" data-bs-target="#cartModal">
+     @*    <button id="cartToggleBtn" class="btn btn-primary shadow d-md-inline-block" data-bs-toggle="modal" data-bs-target="#cartModal">
             🛒 Cart <span id="cartCount" class="badge bg-light text-dark ms-1">0</span>
         </button> *@
 
@@ -596,11 +561,7 @@
                     }
                 </div>
             </div>
-            <div class="input-group mb-2">
-                <span class="input-group-text"><i class="bi bi-search mt-1 me-1"></i></span>
-                <input type="text" id="txtSearchItem" class="form-control" placeholder="Search items...">
-            </div>
-            <input type="text" id="barcodeInput" style="position:absolute;opacity:0;pointer-events:none;" inputmode="none" autocomplete="off"/>
+
         </div>
 
 
@@ -616,12 +577,12 @@
 <!-- 🛒 MOBILE CART MODAL -->
 <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-scrollable">
-        <div class="modal-content" style="background: #2E3B32;color: white;">
+        <div class="modal-content" style="background: #3A4A3D;color: white;">
             <div class="modal-header">
                 <h5 class="modal-title">Your Cart</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body" style="height: 270px;">
+            <div class="modal-body" style="height: 350px;">
                 <table class="table table-bordered table-sm">
                     <thead>
                         <tr>
@@ -635,71 +596,40 @@
                     <tbody id="cartItems"></tbody>
                 </table>
             </div>
-            <div class="modal-footer flex-column align-items-start">
+            <div class="modal-footer justify-content-between">
+                <h5 class="mb-0">Grand Total: ₹<span id="cartTotal">0.00</span></h5>
+                <input type="text" placeholder="Customer Name/Mobile" class="form-control" id="txtCustNameMobile" />
 
-                <!-- Grand Total -->
-                <div class="w-100 mb-2">
-                    <h5 class="mb-0">Grand Total: ₹<span id="cartTotal">0.00</span></h5>
-                </div>
-
-                <!-- Customer Search -->
-                <div class="w-100 mb-2">
-                    <div class="position-relative">
-                        <input type="text"
-                               placeholder="Customer Name/Mobile"
-                               class="form-control pe-5"
-                               id="txtCustNameMobile"
-                               @(Convert.ToBoolean(Org.IsCustomerMandetory) ? "readonly" : "") />
-
-                        <button type="button"
-                                class="btn btn-sm btn-primary"
-                                style="position:absolute; right:4px; top:50%; transform:translateY(-50%);"
-                                onclick="openCustomerModal()">
-                            <i class="bi bi-search"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Table Dropdown -->
-                <div class="w-100 mb-2">
-                    <select id="ddlTableMobile" class="form-select">
-                        <option value="">-- Select Table (optional) --</option>
-
-                        @foreach (var t in ViewBag.Tables)
-                        {
-                            <option value="@t.Name">@t.Name</option>
-                        }
-                    </select>
-                </div>
-
-                <!-- Payment Mode (Owner Only) -->
+                <select id="ddlTableMobile" class="form-select">
+                    <option value="">-- Select Table (optional) --</option>
+                    @for (int i = 1; i <= 10; i++)
+                    {
+                        <option value="Table @i">Table @i</option>
+                    }
+                </select>
                 @if (User.IsInRole("Owner"))
                 {
-                    <div class="w-100 mb-2">
+                    <div class="w-100 mt-2">
                         <label class="form-label mb-1"><b>Payment Mode:</b></label><br />
-                        <label class="me-2"><input type="radio" name="paymentMobile" value="Cash" checked> Cash</label>
-                        <label class="me-2"><input type="radio" name="paymentMobile" value="Online"> Online</label>
-                        <label class="me-2"><input type="radio" name="paymentMobile" value="Credit"> Credit</label>
+                        <label><input type="radio" name="paymentMobile" value="Cash" checked> Cash</label>&nbsp;
+                        <label><input type="radio" name="paymentMobile" value="Online"> Online</label>&nbsp;
+                        <label><input type="radio" name="paymentMobile" value="Credit"> Credit</label>
                         <label><input type="radio" name="paymentMobile" value="Free"> Free</label>
                     </div>
                 }
-
-                <!-- Save + Print Buttons -->
-                <div class="w-100 text-end">
+                <div class="col-12 text-end">
                     <button class="btnMobileSave btn btn-warning btn-sm">
                         <i class="bi bi-save me-1"></i> Save
                     </button>
-
                     @if (User.IsInRole("Owner"))
                     {
                         <button id="checkoutBtn" class="btn btn-success btn-sm">
-                            <i class="bi bi-printer me-1"></i> Checkout
+                            <i class="bi bi-printer me-1"></i> Print
                         </button>
                     }
                 </div>
-
+              
             </div>
-
         </div>
     </div>
 </div>
@@ -713,6 +643,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body" id="PendingOrders">
+               
             </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -768,96 +699,9 @@
         </div>
     </div>
 </div>
-
-<!-- FORCE CUSTOMER ENTRY MODAL -->
-<div class="modal fade" id="forceCustomerModal" data-bs-backdrop="static" data-bs-keyboard="false">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-
-            <div class="modal-header bg-dark text-white py-2">
-                <h5 class="modal-title">Enter Customer Details</h5>
-            </div>
-
-            <div class="modal-body">
-
-                <label class="form-label mb-1">Customer Name/ Mobile No</label>
-                <div style="margin-top:12px; position:relative;">
-                    <input id="forceCustName"
-                           class="form-control form-control-sm"
-                           placeholder="Customer name / mobile"
-                           @(Convert.ToBoolean(Org.IsCustomerMandetory) ? "readonly" : "") />
-
-                    <button type="button"
-                            class="btn btn-sm btn-primary"
-                            style="position:absolute; right:1px; top:0px;"
-                            onclick="openCustomerModal()">
-                        <i class="bi bi-search"></i>
-                    </button>
-                </div>
-
-                <label class="form-label mb-1">Table Name</label>
-                <select id="forceTableName" class="form-control" @(Convert.ToBoolean(Org.HideTableDropDown) ? "disabled" : "")>
-                    <option value="">-- Select Table (optional) --</option>
-
-                    @foreach (var t in ViewBag.Tables)
-                    {
-                        <option value="@t.Name">@t.Name</option>
-                    }
-
-                </select>
-
-            </div>
-
-            <div class="modal-footer py-1">
-                <button class="btn btn-success btn-sm" onclick="saveForcedCustomer()">Add items in Cart</button>
-            </div>
-
-        </div>
-    </div>
-</div>
-
-
-<!-- CUSTOMER SELECTION MODAL -->
-<div class="modal fade" id="customerModal" tabindex="-1">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-
-            <div class="modal-header text-white py-2" style="    background: #3a4a3d;">
-                <h5 class="modal-title" >Select Customer</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-
-            <div class="modal-body" style="background: #3a4a3d;">
-
-                <input type="text" id="txtSearchCustomer"
-                       class="form-control mb-2"
-                       placeholder="Search by name / mobile / location"
-                       onkeyup="loadCustomers()" />
-
-                <div style="max-height:350px; overflow-y:auto;">
-                    <table class="table table-sm table-hover">
-                        <thead>
-                            <tr>
-
-                                <th>Name</th>
-                                <th>Location</th>
-                                <th>Mobile</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody id="customerList"></tbody>
-                    </table>
-                </div>
-
-            </div>
-
-        </div>
-    </div>
-</div>
-
 <!-- Bottom Mobile Bar -->
 <div class="mobile-bottom-bar d-md-none">
-    @*   <a href="@Url.Action("Dashboard", "Home")"><<</a> *@
+  @*   <a href="@Url.Action("Dashboard", "Home")"><<</a> *@
     <!-- Pending Orders -->
     <button class="openHistoryBtn btn btn-primary">
         <i class="bi bi-clock-history me-1"></i> Orders
@@ -875,81 +719,16 @@
     {
         <!-- Print -->
         <button id="btnMobilePrint" class="btn btn-secondary">
-            <i class="bi bi-printer me-1"></i> Checkout
-        </button>
+            <i class="bi bi-printer me-1"></i> Print
+    </button>
     }
 </div>
-<div id="printArea" style="display:none;"></div>
+
 <!-- Hidden state -->
 <input type="hidden" id="isEditing" value="0" />
 <input type="hidden" id="editingOrderIdHidden" value="" />
 
 @section Scripts {
-
-    <script>
-          var isMandatory = @((Convert.ToBoolean(Org.IsCustomerMandetory) ? "true" : "false"));
-            var IsTableNoRequired = @((Convert.ToBoolean(Org.IsTableNoRequired) ? "true" : "false"));
-
-        document.addEventListener("DOMContentLoaded", function () {
-
-          
-            if (isMandatory.toString() === "true" || IsTableNoRequired.toString() === "true") {
-
-                // Load table names from existing dropdown (desktop or mobile)
-                let source = document.getElementById("ddlTableDesktop") ??
-                             document.getElementById("ddlTableMobile");
-
-                let target = document.getElementById("forceTableName");
-
-                if (source && target) {
-                    target.innerHTML = source.innerHTML;  // copy dropdown items
-                }
-
-                // Show modal after load
-                setTimeout(() => {
-                    var m = new bootstrap.Modal(document.getElementById("forceCustomerModal"));
-                    m.show();
-                }, 300);
-            }
-        });
-
-
-        function saveForcedCustomer() {
-            debugger;
-            let cust = document.getElementById("forceCustName").value.trim();
-            let table = document.getElementById("forceTableName").value;
-
-              if (isMandatory.toString() === "true" ) {
-                    if (cust.trim() == "" ) {
-                        alert("Please enter Customer Name");
-                        return;
-                    }
-              }
-
-             if (IsTableNoRequired.toString() === "true") {
-                  if (table.trim() == "" ) {
-                        alert("Please select Table/Room");
-                        return;
-                    }
-              }
-           
-            
-
-            // Populate existing textboxes
-            document.getElementById("txtCustNameDesktop").value = cust;
-            document.getElementById("txtCustNameMobile").value = cust;
-
-            // Set table in your actual dropdowns
-            let ddlDesktop = document.getElementById("ddlTableDesktop");
-            let ddlMobile = document.getElementById("ddlTableMobile");
-
-            if (ddlDesktop) ddlDesktop.value = table;
-            if (ddlMobile) ddlMobile.value = table;
-
-            let modal = bootstrap.Modal.getInstance(document.getElementById('forceCustomerModal'));
-            modal.hide();
-        }
-    </script>
     <script>
         // parse products (escape single quotes)
         const allProducts = JSON.parse('@Html.Raw(productsJson.Replace("'", "\\'"))');
@@ -958,20 +737,6 @@
         let filteredProducts = [...allProducts];
         let cart = [];
 
-
-                // SEARCH FILTER
-        document.getElementById("txtSearchItem").addEventListener("keyup", function () {
-            debugger;
-            const query = this.value.toLowerCase();
-            document.querySelectorAll(".product-card").forEach(card => {
-                const name = card.querySelector("h6").innerText.toLowerCase();
-                if (name.includes(query)) {
-                    card.style.display = "";
-                } else {
-                    card.style.display = "none";
-                }
-            });
-        });
         $("#btnPrintKOT").click(function () {
             let orderId = $(this).data("orderid");
             $.ajax({
@@ -985,15 +750,7 @@
                 console.log("KOT TEXT:\n" + kotText);
 
                 // Use your own printing function
-
-                    if('@Org.IsMultilengual'.toLowerCase()=='true')
-                    {
-                        printKotText_Regional(kotText);
-                    }
-                    else{
-                        printKotText(kotText);
-                    }
-             
+                 printKotText(kotText);
                   $("#kotModal").modal("hide");
             },
             error: function () {
@@ -1030,68 +787,6 @@
             window.location.href = "rawbt:base64," + encoded;
         }
 
-        function printKotText_Regional(txt) {
-
-    let content = `
-        <style>
-            @@page {
-                size: 80mm auto;
-                margin: 0;
-            }
-
-            body {
-                margin:0;
-                padding:0;
-                width:80mm;
-                font-family: monospace;
-                font-size: 16px;
-                zoom:3;   
-                -webkit-print-color-adjust: exact;
-                print-color-adjust: exact;
-            }
-
-            #kot {
-                width:80mm;
-                padding:10px;
-                box-sizing:border-box;
-            }
-
-            .title {
-                font-size:22px;
-                font-weight:bold;
-                text-align:center;
-            }
-
-            hr {
-                border: none;
-                border-top:1px dashed #000;
-                margin:10px 0;
-            }
-        </style>
-
-        <div id="kot">
-            <hr>
-            <div class="title">KITCHEN ORDER</div>
-            <hr>
-            <pre>${txt}</pre>
-            <hr>
-        </div>
-    `;
-
-    // Open safe isolated window
-    let printWin = window.open("", "_blank");
-
-    printWin.document.write(content);
-    printWin.document.close();
-
-    // Allow rendering, then print
-    setTimeout(() => {
-        printWin.print();
-    }, 300);
-}
-
-
-
         /* -------------------------
            Rendering: Categories & Products
            ------------------------*/
@@ -1116,7 +811,7 @@
                 // find current qty in cart (if any) so product card can show the qty
                 const existing = cart.find(x => x.id === p.Id);
                 const currentQty = existing ? existing.qty : 0;
-
+              
                 container.append(`
                     <div class="product-card ${p.Photo?'':'product-card-WithoutImage'}" data-id="${p.Id}">
                         ${img}
@@ -1170,7 +865,7 @@
 
             renderCart();
             updateProductHighlight(id, qty);
-
+           
         }
 
         function renderCart() {
@@ -1189,7 +884,7 @@
             cart.forEach(item => {
                 grandTotal += item.total;
                 itemCount += item.qty;
-
+             
                 // mobile row (table)
                 mobileTable.append(`
                     <tr data-id="${item.id}">
@@ -1235,7 +930,7 @@
             $('#desktopCartCount').text(itemCount);
              let container = $("#tableContainer");
             mobileTable.scrollTop(mobileTable[0].scrollHeight);
-         barcodeInput.focus();
+         
         }
 
         function clearCartUI() {
@@ -1249,7 +944,7 @@
             $('#editingOrderIdHidden').val('');
             $('#editingBadge').hide();
             $('#editingOrderId').text('');
-            $('#checkoutBtn, #checkoutBtnDesktop').text('Checkout');
+            $('#checkoutBtn, #checkoutBtnDesktop').text('Print');
         }
 
         /* -------------------------
@@ -1380,7 +1075,7 @@
             input.val(newQty);
             const product = allProducts.find(x => x.Id === id);
             updateCart(id, product.Name, product.Price, newQty);
-
+         
         });
         $(document).on('click', '.mobile-qty-down', function () {
             const id = $(this).data('id');
@@ -1407,17 +1102,7 @@
             $(".product-card").removeClass("product-added");
         });
 
-        function doCheckout(customerName, tableDetail, paymentMode, IsPaymentDone, IsPrinted) {
-
-            if('@Org.IsTableNoRequired'.toLowerCase()=='true' && IsPrinted==true)
-            {
-                if(tableDetail.trim() =="")
-                {
-                        alert("Please select Table/Room before checkout.");
-                        return;
-                }
-              
-            }
+                function doCheckout(customerName, tableDetail, paymentMode, IsPaymentDone, IsPrinted) {
 
             if (cart.length === 0) {
                 alert("Cart is empty. Please add some items for sale.");
@@ -1448,8 +1133,9 @@
                 success: function (res) {
 
                     if (res.success) {
-                         
-
+                            $("#txtCustNameMobile").val("");
+                            $('#ddlTableMobile option:first').prop('selected', true);
+                          
                         //-------------------------------------------------------
                         //  KOT LOGIC — OPEN PRINT WINDOW IF NEW ITEMS EXIST
                         //-------------------------------------------------------
@@ -1483,12 +1169,11 @@
                                             });
 
                                             html += `</tbody></table>`;
-
+                                     
                                             $("#kotModalBody").html(html);
-
-                                            if('@Org.IsKOTEnabled'.toLowerCase()=='true' && IsPrinted==false)
-                                            {
-                                                $("#kotModal").modal("show");
+                                          
+                                            if('@Org.IsKOTEnabled'.toLowerCase()=='true')
+                                            { $("#kotModal").modal("show");
                                             }
 
                                             // Store order ID for printing
@@ -1505,7 +1190,6 @@
                         //-------------------------------------------------------
                         setTimeout(() => {
                             const isDesktop = window.innerWidth > 991;
-                           
                             const tableNo = isDesktop ? $("#ddlTableDesktop").val() : $("#ddlTableMobile").val();
 
                             const paymentMode = isDesktop
@@ -1519,42 +1203,21 @@
                                 try {
 
                                     if ('@Org.PrinterSizeId' == '2') {
-                                        debugger;
-                                                if('@Org.IsMultilengual'.toLowerCase()=='true')
-                                                 {
-                                                    printReceipt80mm_Regional(
-                                                        '@Org.BusinessName',
-                                                        '@Org.Address',
-                                                        res.orderId,
-                                                        new Date().toLocaleString(),
-                                                        order.customerName,
-                                                        order.items,
-                                                        0,
-                                                        '@Org.MobileNo',
-                                                        paymentMode,
-                                                        tableNo
-                                                    );
-                                                 }else
-                                                 {
-                                                        printPlainReceipt80mm(
-                                                        '@Org.BusinessName',
-                                                        '@Org.Address',
-                                                        res.orderId,
-                                                        new Date().toLocaleString(),
-                                                        order.customerName,
-                                                        order.items,
-                                                        0,
-                                                        '@Org.MobileNo',
-                                                        paymentMode,
-                                                        tableNo
-                                                        );
-                                                 }
-                                     
-
-                                      
+                                        printPlainReceipt80mm(
+                                            '@Org.BusinessName',
+                                            '@Org.Address',
+                                            res.orderId,
+                                            new Date().toLocaleString(),
+                                            order.customerName,
+                                            order.items,
+                                            0,
+                                            '@Org.MobileNo',
+                                            paymentMode,
+                                            tableNo
+                                        );
 
                                     } else {
-                                        printPlainReceipt58mmv(
+                                        printPlainReceipt58mm(
                                             '@Org.BusinessName',
                                             '@Org.Address',
                                             res.orderId,
@@ -1572,13 +1235,12 @@
                                     console.log("Billing print issue.");
                                 }
                             }
-                                       $("#txtCustNameMobile").val("");
-                                    $('#ddlTableMobile option:first').prop('selected', true);
+
                             //-------------------------------------------------------
                             //  Clear UI
                             //-------------------------------------------------------
                             $('#invoiceSection').hide();
-
+                       
 
                             clearCartUI();
                             $('#checkoutBtn, #checkoutBtnDesktop').prop('disabled', false);
@@ -1599,7 +1261,86 @@
         }
 
 
-      
+        // Checkout handlers (desktop & mobile share same AJAX call)
+        // function doCheckout(customerName, tableDetail, paymentMode,IsPaymentDone,IsPrinted) {
+        //     if (cart.length === 0) {
+        //         alert("Cart is empty. Please add some items for sale.");
+        //         return;
+        //     }
+        //     $('#checkoutBtn, #checkoutBtnDesktop').prop('disabled', true);
+
+        //     const order = {
+        //         editOrderId: $('#isEditing').val() === '1' ? parseInt($('#editingOrderIdHidden').val() || '0') : null,
+        //         customerName: customerName,
+        //         tableDetail: tableDetail,
+        //         paymentMode: paymentMode,
+        //         isPaymentDone: IsPaymentDone,
+        //         isPrinted:IsPrinted,
+        //         items: cart.map(item => ({
+        //             productId: item.id,
+        //             qty: item.qty,
+        //             price: item.price
+        //         }))
+        //     };
+
+        //     $.ajax({
+        //         url: '/Order/SaveOrder',
+        //         type: 'POST',
+        //         contentType: 'application/json',
+        //         data: JSON.stringify(order),
+        //         success: function (res) {
+        //             if (res.success) {
+        //                 // printing logic remains same
+        //                 setTimeout(() => {
+        //                     const isDesktop = window.innerWidth > 991;
+        //                     const tableNo = isDesktop ? $("#ddlTableDesktop").val() : $("#ddlTableMobile").val();
+        //                     const paymentMode = isDesktop
+        //                         ? document.querySelector('input[name="paymentDesktop"]:checked').value
+        //                         : document.querySelector('input[name="paymentMobile"]:checked').value;
+                           
+        //                        let card = $('.product-card');
+        //                             card.removeClass("product-added");
+
+
+        //                     if(IsPrinted==true){
+
+        //                         try 
+        //                         {
+                                   
+        //                              //debugger;
+        //                             if ('@Org.PrinterSizeId' == '2') {
+        //                                 printPlainReceipt80mm('@Org.BusinessName', '@Org.Address', res.orderId, new Date().toLocaleString(), order.customerName, order.items, 0, '@Org.MobileNo', paymentMode, tableNo);
+
+        //                             } else {
+        //                                 printPlainReceipt58mm('@Org.BusinessName', '@Org.Address', res.orderId, new Date().toLocaleString(), order.customerName, order.items, 0, '@Org.MobileNo', paymentMode, tableNo);
+
+        //                             }
+        //                         }catch(er){
+        //                             console.log('printing issue');
+        //                         }
+                               
+        //                     }
+                                  
+
+        //                     $('#invoiceSection').hide();
+        //                     // after print clear cart
+        //                     clearCartUI();
+        //                     $('#checkoutBtn, #checkoutBtnDesktop').prop('disabled', false);
+        //                     // close modal if on mobile
+        //                     $('#cartModal').modal('hide');
+
+        //                 }, 50);
+        //             } else {
+        //                 alert("Error: " + res.message);
+        //                 $('#checkoutBtn, #checkoutBtnDesktop').prop('disabled', false);
+        //             }
+        //         },
+        //         error: function (err) {
+        //             alert("Save order failed.");
+        //             $('#checkoutBtn, #checkoutBtnDesktop').prop('disabled', false);
+        //         }
+        //     });
+        // }
 
         $('#checkoutBtn').click(function () {
             const customerName = $("#txtCustNameMobile").val();
@@ -1638,25 +1379,19 @@
                         return;
                     }
                   //  debugger;
-                          const rows = res.data.map(o => `
-            <div class="order-card shadow-sm mb-2 p-2">
-                <div class="d-flex justify-content-between align-items-center mb-1">
-                    <strong class="order-id">#${o.id}</strong>
-                    <span class="text-muted small">${moment ? moment(o.dateOfOrder).format('DD-MM-YYYY HH:mm') : (o.dateOfOrder || '')}</span>
-
-                    <div>
-                        <button class="btn btn-sm btn-primary edit-order-btn" data-id="${o.id}">Edit</button>
-                        <button class="btn btn-sm btn-danger cancel-order-btn" data-id="${o.id}">Cancel</button>
-                    </div>
-                </div>
-
-                <div class="d-flex justify-content-between text-dark small">
-                    <span><i class="bi bi-person"></i> ${htmlEscape(o.customerName)}</span>
-                    <span><i class="bi bi-grid-3x3-gap"></i> ${htmlEscape(o.tableDetails || '')}</span>
-                    <span><i class="bi bi-cash"></i> ₹${(o.grandTotal || 0).toFixed(2)}</span>
-                </div>
-            </div>
-        `).join('');
+                    const rows = res.data.map(o => `<div class="order-card shadow-sm mb-2 p-2">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <strong class="order-id">#${o.id}</strong>
+                                <span class="text-muted small">${moment ? moment(o.dateOfOrder).format('DD-MM-YYYY HH:mm') : (o.dateOfOrder || '')}</span>
+                                <button class="btn btn-sm btn-primary edit-order-btn" data-id="${o.id}">Edit</button>
+                            </div>
+                            <div class="d-flex justify-content-between text-dark small">
+                                <span><i class="bi bi-person"></i> ${htmlEscape(o.customerName)}</span>
+                                <span><i class="bi bi-grid-3x3-gap"></i> ${htmlEscape(o.tableDetails || '')}</span>
+                                <span><i class="bi bi-cash"></i> ₹${(o.grandTotal || 0).toFixed(2)}</span>
+                            </div>
+                      </div>
+                    `).join('');
 
                     $('#PendingOrders').html(rows || 'No recent orders');
                 },
@@ -1731,7 +1466,7 @@
             $('#editingOrderIdHidden').val(order.id);
             $('#editingBadge').show();
             $('#editingOrderId').text(order.id);
-            $('#checkoutBtn, #checkoutBtnDesktop').text('Checkout');
+            $('#checkoutBtn, #checkoutBtnDesktop').text('Print');
 
             renderCart();
 
@@ -1760,161 +1495,6 @@
             const encoded = btoa(unescape(encodeURIComponent(receiptHTML)));
             window.location.href = "rawbt:base64," + encoded;
         }
-
-
-
-        $(document).on("click", ".cancel-order-btn", function () {
-            let orderId = $(this).data("id");
-                      let button = $(this);                   // store reference
-           
-            let note = prompt("Enter cancellation reason:");
-
-            if (!note) {
-                alert("Cancellation note is required.");
-                return;
-            }
-
-            $.ajax({
-                url: "/Order/CancelOrder",
-                method: "POST",
-                contentType: "application/json",
-                data: JSON.stringify({ orderId: orderId, note: note }),
-                success: function (res) {
-                    if (res.success) {
-                        alert("Order cancelled");
-                        button.closest(".order-card").remove();
-                        loadLastOrders(); // reload order list
-                    } else {
-                        alert(res.message);
-                    }
-                }
-            });
-        });
-
-
-function printReceipt80mm_Regional(
-    orgTitle, address, invoiceNo, date, customerName,
-    productList, grandTotal = 0, Contact, Mode, TableNo
-) {
-    const cleanDate = date.split(":").slice(0, 2).join(":");
-
-    let html = `
-    <html>
-    <head>
-    <style>
-
-
-    @@page{
-        size: 80mm auto;
-        margin: 0;
-    }
-
-    @@media print {
-        #printBtn { display: none !important; }
-
-        body {
-            margin: 0 !important;
-            padding: 0 !important;
-            width: 80mm !important;
-            -webkit-print-color-adjust: exact !important;
-            print-color-adjust: exact !important;
-        }
-    }
-
- 
-    #receipt {
-        width: 80mm !important;
-        max-width: 80mm !important;
-        margin: 0 auto !important;
-        padding: 0;
-        font-family: Arial, sans-serif;
-        font-size: 16px;
-    }
-
-    table { width: 100%; border-collapse: collapse; }
-    td, th { padding: 3px; }
-    .qty { text-align: center; }
-    .rate, .total { text-align: right; }
-
-    .title { font-size: 24px; text-align:center; font-weight:bold; }
-    .addr { font-size: 18px; text-align:center; }
-
-    </style>
-    </head>
-
-
-            <div id="receipt">
-            <div class="title">${orgTitle}</div>
-            <div class="addr">${address}</div>
-            <div class="addr">${Contact}</div>
-
-            <hr>
-
-            <div>चलन क्रमांक: ${invoiceNo}</div>
-            ${TableNo ? `<div>टेबल क्रमांक: ${TableNo}</div>` : ""}
-
-            <div>ग्राहक: ${customerName}</div>
-            <div>दिनांक: ${cleanDate}</div>
-            <div>पद्धत: ${Mode}</div>
-
-            <hr>
-
-            <table>
-                <thead>
-                    <tr>
-                        <th>वस्तू</th>
-                        <th class="qty">प्रमाण</th>
-                        <th class="rate">दर</th>
-                        <th class="total">एकूण</th>
-                    </tr>
-                </thead>
-                <tbody>
-    `;
-
-    productList.forEach(p => {
-        const prod = allProducts.find(x => x.Id === p.productId);
-        const name = prod?.Name || "";
-        const qty = p.qty;
-        const rate = p.price;
-        const total = qty * rate;
-        grandTotal += total;
-
-        html += `
-            <tr>
-                <td>${name}</td>
-                <td class="qty">${qty}</td>
-                <td class="rate">${rate}</td>
-                <td class="total">${total}</td>
-            </tr>
-        `;
-    });
-
-    html += `
-            <tr>
-                <td colspan="3" style="text-align:right"><strong>एकूण:</strong></td>
-                <td class="total"><strong>${grandTotal}/-</strong></td>
-            </tr>
-            </tbody>
-        </table>
-
-                <hr>
-
-                        <div style="text-align:center;margin-top:5px;">धन्यवाद, पुन्हा भेट द्या!</div>
-                <br>
-                        <div style="text-align:center;font-size: 12px;">Aviraj Innovations Pvt. Ltd.</div>
-                        <div style="text-align:center;font-size: 12px;">Inquiry On: +91 9096152118</div>
-            </div> 
-            
-        </html>
-    `;
-
-  
-        const printWin = window.open("", "_blank", "width=350,height=600");
-        printWin.document.write(html);
-        printWin.document.close();
-         printWin.focus();
-        printWin.print();
-}
 
 
 
@@ -2027,7 +1607,7 @@ function printReceipt80mm_Regional(
         // window.onfocus = function () {
         //     location.reload();
         // };
-
+          
         }
 
 
@@ -2145,7 +1725,6 @@ function printReceipt80mm_Regional(
         // Open Cart Modal
         $("#btnMobileViewCart").click(function () {
             $("#cartModal").modal("show");
-
         });
 
         // Save button → same as checkout button
@@ -2187,173 +1766,6 @@ function printReceipt80mm_Regional(
                 card.removeClass("product-added");
             }
         }
-    </script>
-
-
-    <script>
-        let scanBuffer = "";
-        let scanTimer = null;
-
-        const barcodeInput = document.getElementById("barcodeInput");
-
-
-        function safeFocusBarcode() {
-            const active = document.activeElement.id;
-
-            // If user is typing in search box → DO NOT steal focus
-            if (active === "txtSearchItem") return;
-
-            if (active === "txtCustNameDesktop") return;
-
-            if (active === "ddlTableDesktop") return;
-
-             if (active === "txtCustNameMobile") return;
-
-            if (active === "ddlTableMobile") return;
-
-            if (active === "txtSearchCustomer") return;
-              if (active === "forceTableName") return;
-                if (active === "forceCustName") return;
-            
-
-
-            barcodeInput.focus();
-        }
-
-        if('@Org.BarcodeEnabled'.toLowerCase()=='true')
-        {
-            // Always keep focus
-            setInterval(() => {
-                if (document.activeElement !== barcodeInput) {
-                //    barcodeInput.focus();
-                safeFocusBarcode();
-                }
-            }, 300);
-
-        }
-
-        // Capture fast input from scanner
-        barcodeInput.addEventListener("input", function () {
-
-            if('@Org.BarcodeEnabled'.toLowerCase()!='true')
-            {
-                alert("Barcode feature is not enabled. Contact Invozy suport team.");
-                return;
-            }
-            const value = this.value;
-
-            // Add new characters to buffer
-            scanBuffer += value;
-
-            // Clear the visible textbox so it stays empty
-            this.value = "";
-
-            // Clear existing timer
-            if (scanTimer) clearTimeout(scanTimer);
-
-            // If no new input for 60ms → scan finished
-            scanTimer = setTimeout(() => {
-                let code = scanBuffer.trim();
-                scanBuffer = ""; // reset buffer
-
-                if (code.length > 0) {
-                    console.log("FINAL BARCODE:", code);
-                    processBarcode(code);      // your function
-                }
-
-            }, 60);
-        });
-
-        function processBarcode(code) {
-
-            fetch(`/Order/GetProductByBarcode?code=${code}`)
-                .then(r => r.json())
-                .then(res => {
-                    if (!res.success) {
-                        alert("Barcode not found");
-                        return;
-                    }
-
-                    let p = res.data;
-
-                    const id = p.id;
-                    const price = parseFloat(p.price);
-                    const name = p.name;
-
-                    const input = $(`#qty-${id}`);
-                    let qty = 1;
-
-                    if (input.length > 0) {
-                        qty = parseInt(input.val()) + 1;
-                        input.val(qty);
-                    }
-
-                    updateCart(id, name, price, qty);
-
-                    // 🔥 Highlight cart row (DIV)
-                    setTimeout(() => {
-                        const row = $(`.cart-item-row[data-id="${id}"]`);
-                        row.addClass("cart-highlight");
-
-                        setTimeout(() => {
-                            row.removeClass("cart-highlight");
-                        }, 600);
-                    }, 100);
-                });
-        }
-
-
-
-
-    </script>
-
-
-    <script>
-
-        function openCustomerModal() {
-            loadCustomers();
-            var modal = new bootstrap.Modal(document.getElementById('customerModal'));
-            modal.show();
-        }
-
-        function loadCustomers() {
-            let search = document.getElementById("txtSearchCustomer").value;
-
-            fetch(`/Order/GetCustomers?search=${search}`)
-                .then(r => r.json())
-                .then(list => {
-                    let tbody = "";
-
-                    list.forEach(c => {
-                        tbody += `
-                            <tr>
-
-                                <td>${c.name}</td>
-                                <td>${c.location}</td>
-                                <td>${c.mobileNo}</td>
-                                <td>
-                                    <button class="btn btn-sm btn-success"
-                                            onclick="selectCustomer('${c.name}')">
-                                        Select
-                                    </button>
-                                </td>
-                            </tr>`;
-                    });
-
-                    document.getElementById("customerList").innerHTML = tbody;
-                });
-        }
-
-        function selectCustomer(name) {
-            document.getElementById("txtCustNameDesktop").value = name;
-            document.getElementById("txtCustNameMobile").value = name;
-             document.getElementById("forceCustName").value = name;
-
-
-            let modal = bootstrap.Modal.getInstance(document.getElementById('customerModal'));
-            modal.hide();
-        }
-
     </script>
 
     <!-- moment.js optional for nicer date formatting in history modal.

@@ -115,7 +115,6 @@
                             <option value="">-- Select --</option>
 
                             @foreach (var x in ViewBag.PrinterSizes)
-
                             {
                                 <option value="@x.Id">@x.PrinterSize</option>
 
@@ -145,6 +144,51 @@
                         <label class="form-check-label">Hide Table Dropdown</label>
                     </div>
 
+                    <!-- Enable KOT -->
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="IsKOTEnabled" name="IsKOTEnabled" />
+                        <label class="form-check-label">Enable KOT</label>
+                    </div>
+
+                    <!-- IsCustomerMandetory  -->
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="IsCustomerMandetory" name="IsCustomerMandetory" />
+                        <label class="form-check-label">Is Customer Mandatory?</label>
+                    </div>
+
+                    <!-- Barcode Enabled  -->
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="BarcodeEnabled" name="BarcodeEnabled" />
+                        <label class="form-check-label">Barcode Enabled?</label>
+                    </div>
+
+                    <!-- Multilenguage Enabled  -->
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="IsMultilengual" name="IsMultilengual" />
+                        <label class="form-check-label">Multilanguage Enabled ?</label>
+                    </div>
+
+                    <!-- IsTableNoRequired Enabled  -->
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="IsTableNoRequired" name="IsTableNoRequired" />
+                        <label class="form-check-label">Is TableNo Required?</label>
+                    </div>
+                    
+
+                    <!-- Kichen Printer Name  -->
+                    <div class="b-3">
+                        <label class="form-label">Kichen Printer Name</label>
+                        <input class="form-control" type="text" id="KichenPrinterName" name="KichenPrinterName" />
+                     
+                    </div>
+
+                    <!-- Counter Printer Name  -->
+                    <div class="mb-3">
+                        <label class="form-label">Kichen Printer Name</label>
+                        <input class="form-control" type="text" id="CounterPrinterName" name="CounterPrinterName" />
+                       
+                    </div>
+
                     <!-- Logo Upload -->
                     <div class="mb-3">
                         <label>Logo</label>
@@ -158,6 +202,8 @@
                         <input type="file" id="QRCode" name="QRCodeFile" class="form-control" accept="image/*" />
                         <img id="PreviewQR" src="" class="img-fluid mt-2" style="max-height:80px;" />
                     </div>
+
+
 
                     <!-- Active -->
                     <div class="form-check mb-3">
@@ -191,9 +237,16 @@
                         <th>Mobile No</th>
                         <th>GSTN</th>
                         <th>Printer</th>
-                        <th>Is GST Applicable?</th>
+                        <th>Is GST?</th>
+                        <th>KOT Enabled?</th>
                         <th>Customer Field</th>
                         <th>Table LOV</th>
+                         <th>Barcode?</th>
+                        <th>Multilanguage?</th>
+                        <th>Customer?</th>
+                        <th>Counter Printer</th>
+                        <th>Kichen Printer</th>
+                        <th>TableNo Required?</th>
                         <th>Active</th>
                     </tr>
                 </thead>
@@ -239,12 +292,17 @@
                             <td>@item.Gstin</td>
                             <td>@item.PrinterSize?.PrinterSize</td>
                             <td>@item.IsGstapplicable</td>
+                            <td>@item.IsKOTEnabled</td>
                             <td>@item.HideCustomerField</td>
                             <td>@item.HideTableDropDown</td>
                             <td>@(item.IsActive == true ? "Yes" : "No")</td>
-
-
-
+                            <td>@item.BarcodeEnabled</td>
+                            <td>@item.IsMultilengual</td>
+                            <td>@item.IsCustomerMandetory</td>
+                            <td>@item.CounterPrinterName</td>
+                            <td>@item.KichenPrinterName</td>
+                            <td>@item.IsTableNoRequired</td>
+                            
                         </tr>
 
                     }
@@ -296,10 +354,10 @@
         //     VALIDATION FUNCTION
         // ==========================
         function validateForm() {
-
+              debugger;
              let isValid = true;
              $(".text-danger").text("");
-
+           
              // Business Name
              if ($("#BusinessName").val().trim() === "") {
                  $("#err_BusinessName").text("Business Name is required");
@@ -330,19 +388,19 @@
              }
 
              // Mobile Validation
-             let mobile = $("#MobileNo").val().trim();
-             let mobilePattern = /^[0-9]{10}$/;
+             // let mobile = $("#MobileNo").val().trim();
+             // let mobilePattern = /^[0-9]{10}$/;
 
-             if (mobile === "") {
-                 $("#err_Mobile").text("Mobile number is required");
-                 $("#MobileNo").addClass("invalid-input");
-                 isValid = false;
-             }
-             else if (!mobilePattern.test(mobile)) {
-                 $("#err_Mobile").text("Mobile number must be 10 digits");
-                 $("#MobileNo").addClass("invalid-input");
-                 isValid = false;
-             }
+             // if (mobile === "") {
+             //     $("#err_Mobile").text("Mobile number is required");
+             //     $("#MobileNo").addClass("invalid-input");
+             //     isValid = false;
+             // }
+             // else if (!mobilePattern.test(mobile)) {
+             //     $("#err_Mobile").text("Mobile number must be 10 digits");
+             //     $("#MobileNo").addClass("invalid-input");
+             //     isValid = false;
+             // }
 
              // // GSTIN Validation
              // let gst = $("#GSTIN").val().trim();
@@ -395,10 +453,17 @@
             var url = ($("#Id").val() == "" || $("#Id").val() == "0")
                 ? "/Businesses/Create"
                 : "/Businesses/Update";
-
+                debugger;
             formData.set("IsActive", $("#IsActive").is(":checked"));
             formData.set("HideCustomerField", $("#HideCustomerField").is(":checked"));
             formData.set("HideTableDropDown", $("#HideTableDropDown").is(":checked"));
+             formData.set("IsKOTEnabled", $("#IsKOTEnabled").is(":checked"));
+
+              formData.set("IsCustomerMandetory", $("#IsCustomerMandetory").is(":checked"));
+               formData.set("BarcodeEnabled", $("#BarcodeEnabled").is(":checked"));
+                 formData.set("IsMultilengual", $("#IsMultilengual").is(":checked"));
+                   formData.set("IsTableNoRequired", $("#IsTableNoRequired").is(":checked"));
+            
            // formData.set("IsGstapplicable", $("#IsGstapplicable").is(":checked"));
             $.ajax({
                 url: url,
@@ -434,9 +499,19 @@
                 $("#PrinterSizeId").val(data.printerSizeId);
                 $("#IsGSTApplicable").val(data.isGstApplicable.toString());
 
-                 $("#HideCustomerField").prop('checked', data.hideCustomerField);
+                $("#HideCustomerField").prop('checked', data.hideCustomerField);
                 $("#HideTableDropDown").prop('checked', data.hideTableDropDown);
 
+                $("#IsKOTEnabled").prop('checked', data.isKOTEnabled);
+
+                $("#IsCustomerMandetory").prop('checked', data.isCustomerMandetory);
+                $("#BarcodeEnabled").prop('checked', data.barcodeEnabled);
+                   $("#IsMultilengual").prop('checked', data.isMultilengual);
+                     $("#IsTableNoRequired").prop('checked', data.isTableNoRequired);
+                
+                $("#KichenPrinterName").val(data.kichenPrinterName);
+                $("#CounterPrinterName").val(data.counterPrinterName);
+                        
                 $("#btnSave").text("Update");
             });
         }
@@ -460,10 +535,16 @@
             $("#PreviewLogo").attr("src", "");
             $("#PreviewQR").attr("src", "");
 
-
-           $("#IsActive").prop("checked",false)
-             $("#HideCustomerField").prop("checked",false)
-               $("#HideTableDropDown").prop("checked",false)
+            $("#IsActive").prop("checked",false);
+            $("#HideCustomerField").prop("checked",false);
+            $("#HideTableDropDown").prop("checked",false);
+              $("#IsMultilengual").prop("checked",false);
+            $("#IsCustomerMandetory").prop("checked",false);
+            $("#BarcodeEnabled").prop("checked",false);
+            $("#KichenPrinterName").val("");
+            $("#CounterPrinterName").val("");
+              $("#IsTableNoRequired").prop("checked",false);
+            
         }
 
     </script>

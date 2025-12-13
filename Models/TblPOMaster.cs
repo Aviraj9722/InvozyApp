@@ -11,6 +11,8 @@ namespace eOrderTouchApp.Models
         public int? VendorId { get; set; }
         public decimal? GrandTotal { get; set; }
 
+        public string? InvoiceNo { get; set; }
+
         public TblBusiness? Business { get; set; }
         public TblVendor? Vendor { get; set; }
 

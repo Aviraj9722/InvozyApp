@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace eOrderTouchApp.Controllers
 {
-    [AuthorizeToRoles("Admin")]
+   
     public class BusinessesController : Controller
     {
         private readonly eOrderTouchContext _context;
@@ -19,6 +19,7 @@ namespace eOrderTouchApp.Controllers
         // ========================
         // INDEX (Grid + Pagination)
         // ========================
+        [AuthorizeToRoles("Admin")]
         public async Task<IActionResult> Index(int page = 1)
         {
             int pageSize = 20;
@@ -35,7 +36,7 @@ namespace eOrderTouchApp.Controllers
 
             return View(data);
         }
-
+        [AuthorizeToRoles("Admin")]
         // ===============
         // CREATE BUSINESS
         // ===============
@@ -46,6 +47,11 @@ namespace eOrderTouchApp.Controllers
             ModelState.Remove("IsActive");
             ModelState.Remove("HideCustomerField");
             ModelState.Remove("HideTableDropDown");
+            ModelState.Remove("IsKOTEnabled");
+            ModelState.Remove("IsCustomerMandetory");
+            ModelState.Remove("BarcodeEnabled");
+            ModelState.Remove("IsMultilengual");
+            ModelState.Remove("IsTableNoRequired");
             if (!ModelState.IsValid)
             {
                 var allErrors = ModelState
@@ -70,6 +76,7 @@ namespace eOrderTouchApp.Controllers
         // ==========
         // EDIT (GET)
         // ==========
+        [AuthorizeToRoles("Admin")]
         public async Task<IActionResult> Edit(int id)
         {
             var b = await _context.TblBusinesses.FindAsync(id);
@@ -91,6 +98,13 @@ namespace eOrderTouchApp.Controllers
                 isGstApplicable = b.IsGstapplicable,
                 hideCustomerField = b.HideCustomerField,
                 hideTableDropDown = b.HideTableDropDown,
+                isKOTEnabled = b.IsKOTEnabled,
+                barcodeEnabled = b.BarcodeEnabled,
+                IsCustomerMandetory = b.IsCustomerMandetory,
+                kichenPrinterName = b.KichenPrinterName,
+                counterPrinterName = b.CounterPrinterName,
+                isMultilengual = b.IsMultilengual,
+                isTableNoRequired = b.IsTableNoRequired,
                 isActive = b.IsActive,
                 logo = b.Logo,
                 mobileNo = b.MobileNo,
@@ -103,12 +117,19 @@ namespace eOrderTouchApp.Controllers
         // UPDATE (POST)
         // =============
         [HttpPost]
+        [AuthorizeToRoles("Admin")]
         public async Task<IActionResult> Update(TblBusiness business)//, IFormFile LogoFile, IFormFile QRCodeFile)
         {
             ModelState.Remove("Id");
             ModelState.Remove("IsActive");
             ModelState.Remove("HideCustomerField");
             ModelState.Remove("HideTableDropDown");
+            ModelState.Remove("IsKOTEnabled");
+            ModelState.Remove("IsCustomerMandetory");
+            ModelState.Remove("BarcodeEnabled");
+            ModelState.Remove("IsMultilengual");
+            ModelState.Remove("IsTableNoRequired");
+            
             if (!ModelState.IsValid)
             {
                 var allErrors = ModelState
@@ -140,8 +161,14 @@ namespace eOrderTouchApp.Controllers
             existing.IsGstapplicable = business.IsGstapplicable;
             existing.HideCustomerField = business.HideCustomerField;
             existing.HideTableDropDown = business.HideTableDropDown;
+            existing.IsKOTEnabled = business.IsKOTEnabled;
             existing.IsActive = business.IsActive;
-
+            existing.IsMultilengual= business.IsMultilengual;
+            existing.BarcodeEnabled = business.BarcodeEnabled;
+            existing.IsCustomerMandetory = business.IsCustomerMandetory;
+            existing.KichenPrinterName = business.KichenPrinterName;
+            existing.CounterPrinterName = business.CounterPrinterName;
+            existing.IsTableNoRequired = business.IsTableNoRequired;
             //// Replace logo if file selected
             //if (LogoFile != null)
             //{
@@ -157,7 +184,7 @@ namespace eOrderTouchApp.Controllers
             await _context.SaveChangesAsync();
             return Ok();
         }
-
+        [AuthorizeToRoles("Owner")]
         public async Task<IActionResult> Setting()
         {
             ViewBag.BusinessTypes = await _context.TblBusinessTypes.ToListAsync();
@@ -175,7 +202,7 @@ namespace eOrderTouchApp.Controllers
 
             return View(b);
         }
-
+        [AuthorizeToRoles("Owner")]
         [HttpPost]
         public async Task<IActionResult> SaveSettings([FromForm]TblBusiness business)
         {
@@ -183,6 +210,10 @@ namespace eOrderTouchApp.Controllers
             ModelState.Remove("IsActive");
             ModelState.Remove("HideCustomerField");
             ModelState.Remove("HideTableDropDown");
+            ModelState.Remove("IsKOTEnabled");
+            ModelState.Remove("IsCustomerMandetory");
+            ModelState.Remove("BarcodeEnabled");
+            ModelState.Remove("IsMultilengual");
             if (!ModelState.IsValid)
             {
                 var allErrors = ModelState
@@ -215,13 +246,14 @@ namespace eOrderTouchApp.Controllers
             existing.HideCustomerField = business.HideCustomerField;
             existing.HideTableDropDown = business.HideTableDropDown;
             existing.IsActive = business.IsActive;
-
+            existing.IsMultilengual = business.IsMultilengual;
             await _context.SaveChangesAsync();
             return RedirectToAction("Setting");
         }
         // ==========
         // DELETE
         // ==========
+        [AuthorizeToRoles("Owner")]
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {

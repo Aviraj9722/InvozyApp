@@ -38,7 +38,7 @@ public partial class TblBusiness
 
     public string? Qrcode { get; set; }
 
-
+    public bool? IsKOTEnabled { get; set; }
     public string? MobileNo { get; set; }
     public virtual TblBusinessType? BusinessType { get; set; }
 
@@ -54,7 +54,18 @@ public partial class TblBusiness
 
     public virtual ICollection<TblUom> TblUoms { get; set; } = new List<TblUom>();
 
-    public virtual ICollection<TblUser> TblUsers { get; set; } = new List<TblUser>();
+    public virtual ICollection<TblUser> TblUsers { get; set; } = new List<TblUser>(); 
 
     public ICollection<TblPOMaster>? POMasters { get; set; }
+    public ICollection<TblVendor>? Vendors { get; set; }
+    public bool? IsCustomerMandetory { get;  set; }
+    public bool? BarcodeEnabled { get;  set; }
+    public bool? IsMultilengual { get;  set; }
+    public string? KichenPrinterName { get;  set; }
+    public string? CounterPrinterName { get;  set; }
+    public bool? IsTableNoRequired { get; set; }
+
+    public virtual ICollection<TblGST> TblGsts { get; set; } = new List<TblGST>();
+
+    public virtual ICollection<TblTable> TblTables { get; set; } = new List<TblTable>();
 }

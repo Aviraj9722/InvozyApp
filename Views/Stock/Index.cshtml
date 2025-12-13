@@ -1,0 +1,86 @@
+﻿@using eOrderTouchApp.ViewModel
+@model StockPurchaseVM
+
+<div class="card p-3">
+
+    <h3>Material Purchase</h3>
+
+    <form method="post" asp-action="Save">
+
+        <div class="row mb-3">
+            <div class="col-md-3">
+                <label>Invoice No</label>
+                <input type="text" class="form-control" asp-for="InvoiceNo" />
+            </div>
+
+            <div class="col-md-3">
+                <label>Vendor</label>
+                <select class="form-control" asp-for="VendorId" asp-items="ViewBag.Vendors">
+                    <option value="">--Select Vendor--</option>
+                </select>
+            </div>
+
+            <div class="col-md-3">
+                <label>Date</label>
+                <input type="date" class="form-control" asp-for="PurchaseDate" />
+            </div>
+
+            <div class="col-md-3">
+                <label>Grand Total</label>
+                <input type="number" step="0.01" class="form-control" asp-for="GrandTotal" />
+            </div>
+        </div>
+
+        <hr />
+
+        <h4>Product Stock</h4>
+
+        <input type="text" id="searchProduct" placeholder="Search product..." class="form-control mb-3" />
+
+        <table class="table table-bordered" id="stockTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Product</th>
+                    <th>Available Stock</th>
+                    <th>New Quantity</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.Products.Count; i++)
+                {
+                    <tr>
+                        <td>@Model.Products[i].ProductId</td>
+                        <td>@Model.Products[i].ProductName</td>
+                        <td class="text-center">@Model.Products[i].AvailableStock</td>
+                        <td>
+                            <!-- Correct binding for ProductId -->
+                            <input type="hidden" asp-for="Products[@i].ProductId" />
+
+                            <!-- Correct binding for NewQuantity -->
+                            <input asp-for="Products[@i].NewQuantity" class="form-control" />
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+
+
+
+        <button class="btn btn-primary">Save Purchase</button>
+
+    </form>
+</div>
+
+@section Scripts{
+
+    <script>
+        $("#searchProduct").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#stockTable tbody tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    </script>
+}

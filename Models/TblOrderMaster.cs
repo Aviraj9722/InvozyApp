@@ -28,6 +28,13 @@ public partial class TblOrderMaster
 
     public int? BuisnessId { get; set; }
 
+    public bool? IsCanceled { get; set; }
+
+    public string? CancelNote { get; set; }
+    public float? DiscountPercent { get; set; }
+
+    public float? DiscountedPrice { get; set; }
+
     public DateTime? CreatedOn { get; set; }
 
     public string? CustomerMobNo { get; set; }
@@ -36,6 +43,6 @@ public partial class TblOrderMaster
     public virtual TblBusiness? Buisness { get; set; }
 
     public virtual ICollection<TblOrderDetail> TblOrderDetails { get; set; } = new List<TblOrderDetail>();
-
+    public virtual ICollection<TblKOTDetail> TblKOTDetails { get; set; }
     public virtual TblUser? User { get; set; }
 }
