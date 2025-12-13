@@ -1,6 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using eOrderTouchApp.Models.ReportsModel;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
 
 namespace eOrderTouchApp.Models;
 
@@ -43,7 +45,8 @@ public partial class eOrderTouchContext : DbContext
     public DbSet<TblVendor> TblVendors { get; set; }
     public DbSet<TblPOMaster> TblPOMaster { get; set; }
     public DbSet<TblPODetails> TblPODetails { get; set; }
-    
+    public DbSet<TblReports> TblReports { get; set; }
+   
 
     //    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
@@ -325,10 +328,27 @@ public partial class eOrderTouchContext : DbContext
                 .HasConstraintName("FK_tblPODetails_tblProduct");
         });
 
+        modelBuilder.Entity<TblReports>(entity =>
+        {
+            entity.ToTable("tblReports");       
 
+            entity.HasKey(e => e.Id);           
+
+            entity.Property(e => e.Id)
+                .HasColumnName("Id");
+
+            entity.Property(e => e.Name)
+                .HasColumnName("Name")
+                .HasMaxLength(200)            
+                .IsRequired(false);           
+        });
+
+        
 
         OnModelCreatingPartial(modelBuilder);
     }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
+    
 }

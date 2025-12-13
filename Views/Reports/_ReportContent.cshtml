@@ -1,0 +1,11 @@
+﻿@model eOrderTouchApp.Models.TblReports
+
+@if (Model == null)
+{
+    <p>No report found.</p>
+}
+else
+{
+    <h5>@Model.Name</h5>
+    <p>Select date range above and click Generate Report.</p>
+}
