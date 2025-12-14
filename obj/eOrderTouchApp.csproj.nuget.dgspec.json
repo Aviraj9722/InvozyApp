@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "E:\\GIT\\Code\\eOrderTouchApp.csproj": {}
+    "D:\\Aviraj Innovations Pvt Ltd\\Invoizy\\GIT\\eOrderTouchApp.csproj": {}
   },
   "projects": {
-    "E:\\GIT\\Code\\eOrderTouchApp.csproj": {
+    "D:\\Aviraj Innovations Pvt Ltd\\Invoizy\\GIT\\eOrderTouchApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\GIT\\Code\\eOrderTouchApp.csproj",
+        "projectUniqueName": "D:\\Aviraj Innovations Pvt Ltd\\Invoizy\\GIT\\eOrderTouchApp.csproj",
         "projectName": "eOrderTouchApp",
-        "projectPath": "E:\\GIT\\Code\\eOrderTouchApp.csproj",
-        "packagesPath": "C:\\Users\\HTech\\.nuget\\packages\\",
-        "outputPath": "E:\\GIT\\Code\\obj\\",
+        "projectPath": "D:\\Aviraj Innovations Pvt Ltd\\Invoizy\\GIT\\eOrderTouchApp.csproj",
+        "packagesPath": "C:\\Users\\avira\\.nuget\\packages\\",
+        "outputPath": "D:\\Aviraj Innovations Pvt Ltd\\Invoizy\\GIT\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\HTech\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\avira\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,6 +26,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -62,7 +63,7 @@
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
-              "version": "[9.0.0, )"
+              "version": "[9.0.11, )"
             }
           },
           "imports": [

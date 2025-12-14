@@ -1,6 +1,8 @@
 wwwroot\css\site.css
 wwwroot\favicon.ico
+wwwroot\icons\Logo.png
 wwwroot\images\Billing_Index.jpg
+wwwroot\images\invozy.png
 wwwroot\images\pos_billing.jpg
 wwwroot\js\site.js
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
@@ -64,16 +66,20 @@ wwwroot\lib\jquery\dist\jquery.slim.min.js
 wwwroot\lib\jquery\dist\jquery.slim.min.map
 wwwroot\lib\jquery\LICENSE.txt
 wwwroot\manifest.json
+wwwroot\service-worker.js
 wwwroot\uploads\00eb624b-6b96-4c20-b1f7-b65ed06dfa0f.jpg
 wwwroot\uploads\0128bac1-74b4-445d-9794-31c4b4aa2ee4.jpg
 wwwroot\uploads\06ac876e-5d3e-434e-9b74-1285fae6914a.webp
 wwwroot\uploads\0709735b-1d5f-4ee7-94df-a6c94ffe522a.jpg
+wwwroot\uploads\1460e68c-faca-4da5-bb53-c22c3db4bcb3.jpg
 wwwroot\uploads\151ba6d9-ea93-4cb1-ae4b-949c15b569b6.jpg
 wwwroot\uploads\16318313-f08c-41af-bef6-b57a75f09aba.jpg
 wwwroot\uploads\1d3d47dd-73f1-4a2b-845e-4d3d82890f87.webp
 wwwroot\uploads\1d4c4cc4-2e24-42ef-a3e6-2cdecec1dc3d.jpg
 wwwroot\uploads\222c5a70-9adf-4be2-9d27-e18ea002a803.jpg
+wwwroot\uploads\2533a65e-10ad-4470-938a-ed0294e1dad7.jpg
 wwwroot\uploads\28c93cd6-e85d-4f87-b3a2-3baa6a9409dd.jpg
+wwwroot\uploads\2b1e2773-a6bb-45ae-a492-a2e943f78f8d.jpg
 wwwroot\uploads\2eff45a9-1068-4ef7-8324-e9c7defd4bae.webp
 wwwroot\uploads\2f3ec08e-03c0-46f5-90f7-c735067af8f5.webp
 wwwroot\uploads\33084139-f349-42bd-a7f1-9353d443f429.jpg
@@ -82,6 +88,7 @@ wwwroot\uploads\3762236f-4928-4604-b3c8-c0d3b6f2d898.jpg
 wwwroot\uploads\3ad36164-91b9-4fcb-8417-fbe6da474f7a.jpg
 wwwroot\uploads\3df8b8de-ace4-4cb7-a355-53d94c819ab6.jpg
 wwwroot\uploads\3e79186c-5571-48d5-b1a1-e4688cdbaa76.jpg
+wwwroot\uploads\40616250-730d-4a1e-a797-dcd445670777.jpg
 wwwroot\uploads\40a291ac-e1db-435d-aee6-77be3091e4e4.jpg
 wwwroot\uploads\46445ef2-40ff-469b-9db3-112124d1108e.webp
 wwwroot\uploads\4b3fa0c7-10fa-49c7-babe-a1a1092c3bab.jpg
@@ -90,6 +97,7 @@ wwwroot\uploads\5293c5c3-6122-4d83-9471-b0efafff29f3.jpg
 wwwroot\uploads\54111812-138c-4906-9fea-4fd922425dd8.jpg
 wwwroot\uploads\54a2fb48-9974-4834-92e0-b47279022748.jpg
 wwwroot\uploads\54fb903e-38a9-4647-be87-2dbbb655b753.jpg
+wwwroot\uploads\557e8e37-be44-4103-8faa-515271b67fd2.jpg
 wwwroot\uploads\587af016-9224-4309-8090-e3d155fcfca5.jpg
 wwwroot\uploads\5fd75757-94ce-498f-8b31-f5d0d2b24b5c.webp
 wwwroot\uploads\62c5565f-cca0-458d-86e4-35568d823c72.jpg
@@ -103,6 +111,7 @@ wwwroot\uploads\835f8db3-3bce-44a0-bce6-21c808bfaeaa.jpg
 wwwroot\uploads\9114fc11-7ae6-4a40-bb7c-dd0f3f388534.jpg
 wwwroot\uploads\9e051c22-5423-4925-ae6f-b12cc4e4844f.jpg
 wwwroot\uploads\9fcb8b05-bfa1-4531-9f0c-b57b509caddb.jpg
+wwwroot\uploads\9fd5e5bb-9bff-4474-a8d1-3b3aff00e703.jpg
 wwwroot\uploads\a67781d6-3fc9-4d09-8869-1480c385071c.jpg
 wwwroot\uploads\a99c68f2-e3fa-4c53-a96a-d131dd758367.jpg
 wwwroot\uploads\ab58549c-a449-49e2-a32a-0ede1e2dece6.jpg
@@ -112,9 +121,12 @@ wwwroot\uploads\b0dc60cb-c172-4566-9374-52c25aafb8b7.png
 wwwroot\uploads\b1740b56-51da-45b8-90ee-76ea21687fde.webp
 wwwroot\uploads\b26b5c70-1ca7-4913-9695-cba49e60f2ca.webp
 wwwroot\uploads\b454a5b0-5153-4d72-9083-952856507b72.jpg
+wwwroot\uploads\b68899a3-e8b9-4a9a-b270-c1cc50d0043d.jpg
 wwwroot\uploads\b8928436-b4b3-477f-8652-a12b235b987c.jpg
 wwwroot\uploads\bdd2cc32-6506-4fd7-9026-d2ea6ccbd4dc.jpg
 wwwroot\uploads\c0f47c0a-4646-417a-a9c3-38f882615f1d.webp
+wwwroot\uploads\c370e3c6-24bc-48d0-8f55-7038556ca47e.jpg
+wwwroot\uploads\c5f89915-95dc-4b78-b4e7-48d06baa82bd.png
 wwwroot\uploads\c70bb052-224d-49f2-807f-137923731986.jpg
 wwwroot\uploads\c73b96ec-ffda-478d-97f6-39113fbde068.jpg
 wwwroot\uploads\c9bea03e-97bd-48e2-9df3-dcfece6e56e4.jpg
@@ -128,76 +140,78 @@ wwwroot\uploads\dae212f8-e02c-49c5-aa8f-f151004f5e51.webp
 wwwroot\uploads\db341642-ca96-46ec-a9ce-868838019e03.jpg
 wwwroot\uploads\e2367bf2-995c-4311-910f-72eb29ec313a.jpg
 wwwroot\uploads\e2bb9087-060f-40b2-8034-21af64b30b78.webp
+wwwroot\uploads\e6b1bad2-c66a-4ca8-a8e8-e06de157aa32.jpg
+wwwroot\uploads\e724da12-1ad7-48d7-8f52-cf21eaa93646.jpg
 wwwroot\uploads\e8f061d5-9dab-4ba8-9ec1-971f797b9787.jpg
 wwwroot\uploads\e93585a8-500f-4a53-8776-b7daa97fd974.webp
 wwwroot\uploads\ea32fd02-de7c-425b-9ef3-d8fdd8baaf8b.jpg
 wwwroot\uploads\ecdb6af3-227e-421e-aa01-57a3bedc0a4e.jpg
+wwwroot\uploads\eee5f0d5-a17d-4aee-b5ae-56526df44f53.jpg
 wwwroot\uploads\f0f78904-dbb9-4f9b-b833-32e5094acb67.jpg
 wwwroot\uploads\f35294a6-153c-41a8-85d6-1c6f8956c8f2.webp
 wwwroot\uploads\f6faf742-464b-4116-a768-7affbe4280c7.webp
 wwwroot\uploads\fcea8986-3126-4a68-b1c1-15123e5db0a3.webp
-wwwroot\uploads\e6b1bad2-c66a-4ca8-a8e8-e06de157aa32.jpg
-wwwroot\uploads\9fd5e5bb-9bff-4474-a8d1-3b3aff00e703.jpg
-D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\wwwroot\lib\jquery\LICENSE.txt
-D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\wwwroot\lib\jquery\dist\jquery.slim.min.map
-D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\wwwroot\lib\jquery\dist\jquery.slim.min.js
-D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\wwwroot\lib\jquery\dist\jquery.slim.js
-D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\wwwroot\lib\jquery\dist\jquery.min.map
-D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\wwwroot\lib\jquery\dist\jquery.min.js
-D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\wwwroot\lib\jquery\dist\jquery.js
-D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\wwwroot\lib\jquery-validation\LICENSE.md
-D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\wwwroot\lib\jquery-validation\dist\jquery.validate.min.js
-D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\wwwroot\lib\jquery-validation\dist\jquery.validate.js
-D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\wwwroot\lib\jquery-validation\dist\additional-methods.min.js
-D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\wwwroot\lib\jquery-validation\dist\additional-methods.js
-D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\wwwroot\lib\jquery-validation-unobtrusive\LICENSE.txt
-D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\wwwroot\lib\jquery-validation-unobtrusive\dist\jquery.validate.unobtrusive.min.js
-D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\wwwroot\lib\jquery-validation-unobtrusive\dist\jquery.validate.unobtrusive.js
-D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\wwwroot\lib\bootstrap\dist\js\bootstrap.min.js.map
-D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\wwwroot\lib\bootstrap\dist\js\bootstrap.min.js
-D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\wwwroot\lib\bootstrap\dist\js\bootstrap.js.map
-D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\wwwroot\lib\bootstrap\dist\js\bootstrap.js
-D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.min.js.map
-D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.min.js
-D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.js.map
-D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.js
-D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map
-D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js
-D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js.map
-D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js
-D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.min.css.map
-D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.min.css
-D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.css.map
-D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.css
-D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\wwwroot\lib\bootstrap\dist\css\bootstrap.min.css.map
-D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\wwwroot\lib\bootstrap\dist\css\bootstrap.min.css
-D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\wwwroot\lib\bootstrap\dist\css\bootstrap.css.map
-D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\wwwroot\lib\bootstrap\dist\css\bootstrap.css
-D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.min.css.map
-D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.min.css
-D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.css.map
-D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.css
-D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.min.css.map
-D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.min.css
-D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.css.map
-D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.css
-D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.min.css.map
-D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.min.css
-D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.css.map
-D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.css
-D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css.map
-D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css
-D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css.map
-D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css
-D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.min.css.map
-D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.min.css
-D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.css.map
-D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.css
-D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css.map
-D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css
-D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map
-D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
-D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\wwwroot\js\site.js
-D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\wwwroot\css\site.css
-D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\wwwroot\manifest.json
-D:\Aviraj Innovations Pvt Ltd\Invoizy\Latest\eOrderTouchApp (3)\eOrderTouchApp\wwwroot\favicon.ico
+D:\Aviraj Innovations Pvt Ltd\Invoizy\GIT\wwwroot\css\site.css
+D:\Aviraj Innovations Pvt Ltd\Invoizy\GIT\wwwroot\favicon.ico
+D:\Aviraj Innovations Pvt Ltd\Invoizy\GIT\wwwroot\js\site.js
+D:\Aviraj Innovations Pvt Ltd\Invoizy\GIT\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
+D:\Aviraj Innovations Pvt Ltd\Invoizy\GIT\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map
+D:\Aviraj Innovations Pvt Ltd\Invoizy\GIT\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css
+D:\Aviraj Innovations Pvt Ltd\Invoizy\GIT\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css.map
+D:\Aviraj Innovations Pvt Ltd\Invoizy\GIT\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.css
+D:\Aviraj Innovations Pvt Ltd\Invoizy\GIT\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.css.map
+D:\Aviraj Innovations Pvt Ltd\Invoizy\GIT\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.min.css
+D:\Aviraj Innovations Pvt Ltd\Invoizy\GIT\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.min.css.map
+D:\Aviraj Innovations Pvt Ltd\Invoizy\GIT\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css
+D:\Aviraj Innovations Pvt Ltd\Invoizy\GIT\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css.map
+D:\Aviraj Innovations Pvt Ltd\Invoizy\GIT\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css
+D:\Aviraj Innovations Pvt Ltd\Invoizy\GIT\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css.map
+D:\Aviraj Innovations Pvt Ltd\Invoizy\GIT\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.css
+D:\Aviraj Innovations Pvt Ltd\Invoizy\GIT\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.css.map
+D:\Aviraj Innovations Pvt Ltd\Invoizy\GIT\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.min.css
+D:\Aviraj Innovations Pvt Ltd\Invoizy\GIT\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.min.css.map
+D:\Aviraj Innovations Pvt Ltd\Invoizy\GIT\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.css
+D:\Aviraj Innovations Pvt Ltd\Invoizy\GIT\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.css.map
+D:\Aviraj Innovations Pvt Ltd\Invoizy\GIT\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.min.css
+D:\Aviraj Innovations Pvt Ltd\Invoizy\GIT\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.min.css.map
+D:\Aviraj Innovations Pvt Ltd\Invoizy\GIT\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.css
+D:\Aviraj Innovations Pvt Ltd\Invoizy\GIT\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.css.map
+D:\Aviraj Innovations Pvt Ltd\Invoizy\GIT\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.min.css
+D:\Aviraj Innovations Pvt Ltd\Invoizy\GIT\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.min.css.map
+D:\Aviraj Innovations Pvt Ltd\Invoizy\GIT\wwwroot\lib\bootstrap\dist\css\bootstrap.css
+D:\Aviraj Innovations Pvt Ltd\Invoizy\GIT\wwwroot\lib\bootstrap\dist\css\bootstrap.css.map
+D:\Aviraj Innovations Pvt Ltd\Invoizy\GIT\wwwroot\lib\bootstrap\dist\css\bootstrap.min.css
+D:\Aviraj Innovations Pvt Ltd\Invoizy\GIT\wwwroot\lib\bootstrap\dist\css\bootstrap.min.css.map
+D:\Aviraj Innovations Pvt Ltd\Invoizy\GIT\wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.css
+D:\Aviraj Innovations Pvt Ltd\Invoizy\GIT\wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.css.map
+D:\Aviraj Innovations Pvt Ltd\Invoizy\GIT\wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.min.css
+D:\Aviraj Innovations Pvt Ltd\Invoizy\GIT\wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.min.css.map
+D:\Aviraj Innovations Pvt Ltd\Invoizy\GIT\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js
+D:\Aviraj Innovations Pvt Ltd\Invoizy\GIT\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js.map
+D:\Aviraj Innovations Pvt Ltd\Invoizy\GIT\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js
+D:\Aviraj Innovations Pvt Ltd\Invoizy\GIT\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map
+D:\Aviraj Innovations Pvt Ltd\Invoizy\GIT\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.js
+D:\Aviraj Innovations Pvt Ltd\Invoizy\GIT\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.js.map
+D:\Aviraj Innovations Pvt Ltd\Invoizy\GIT\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.min.js
+D:\Aviraj Innovations Pvt Ltd\Invoizy\GIT\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.min.js.map
+D:\Aviraj Innovations Pvt Ltd\Invoizy\GIT\wwwroot\lib\bootstrap\dist\js\bootstrap.js
+D:\Aviraj Innovations Pvt Ltd\Invoizy\GIT\wwwroot\lib\bootstrap\dist\js\bootstrap.js.map
+D:\Aviraj Innovations Pvt Ltd\Invoizy\GIT\wwwroot\lib\bootstrap\dist\js\bootstrap.min.js
+D:\Aviraj Innovations Pvt Ltd\Invoizy\GIT\wwwroot\lib\bootstrap\dist\js\bootstrap.min.js.map
+D:\Aviraj Innovations Pvt Ltd\Invoizy\GIT\wwwroot\lib\jquery-validation-unobtrusive\dist\jquery.validate.unobtrusive.js
+D:\Aviraj Innovations Pvt Ltd\Invoizy\GIT\wwwroot\lib\jquery-validation-unobtrusive\dist\jquery.validate.unobtrusive.min.js
+D:\Aviraj Innovations Pvt Ltd\Invoizy\GIT\wwwroot\lib\jquery-validation-unobtrusive\LICENSE.txt
+D:\Aviraj Innovations Pvt Ltd\Invoizy\GIT\wwwroot\lib\jquery-validation\dist\additional-methods.js
+D:\Aviraj Innovations Pvt Ltd\Invoizy\GIT\wwwroot\lib\jquery-validation\dist\additional-methods.min.js
+D:\Aviraj Innovations Pvt Ltd\Invoizy\GIT\wwwroot\lib\jquery-validation\dist\jquery.validate.js
+D:\Aviraj Innovations Pvt Ltd\Invoizy\GIT\wwwroot\lib\jquery-validation\dist\jquery.validate.min.js
+D:\Aviraj Innovations Pvt Ltd\Invoizy\GIT\wwwroot\lib\jquery-validation\LICENSE.md
+D:\Aviraj Innovations Pvt Ltd\Invoizy\GIT\wwwroot\lib\jquery\dist\jquery.js
+D:\Aviraj Innovations Pvt Ltd\Invoizy\GIT\wwwroot\lib\jquery\dist\jquery.min.js
+D:\Aviraj Innovations Pvt Ltd\Invoizy\GIT\wwwroot\lib\jquery\dist\jquery.min.map
+D:\Aviraj Innovations Pvt Ltd\Invoizy\GIT\wwwroot\lib\jquery\dist\jquery.slim.js
+D:\Aviraj Innovations Pvt Ltd\Invoizy\GIT\wwwroot\lib\jquery\dist\jquery.slim.min.js
+D:\Aviraj Innovations Pvt Ltd\Invoizy\GIT\wwwroot\lib\jquery\dist\jquery.slim.min.map
+D:\Aviraj Innovations Pvt Ltd\Invoizy\GIT\wwwroot\lib\jquery\LICENSE.txt
+D:\Aviraj Innovations Pvt Ltd\Invoizy\GIT\wwwroot\manifest.json
+D:\Aviraj Innovations Pvt Ltd\Invoizy\GIT\wwwroot\service-worker.js

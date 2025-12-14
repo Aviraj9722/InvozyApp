@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("eOrderTouchApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+23214075338a80093b2581cb1926b28818a0ab96")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cd1c11818bfd2ed1b293ba6e56ae1041fd1d1af8")]
 [assembly: System.Reflection.AssemblyProductAttribute("eOrderTouchApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("eOrderTouchApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
