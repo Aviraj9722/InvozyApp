@@ -29,5 +29,6 @@ namespace eOrderTouchApp.Models
 
         [ForeignKey("OrderId")]
         public virtual TblOrderMaster? Order { get; set; }
+        
     }
 }

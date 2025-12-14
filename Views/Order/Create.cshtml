@@ -776,6 +776,11 @@
 
             <div class="modal-header bg-dark text-white py-2">
                 <h5 class="modal-title">Enter Customer Details</h5>
+                <button type="button"
+                        class="btn-close btn-close-white"
+                        data-bs-dismiss="modal"
+                        aria-label="Close">
+                </button>
             </div>
 
             <div class="modal-body">
@@ -809,7 +814,7 @@
             </div>
 
             <div class="modal-footer py-1">
-                <button class="btn btn-success btn-sm" onclick="saveForcedCustomer()">Add items in Cart</button>
+                <button class="btn btn-success btn-sm" onclick="saveForcedCustomer()">Add items</button>
             </div>
 
         </div>
@@ -879,13 +884,96 @@
         </button>
     }
 </div>
+
+
+<!-- Print Preview Modal (Minimal) -->
+<div class="modal fade" id="printPreviewModal" tabindex="-1">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable mt-2">
+        <div class="modal-content">
+
+            <div class="modal-header py-2">
+                <h6 class="modal-title">Print Preview</h6>
+                <button type="button" class="btn-close"
+                        data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-footer py-2">
+              @*   <button class="btn btn-secondary btn-sm"
+                        data-bs-dismiss="modal">
+                    Close
+                </button>
+ *@
+                <button class="btn btn-primary btn-sm"
+                        onclick="printAgain()">
+                    Print
+                </button>
+            </div>
+
+            <div class="modal-body p-0" style="height:60vh;">
+                <iframe id="printPreviewFrame"
+                        style="width:100%; height:100%; border:none;"></iframe>
+            </div>
+
+       
+
+        </div>
+    </div>
+</div>
+
 <div id="printArea" style="display:none;"></div>
 <!-- Hidden state -->
 <input type="hidden" id="isEditing" value="0" />
 <input type="hidden" id="editingOrderIdHidden" value="" />
 
 @section Scripts {
+    <script>
+        function openPrintPreviewFromHtml(html) {
+            const iframe = document.getElementById("printPreviewFrame");
+            const doc = iframe.contentWindow.document;
 
+            doc.open();
+            doc.write(html);
+            doc.close();
+
+            new bootstrap.Modal(
+                document.getElementById("printPreviewModal")
+            ).show();
+        }
+
+         function openPrintPreviewFromHtml(html, grandTotal) {
+            const iframe = document.getElementById("printPreviewFrame");
+            const doc = iframe.contentWindow.document;
+
+            doc.open();
+            doc.write(html);
+            doc.close();
+
+         if ('@Org.Qrcode'.trim() !="" )
+        {
+            iframe.onload = function() {
+                        generateUpiQR(
+                                doc,
+                                "@Org.Qrcode",
+                                "@Org.OwnerName",
+                                grandTotal,
+                                "Order Payment"
+                        );
+                }
+            
+        }
+            
+
+            new bootstrap.Modal(
+                document.getElementById("printPreviewModal")
+            ).show();
+        }
+
+
+        function printAgain() {
+            const iframe = document.getElementById("printPreviewFrame");
+            iframe.contentWindow.focus();
+            iframe.contentWindow.print();
+        }
+    </script>
     <script>
           var isMandatory = @((Convert.ToBoolean(Org.IsCustomerMandetory) ? "true" : "false"));
             var IsTableNoRequired = @((Convert.ToBoolean(Org.IsTableNoRequired) ? "true" : "false"));
@@ -912,7 +1000,6 @@
                 }, 300);
             }
         });
-
 
         function saveForcedCustomer() {
             debugger;
@@ -973,87 +1060,107 @@
             });
         });
         $("#btnPrintKOT").click(function () {
-            let orderId = $(this).data("orderid");
-            $.ajax({
-            url: '/Order/PrintKOT?orderId=' + orderId,
-            type: 'GET',
-            success: function (txt) {
-                // txt contains the KOT print text
-                kotText = txt; // store in your variable
 
-                // OPTIONAL: Show in modal or console
-                console.log("KOT TEXT:\n" + kotText);
-
-                // Use your own printing function
-
-                    if('@Org.IsMultilengual'.toLowerCase()=='true')
-                    {
-                        printKotText_Regional(kotText);
-                    }
-                    else{
-                        printKotText(kotText);
-                    }
-             
-                  $("#kotModal").modal("hide");
-            },
-            error: function () {
-              alert("Failed to load KOT content.");
+            if (!kotArray || kotArray.length === 0) {
+                alert("No KOT items to print");
+                return;
             }
-            });
+            if ('@Org.IsMultilengual'.toLowerCase() === 'true') {
+                        printKotText_Regional(kotArray,TableName);
+            } else 
+            {
+                        printKotText(kotArray,TableName);
+            }
+            // ✅ CLEAR KOT ARRAY AFTER PRINT
+            kotArray.length = 0;
+            TableName ="";
+             $("#kotModal").modal("hide");
         });
-
-        function printKotText(txt) {
+        let kotArray = [];   // 🔥 KOT data holder
+        let html = "";
+        let TableName ="";
+        function printKotText(kotArray,TableName) {
 
             const ESC = "\x1B";
-            const DOUBLE = ESC + "!" + "\x38";    // Big bold
-            const MEDIUM = ESC + "!" + "\x20";    // Medium
-            const NORMAL = ESC + "!" + "\x00";    // Normal font
+            const DOUBLE = ESC + "!" + "\x38";   // Big bold
+            const MEDIUM = ESC + "!" + "\x20";   // Medium
+            const NORMAL = ESC + "!" + "\x00";
             const SMALL = ESC + "M" + "\x01";
             const NORMAL_FONT = ESC + "M" + "\x00";
 
-            // Format header
             let receipt = "";
+
+            // -------- HEADER --------
             receipt += NORMAL;
-
             receipt += "------------------------------\n";
-            receipt += MEDIUM + "  KITCHEN ORDER\n" + NORMAL;
-            receipt += "------------------------------\n\n";
+            receipt += MEDIUM + "     KITCHEN ORDER\n" + NORMAL;         
+            receipt += "------------------------------\n";
 
-            //Add the pure text returned by PrintKOT API
-            receipt += txt + "\n";
+            // Optional: table & time
+            const now = new Date();
+            receipt +=  "Table# " + TableName;
+            receipt += "Time : " + now.toLocaleString('en-IN') + "\n";
+            receipt += "------------------------------\n";
 
+            // -------- ITEMS --------
+            kotArray.forEach(item => {
+                receipt += DOUBLE + item.name + "\n" + NORMAL;
+                receipt += "Qty : " + item.qty + "\n";
+                receipt += "------------------------------\n";
+            });
+
+            // -------- FOOTER --------
             receipt += NORMAL_FONT;
-            receipt += "\n"; // Feed paper
+            receipt += "\n\n"; // paper feed
 
-            // RAWBT print
+            // -------- RAWBT PRINT --------
             const encoded = btoa(unescape(encodeURIComponent(receipt)));
             window.location.href = "rawbt:base64," + encoded;
         }
 
-        function printKotText_Regional(txt) {
+        function printKotText_Regional(kotArray,TableName) {
+
+        if (!kotArray || kotArray.length === 0) {
+            alert("No KOT items to print");
+            return;
+        }
+
+        // Build item HTML
+        let itemsHtml = "";
+        kotArray.forEach(item => {
+            itemsHtml += `
+                <div style="font-size:15px;font-weight:bold;">
+                    ${item.name}
+                </div>
+                <div style="font-size:14px;">
+                    Qty : ${item.qty}
+                </div>
+                <hr>
+            `;
+        });
 
     let content = `
         <style>
-            @@page {
+            @@page{
                 size: 80mm auto;
                 margin: 0;
             }
 
-            body {
-                margin:0;
-                padding:0;
-                width:80mm;
-                font-family: monospace;
-                font-size: 16px;
-                zoom:3;   
-                -webkit-print-color-adjust: exact;
-                print-color-adjust: exact;
+            @@media print {
+                body {
+                    margin: 0 !important;
+                    padding: 0 !important;
+                    width: 80mm !important;
+                    -webkit-print-color-adjust: exact !important;
+                    print-color-adjust: exact !important;
+                }
             }
 
             #kot {
                 width:80mm;
                 padding:10px;
                 box-sizing:border-box;
+                font-family: 'Noto Sans Devanagari', 'Mangal', sans-serif;
             }
 
             .title {
@@ -1062,32 +1169,37 @@
                 text-align:center;
             }
 
+            .meta {
+                font-size:14px;
+                text-align:center;
+                margin-bottom:5px;
+            }
+
             hr {
                 border: none;
                 border-top:1px dashed #000;
-                margin:10px 0;
+                margin:8px 0;
             }
         </style>
 
         <div id="kot">
             <hr>
             <div class="title">KITCHEN ORDER</div>
+            <div style="font-size:16px; text-align:center;">टेबल क्र.: ${TableName}</div>
+            <div class="meta">${new Date().toLocaleString('en-IN')}</div>
             <hr>
-            <pre>${txt}</pre>
-            <hr>
+            ${itemsHtml}
         </div>
     `;
 
-    // Open safe isolated window
-    let printWin = window.open("", "_blank");
+            openPrintPreviewFromHtml(content);
+    // Open isolated print window
+   // let printWin = window.open("", "_blank");
+   // printWin.document.write(content);
+   // printWin.document.close();
 
-    printWin.document.write(content);
-    printWin.document.close();
-
-    // Allow rendering, then print
-    setTimeout(() => {
-        printWin.print();
-    }, 300);
+   // setTimeout(() => { printWin.print(); }, 300);
+    
 }
 
 
@@ -1408,8 +1520,8 @@
         });
 
         function doCheckout(customerName, tableDetail, paymentMode, IsPaymentDone, IsPrinted) {
-
-            if('@Org.IsTableNoRequired'.toLowerCase()=='true' && IsPrinted==true)
+            debugger;
+            if('@Org.IsTableNoRequired'.toLowerCase()=='true')// && IsPrinted==true)
             {
                 if(tableDetail.trim() =="")
                 {
@@ -1480,6 +1592,13 @@
                                                         <td style='background: #606a61 !important;'>${k.qty}</td>
                                                     </tr>
                                                 `;
+                                                            TableName = tableDetail;
+                                                     // ✅ Store in KOT array
+                                                    kotArray.push({
+                                                        productId: k.productId,
+                                                        name: product?.Name,
+                                                        qty: k.qty
+                                                    });
                                             });
 
                                             html += `</tbody></table>`;
@@ -1554,7 +1673,7 @@
                                       
 
                                     } else {
-                                        printPlainReceipt58mmv(
+                                        printPlainReceipt58mm(
                                             '@Org.BusinessName',
                                             '@Org.Address',
                                             res.orderId,
@@ -1569,7 +1688,7 @@
                                     }
 
                                 } catch (er) {
-                                    console.log("Billing print issue.");
+                                            console.log(er);
                                 }
                             }
                                        $("#txtCustNameMobile").val("");
@@ -1796,7 +1915,25 @@ function printReceipt80mm_Regional(
     orgTitle, address, invoiceNo, date, customerName,
     productList, grandTotal = 0, Contact, Mode, TableNo
 ) {
+    debugger;
     const cleanDate = date.split(":").slice(0, 2).join(":");
+                   
+    let GrandTotalLabel = '@Org.CounterPrinterName'.toLowerCase() === 'english'? 'Total:': 'एकूण:';
+    let ThankYouLabel = '@Org.CounterPrinterName'.toLowerCase() === 'english'? 'Thank you, visit again!': 'धन्यवाद, पुन्हा भेट द्या!';
+    let TableNoLabel = '@Org.CounterPrinterName'.toLowerCase() === 'english'? 'Table:': 'टेबल क्रमांक:';
+
+    let InvoiceLabel = '@Org.CounterPrinterName'.toLowerCase() === 'english'? 'Invoice:': 'चलन क्रमांक:';
+
+    let CustomerNameLabel = '@Org.CounterPrinterName'.toLowerCase() === 'english'? 'Name:': 'ग्राहक:';
+    let DateLabel = '@Org.CounterPrinterName'.toLowerCase() === 'english'? 'Date:': 'दिनांक:';
+    let PaymentModeLabel = '@Org.CounterPrinterName'.toLowerCase() === 'english'? 'Payment Mode:': 'पद्धत:';
+
+    let ItemLabel = '@Org.CounterPrinterName'.toLowerCase() === 'english'? 'Item': 'वस्तू';
+    let QtyLabel = '@Org.CounterPrinterName'.toLowerCase() === 'english'? 'Qty': 'प्रमाण';
+    let RateLabel = '@Org.CounterPrinterName'.toLowerCase() === 'english'? 'Price': 'दर';
+    let TotalLabel = '@Org.CounterPrinterName'.toLowerCase() === 'english'? 'Total': 'एकूण';
+
+               
 
     let html = `
     <html>
@@ -1840,32 +1977,39 @@ function printReceipt80mm_Regional(
     .addr { font-size: 18px; text-align:center; }
 
     </style>
+           
+
     </head>
 
 
-            <div id="receipt">
+            <div id="receipt">`;
+            if('@Org.Logo'.trim()!="")
+            {
+                     html += ` <div text-align: center;><img src='/uploads/@Org.Logo' Width="150px" style="display:block; margin:0 auto;"/></div>`;
+            }
+          html += `
             <div class="title">${orgTitle}</div>
             <div class="addr">${address}</div>
             <div class="addr">${Contact}</div>
 
             <hr>
 
-            <div>चलन क्रमांक: ${invoiceNo}</div>
-            ${TableNo ? `<div>टेबल क्रमांक: ${TableNo}</div>` : ""}
+             <div>${InvoiceLabel} ${invoiceNo}</div>
+             ${TableNo ? `<div>${TableNoLabel} ${TableNo}</div>` : ""}
 
-            <div>ग्राहक: ${customerName}</div>
-            <div>दिनांक: ${cleanDate}</div>
-            <div>पद्धत: ${Mode}</div>
+            <div>${CustomerNameLabel} ${customerName}</div>
+            <div>${DateLabel} ${cleanDate}</div>
+            <div>${PaymentModeLabel} ${Mode}</div>
 
             <hr>
 
             <table>
                 <thead>
                     <tr>
-                        <th>वस्तू</th>
-                        <th class="qty">प्रमाण</th>
-                        <th class="rate">दर</th>
-                        <th class="total">एकूण</th>
+                        <th>${ItemLabel}</th>
+                        <th class="qty">${QtyLabel}</th>
+                        <th class="rate">${RateLabel}</th>
+                        <th class="total">${TotalLabel}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -1879,7 +2023,7 @@ function printReceipt80mm_Regional(
         const total = qty * rate;
         grandTotal += total;
 
-        html += `
+          html += `
             <tr>
                 <td>${name}</td>
                 <td class="qty">${qty}</td>
@@ -1891,29 +2035,50 @@ function printReceipt80mm_Regional(
 
     html += `
             <tr>
-                <td colspan="3" style="text-align:right"><strong>एकूण:</strong></td>
-                <td class="total"><strong>${grandTotal}/-</strong></td>
+            <td colspan="4" style="text-align: center;font-size: 20px;"><strong>
+            ${GrandTotalLabel}
+            ${grandTotal}/-</strong></td>
+              
             </tr>
             </tbody>
         </table>
+        `;
 
-                <hr>
+        if ('@Org.Qrcode'.trim()!="")
+        {
+        html += `
+        <hr>
+         <div id="QRContainer" style="text-align:center;margin-top:8px;">
+            <div style="font-size:14px;margin-bottom:4px;">UPI Payment</div>
 
-                        <div style="text-align:center;margin-top:5px;">धन्यवाद, पुन्हा भेट द्या!</div>
-                <br>
-                        <div style="text-align:center;font-size: 12px;">Aviraj Innovations Pvt. Ltd.</div>
-                        <div style="text-align:center;font-size: 12px;">Inquiry On: +91 9096152118</div>
-            </div> 
+            <div id="upiQr"
+                 style="
+                    display:flex;
+                    justify-content:center;
+                    align-items:center;
+                 ">
+            </div>
+        </div>`;
+        }
+
+        html += `
+        <hr>
+
+        <div style="text-align:center;margin-top:5px;">${ThankYouLabel}</div>
+        <br>
+        <div style="text-align:center;font-size: 12px;">Aviraj Innovations Pvt. Ltd.</div>
+        <div style="text-align:center;font-size: 12px;">Inquiry On: +91 9096152118</div>
+        </div> 
             
         </html>
-    `;
-
-  
-        const printWin = window.open("", "_blank", "width=350,height=600");
-        printWin.document.write(html);
-        printWin.document.close();
-         printWin.focus();
-        printWin.print();
+        `;
+      
+            openPrintPreviewFromHtml(html,grandTotal);
+        // const printWin = window.open("", "_blank", "width=350,height=600");
+        // printWin.document.write(html);
+        // printWin.document.close();
+        //  printWin.focus();
+        // printWin.print();
 }
 
 
@@ -2355,8 +2520,33 @@ function printReceipt80mm_Regional(
         }
 
     </script>
+    <script>
+            function generateUpiQR(doc, upiId, name, amount, note) {
+
+        const qrDiv = doc.getElementById("upiQr");
+        if (!qrDiv) return;
+
+        const upiUrl =
+            `upi://pay?pa=${encodeURIComponent(upiId)}` +
+            `&pn=${encodeURIComponent(name)}` +
+            `&am=${amount}&cu=INR` +
+            `&tn=${encodeURIComponent(note)}`;
+
+        qrDiv.innerHTML = "";
+
+        new QRCode(qrDiv, {
+            text: upiUrl,
+            width: 180,
+            height: 180
+        });
+    }
+
+
+    </script>
 
     <!-- moment.js optional for nicer date formatting in history modal.
          If you don't have moment on page, the code will fall back to raw date. -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js" integrity="sha512-Cd4a..." crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
 }

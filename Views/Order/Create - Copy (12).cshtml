@@ -525,9 +525,10 @@
         <div style="margin-top:8px;">
             <select id="ddlTableDesktop" class="form-select form-select-sm" >
                 <option value="">-- Select Table (optional) --</option>
-                @for (int i = 1; i <= 10; i++)
+
+                @foreach (var t in ViewBag.Tables)
                 {
-                    <option value="Table @i">Table @i</option>
+                    <option value="@t.Name">@t.Name</option>
                 }
             </select>
         </div>
@@ -554,7 +555,10 @@
             {
                 <!-- Print -->
                 <button id="checkoutBtnDesktop" class="btn btn-success btn-sm flex-grow-1">
-                    <i class="bi bi-printer me-1"></i> Save & Print
+                    <i class="bi bi-printer me-1"></i>   
+                   
+                        Checkout
+
                 </button>
             }
             <!-- Clear -->
@@ -660,9 +664,10 @@
                 <div class="w-100 mb-2">
                     <select id="ddlTableMobile" class="form-select">
                         <option value="">-- Select Table (optional) --</option>
-                        @for (int i = 1; i <= 10; i++)
+
+                        @foreach (var t in ViewBag.Tables)
                         {
-                            <option value="Table @i">Table @i</option>
+                            <option value="@t.Name">@t.Name</option>
                         }
                     </select>
                 </div>
@@ -688,7 +693,7 @@
                     @if (User.IsInRole("Owner"))
                     {
                         <button id="checkoutBtn" class="btn btn-success btn-sm">
-                            <i class="bi bi-printer me-1"></i> Print
+                            <i class="bi bi-printer me-1"></i> Checkout
                         </button>
                     }
                 </div>
@@ -793,9 +798,10 @@
                 <label class="form-label mb-1">Table Name</label>
                 <select id="forceTableName" class="form-control" @(Convert.ToBoolean(Org.HideTableDropDown) ? "disabled" : "")>
                     <option value="">-- Select Table (optional) --</option>
-                    @for (int i = 1; i <= 10; i++)
+
+                    @foreach (var t in ViewBag.Tables)
                     {
-                        <option value="Table @i">Table @i</option>
+                        <option value="@t.Name">@t.Name</option>
                     }
 
                 </select>
@@ -869,11 +875,11 @@
     {
         <!-- Print -->
         <button id="btnMobilePrint" class="btn btn-secondary">
-            <i class="bi bi-printer me-1"></i> Print
+            <i class="bi bi-printer me-1"></i> Checkout
         </button>
     }
 </div>
-
+<div id="printArea" style="display:none;"></div>
 <!-- Hidden state -->
 <input type="hidden" id="isEditing" value="0" />
 <input type="hidden" id="editingOrderIdHidden" value="" />
@@ -881,11 +887,13 @@
 @section Scripts {
 
     <script>
+          var isMandatory = @((Convert.ToBoolean(Org.IsCustomerMandetory) ? "true" : "false"));
+            var IsTableNoRequired = @((Convert.ToBoolean(Org.IsTableNoRequired) ? "true" : "false"));
+
         document.addEventListener("DOMContentLoaded", function () {
 
-            var isMandatory = @((Convert.ToBoolean(Org.IsCustomerMandetory) ? "true" : "false"));
-
-            if (isMandatory.toString() === "true") {
+          
+            if (isMandatory.toString() === "true" || IsTableNoRequired.toString() === "true") {
 
                 // Load table names from existing dropdown (desktop or mobile)
                 let source = document.getElementById("ddlTableDesktop") ??
@@ -907,17 +915,25 @@
 
 
         function saveForcedCustomer() {
+            debugger;
             let cust = document.getElementById("forceCustName").value.trim();
             let table = document.getElementById("forceTableName").value;
-          
-            if (cust == "" ) {
-                alert("Please enter Customer Name");
-                return;
-            }
-             if (cust == "" && '@Org.HideTableDropDown'.toLowerCase() =='true') {
-                alert("Please select Table.");
-                return;
-            }
+
+              if (isMandatory.toString() === "true" ) {
+                    if (cust.trim() == "" ) {
+                        alert("Please enter Customer Name");
+                        return;
+                    }
+              }
+
+             if (IsTableNoRequired.toString() === "true") {
+                  if (table.trim() == "" ) {
+                        alert("Please select Table/Room");
+                        return;
+                    }
+              }
+           
+            
 
             // Populate existing textboxes
             document.getElementById("txtCustNameDesktop").value = cust;
@@ -969,7 +985,15 @@
                 console.log("KOT TEXT:\n" + kotText);
 
                 // Use your own printing function
-                 printKotText(kotText);
+
+                    if('@Org.IsMultilengual'.toLowerCase()=='true')
+                    {
+                        printKotText_Regional(kotText);
+                    }
+                    else{
+                        printKotText(kotText);
+                    }
+             
                   $("#kotModal").modal("hide");
             },
             error: function () {
@@ -1005,6 +1029,68 @@
             const encoded = btoa(unescape(encodeURIComponent(receipt)));
             window.location.href = "rawbt:base64," + encoded;
         }
+
+        function printKotText_Regional(txt) {
+
+    let content = `
+        <style>
+            @@page {
+                size: 80mm auto;
+                margin: 0;
+            }
+
+            body {
+                margin:0;
+                padding:0;
+                width:80mm;
+                font-family: monospace;
+                font-size: 16px;
+                zoom:3;   
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            #kot {
+                width:80mm;
+                padding:10px;
+                box-sizing:border-box;
+            }
+
+            .title {
+                font-size:22px;
+                font-weight:bold;
+                text-align:center;
+            }
+
+            hr {
+                border: none;
+                border-top:1px dashed #000;
+                margin:10px 0;
+            }
+        </style>
+
+        <div id="kot">
+            <hr>
+            <div class="title">KITCHEN ORDER</div>
+            <hr>
+            <pre>${txt}</pre>
+            <hr>
+        </div>
+    `;
+
+    // Open safe isolated window
+    let printWin = window.open("", "_blank");
+
+    printWin.document.write(content);
+    printWin.document.close();
+
+    // Allow rendering, then print
+    setTimeout(() => {
+        printWin.print();
+    }, 300);
+}
+
+
 
         /* -------------------------
            Rendering: Categories & Products
@@ -1163,7 +1249,7 @@
             $('#editingOrderIdHidden').val('');
             $('#editingBadge').hide();
             $('#editingOrderId').text('');
-            $('#checkoutBtn, #checkoutBtnDesktop').text('Print');
+            $('#checkoutBtn, #checkoutBtnDesktop').text('Checkout');
         }
 
         /* -------------------------
@@ -1321,7 +1407,17 @@
             $(".product-card").removeClass("product-added");
         });
 
-                function doCheckout(customerName, tableDetail, paymentMode, IsPaymentDone, IsPrinted) {
+        function doCheckout(customerName, tableDetail, paymentMode, IsPaymentDone, IsPrinted) {
+
+            if('@Org.IsTableNoRequired'.toLowerCase()=='true' && IsPrinted==true)
+            {
+                if(tableDetail.trim() =="")
+                {
+                        alert("Please select Table/Room before checkout.");
+                        return;
+                }
+              
+            }
 
             if (cart.length === 0) {
                 alert("Cart is empty. Please add some items for sale.");
@@ -1352,8 +1448,7 @@
                 success: function (res) {
 
                     if (res.success) {
-                            $("#txtCustNameMobile").val("");
-                            $('#ddlTableMobile option:first').prop('selected', true);
+                         
 
                         //-------------------------------------------------------
                         //  KOT LOGIC — OPEN PRINT WINDOW IF NEW ITEMS EXIST
@@ -1391,8 +1486,9 @@
 
                                             $("#kotModalBody").html(html);
 
-                                            if('@Org.IsKOTEnabled'.toLowerCase()=='true')
-                                            { $("#kotModal").modal("show");
+                                            if('@Org.IsKOTEnabled'.toLowerCase()=='true' && IsPrinted==false)
+                                            {
+                                                $("#kotModal").modal("show");
                                             }
 
                                             // Store order ID for printing
@@ -1409,6 +1505,7 @@
                         //-------------------------------------------------------
                         setTimeout(() => {
                             const isDesktop = window.innerWidth > 991;
+                           
                             const tableNo = isDesktop ? $("#ddlTableDesktop").val() : $("#ddlTableMobile").val();
 
                             const paymentMode = isDesktop
@@ -1422,21 +1519,42 @@
                                 try {
 
                                     if ('@Org.PrinterSizeId' == '2') {
-                                        printPlainReceipt80mm(
-                                            '@Org.BusinessName',
-                                            '@Org.Address',
-                                            res.orderId,
-                                            new Date().toLocaleString(),
-                                            order.customerName,
-                                            order.items,
-                                            0,
-                                            '@Org.MobileNo',
-                                            paymentMode,
-                                            tableNo
-                                        );
+                                        debugger;
+                                                if('@Org.IsMultilengual'.toLowerCase()=='true')
+                                                 {
+                                                    printReceipt80mm_Regional(
+                                                        '@Org.BusinessName',
+                                                        '@Org.Address',
+                                                        res.orderId,
+                                                        new Date().toLocaleString(),
+                                                        order.customerName,
+                                                        order.items,
+                                                        0,
+                                                        '@Org.MobileNo',
+                                                        paymentMode,
+                                                        tableNo
+                                                    );
+                                                 }else
+                                                 {
+                                                        printPlainReceipt80mm(
+                                                        '@Org.BusinessName',
+                                                        '@Org.Address',
+                                                        res.orderId,
+                                                        new Date().toLocaleString(),
+                                                        order.customerName,
+                                                        order.items,
+                                                        0,
+                                                        '@Org.MobileNo',
+                                                        paymentMode,
+                                                        tableNo
+                                                        );
+                                                 }
+                                     
+
+                                      
 
                                     } else {
-                                        printPlainReceipt58mm(
+                                        printPlainReceipt58mmv(
                                             '@Org.BusinessName',
                                             '@Org.Address',
                                             res.orderId,
@@ -1454,7 +1572,8 @@
                                     console.log("Billing print issue.");
                                 }
                             }
-
+                                       $("#txtCustNameMobile").val("");
+                                    $('#ddlTableMobile option:first').prop('selected', true);
                             //-------------------------------------------------------
                             //  Clear UI
                             //-------------------------------------------------------
@@ -1480,86 +1599,7 @@
         }
 
 
-        // Checkout handlers (desktop & mobile share same AJAX call)
-        // function doCheckout(customerName, tableDetail, paymentMode,IsPaymentDone,IsPrinted) {
-        //     if (cart.length === 0) {
-        //         alert("Cart is empty. Please add some items for sale.");
-        //         return;
-        //     }
-        //     $('#checkoutBtn, #checkoutBtnDesktop').prop('disabled', true);
-
-        //     const order = {
-        //         editOrderId: $('#isEditing').val() === '1' ? parseInt($('#editingOrderIdHidden').val() || '0') : null,
-        //         customerName: customerName,
-        //         tableDetail: tableDetail,
-        //         paymentMode: paymentMode,
-        //         isPaymentDone: IsPaymentDone,
-        //         isPrinted:IsPrinted,
-        //         items: cart.map(item => ({
-        //             productId: item.id,
-        //             qty: item.qty,
-        //             price: item.price
-        //         }))
-        //     };
-
-        //     $.ajax({
-        //         url: '/Order/SaveOrder',
-        //         type: 'POST',
-        //         contentType: 'application/json',
-        //         data: JSON.stringify(order),
-        //         success: function (res) {
-        //             if (res.success) {
-        //                 // printing logic remains same
-        //                 setTimeout(() => {
-        //                     const isDesktop = window.innerWidth > 991;
-        //                     const tableNo = isDesktop ? $("#ddlTableDesktop").val() : $("#ddlTableMobile").val();
-        //                     const paymentMode = isDesktop
-        //                         ? document.querySelector('input[name="paymentDesktop"]:checked').value
-        //                         : document.querySelector('input[name="paymentMobile"]:checked').value;
-
-        //                        let card = $('.product-card');
-        //                             card.removeClass("product-added");
-
-
-        //                     if(IsPrinted==true){
-
-        //                         try
-        //                         {
-
-        //                              //debugger;
-        //                             if ('@Org.PrinterSizeId' == '2') {
-        //                                 printPlainReceipt80mm('@Org.BusinessName', '@Org.Address', res.orderId, new Date().toLocaleString(), order.customerName, order.items, 0, '@Org.MobileNo', paymentMode, tableNo);
-
-        //                             } else {
-        //                                 printPlainReceipt58mm('@Org.BusinessName', '@Org.Address', res.orderId, new Date().toLocaleString(), order.customerName, order.items, 0, '@Org.MobileNo', paymentMode, tableNo);
-
-        //                             }
-        //                         }catch(er){
-        //                             console.log('printing issue');
-        //                         }
-
-        //                     }
-
-
-        //                     $('#invoiceSection').hide();
-        //                     // after print clear cart
-        //                     clearCartUI();
-        //                     $('#checkoutBtn, #checkoutBtnDesktop').prop('disabled', false);
-        //                     // close modal if on mobile
-        //                     $('#cartModal').modal('hide');
-
-        //                 }, 50);
-        //             } else {
-        //                 alert("Error: " + res.message);
-        //                 $('#checkoutBtn, #checkoutBtnDesktop').prop('disabled', false);
-        //             }
-        //         },
-        //         error: function (err) {
-        //             alert("Save order failed.");
-        //             $('#checkoutBtn, #checkoutBtnDesktop').prop('disabled', false);
-        //         }
-        //     });
-        // }
+      
 
         $('#checkoutBtn').click(function () {
             const customerName = $("#txtCustNameMobile").val();
@@ -1598,19 +1638,25 @@
                         return;
                     }
                   //  debugger;
-                    const rows = res.data.map(o => `<div class="order-card shadow-sm mb-2 p-2">
-                            <div class="d-flex justify-content-between align-items-center mb-1">
-                                <strong class="order-id">#${o.id}</strong>
-                                <span class="text-muted small">${moment ? moment(o.dateOfOrder).format('DD-MM-YYYY HH:mm') : (o.dateOfOrder || '')}</span>
-                                <button class="btn btn-sm btn-primary edit-order-btn" data-id="${o.id}">Edit</button>
-                            </div>
-                            <div class="d-flex justify-content-between text-dark small">
-                                <span><i class="bi bi-person"></i> ${htmlEscape(o.customerName)}</span>
-                                <span><i class="bi bi-grid-3x3-gap"></i> ${htmlEscape(o.tableDetails || '')}</span>
-                                <span><i class="bi bi-cash"></i> ₹${(o.grandTotal || 0).toFixed(2)}</span>
-                            </div>
-                      </div>
-                    `).join('');
+                          const rows = res.data.map(o => `
+            <div class="order-card shadow-sm mb-2 p-2">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                    <strong class="order-id">#${o.id}</strong>
+                    <span class="text-muted small">${moment ? moment(o.dateOfOrder).format('DD-MM-YYYY HH:mm') : (o.dateOfOrder || '')}</span>
+
+                    <div>
+                        <button class="btn btn-sm btn-primary edit-order-btn" data-id="${o.id}">Edit</button>
+                        <button class="btn btn-sm btn-danger cancel-order-btn" data-id="${o.id}">Cancel</button>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between text-dark small">
+                    <span><i class="bi bi-person"></i> ${htmlEscape(o.customerName)}</span>
+                    <span><i class="bi bi-grid-3x3-gap"></i> ${htmlEscape(o.tableDetails || '')}</span>
+                    <span><i class="bi bi-cash"></i> ₹${(o.grandTotal || 0).toFixed(2)}</span>
+                </div>
+            </div>
+        `).join('');
 
                     $('#PendingOrders').html(rows || 'No recent orders');
                 },
@@ -1685,7 +1731,7 @@
             $('#editingOrderIdHidden').val(order.id);
             $('#editingBadge').show();
             $('#editingOrderId').text(order.id);
-            $('#checkoutBtn, #checkoutBtnDesktop').text('Print');
+            $('#checkoutBtn, #checkoutBtnDesktop').text('Checkout');
 
             renderCart();
 
@@ -1714,6 +1760,161 @@
             const encoded = btoa(unescape(encodeURIComponent(receiptHTML)));
             window.location.href = "rawbt:base64," + encoded;
         }
+
+
+
+        $(document).on("click", ".cancel-order-btn", function () {
+            let orderId = $(this).data("id");
+                      let button = $(this);                   // store reference
+           
+            let note = prompt("Enter cancellation reason:");
+
+            if (!note) {
+                alert("Cancellation note is required.");
+                return;
+            }
+
+            $.ajax({
+                url: "/Order/CancelOrder",
+                method: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({ orderId: orderId, note: note }),
+                success: function (res) {
+                    if (res.success) {
+                        alert("Order cancelled");
+                        button.closest(".order-card").remove();
+                        loadLastOrders(); // reload order list
+                    } else {
+                        alert(res.message);
+                    }
+                }
+            });
+        });
+
+
+function printReceipt80mm_Regional(
+    orgTitle, address, invoiceNo, date, customerName,
+    productList, grandTotal = 0, Contact, Mode, TableNo
+) {
+    const cleanDate = date.split(":").slice(0, 2).join(":");
+
+    let html = `
+    <html>
+    <head>
+    <style>
+
+
+    @@page{
+        size: 80mm auto;
+        margin: 0;
+    }
+
+    @@media print {
+        #printBtn { display: none !important; }
+
+        body {
+            margin: 0 !important;
+            padding: 0 !important;
+            width: 80mm !important;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+    }
+
+ 
+    #receipt {
+        width: 80mm !important;
+        max-width: 80mm !important;
+        margin: 0 auto !important;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+    }
+
+    table { width: 100%; border-collapse: collapse; }
+    td, th { padding: 3px; }
+    .qty { text-align: center; }
+    .rate, .total { text-align: right; }
+
+    .title { font-size: 24px; text-align:center; font-weight:bold; }
+    .addr { font-size: 18px; text-align:center; }
+
+    </style>
+    </head>
+
+
+            <div id="receipt">
+            <div class="title">${orgTitle}</div>
+            <div class="addr">${address}</div>
+            <div class="addr">${Contact}</div>
+
+            <hr>
+
+            <div>चलन क्रमांक: ${invoiceNo}</div>
+            ${TableNo ? `<div>टेबल क्रमांक: ${TableNo}</div>` : ""}
+
+            <div>ग्राहक: ${customerName}</div>
+            <div>दिनांक: ${cleanDate}</div>
+            <div>पद्धत: ${Mode}</div>
+
+            <hr>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>वस्तू</th>
+                        <th class="qty">प्रमाण</th>
+                        <th class="rate">दर</th>
+                        <th class="total">एकूण</th>
+                    </tr>
+                </thead>
+                <tbody>
+    `;
+
+    productList.forEach(p => {
+        const prod = allProducts.find(x => x.Id === p.productId);
+        const name = prod?.Name || "";
+        const qty = p.qty;
+        const rate = p.price;
+        const total = qty * rate;
+        grandTotal += total;
+
+        html += `
+            <tr>
+                <td>${name}</td>
+                <td class="qty">${qty}</td>
+                <td class="rate">${rate}</td>
+                <td class="total">${total}</td>
+            </tr>
+        `;
+    });
+
+    html += `
+            <tr>
+                <td colspan="3" style="text-align:right"><strong>एकूण:</strong></td>
+                <td class="total"><strong>${grandTotal}/-</strong></td>
+            </tr>
+            </tbody>
+        </table>
+
+                <hr>
+
+                        <div style="text-align:center;margin-top:5px;">धन्यवाद, पुन्हा भेट द्या!</div>
+                <br>
+                        <div style="text-align:center;font-size: 12px;">Aviraj Innovations Pvt. Ltd.</div>
+                        <div style="text-align:center;font-size: 12px;">Inquiry On: +91 9096152118</div>
+            </div> 
+            
+        </html>
+    `;
+
+  
+        const printWin = window.open("", "_blank", "width=350,height=600");
+        printWin.document.write(html);
+        printWin.document.close();
+         printWin.focus();
+        printWin.print();
+}
 
 
 
@@ -2011,7 +2212,9 @@
             if (active === "ddlTableMobile") return;
 
             if (active === "txtSearchCustomer") return;
-
+              if (active === "forceTableName") return;
+                if (active === "forceCustName") return;
+            
 
 
             barcodeInput.focus();

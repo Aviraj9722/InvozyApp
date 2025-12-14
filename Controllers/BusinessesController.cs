@@ -1,6 +1,7 @@
 ﻿using eOrderTouchApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using NuGet.ProjectModel;
 
 namespace eOrderTouchApp.Controllers
 {
@@ -41,7 +42,7 @@ namespace eOrderTouchApp.Controllers
         // CREATE BUSINESS
         // ===============
         [HttpPost]
-        public async Task<IActionResult> Create(TblBusiness business)
+        public async Task<IActionResult> Create(TblBusiness business, IFormFile? LogoFile)
         {
             ModelState.Remove("Id");
             ModelState.Remove("IsActive");
@@ -66,6 +67,30 @@ namespace eOrderTouchApp.Controllers
             }
 
             business.CreatedOn = DateTime.Now;
+
+            // Logo upload
+            if (LogoFile != null)
+            {
+                // 🔐 Size validation (100 KB)
+                if (LogoFile.Length > 100 * 1024)
+                    return BadRequest("Logo size must be less than 100 KB");
+
+                // 🔐 Type validation
+                var allowedTypes = new[] { "image/jpeg", "image/png" };
+                if (!allowedTypes.Contains(LogoFile.ContentType))
+                    return BadRequest("Only PNG or JPG images are allowed");
+
+                // Delete old logo (optional)
+                if (!string.IsNullOrEmpty(business.Logo))
+                {
+                    var oldPath = Path.Combine(_env.WebRootPath, "Uploads", business.Logo);
+                    if (System.IO.File.Exists(oldPath))
+                        System.IO.File.Delete(oldPath);
+                }
+
+                business.Logo = await SaveFile(LogoFile);
+            }
+
 
             _context.TblBusinesses.Add(business);
             await _context.SaveChangesAsync();
@@ -112,13 +137,18 @@ namespace eOrderTouchApp.Controllers
             });
         }
 
-        
+
+
         // =============
         // UPDATE (POST)
         // =============
         [HttpPost]
         [AuthorizeToRoles("Admin")]
-        public async Task<IActionResult> Update(TblBusiness business)//, IFormFile LogoFile, IFormFile QRCodeFile)
+        // public async Task<IActionResult> Update(TblBusiness business)//, IFormFile LogoFile, IFormFile QRCodeFile)
+        public async Task<IActionResult> Update(
+    TblBusiness business,
+    IFormFile? LogoFile
+)
         {
             ModelState.Remove("Id");
             ModelState.Remove("IsActive");
@@ -148,6 +178,29 @@ namespace eOrderTouchApp.Controllers
             if (existing == null)
                 return NotFound();
 
+            // Logo upload
+            if (LogoFile != null)
+            {
+                // 🔐 Size validation (100 KB)
+                if (LogoFile.Length > 100 * 1024)
+                    return BadRequest("Logo size must be less than 100 KB");
+
+                // 🔐 Type validation
+                var allowedTypes = new[] { "image/jpeg", "image/png" };
+                if (!allowedTypes.Contains(LogoFile.ContentType))
+                    return BadRequest("Only PNG or JPG images are allowed");
+
+                // Delete old logo (optional)
+                if (!string.IsNullOrEmpty(existing.Logo))
+                {
+                    var oldPath = Path.Combine(_env.WebRootPath, "Uploads", existing.Logo);
+                    if (System.IO.File.Exists(oldPath))
+                        System.IO.File.Delete(oldPath);
+                }
+
+                existing.Logo = await SaveFile(LogoFile);
+            }
+
             // Update fields
             existing.BusinessName = business.BusinessName;
             existing.BusinessTypeId = business.BusinessTypeId;
@@ -169,6 +222,7 @@ namespace eOrderTouchApp.Controllers
             existing.KichenPrinterName = business.KichenPrinterName;
             existing.CounterPrinterName = business.CounterPrinterName;
             existing.IsTableNoRequired = business.IsTableNoRequired;
+            existing.Qrcode = business.Qrcode;
             //// Replace logo if file selected
             //if (LogoFile != null)
             //{
@@ -245,8 +299,7 @@ namespace eOrderTouchApp.Controllers
             existing.IsGstapplicable = business.IsGstapplicable;
             existing.HideCustomerField = business.HideCustomerField;
             existing.HideTableDropDown = business.HideTableDropDown;
-            existing.IsActive = business.IsActive;
-            existing.IsMultilengual = business.IsMultilengual;
+           
             await _context.SaveChangesAsync();
             return RedirectToAction("Setting");
         }
@@ -268,9 +321,6 @@ namespace eOrderTouchApp.Controllers
             return Ok();
         }
 
-        // =====================
-        // SAVE FILE (Helper)
-        // =====================
         private async Task<string> SaveFile(IFormFile file)
         {
             string folder = Path.Combine(_env.WebRootPath, "Uploads");
@@ -288,6 +338,7 @@ namespace eOrderTouchApp.Controllers
 
             return fileName;
         }
+
     }
 }
 

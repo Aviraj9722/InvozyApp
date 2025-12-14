@@ -84,7 +84,7 @@ public class OrderController : Controller
         ViewBag.Free = Orders.Where(w => w.PaymentMode == "Free").Sum(s => s.GrandTotal);
         ViewBag.Credit = Orders.Where(w => w.PaymentMode == "Credit").Sum(s => s.GrandTotal);
         ViewBag.Materials = _context.TblProducts.Where(w => w.BusinessId == businessId).ToList();
-        
+
         //To keep the dates after posting the data//
         ViewBag.FromDate = fromDT.ToString("yyyy-MM-dd");
         ViewBag.ToDate = toDT.ToString("yyyy-MM-dd");
@@ -130,7 +130,7 @@ public class OrderController : Controller
         int businessId = Convert.ToInt32(User.FindFirst("OrgId")?.Value);
 
         var orders = await _context.TblOrderMasters
-            .Where(w => w.BuisnessId == businessId && w.PaymentStatus!=true && (w.IsCanceled ==null || w.IsCanceled ==false))
+            .Where(w => w.BuisnessId == businessId && w.PaymentStatus != true && (w.IsCanceled == null || w.IsCanceled == false))
             .OrderByDescending(o => o.Id)
             .Select(o => new
             {
@@ -140,7 +140,7 @@ public class OrderController : Controller
                 GrandTotal = o.GrandTotal,
                 DateOfOrder = o.DateOfOrder
             })
-           // .Take(5)
+            // .Take(5)
             .ToListAsync();
 
         return Json(new { success = true, data = orders });
@@ -178,6 +178,134 @@ public class OrderController : Controller
         return Json(new { success = true, data = dto });
     }
 
+    
+    [HttpPost]
+    public async Task<IActionResult> CancelOrder([FromBody] CancelOrderDto dto)
+    {
+        if (dto == null || dto.orderId <= 0 || string.IsNullOrWhiteSpace(dto.note))
+            return Json(new { success = false, message = "Invalid cancellation data." });
+
+        int businessId = Convert.ToInt32(User.FindFirst("OrgId")?.Value);
+
+        var order = await _context.TblOrderMasters
+            .FirstOrDefaultAsync(o => o.Id == dto.orderId && o.BuisnessId == businessId);
+
+        if (order == null)
+            return Json(new { success = false, message = "Order not found." });
+
+        if (order.PaymentStatus == true)
+            return Json(new { success = false, message = "Order already completed. Cannot cancel." });
+
+        // Mark as cancelled
+        //order.PaymentStatus = false;
+        order.IsCanceled = true;
+        order.CancelNote = $"{order.CustomerName} (Cancelled: {dto.note})";
+
+        await _context.SaveChangesAsync();
+
+        return Json(new { success = true, message = "Order cancelled successfully." });
+    }
+    [HttpGet]
+    public async Task<IActionResult> GetProductByBarcode(string code)
+    {
+        int businessId = Convert.ToInt32(User.FindFirst("OrgId")?.Value);
+
+        var product = await _context.TblProducts
+            .Where(p => p.BusinessId == businessId && p.Code == code)
+            .Select(p => new {
+                p.Id,
+                p.Name,
+                p.Price,
+                p.Photo,
+                p.Code
+            })
+            .FirstOrDefaultAsync();
+
+        if (product == null)
+            return Json(new { success = false, message = "Product not found" });
+
+        return Json(new { success = true, data = product });
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> PrintKOT(int orderId, bool reprint = false)
+    {
+        var istZone = TimeZoneInfo.FindSystemTimeZoneById("Asia/Kolkata");
+        DateTime istNow = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, istZone);
+        var order = await _context.TblOrderMasters
+            .Include(o => o.TblOrderDetails)
+            .FirstOrDefaultAsync(o => o.Id == orderId);
+
+        if (order == null)
+            return Content("Order not found");
+
+        var kotItems = order.TblOrderDetails
+            .Where(d => d.IsKOTPrinted == false)
+            .ToList();
+
+        if (kotItems.Count == 0)
+            return Content("No new items for KOT");
+
+        // Mark as printed
+        foreach (var item in kotItems)
+            item.IsKOTPrinted = true;
+
+        await _context.SaveChangesAsync();
+
+        // Build 58mm text
+        string kotText = "";
+        kotText += "***** KOT *****\n";
+        kotText += "Table : " + order.TableDetails + "\n";
+        kotText += "Time  : " + istNow.ToString("dd-MMM-yyyy hh:mm tt") + "\n";
+        kotText += "--------------------------\n";
+
+        foreach (var i in kotItems)
+        {
+            var product = await _context.TblProducts.FindAsync(i.ProductId);
+            kotText += product.Name + "\n";
+            kotText += "Qty: " + i.Qty + "\n";
+            kotText += "--------------------------\n";
+        }
+
+        return Content(kotText, "text/plain");
+    }
+
+
+
+
+    [HttpGet]
+    public async Task<IActionResult> GetCustomers(string search)
+    {
+        int businessId = Convert.ToInt32(User.FindFirst("OrgId")?.Value);
+
+
+        var query = _context.TblCustomers
+                    .Where(c => c.BusinessId == businessId);
+
+        if (!string.IsNullOrEmpty(search))
+        {
+            search = search.ToLower();
+            query = query.Where(c =>
+                   c.Name.ToLower().Contains(search) ||
+                   c.MobileNo.Contains(search) ||
+                   c.Location.ToLower().Contains(search));
+        }
+
+        var customers = await query
+            .OrderBy(c => c.Name)
+            .Select(c => new
+            {
+                c.Id,
+                c.Name,
+                c.Location,
+                c.MobileNo
+            })
+            .ToListAsync();
+
+        return Json(customers);
+    }
+
+
     [HttpPost]
     public async Task<IActionResult> SaveOrder([FromBody] OrderDto orderDto)
     {
@@ -197,6 +325,7 @@ public class OrderController : Controller
             var existingPendingOrder = await _context.TblOrderMasters
                 .Where(o => o.TableDetails == orderDto.tableDetail
                             && o.PaymentStatus == false
+                            && o.IsCanceled == false
                             && o.BuisnessId == businessId)
                 .FirstOrDefaultAsync();
 
@@ -277,7 +406,7 @@ public class OrderController : Controller
                                     OrderId = existingMaster.Id,
                                     ProductId = dtoItem.productId,
                                     Qty = (int)dtoItem.qty,
-                                   // Price = dtoItem.price,
+                                    // Price = dtoItem.price,
                                     KotType = "NEW",
                                     CreatedBy = UserId,
                                     CreatedAt = istNow
@@ -301,7 +430,7 @@ public class OrderController : Controller
                                     OrderId = existingMaster.Id,
                                     ProductId = dtoItem.productId,
                                     Qty = diffQty,
-                                   // Price = existingItem.Price,
+                                    // Price = existingItem.Price,
                                     KotType = "UPDATE",
                                     CreatedBy = UserId,
                                     CreatedAt = istNow
@@ -397,6 +526,7 @@ public class OrderController : Controller
             BuisnessId = businessId,
             PaymentMode = orderDto.paymentMode,
             TableDetails = orderDto.tableDetail,
+            IsCanceled = false,
             CreatedOn = istNow,
             TblOrderDetails = orderDto.items.Select(x => new TblOrderDetail
             {
@@ -424,483 +554,4 @@ public class OrderController : Controller
     }
 
 
-    [HttpPost]
-    [HttpPost]
-    public async Task<IActionResult> CancelOrder([FromBody] CancelOrderDto dto)
-    {
-        if (dto == null || dto.orderId <= 0 || string.IsNullOrWhiteSpace(dto.note))
-            return Json(new { success = false, message = "Invalid cancellation data." });
-
-        int businessId = Convert.ToInt32(User.FindFirst("OrgId")?.Value);
-
-        var order = await _context.TblOrderMasters
-            .FirstOrDefaultAsync(o => o.Id == dto.orderId && o.BuisnessId == businessId);
-
-        if (order == null)
-            return Json(new { success = false, message = "Order not found." });
-
-        if (order.PaymentStatus == true)
-            return Json(new { success = false, message = "Order already completed. Cannot cancel." });
-
-        // Mark as cancelled
-        //order.PaymentStatus = false;
-        order.IsCanceled = true;
-        order.CancelNote = $"{order.CustomerName} (Cancelled: {dto.note})";
-
-        await _context.SaveChangesAsync();
-
-        return Json(new { success = true, message = "Order cancelled successfully." });
-    }
-
-
-    //---------- SaveOrder: INSERT or UPDATE based on incoming DTO ----------
-    //[HttpPost]
-    //public async Task<IActionResult> SaveOrder([FromBody] OrderDto orderDto)
-    //{
-
-    //    var istZone = TimeZoneInfo.FindSystemTimeZoneById("Asia/Kolkata");
-    //    DateTime istNow = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, istZone);
-
-    //    if (orderDto == null || orderDto.items == null || !orderDto.items.Any())
-    //        return Json(new { success = false, message = "Invalid order data" });
-
-
-    //    int businessId = Convert.ToInt32(User.FindFirst("OrgId")?.Value);
-
-    //    var business= await _context.TblBusinesses.FindAsync(businessId);
-    //    int UserId = Convert.ToInt32(User.FindFirst("UserId")?.Value);
-
-    //    if (!string.IsNullOrEmpty(orderDto.tableDetail))
-    //    {
-    //        // ---------- VALIDATION: Prevent multiple pending orders for same table ----------
-    //        var existingPendingOrder = await _context.TblOrderMasters
-    //            .Where(o => o.TableDetails == orderDto.tableDetail
-    //                    && o.PaymentStatus == false
-    //                    && o.BuisnessId == businessId)
-    //            .FirstOrDefaultAsync();
-
-    //        if (existingPendingOrder != null && !orderDto.editOrderId.HasValue)
-    //        {
-    //            return Json(new
-    //            {
-    //                success = false,
-    //                message = $"Order already exists for this {orderDto.tableDetail} and is still pending."
-    //            });
-    //        }
-    //    }
-
-
-    //    decimal grandTotal = orderDto.items.Sum(x => x.price * x.qty);
-
-    //    // ----------------------------------------------------------
-    //    // CASE 1: UPDATE EXISTING ORDER
-    //    // ----------------------------------------------------------
-    //    if (orderDto.editOrderId.HasValue && orderDto.editOrderId.Value > 0)
-    //    {
-    //        var editId = orderDto.editOrderId.Value;
-
-    //        var existingMaster = await _context.TblOrderMasters
-    //            .Include(m => m.TblOrderDetails)
-    //            .FirstOrDefaultAsync(m => m.Id == editId && m.BuisnessId == businessId);
-
-    //        if (existingMaster == null)
-    //            return Json(new { success = false, message = "Order not found or not allowed" });
-
-    //        using (var transaction = await _context.Database.BeginTransactionAsync())
-    //        {
-    //            try
-    //            {
-    //                // ---------- Update master ----------
-    //                existingMaster.CustomerName = orderDto.customerName;
-    //                existingMaster.TableDetails = orderDto.tableDetail;
-    //                existingMaster.PaymentMode = orderDto.paymentMode;
-    //                existingMaster.PaymentStatus = orderDto.isPaymentDone;
-    //                existingMaster.Printed = orderDto.isPrinted;
-    //                existingMaster.GrandTotal = grandTotal;
-    //                existingMaster.TotalAmount = grandTotal;
-    //                existingMaster.Gsttotal = 0;
-    //                existingMaster.DateOfOrder = istNow;// DateTime.Now;
-    //                existingMaster.UserId = UserId;
-    //                existingMaster.CreatedOn = istNow;// DateTime.Now;
-
-    //                // ----------------------------------------------------------
-    //                // ---------- NEW KOT LOGIC (DETECT NEW OR INCREASED ITEMS) ----------
-    //                // ----------------------------------------------------------
-    //                List<TblOrderDetail> kotItems = new List<TblOrderDetail>();
-
-    //                foreach (var dtoItem in orderDto.items)
-    //                {
-    //                    var existingItem = existingMaster.TblOrderDetails
-    //                        .FirstOrDefault(d => d.ProductId == dtoItem.productId);
-
-    //                    bool qtyWasIncreased = false;
-
-    //                    // ---------------------------------------
-    //                    // CASE 1: NEW PRODUCT ADDED
-    //                    // ---------------------------------------
-    //                    if (existingItem == null)
-    //                    {
-    //                        // Always add new row
-    //                        kotItems.Add(new TblOrderDetail
-    //                        {
-    //                            Oid = existingMaster.Id,
-    //                            ProductId = dtoItem.productId,
-    //                            Qty = dtoItem.qty,
-    //                            Price = dtoItem.price,
-    //                            Total = dtoItem.qty * dtoItem.price,
-    //                            Gstpercentage = 0,
-    //                            Gstamount = 0,
-    //                            IsKOTPrinted = false
-    //                        });
-    //                        continue;
-    //                    }
-
-    //                    // ---------------------------------------
-    //                    // CASE 2: QTY INCREASE
-    //                    // ---------------------------------------
-    //                    if (dtoItem.qty > existingItem.Qty)
-    //                    {
-    //                        qtyWasIncreased = true;
-
-    //                        decimal diffQty = (int)dtoItem.qty - (int)existingItem.Qty;
-
-    //                        // Only add KOT difference if KOT feature is enabled
-    //                        if (business.IsKOTEnabled == true)
-    //                        {
-    //                            kotItems.Add(new TblOrderDetail
-    //                            {
-    //                                Oid = existingMaster.Id,
-    //                                ProductId = dtoItem.productId,
-    //                                Qty = diffQty,
-    //                                Price = existingItem.Price,
-    //                                Total = existingItem.Price * diffQty,
-    //                                Gstpercentage = 0,
-    //                                Gstamount = 0,
-    //                                IsKOTPrinted = false
-    //                            });
-    //                        }
-
-    //                        // Always update main row qty and total
-    //                        existingItem.Qty = dtoItem.qty;
-    //                        existingItem.Total = existingItem.Price * dtoItem.qty;
-
-    //                        continue;
-    //                    }
-
-    //                    // ---------------------------------------
-    //                    // CASE 3: QTY DECREASE
-    //                    // ---------------------------------------
-    //                    if (dtoItem.qty < existingItem.Qty)
-    //                    {
-    //                        if (existingItem.IsKOTPrinted == true && orderDto.isPaymentDone != true)
-    //                        {
-    //                            return Json(new
-    //                            {
-    //                                success = false,
-    //                                message = "Cannot reduce quantity because KOT already printed."
-    //                            });
-    //                        }
-
-    //                        existingItem.Qty = dtoItem.qty;
-    //                        existingItem.Price = dtoItem.price;
-    //                        existingItem.Total = dtoItem.qty * dtoItem.price;
-    //                        continue;
-    //                    }
-
-    //                    // ---------------------------------------
-    //                    // CASE 4: SAME QTY -> just update price/total
-    //                    // ---------------------------------------
-    //                    if (dtoItem.qty == existingItem.Qty)
-    //                    {
-    //                        existingItem.Price = dtoItem.price;
-    //                        existingItem.Total = dtoItem.qty * dtoItem.price;
-    //                    }
-    //                }
-
-
-
-    //                // ---------- Save updated master ----------
-    //                await _context.SaveChangesAsync();
-
-    //                // ---------- Add new KOT items as separate rows ----------
-    //                if (kotItems.Count > 0)
-    //                {
-    //                    await _context.TblOrderDetails.AddRangeAsync(kotItems);
-    //                    await _context.SaveChangesAsync();
-    //                }
-
-    //                await transaction.CommitAsync();
-
-    //                // ---------- Return KOT items to frontend ----------
-    //                return Json(new
-    //                {
-    //                    success = true,
-    //                    orderId = existingMaster.Id,
-    //                    kotItems = kotItems.Select(k => new
-    //                    {
-    //                        k.ProductId,
-    //                        k.Qty,
-    //                        k.Price
-    //                    }).ToList(),
-    //                    message = "Order updated"
-    //                });
-    //            }
-    //            catch (Exception ex)
-    //            {
-    //                await transaction.RollbackAsync();
-    //                return Json(new { success = false, message = "Update failed: " + ex.Message });
-    //            }
-    //        }
-    //    }
-
-    //    // ----------------------------------------------------------
-    //    // CASE 2: INSERT NEW ORDER
-    //    // ----------------------------------------------------------
-    //    var master = new TblOrderMaster
-    //    {
-    //        CustomerName = orderDto.customerName,
-    //        DateOfOrder = istNow,
-    //        GrandTotal = grandTotal,
-    //        TotalAmount = grandTotal,
-    //        Gsttotal = 0,
-    //        PaymentStatus = orderDto.isPaymentDone,
-    //        Printed = orderDto.isPrinted,
-    //        UserId = UserId,
-    //        BuisnessId = businessId,
-    //        PaymentMode = orderDto.paymentMode,
-    //        TableDetails = orderDto.tableDetail,
-    //        CreatedOn = istNow,
-    //        TblOrderDetails = orderDto.items.Select(x => new TblOrderDetail
-    //        {
-    //            ProductId = x.productId,
-    //            Qty = x.qty,
-    //            Price = x.price,
-    //            Total = x.price * x.qty,
-    //            Gstpercentage = 0,
-    //            Gstamount = 0,
-    //            IsKOTPrinted = false    // NEW ORDER = send all to KOT
-    //        }).ToList()
-    //    };
-
-    //    _context.TblOrderMasters.Add(master);
-    //    await _context.SaveChangesAsync();
-
-    //    return Json(new
-    //    {
-    //        success = true,
-    //        orderId = master.Id,
-    //        kotItems = master.TblOrderDetails.Select(k => new
-    //        {
-    //            k.ProductId,
-    //            k.Qty,
-    //            k.Price
-    //        })
-    //    });
-    //}
-
-    [HttpGet]
-    public async Task<IActionResult> GetProductByBarcode(string code)
-    {
-        int businessId = Convert.ToInt32(User.FindFirst("OrgId")?.Value);
-
-        var product = await _context.TblProducts
-            .Where(p => p.BusinessId == businessId && p.Code == code)
-            .Select(p => new {
-                p.Id,
-                p.Name,
-                p.Price,
-                p.Photo,
-                p.Code
-            })
-            .FirstOrDefaultAsync();
-
-        if (product == null)
-            return Json(new { success = false, message = "Product not found" });
-
-        return Json(new { success = true, data = product });
-    }
-
-    [HttpGet]
-    public async Task<IActionResult> PrintKOT(int orderId, bool reprint = false)
-    {
-        var istZone = TimeZoneInfo.FindSystemTimeZoneById("Asia/Kolkata");
-        DateTime istNow = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, istZone);
-        var order = await _context.TblOrderMasters
-            .Include(o => o.TblOrderDetails)
-            .FirstOrDefaultAsync(o => o.Id == orderId);
-
-        if (order == null)
-            return Content("Order not found");
-
-        var kotItems = order.TblOrderDetails
-            .Where(d => d.IsKOTPrinted == false)
-            .ToList();
-
-        if (kotItems.Count == 0)
-            return Content("No new items for KOT");
-
-        // Mark as printed
-        foreach (var item in kotItems)
-            item.IsKOTPrinted = true;
-
-        await _context.SaveChangesAsync();
-
-        // Build 58mm text
-        string kotText = "";
-        kotText += "***** KOT *****\n";
-        kotText += "Table : " + order.TableDetails + "\n";
-        kotText += "Time  : " + istNow.ToString("dd-MMM-yyyy hh:mm tt") + "\n";
-        kotText += "--------------------------\n";
-
-        foreach (var i in kotItems)
-        {
-            var product = await _context.TblProducts.FindAsync(i.ProductId);
-            kotText += product.Name + "\n";
-            kotText += "Qty: " + i.Qty + "\n";
-            kotText += "--------------------------\n";
-        }
-
-        return Content(kotText, "text/plain");
-    }
-    [HttpGet]
-    public async Task<IActionResult> GetCustomers(string search)
-    {
-        int businessId = Convert.ToInt32(User.FindFirst("OrgId")?.Value);
-        
-
-        var query = _context.TblCustomers
-                    .Where(c => c.BusinessId == businessId);
-
-        if (!string.IsNullOrEmpty(search))
-        {
-            search = search.ToLower();
-            query = query.Where(c =>
-                   c.Name.ToLower().Contains(search) ||
-                   c.MobileNo.Contains(search) ||
-                   c.Location.ToLower().Contains(search));
-        }
-
-        var customers = await query
-            .OrderBy(c => c.Name)
-            .Select(c => new
-            {
-                c.Id,
-                c.Name,
-                c.Location,
-                c.MobileNo
-            })
-            .ToListAsync();
-
-        return Json(customers);
-    }
-
-    // ---------- SaveOrder: INSERT or UPDATE based on incoming DTO ----------
-    //[HttpPost]
-    //public async Task<IActionResult> SaveOrder([FromBody] OrderDto orderDto)
-    //{
-
-
-    //    if (orderDto == null || orderDto.items == null || !orderDto.items.Any())
-    //        return Json(new { success = false, message = "Invalid order data" });
-
-    //    int businessId = Convert.ToInt32(User.FindFirst("OrgId")?.Value);
-    //    int UserId = Convert.ToInt32(User.FindFirst("UserId")?.Value);
-
-    //    decimal grandTotal = orderDto.items.Sum(x => x.price * x.qty);
-
-    //    // If editOrderId is present -> Update existing (Option A)
-    //    if (orderDto.editOrderId.HasValue && orderDto.editOrderId.Value > 0)
-    //    {
-    //        var editId = orderDto.editOrderId.Value;
-    //        // Ensure the order exists and belongs to this business
-    //        var existingMaster = await _context.TblOrderMasters
-    //            .Include(m => m.TblOrderDetails)
-    //            .FirstOrDefaultAsync(m => m.Id == editId && m.BuisnessId == businessId);
-
-    //        if (existingMaster == null)
-    //            return Json(new { success = false, message = "Order not found or not allowed" });
-
-    //        using (var transaction = await _context.Database.BeginTransactionAsync())
-    //        {
-    //            try
-    //            {
-    //                // Update master fields
-    //                existingMaster.CustomerName = orderDto.customerName;
-    //                existingMaster.TableDetails = orderDto.tableDetail;
-    //                existingMaster.PaymentMode = orderDto.paymentMode;
-    //                existingMaster.PaymentStatus = orderDto.isPaymentDone;
-    //                existingMaster.Printed = orderDto.isPrinted;
-    //                existingMaster.GrandTotal = grandTotal;
-    //                existingMaster.TotalAmount = grandTotal; // you can change this logic if needed
-    //                existingMaster.Gsttotal = 0; // keep as 0 unless you want to calculate
-    //                existingMaster.DateOfOrder = DateTime.Now;
-    //                existingMaster.UserId = UserId;
-    //                existingMaster.CreatedOn = DateTime.Now; // optionally update created/modified timestamps
-
-    //                // Remove old details
-    //                var oldDetails = _context.TblOrderDetails.Where(d => d.Oid == existingMaster.Id);
-    //                _context.TblOrderDetails.RemoveRange(oldDetails);
-    //                await _context.SaveChangesAsync();
-
-    //                // Add new details
-    //                var newDetails = orderDto.items.Select(x => new TblOrderDetail
-    //                {
-    //                    Oid = existingMaster.Id,
-    //                    ProductId = x.productId,
-    //                    Qty = x.qty,
-    //                    Price = x.price,
-    //                    Total = x.price * x.qty,
-    //                    Gstpercentage = 0,
-    //                    Gstamount = 0
-    //                }).ToList();
-
-    //                await _context.TblOrderDetails.AddRangeAsync(newDetails);
-    //                await _context.SaveChangesAsync();
-
-    //                await transaction.CommitAsync();
-
-    //                return Json(new { success = true, orderId = existingMaster.Id, message = "Order updated" });
-    //            }
-    //            catch (Exception ex)
-    //            {
-    //                await transaction.RollbackAsync();
-    //                // log or rethrow as appropriate
-    //                return Json(new { success = false, message = "Update failed: " + ex.Message });
-    //            }
-    //        }
-    //    }
-    //    else
-    //    {
-    //        // Create new master + details (existing code behavior)
-    //        var master = new TblOrderMaster
-    //        {
-    //            CustomerName = orderDto.customerName,
-    //            DateOfOrder = DateTime.Now,
-    //            GrandTotal = grandTotal,
-    //            TotalAmount = grandTotal,
-    //            Gsttotal = 0,
-    //            PaymentStatus = orderDto.isPaymentDone,
-    //            Printed = orderDto.isPrinted,
-    //            UserId = UserId,
-    //            BuisnessId = businessId,             
-    //            PaymentMode = orderDto.paymentMode,
-    //            TableDetails = orderDto.tableDetail,
-    //            CreatedOn = DateTime.Now,
-    //            TblOrderDetails = orderDto.items.Select(x => new TblOrderDetail
-    //            {
-    //                ProductId = x.productId,
-    //                Qty = x.qty,
-    //                Price = x.price,
-    //                Total = x.price * x.qty,
-    //                Gstpercentage = 0,
-    //                Gstamount = 0
-    //            }).ToList()
-    //        };
-
-    //        _context.TblOrderMasters.Add(master);
-    //        await _context.SaveChangesAsync();
-
-    //        return Json(new { success = true, orderId = master.Id });
-    //    }
-    //}
 }

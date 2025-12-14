@@ -525,9 +525,10 @@
         <div style="margin-top:8px;">
             <select id="ddlTableDesktop" class="form-select form-select-sm" >
                 <option value="">-- Select Table (optional) --</option>
-                @for (int i = 1; i <= 10; i++)
+
+                @foreach (var t in ViewBag.Tables)
                 {
-                    <option value="Table @i">Table @i</option>
+                    <option value="@t.Name">@t.Name</option>
                 }
             </select>
         </div>
@@ -663,9 +664,10 @@
                 <div class="w-100 mb-2">
                     <select id="ddlTableMobile" class="form-select">
                         <option value="">-- Select Table (optional) --</option>
-                        @for (int i = 1; i <= 10; i++)
+
+                        @foreach (var t in ViewBag.Tables)
                         {
-                            <option value="Table @i">Table @i</option>
+                            <option value="@t.Name">@t.Name</option>
                         }
                     </select>
                 </div>
@@ -774,6 +776,11 @@
 
             <div class="modal-header bg-dark text-white py-2">
                 <h5 class="modal-title">Enter Customer Details</h5>
+                <button type="button"
+                        class="btn-close btn-close-white"
+                        data-bs-dismiss="modal"
+                        aria-label="Close">
+                </button>
             </div>
 
             <div class="modal-body">
@@ -796,9 +803,10 @@
                 <label class="form-label mb-1">Table Name</label>
                 <select id="forceTableName" class="form-control" @(Convert.ToBoolean(Org.HideTableDropDown) ? "disabled" : "")>
                     <option value="">-- Select Table (optional) --</option>
-                    @for (int i = 1; i <= 10; i++)
+
+                    @foreach (var t in ViewBag.Tables)
                     {
-                        <option value="Table @i">Table @i</option>
+                        <option value="@t.Name">@t.Name</option>
                     }
 
                 </select>
@@ -878,30 +886,73 @@
 </div>
 
 
-<div id="receiptModal" class="modal" style="
-    display:none; position:fixed; top:0; left:0; width:100%; height:100%;
-    background:rgba(0,0,0,0.5); z-index:9999; justify-content:center; align-items:center;
-">
-    <div style="background:#fff; width:380px; height:90%; border-radius:10px; overflow:auto; padding:10px;">
-        <button onclick="closeReceiptPopup()" style="float:right;">Close</button>
-        <button onclick="printIframe()" style="float:left;">Print</button>
-        <iframe id="receiptFrame" style="width:100%; height:95%; border:none;"></iframe>
+<!-- Print Preview Modal (Minimal) -->
+<div class="modal fade" id="printPreviewModal" tabindex="-1">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable mt-2">
+        <div class="modal-content">
+
+            <div class="modal-header py-2">
+                <h6 class="modal-title">Print Preview</h6>
+                <button type="button" class="btn-close"
+                        data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-footer py-2">
+              @*   <button class="btn btn-secondary btn-sm"
+                        data-bs-dismiss="modal">
+                    Close
+                </button>
+ *@
+                <button class="btn btn-primary btn-sm"
+                        onclick="printAgain()">
+                    Print
+                </button>
+            </div>
+
+            <div class="modal-body p-0" style="height:60vh;">
+                <iframe id="printPreviewFrame"
+                        style="width:100%; height:100%; border:none;"></iframe>
+            </div>
+
+       
+
+        </div>
     </div>
 </div>
 
-
+<div id="printArea" style="display:none;"></div>
 <!-- Hidden state -->
 <input type="hidden" id="isEditing" value="0" />
 <input type="hidden" id="editingOrderIdHidden" value="" />
 
 @section Scripts {
-
     <script>
+        function openPrintPreviewFromHtml(html) {
+            const iframe = document.getElementById("printPreviewFrame");
+            const doc = iframe.contentWindow.document;
+
+            doc.open();
+            doc.write(html);
+            doc.close();
+
+            new bootstrap.Modal(
+                document.getElementById("printPreviewModal")
+            ).show();
+        }
+
+        function printAgain() {
+            const iframe = document.getElementById("printPreviewFrame");
+            iframe.contentWindow.focus();
+            iframe.contentWindow.print();
+        }
+    </script>
+    <script>
+          var isMandatory = @((Convert.ToBoolean(Org.IsCustomerMandetory) ? "true" : "false"));
+            var IsTableNoRequired = @((Convert.ToBoolean(Org.IsTableNoRequired) ? "true" : "false"));
+
         document.addEventListener("DOMContentLoaded", function () {
 
-            var isMandatory = @((Convert.ToBoolean(Org.IsCustomerMandetory) ? "true" : "false"));
-
-            if (isMandatory.toString() === "true") {
+          
+            if (isMandatory.toString() === "true" || IsTableNoRequired.toString() === "true") {
 
                 // Load table names from existing dropdown (desktop or mobile)
                 let source = document.getElementById("ddlTableDesktop") ??
@@ -921,19 +972,26 @@
             }
         });
 
-
         function saveForcedCustomer() {
+            debugger;
             let cust = document.getElementById("forceCustName").value.trim();
             let table = document.getElementById("forceTableName").value;
-          
-            if (cust == "" ) {
-                alert("Please enter Customer Name");
-                return;
-            }
-             if (cust == "" && '@Org.HideTableDropDown'.toLowerCase() =='true') {
-                alert("Please select Table.");
-                return;
-            }
+
+              if (isMandatory.toString() === "true" ) {
+                    if (cust.trim() == "" ) {
+                        alert("Please enter Customer Name");
+                        return;
+                    }
+              }
+
+             if (IsTableNoRequired.toString() === "true") {
+                  if (table.trim() == "" ) {
+                        alert("Please select Table/Room");
+                        return;
+                    }
+              }
+           
+            
 
             // Populate existing textboxes
             document.getElementById("txtCustNameDesktop").value = cust;
@@ -973,54 +1031,149 @@
             });
         });
         $("#btnPrintKOT").click(function () {
-            let orderId = $(this).data("orderid");
-            $.ajax({
-            url: '/Order/PrintKOT?orderId=' + orderId,
-            type: 'GET',
-            success: function (txt) {
-                // txt contains the KOT print text
-                kotText = txt; // store in your variable
 
-                // OPTIONAL: Show in modal or console
-                console.log("KOT TEXT:\n" + kotText);
-
-                // Use your own printing function
-                 printKotText(kotText);
-                  $("#kotModal").modal("hide");
-            },
-            error: function () {
-              alert("Failed to load KOT content.");
+            if (!kotArray || kotArray.length === 0) {
+                alert("No KOT items to print");
+                return;
             }
-            });
+            if ('@Org.IsMultilengual'.toLowerCase() === 'true') {
+                        printKotText_Regional(kotArray,TableName);
+            } else 
+            {
+                        printKotText(kotArray,TableName);
+            }
+            // ✅ CLEAR KOT ARRAY AFTER PRINT
+            kotArray.length = 0;
+            TableName ="";
+             $("#kotModal").modal("hide");
         });
-
-        function printKotText(txt) {
+        let kotArray = [];   // 🔥 KOT data holder
+        let html = "";
+        let TableName ="";
+        function printKotText(kotArray,TableName) {
 
             const ESC = "\x1B";
-            const DOUBLE = ESC + "!" + "\x38";    // Big bold
-            const MEDIUM = ESC + "!" + "\x20";    // Medium
-            const NORMAL = ESC + "!" + "\x00";    // Normal font
+            const DOUBLE = ESC + "!" + "\x38";   // Big bold
+            const MEDIUM = ESC + "!" + "\x20";   // Medium
+            const NORMAL = ESC + "!" + "\x00";
             const SMALL = ESC + "M" + "\x01";
             const NORMAL_FONT = ESC + "M" + "\x00";
 
-            // Format header
             let receipt = "";
+
+            // -------- HEADER --------
             receipt += NORMAL;
-
             receipt += "------------------------------\n";
-            receipt += MEDIUM + "  KITCHEN ORDER\n" + NORMAL;
-            receipt += "------------------------------\n\n";
+            receipt += MEDIUM + "     KITCHEN ORDER\n" + NORMAL;         
+            receipt += "------------------------------\n";
 
-            //Add the pure text returned by PrintKOT API
-            receipt += txt + "\n";
+            // Optional: table & time
+            const now = new Date();
+            receipt +=  "Table# " + TableName;
+            receipt += "Time : " + now.toLocaleString('en-IN') + "\n";
+            receipt += "------------------------------\n";
 
+            // -------- ITEMS --------
+            kotArray.forEach(item => {
+                receipt += DOUBLE + item.name + "\n" + NORMAL;
+                receipt += "Qty : " + item.qty + "\n";
+                receipt += "------------------------------\n";
+            });
+
+            // -------- FOOTER --------
             receipt += NORMAL_FONT;
-            receipt += "\n"; // Feed paper
+            receipt += "\n\n"; // paper feed
 
-            // RAWBT print
+            // -------- RAWBT PRINT --------
             const encoded = btoa(unescape(encodeURIComponent(receipt)));
             window.location.href = "rawbt:base64," + encoded;
         }
+
+        function printKotText_Regional(kotArray,TableName) {
+
+        if (!kotArray || kotArray.length === 0) {
+            alert("No KOT items to print");
+            return;
+        }
+
+        // Build item HTML
+        let itemsHtml = "";
+        kotArray.forEach(item => {
+            itemsHtml += `
+                <div style="font-size:15px;font-weight:bold;">
+                    ${item.name}
+                </div>
+                <div style="font-size:14px;">
+                    Qty : ${item.qty}
+                </div>
+                <hr>
+            `;
+        });
+
+    let content = `
+        <style>
+            @@page{
+                size: 80mm auto;
+                margin: 0;
+            }
+
+            @@media print {
+                body {
+                    margin: 0 !important;
+                    padding: 0 !important;
+                    width: 80mm !important;
+                    -webkit-print-color-adjust: exact !important;
+                    print-color-adjust: exact !important;
+                }
+            }
+
+            #kot {
+                width:80mm;
+                padding:10px;
+                box-sizing:border-box;
+                font-family: 'Noto Sans Devanagari', 'Mangal', sans-serif;
+            }
+
+            .title {
+                font-size:22px;
+                font-weight:bold;
+                text-align:center;
+            }
+
+            .meta {
+                font-size:14px;
+                text-align:center;
+                margin-bottom:5px;
+            }
+
+            hr {
+                border: none;
+                border-top:1px dashed #000;
+                margin:8px 0;
+            }
+        </style>
+
+        <div id="kot">
+            <hr>
+            <div class="title">KITCHEN ORDER</div>
+            <div style="font-size:16px; text-align:center;">टेबल क्र.: ${TableName}</div>
+            <div class="meta">${new Date().toLocaleString('en-IN')}</div>
+            <hr>
+            ${itemsHtml}
+        </div>
+    `;
+
+                    openPrintPreviewFromHtml(content);
+    // Open isolated print window
+   // let printWin = window.open("", "_blank");
+   // printWin.document.write(content);
+   // printWin.document.close();
+
+   // setTimeout(() => { printWin.print(); }, 300);
+    
+}
+
+
 
         /* -------------------------
            Rendering: Categories & Products
@@ -1337,7 +1490,17 @@
             $(".product-card").removeClass("product-added");
         });
 
-                function doCheckout(customerName, tableDetail, paymentMode, IsPaymentDone, IsPrinted) {
+        function doCheckout(customerName, tableDetail, paymentMode, IsPaymentDone, IsPrinted) {
+            debugger;
+            if('@Org.IsTableNoRequired'.toLowerCase()=='true')// && IsPrinted==true)
+            {
+                if(tableDetail.trim() =="")
+                {
+                        alert("Please select Table/Room before checkout.");
+                        return;
+                }
+              
+            }
 
             if (cart.length === 0) {
                 alert("Cart is empty. Please add some items for sale.");
@@ -1368,8 +1531,7 @@
                 success: function (res) {
 
                     if (res.success) {
-                            $("#txtCustNameMobile").val("");
-                            $('#ddlTableMobile option:first').prop('selected', true);
+                         
 
                         //-------------------------------------------------------
                         //  KOT LOGIC — OPEN PRINT WINDOW IF NEW ITEMS EXIST
@@ -1401,14 +1563,22 @@
                                                         <td style='background: #606a61 !important;'>${k.qty}</td>
                                                     </tr>
                                                 `;
+                                                            TableName = tableDetail;
+                                                     // ✅ Store in KOT array
+                                                    kotArray.push({
+                                                        productId: k.productId,
+                                                        name: product?.Name,
+                                                        qty: k.qty
+                                                    });
                                             });
 
                                             html += `</tbody></table>`;
 
                                             $("#kotModalBody").html(html);
 
-                                            if('@Org.IsKOTEnabled'.toLowerCase()=='true')
-                                            { $("#kotModal").modal("show");
+                                            if('@Org.IsKOTEnabled'.toLowerCase()=='true' && IsPrinted==false)
+                                            {
+                                                $("#kotModal").modal("show");
                                             }
 
                                             // Store order ID for printing
@@ -1425,6 +1595,7 @@
                         //-------------------------------------------------------
                         setTimeout(() => {
                             const isDesktop = window.innerWidth > 991;
+                           
                             const tableNo = isDesktop ? $("#ddlTableDesktop").val() : $("#ddlTableMobile").val();
 
                             const paymentMode = isDesktop
@@ -1473,7 +1644,7 @@
                                       
 
                                     } else {
-                                        printPlainReceipt58mmv(
+                                        printPlainReceipt58mm(
                                             '@Org.BusinessName',
                                             '@Org.Address',
                                             res.orderId,
@@ -1488,10 +1659,11 @@
                                     }
 
                                 } catch (er) {
-                                    console.log("Billing print issue.");
+                                            console.log(er);
                                 }
                             }
-
+                                       $("#txtCustNameMobile").val("");
+                                    $('#ddlTableMobile option:first').prop('selected', true);
                             //-------------------------------------------------------
                             //  Clear UI
                             //-------------------------------------------------------
@@ -1556,19 +1728,25 @@
                         return;
                     }
                   //  debugger;
-                    const rows = res.data.map(o => `<div class="order-card shadow-sm mb-2 p-2">
-                            <div class="d-flex justify-content-between align-items-center mb-1">
-                                <strong class="order-id">#${o.id}</strong>
-                                <span class="text-muted small">${moment ? moment(o.dateOfOrder).format('DD-MM-YYYY HH:mm') : (o.dateOfOrder || '')}</span>
-                                <button class="btn btn-sm btn-primary edit-order-btn" data-id="${o.id}">Edit</button>
-                            </div>
-                            <div class="d-flex justify-content-between text-dark small">
-                                <span><i class="bi bi-person"></i> ${htmlEscape(o.customerName)}</span>
-                                <span><i class="bi bi-grid-3x3-gap"></i> ${htmlEscape(o.tableDetails || '')}</span>
-                                <span><i class="bi bi-cash"></i> ₹${(o.grandTotal || 0).toFixed(2)}</span>
-                            </div>
-                      </div>
-                    `).join('');
+                          const rows = res.data.map(o => `
+            <div class="order-card shadow-sm mb-2 p-2">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                    <strong class="order-id">#${o.id}</strong>
+                    <span class="text-muted small">${moment ? moment(o.dateOfOrder).format('DD-MM-YYYY HH:mm') : (o.dateOfOrder || '')}</span>
+
+                    <div>
+                        <button class="btn btn-sm btn-primary edit-order-btn" data-id="${o.id}">Edit</button>
+                        <button class="btn btn-sm btn-danger cancel-order-btn" data-id="${o.id}">Cancel</button>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between text-dark small">
+                    <span><i class="bi bi-person"></i> ${htmlEscape(o.customerName)}</span>
+                    <span><i class="bi bi-grid-3x3-gap"></i> ${htmlEscape(o.tableDetails || '')}</span>
+                    <span><i class="bi bi-cash"></i> ₹${(o.grandTotal || 0).toFixed(2)}</span>
+                </div>
+            </div>
+        `).join('');
 
                     $('#PendingOrders').html(rows || 'No recent orders');
                 },
@@ -1643,7 +1821,7 @@
             $('#editingOrderIdHidden').val(order.id);
             $('#editingBadge').show();
             $('#editingOrderId').text(order.id);
-            $('#checkoutBtn, #checkoutBtnDesktop').text('Print');
+            $('#checkoutBtn, #checkoutBtnDesktop').text('Checkout');
 
             renderCart();
 
@@ -1672,6 +1850,37 @@
             const encoded = btoa(unescape(encodeURIComponent(receiptHTML)));
             window.location.href = "rawbt:base64," + encoded;
         }
+
+
+
+        $(document).on("click", ".cancel-order-btn", function () {
+            let orderId = $(this).data("id");
+                      let button = $(this);                   // store reference
+           
+            let note = prompt("Enter cancellation reason:");
+
+            if (!note) {
+                alert("Cancellation note is required.");
+                return;
+            }
+
+            $.ajax({
+                url: "/Order/CancelOrder",
+                method: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({ orderId: orderId, note: note }),
+                success: function (res) {
+                    if (res.success) {
+                        alert("Order cancelled");
+                        button.closest(".order-card").remove();
+                        loadLastOrders(); // reload order list
+                    } else {
+                        alert(res.message);
+                    }
+                }
+            });
+        });
+
 
 function printReceipt80mm_Regional(
     orgTitle, address, invoiceNo, date, customerName,
@@ -1780,7 +1989,7 @@ function printReceipt80mm_Regional(
 
                 <hr>
 
-                <div style="text-align:center;margin-top:5px;">Thank you, visit again!</div>
+                        <div style="text-align:center;margin-top:5px;">धन्यवाद, पुन्हा भेट द्या!</div>
                 <br>
                         <div style="text-align:center;font-size: 12px;">Aviraj Innovations Pvt. Ltd.</div>
                         <div style="text-align:center;font-size: 12px;">Inquiry On: +91 9096152118</div>
@@ -1789,32 +1998,15 @@ function printReceipt80mm_Regional(
         </html>
     `;
 
-    // const printWin = window.open("", "_blank", "width=350,height=600");
-    // printWin.document.write(html);
-    // printWin.document.close();
-    // printWin.focus();
-    // printWin.print();
-
-                // Set HTML inside the iframe
-            const frame = document.getElementById("receiptFrame").contentWindow;
-            frame.document.open();
-            frame.document.write(html);
-            frame.document.close();
-
-            // Show modal
-            document.getElementById("receiptModal").style.display = "flex";
+                  openPrintPreviewFromHtml(html);
+        // const printWin = window.open("", "_blank", "width=350,height=600");
+        // printWin.document.write(html);
+        // printWin.document.close();
+        //  printWin.focus();
+        // printWin.print();
 }
 
 
-        function closeReceiptPopup() {
-            document.getElementById("receiptModal").style.display = "none";
-        }
-
-        function printIframe() {
-            const iframe = document.getElementById("receiptFrame").contentWindow;
-            iframe.focus();
-            iframe.print();
-        }
 
         function printPlainReceipt80mm(orgTitle, address, invoiceNo, date, customerName, productList, grandTotal = 0,Contact,Mode,TableNo)
         {
@@ -2110,7 +2302,9 @@ function printReceipt80mm_Regional(
             if (active === "ddlTableMobile") return;
 
             if (active === "txtSearchCustomer") return;
-
+              if (active === "forceTableName") return;
+                if (active === "forceCustName") return;
+            
 
 
             barcodeInput.focus();

@@ -129,6 +129,8 @@ public partial class eOrderTouchContext : DbContext
             entity.Property(e => e.ProductId)
                 .IsRequired();
 
+
+
             // Foreign Key: OrderId → TblOrderMaster(Id)
             entity.HasOne(d => d.Order)
                 .WithMany(p => p.TblKOTDetails)

@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewData["Title"] = "Test";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
+<script>
+    function printMarathiBitmap() {
+      const el = document.getElementById("receipt");
+
+      html2canvas(el, { scale: 2 }).then(canvas => {
+        const base64 = canvas
+          .toDataURL("image/png")
+          .replace("data:image/png;base64,", "");
+
+        // Send image to RawBT
+        window.location.href = "rawbt:print?data=" + encodeURIComponent(base64);
+      });
+    }
+</script>
+
+<div id="receipt" style="
+  width: 384px;        /* 58mm printer width */
+  font-family: 'Noto Sans Devanagari', sans-serif;
+  font-size: 22px;
+  line-height: 1.4;
+">
+    <b>श्री गणेश हॉटेल</b><br />
+    पत्ता: पुणे<br />
+    फोन: ९८७६५४३२१०<br />
+    ---------------------<br />
+    चहा        ₹१०<br />
+    वडा पाव   ₹१५<br />
+    ---------------------<br />
+    एकूण: ₹२५<br />
+    धन्यवाद 🙏
+</div>
+
+<button onclick="printMarathiBitmap()">Print Marathi</button>
+
+
+

@@ -184,23 +184,29 @@
 
                     <!-- Counter Printer Name  -->
                     <div class="mb-3">
-                        <label class="form-label">Kichen Printer Name</label>
+                        <label class="form-label">Counter Printer Name</label>
                         <input class="form-control" type="text" id="CounterPrinterName" name="CounterPrinterName" />
                        
                     </div>
 
                     <!-- Logo Upload -->
-                    <div class="mb-3">
-                        <label>Logo</label>
-                        <input type="file" id="Logo" name="LogoFile" class="form-control" accept="image/*" />
-                        <img id="PreviewLogo" src="" class="img-fluid mt-2" style="max-height:80px;" />
+                    <div class="mb-2">
+                        <label class="form-label">Business Logo</label>
+                        <input type="file"
+                               id="LogoFile"
+                               name="LogoFile"
+                               class="form-control"
+                               accept="image/png,image/jpeg"
+                               onchange="validateLogoSize(this)">
+                        <small class="text-muted">Max size: 100 KB (PNG/JPG)</small>
+                
                     </div>
 
                     <!-- QR Code Upload -->
                     <div class="mb-3">
-                        <label>QR Code</label>
-                        <input type="file" id="QRCode" name="QRCodeFile" class="form-control" accept="image/*" />
-                        <img id="PreviewQR" src="" class="img-fluid mt-2" style="max-height:80px;" />
+                        <label>UPI ID</label>
+                        <input type="text" id="QRCode" name="QRCode" class="form-control" />
+                       
                     </div>
 
 
@@ -237,10 +243,11 @@
                         <th>Mobile No</th>
                         <th>GSTN</th>
                         <th>Printer</th>
+
                         <th>Is GST?</th>
                         <th>KOT Enabled?</th>
                         <th>Customer Field</th>
-                        <th>Table LOV</th>
+                        <th>Hide Table LOV</th>
                          <th>Barcode?</th>
                         <th>Multilanguage?</th>
                         <th>Customer?</th>
@@ -273,15 +280,7 @@
 
                                 }
                             </td>
-                            <td>
-
-                                @if (!string.IsNullOrEmpty(item.Qrcode))
-
-                                {
-                                    <img src="~/Uploads/@item.Qrcode" width="50" />
-
-                                }
-                            </td>
+                            <td>@item.Qrcode</td>
                             <td>@item.Id</td>
                             <td>@item.BusinessName</td>
                             <td>@item.BusinessType?.BusinessTypeName</td>
@@ -291,18 +290,19 @@
                             <td>@item.MobileNo</td>
                             <td>@item.Gstin</td>
                             <td>@item.PrinterSize?.PrinterSize</td>
+
                             <td>@item.IsGstapplicable</td>
                             <td>@item.IsKOTEnabled</td>
                             <td>@item.HideCustomerField</td>
                             <td>@item.HideTableDropDown</td>
-                            <td>@(item.IsActive == true ? "Yes" : "No")</td>
+                          
                             <td>@item.BarcodeEnabled</td>
                             <td>@item.IsMultilengual</td>
                             <td>@item.IsCustomerMandetory</td>
                             <td>@item.CounterPrinterName</td>
                             <td>@item.KichenPrinterName</td>
                             <td>@item.IsTableNoRequired</td>
-                            
+                            <td>@(item.IsActive == true ? "Yes" : "No")</td>
                         </tr>
 
                     }
@@ -315,6 +315,20 @@
 
 
 @section Scripts {
+
+    <script>
+        function validateLogoSize(input) {
+            if (input.files.length === 0) return;
+
+            const file = input.files[0];
+            const maxSize = 100 * 1024; // 100 KB
+
+            if (file.size > maxSize) {
+                alert("Logo size must be less than 100 KB");
+                input.value = ""; // reset
+            }
+        }
+    </script>
     <script>
          $(document).ready(function () {
 
@@ -511,6 +525,7 @@
                 
                 $("#KichenPrinterName").val(data.kichenPrinterName);
                 $("#CounterPrinterName").val(data.counterPrinterName);
+                $("#QRCode").val(data.qrCode);
                         
                 $("#btnSave").text("Update");
             });
@@ -533,7 +548,7 @@
             $("#form-title").text("Add Business");
             $("#btnSave").text("Save");
             $("#PreviewLogo").attr("src", "");
-            $("#PreviewQR").attr("src", "");
+          
 
             $("#IsActive").prop("checked",false);
             $("#HideCustomerField").prop("checked",false);

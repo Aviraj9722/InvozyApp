@@ -19,6 +19,10 @@ namespace eOrderTouchApp.Controllers
             _context = context;
         }
 
+        public IActionResult Test()
+        {
+            return View();
+        }
         public IActionResult Login()
         {
             return View();

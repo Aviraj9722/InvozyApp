@@ -776,11 +776,6 @@
 
             <div class="modal-header bg-dark text-white py-2">
                 <h5 class="modal-title">Enter Customer Details</h5>
-                <button type="button"
-                        class="btn-close btn-close-white"
-                        data-bs-dismiss="modal"
-                        aria-label="Close">
-                </button>
             </div>
 
             <div class="modal-body">
@@ -814,7 +809,7 @@
             </div>
 
             <div class="modal-footer py-1">
-                <button class="btn btn-success btn-sm" onclick="saveForcedCustomer()">Add items</button>
+                <button class="btn btn-success btn-sm" onclick="saveForcedCustomer()">Add items in Cart</button>
             </div>
 
         </div>
@@ -884,96 +879,13 @@
         </button>
     }
 </div>
-
-
-<!-- Print Preview Modal (Minimal) -->
-<div class="modal fade" id="printPreviewModal" tabindex="-1">
-  <div class="modal-dialog modal-lg modal-dialog-scrollable mt-2">
-        <div class="modal-content">
-
-            <div class="modal-header py-2">
-                <h6 class="modal-title">Print Preview</h6>
-                <button type="button" class="btn-close"
-                        data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-footer py-2">
-              @*   <button class="btn btn-secondary btn-sm"
-                        data-bs-dismiss="modal">
-                    Close
-                </button>
- *@
-                <button class="btn btn-primary btn-sm"
-                        onclick="printAgain()">
-                    Print
-                </button>
-            </div>
-
-            <div class="modal-body p-0" style="height:60vh;">
-                <iframe id="printPreviewFrame"
-                        style="width:100%; height:100%; border:none;"></iframe>
-            </div>
-
-       
-
-        </div>
-    </div>
-</div>
-
 <div id="printArea" style="display:none;"></div>
 <!-- Hidden state -->
 <input type="hidden" id="isEditing" value="0" />
 <input type="hidden" id="editingOrderIdHidden" value="" />
 
 @section Scripts {
-    <script>
-        function openPrintPreviewFromHtml(html) {
-            const iframe = document.getElementById("printPreviewFrame");
-            const doc = iframe.contentWindow.document;
 
-            doc.open();
-            doc.write(html);
-            doc.close();
-
-            new bootstrap.Modal(
-                document.getElementById("printPreviewModal")
-            ).show();
-        }
-
-         function openPrintPreviewFromHtml(html, grandTotal) {
-            const iframe = document.getElementById("printPreviewFrame");
-            const doc = iframe.contentWindow.document;
-
-            doc.open();
-            doc.write(html);
-            doc.close();
-
-         if ('@Org.Qrcode'.trim() !="" )
-        {
-            iframe.onload = function() {
-                        generateUpiQR(
-                                doc,
-                                "@Org.Qrcode",
-                                "@Org.OwnerName",
-                                grandTotal,
-                                "Order Payment"
-                        );
-                }
-            
-        }
-            
-
-            new bootstrap.Modal(
-                document.getElementById("printPreviewModal")
-            ).show();
-        }
-
-
-        function printAgain() {
-            const iframe = document.getElementById("printPreviewFrame");
-            iframe.contentWindow.focus();
-            iframe.contentWindow.print();
-        }
-    </script>
     <script>
           var isMandatory = @((Convert.ToBoolean(Org.IsCustomerMandetory) ? "true" : "false"));
             var IsTableNoRequired = @((Convert.ToBoolean(Org.IsTableNoRequired) ? "true" : "false"));
@@ -1000,6 +912,7 @@
                 }, 300);
             }
         });
+
 
         function saveForcedCustomer() {
             debugger;
@@ -1060,93 +973,75 @@
             });
         });
         $("#btnPrintKOT").click(function () {
+            let orderId = $(this).data("orderid");
+            $.ajax({
+            url: '/Order/PrintKOT?orderId=' + orderId,
+            type: 'GET',
+            success: function (txt) {
+                // txt contains the KOT print text
+                kotText = txt; // store in your variable
 
-            if (!kotArray || kotArray.length === 0) {
-                alert("No KOT items to print");
-                return;
+                // OPTIONAL: Show in modal or console
+                console.log("KOT TEXT:\n" + kotText);
+
+                // Use your own printing function
+
+                    if('@Org.IsMultilengual'.toLowerCase()=='true')
+                    {
+                        printKotText_Regional(kotText);
+                    }
+                    else{
+                        printKotText(kotText);
+                    }
+             
+                  $("#kotModal").modal("hide");
+            },
+            error: function () {
+              alert("Failed to load KOT content.");
             }
-            if ('@Org.IsMultilengual'.toLowerCase() === 'true') {
-                        printKotText_Regional(kotArray,TableName);
-            } else 
-            {
-                        printKotText(kotArray,TableName);
-            }
-            // ✅ CLEAR KOT ARRAY AFTER PRINT
-            kotArray.length = 0;
-            TableName ="";
-             $("#kotModal").modal("hide");
+            });
         });
-        let kotArray = [];   // 🔥 KOT data holder
-        let html = "";
-        let TableName ="";
-        function printKotText(kotArray,TableName) {
+
+        function printKotText(txt) {
 
             const ESC = "\x1B";
-            const DOUBLE = ESC + "!" + "\x38";   // Big bold
-            const MEDIUM = ESC + "!" + "\x20";   // Medium
-            const NORMAL = ESC + "!" + "\x00";
+            const DOUBLE = ESC + "!" + "\x38";    // Big bold
+            const MEDIUM = ESC + "!" + "\x20";    // Medium
+            const NORMAL = ESC + "!" + "\x00";    // Normal font
             const SMALL = ESC + "M" + "\x01";
             const NORMAL_FONT = ESC + "M" + "\x00";
 
+            // Format header
             let receipt = "";
-
-            // -------- HEADER --------
             receipt += NORMAL;
-            receipt += "------------------------------\n";
-            receipt += MEDIUM + "     KITCHEN ORDER\n" + NORMAL;         
-            receipt += "------------------------------\n";
 
-            // Optional: table & time
-            const now = new Date();
-            receipt +=  "Table# " + TableName;
-            receipt += "Time : " + now.toLocaleString('en-IN') + "\n";
             receipt += "------------------------------\n";
+            receipt += MEDIUM + "  KITCHEN ORDER\n" + NORMAL;
+            receipt += "------------------------------\n\n";
 
-            // -------- ITEMS --------
-            kotArray.forEach(item => {
-                receipt += DOUBLE + item.name + "\n" + NORMAL;
-                receipt += "Qty : " + item.qty + "\n";
-                receipt += "------------------------------\n";
-            });
+            //Add the pure text returned by PrintKOT API
+            receipt += txt + "\n";
 
-            // -------- FOOTER --------
             receipt += NORMAL_FONT;
-            receipt += "\n\n"; // paper feed
+            receipt += "\n"; // Feed paper
 
-            // -------- RAWBT PRINT --------
+            // RAWBT print
             const encoded = btoa(unescape(encodeURIComponent(receipt)));
             window.location.href = "rawbt:base64," + encoded;
         }
 
-        function printKotText_Regional(kotArray,TableName) {
-
-        if (!kotArray || kotArray.length === 0) {
-            alert("No KOT items to print");
-            return;
-        }
-
-        // Build item HTML
-        let itemsHtml = "";
-        kotArray.forEach(item => {
-            itemsHtml += `
-                <div style="font-size:15px;font-weight:bold;">
-                    ${item.name}
-                </div>
-                <div style="font-size:14px;">
-                    Qty : ${item.qty}
-                </div>
-                <hr>
-            `;
-        });
+        function printKotText_Regional(txt) {
 
     let content = `
         <style>
-            @@page{
+                  @@page{
                 size: 80mm auto;
                 margin: 0;
             }
 
             @@media print {
+                #printBtn { display: none !important; }
+
                 body {
                     margin: 0 !important;
                     padding: 0 !important;
@@ -1160,7 +1055,6 @@
                 width:80mm;
                 padding:10px;
                 box-sizing:border-box;
-                font-family: 'Noto Sans Devanagari', 'Mangal', sans-serif;
             }
 
             .title {
@@ -1169,37 +1063,32 @@
                 text-align:center;
             }
 
-            .meta {
-                font-size:14px;
-                text-align:center;
-                margin-bottom:5px;
-            }
-
             hr {
                 border: none;
                 border-top:1px dashed #000;
-                margin:8px 0;
+                margin:10px 0;
             }
         </style>
 
         <div id="kot">
             <hr>
             <div class="title">KITCHEN ORDER</div>
-            <div style="font-size:16px; text-align:center;">टेबल क्र.: ${TableName}</div>
-            <div class="meta">${new Date().toLocaleString('en-IN')}</div>
             <hr>
-            ${itemsHtml}
+            <pre>${txt}</pre>
+            <hr>
         </div>
     `;
 
-            openPrintPreviewFromHtml(content);
-    // Open isolated print window
-   // let printWin = window.open("", "_blank");
-   // printWin.document.write(content);
-   // printWin.document.close();
+    // Open safe isolated window
+    let printWin = window.open("", "_blank");
 
-   // setTimeout(() => { printWin.print(); }, 300);
-    
+    printWin.document.write(content);
+    printWin.document.close();
+
+    // Allow rendering, then print
+    setTimeout(() => {
+        printWin.print();
+    }, 300);
 }
 
 
@@ -1520,8 +1409,8 @@
         });
 
         function doCheckout(customerName, tableDetail, paymentMode, IsPaymentDone, IsPrinted) {
-            debugger;
-            if('@Org.IsTableNoRequired'.toLowerCase()=='true')// && IsPrinted==true)
+
+            if('@Org.IsTableNoRequired'.toLowerCase()=='true' && IsPrinted==true)
             {
                 if(tableDetail.trim() =="")
                 {
@@ -1592,13 +1481,6 @@
                                                         <td style='background: #606a61 !important;'>${k.qty}</td>
                                                     </tr>
                                                 `;
-                                                            TableName = tableDetail;
-                                                     // ✅ Store in KOT array
-                                                    kotArray.push({
-                                                        productId: k.productId,
-                                                        name: product?.Name,
-                                                        qty: k.qty
-                                                    });
                                             });
 
                                             html += `</tbody></table>`;
@@ -1673,7 +1555,7 @@
                                       
 
                                     } else {
-                                        printPlainReceipt58mm(
+                                        printPlainReceipt58mmv(
                                             '@Org.BusinessName',
                                             '@Org.Address',
                                             res.orderId,
@@ -1688,7 +1570,7 @@
                                     }
 
                                 } catch (er) {
-                                            console.log(er);
+                                    console.log("Billing print issue.");
                                 }
                             }
                                        $("#txtCustNameMobile").val("");
@@ -1959,8 +1841,6 @@ function printReceipt80mm_Regional(
     .addr { font-size: 18px; text-align:center; }
 
     </style>
-           
-
     </head>
 
 
@@ -2017,26 +1897,7 @@ function printReceipt80mm_Regional(
             </tr>
             </tbody>
         </table>
-        `;
 
-        if ('@Org.Qrcode'.trim()!="")
-        {
-        html += `
-        <hr>
-         <div id="QRContainer" style="text-align:center;margin-top:8px;">
-            <div style="font-size:14px;margin-bottom:4px;">UPI Payment</div>
-
-            <div id="upiQr"
-                 style="
-                    display:flex;
-                    justify-content:center;
-                    align-items:center;
-                 ">
-            </div>
-        </div>`;
-        }
-
-         html += `
                 <hr>
 
                         <div style="text-align:center;margin-top:5px;">धन्यवाद, पुन्हा भेट द्या!</div>
@@ -2047,13 +1908,13 @@ function printReceipt80mm_Regional(
             
         </html>
     `;
-      
-            openPrintPreviewFromHtml(html,grandTotal);
-        // const printWin = window.open("", "_blank", "width=350,height=600");
-        // printWin.document.write(html);
-        // printWin.document.close();
-        //  printWin.focus();
-        // printWin.print();
+
+  
+        const printWin = window.open("", "_blank", "width=350,height=600");
+        printWin.document.write(html);
+        printWin.document.close();
+         printWin.focus();
+        printWin.print();
 }
 
 
@@ -2495,33 +2356,8 @@ function printReceipt80mm_Regional(
         }
 
     </script>
-    <script>
-            function generateUpiQR(doc, upiId, name, amount, note) {
-
-        const qrDiv = doc.getElementById("upiQr");
-        if (!qrDiv) return;
-
-        const upiUrl =
-            `upi://pay?pa=${encodeURIComponent(upiId)}` +
-            `&pn=${encodeURIComponent(name)}` +
-            `&am=${amount}&cu=INR` +
-            `&tn=${encodeURIComponent(note)}`;
-
-        qrDiv.innerHTML = "";
-
-        new QRCode(qrDiv, {
-            text: upiUrl,
-            width: 180,
-            height: 180
-        });
-    }
-
-
-    </script>
 
     <!-- moment.js optional for nicer date formatting in history modal.
          If you don't have moment on page, the code will fall back to raw date. -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js" integrity="sha512-Cd4a..." crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-
 }
