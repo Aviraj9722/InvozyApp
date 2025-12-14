@@ -1,0 +1,245 @@
+﻿@{
+    var reports = ViewBag.Reports as List<eOrderTouchApp.Models.TblReports>;
+}
+
+<style>
+    /* LEFT PANEL */
+    .report-list {
+        background: linear-gradient(135deg, #f8f9fa, #eef2f7);
+        border-radius: 10px;
+        padding: 15px;
+        min-height: 100%;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+        font-size: 16px;
+    }
+
+        .report-list h5 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+    .report-item {
+        padding: 8px 10px;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+
+        .report-item:hover {
+            background: #dbeafe;
+        }
+
+        .report-item input {
+            margin-right: 8px;
+            transform: scale(1.2);
+        }
+
+    /* RIGHT PANEL */
+    #reportTitle {
+        font-size: 22px;
+        font-weight: 600;
+        color: #34495e;
+    }
+
+    label {
+        font-size: 16px;
+        font-weight: 500;
+    }
+
+    /* TABLE */
+    table.dataTable {
+        font-size: 15px;
+    }
+
+    /* BUTTONS */
+    .btn {
+        font-size: 16px;
+        font-weight: 500;
+    }
+</style>
+
+
+<div class="row">
+
+    <!-- LEFT SIDE : REPORT LIST -->
+    <div class="col-md-3">
+        <h5>📊 Select Report</h5>
+        <hr />
+
+        @foreach (var item in reports)
+        {
+            <div class="report-item">
+                <input type="radio" name="reportType" value="@item.Id" class="report-radio" />
+                <strong>@item.Name</strong>
+            </div>
+        }
+    </div>
+
+    <!-- RIGHT SIDE -->
+    <div class="col-md-9">
+
+        <h4 id="reportTitle">Report Output</h4>
+        <hr />
+
+        <!-- STATIC DATE FILTERS -->
+        <div class="row mb-3">
+            <div class="col-md-3">
+                <label>From Date</label>
+                <input type="date" id="fromDate" class="form-control" />
+            </div>
+
+            <div class="col-md-3">
+                <label>To Date</label>
+                <input type="date" id="toDate" class="form-control" />
+            </div>
+
+            <div class="col-md-3 d-flex align-items-end">
+                <button class="btn btn-primary w-100" id="generateBtn">
+                    📄 Generate Report
+                </button>
+            </div>
+
+            <div class="col-md-3 d-flex align-items-end">
+                <button class="btn btn-success w-100" id="printBtn" disabled>
+                    🖨 Print
+                </button>
+            </div>
+        </div>
+
+        <!-- ONLY GRID CHANGES -->
+        <div id="dynamicReportArea">
+            <p>Please select a report…</p>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" />
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+    <script>
+
+        // Change report type - loads description
+        $('.report-radio').on('change', function () {
+            
+            let reportId = $(this).val();
+
+            $.ajax({
+                url: '/Reports/LoadReport',
+                type: 'GET',
+                data: { id: reportId },
+                success: function (result) {
+                    $('#dynamicReportArea').html(result);
+
+                    let title = $('input[name="reportType"]:checked').parent().text().trim();
+                    $('#reportTitle').text(title);
+                }
+            });
+
+        });
+
+        // ✅ Main Generate Button (FIXED)
+        $('#generateBtn').click(function () {
+            debugger;
+
+            var reportId = $("input[name='reportType']:checked").val();
+            var fromDate = $("#fromDate").val();
+            var toDate = $("#toDate").val();
+
+
+            if (!reportId) {
+                alert("Please select a report type!");
+                return;
+            }
+
+                 $.ajax({
+            url: "/Reports/GenerateReport",
+            type: "POST",
+            data: {
+                reportId: reportId,
+                fromDate: fromDate,
+                toDate: toDate
+            },
+            success: function (result) {
+                debugger;
+
+                if (!result || result.length === 0) {
+                    $("#dynamicReportArea").html("<p>No report found.</p>");
+                    return;
+                };
+
+                let columns = Object.keys(result[0]);
+
+                // CREATE TABLE HTML
+                let table = `<table id="reportTable" class="display table table-bordered">
+                                <thead class="table-dark"><tr>`;
+
+          
+
+                columns.forEach(col => {
+                    table += `<th>${formatHeaderName(col)}</th>`;
+
+                });
+
+                table += `</tr></thead><tbody>`;
+
+                result.forEach(row => {
+                    table += `<tr>`;
+                    columns.forEach(col => {
+                        table += `<td>${row[col] ?? ""}</td>`;
+                    });
+                    table += `</tr>`;
+                });
+
+                table += "</tbody></table>";
+
+                // RENDER TABLE
+                $("#dynamicReportArea").html(table);
+
+                // ⭐ INITIALIZE DATATABLES
+                $('#reportTable').DataTable({
+                    pageLength: 10,         // default rows per page
+                    lengthMenu: [5, 10, 25, 50, 100],
+                    order: [],              // no default sorting
+                    responsive: true
+                });
+
+               
+            },
+
+            error: function (xhr) {
+                console.log("SERVER ERROR:", xhr.responseText);
+                alert("Failed to generate report!");
+            }
+
+        });
+
+
+    });
+
+
+        
+
+        function formatHeaderName(col) {
+            // Replace camelCase → snake_case
+            col = col.replace(/([a-z])([A-Z])/g, '$1_$2');
+
+            // Replace spaces → underscore
+            col = col.replace(/\s+/g, '_');
+
+            // Convert to Title Case
+            col = col.charAt(0).toUpperCase() + col.slice(1);
+
+            return col;
+        }
+
+
+       
+
+
+    </script>
+}
+

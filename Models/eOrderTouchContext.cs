@@ -1,6 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using eOrderTouchApp.Models.ReportsModel;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
 
 namespace eOrderTouchApp.Models;
 
@@ -47,6 +49,9 @@ public partial class eOrderTouchContext : DbContext
     public DbSet<TblCustomer> TblCustomers { get; set; }
     public DbSet<TblGST> TblGsts { get; set; }
     public DbSet<TblTable> TblTables { get; set; } 
+
+    public DbSet<TblReports> TblReports { get; set; }
+   
 
     //    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
@@ -380,52 +385,27 @@ public partial class eOrderTouchContext : DbContext
                 .HasConstraintName("FK_tblPODetails_tblProduct");
         });
 
-        modelBuilder.Entity<TblCustomer>()
-        .HasOne(c => c.Business)
-        .WithMany()
-        .HasForeignKey(c => c.BusinessId)
-        .OnDelete(DeleteBehavior.NoAction);
-
-        modelBuilder.Entity<TblGST>(entity =>
+        modelBuilder.Entity<TblReports>(entity =>
         {
-            entity.ToTable("tblGST");
+            entity.ToTable("tblReports");       
 
-            entity.HasKey(e => e.Id)
-                  .HasName("PK_tblGST");
+            entity.HasKey(e => e.Id);           
 
-            entity.Property(e => e.GSTValue).IsRequired(false);
-
-            entity.Property(e => e.DisplayName)
-                  .HasMaxLength(50)
-                  .IsUnicode(false);
-
-            entity.HasOne(e => e.Business)
-                  .WithMany(b => b.TblGsts)
-                  .HasForeignKey(e => e.BusinessId)
-                  .HasConstraintName("FK_tblGST_tblBusinesses");
-        });
-
-        modelBuilder.Entity<TblTable>(entity =>
-        {
-            entity.ToTable("tblTable");
-
-            entity.HasKey(e => e.Id)
-                  .HasName("PK_tblTable");
+            entity.Property(e => e.Id)
+                .HasColumnName("Id");
 
             entity.Property(e => e.Name)
-                  .HasMaxLength(50)
-                  .IsUnicode(true);
-
-            entity.HasOne(e => e.Business)
-                  .WithMany(b => b.TblTables)
-                  .HasForeignKey(e => e.BusinessId)
-                  .HasConstraintName("FK_tblTable_tblBusinesses");
+                .HasColumnName("Name")
+                .HasMaxLength(200)            
+                .IsRequired(false);           
         });
 
-
+        
 
         OnModelCreatingPartial(modelBuilder);
     }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
+    
 }
