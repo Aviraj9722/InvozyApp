@@ -29,32 +29,32 @@ namespace eOrderTouchApp.Models
             modelBuilder.Entity<CustomerAreaSaleReport>().HasNoKey();
             modelBuilder.Entity<CustomerCreditSaleReport>().HasNoKey();
         }
-        private static readonly Dictionary<int, Type> ReportsModel = new()
+        private static readonly Dictionary<string, Type> ReportsModel = new()
         {
-            { 1, typeof(ItemReportModel) },
-            { 2, typeof(UserReportModel) },
-            { 3, typeof(TableReportModel) },
-            { 5, typeof(DailySaleReportModel) },
-            { 6, typeof(CategorySaleModel) },
-            { 7, typeof(CustomerSaleReportModel) },
-            { 8, typeof(CustomerAreaSaleReport) },
-            { 9, typeof(CustomerCreditSaleReport) }
+            { "Item Sale Reports", typeof(ItemReportModel) },
+            { "User Sale Reports", typeof(UserReportModel) },
+            { "Table Sale Reports", typeof(TableReportModel) },
+            { "Daily Sale Reports", typeof(DailySaleReportModel) },
+            { "Category Sale Reports", typeof(CategorySaleModel) },
+            { "Customer Sale Reports", typeof(CustomerSaleReportModel) },
+            { "Customer Area Sale Reports", typeof(CustomerAreaSaleReport) },
+            { "Customer Credit Sale Reports", typeof(CustomerCreditSaleReport) }
 
         };
 
         public async Task<object> ExecuteReport(
-        int reportId, int businessId, DateTime fromDate, DateTime toDate)
+        string reportName, int businessId, DateTime fromDate, DateTime toDate)
         {
 
 
-            if (!ReportsModel.ContainsKey(reportId))
+            if (!ReportsModel.ContainsKey(reportName))
                 throw new Exception("Invalid ReportId!");
 
-            var modelType = ReportsModel[reportId];
+            var modelType = ReportsModel[reportName];
 
-            var sql = "EXEC Pro_GenerateReport @ReportId, @BusinessId, @FromDate, @ToDate";
+            var sql = "EXEC Pro_GenerateReport @ReportName, @BusinessId, @FromDate, @ToDate";
 
-            var p1 = new SqlParameter("@ReportId", reportId);
+            var p1 = new SqlParameter("@ReportName", reportName);
             var p2 = new SqlParameter("@BusinessId", businessId);
             var p3 = new SqlParameter("@FromDate", fromDate);
             var p4 = new SqlParameter("@ToDate", toDate);

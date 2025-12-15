@@ -34,7 +34,7 @@ namespace eOrderTouchApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> GenerateReport(int reportId, DateTime? fromDate, DateTime? toDate)
+        public async Task<IActionResult> GenerateReport(string reportName, DateTime? fromDate, DateTime? toDate)
         {
             try
             {
@@ -44,8 +44,9 @@ namespace eOrderTouchApp.Controllers
                 if (fromDate == null || toDate == null)
                     return BadRequest("Dates cannot be empty!");
 
-                var data = await _context.ExecuteReport(
-                                reportId,
+                var data =
+                await _context.ExecuteReport(
+                                reportName,
                                 businessId,
                                 fromDate.Value,
                                 toDate.Value);

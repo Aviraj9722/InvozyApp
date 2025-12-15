@@ -70,7 +70,7 @@
         @foreach (var item in reports)
         {
             <div class="report-item">
-                <input type="radio" name="reportType" value="@item.Id" class="report-radio" />
+                <input type="radio" name="reportType" value="@item.Name" class="report-radio" />
                 <strong>@item.Name</strong>
             </div>
         }
@@ -159,7 +159,7 @@
             url: "/Reports/GenerateReport",
             type: "POST",
             data: {
-                reportId: reportId,
+                reportName: reportId,
                 fromDate: fromDate,
                 toDate: toDate
             },
