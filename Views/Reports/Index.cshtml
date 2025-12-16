@@ -115,6 +115,8 @@
 
 </div>
 
+
+
 @section Scripts {
 
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" />
@@ -241,5 +243,106 @@
 
 
     </script>
+
+    <script>
+    $('#printBtn').click(function () {
+
+        let table = $('#reportTable').DataTable();
+
+        if (!table) {
+            alert("No data to print!");
+            return;
+        }
+
+        // Get ALL rows (ignore pagination)
+        let allData = table.rows({ search: 'applied' }).nodes();
+
+        let printContent = `
+            <html>
+            <head>
+                <title>Print Preview</title>
+                <style>
+                    @@page {
+                        size: 80mm auto;
+                        margin: 5mm;
+                    }
+
+                    body {
+                        font-family: monospace;
+                        font-size: 11px;
+                    }
+
+                    h3 {
+                        text-align: center;
+                        margin-bottom: 10px;
+                    }
+
+                    table {
+                        width: 100%;
+                        border-collapse: collapse;
+                    }
+
+                    th, td {
+                        border-bottom: 1px dashed #000;
+                        padding: 4px 2px;
+                        text-align: left;
+                        word-break: break-word;
+                    }
+
+                    th {
+                        font-weight: bold;
+                    }
+
+                    .actions {
+                        text-align: center;
+                        margin: 15px 0;
+                    }
+
+                    button {
+                        padding: 6px 12px;
+                        font-size: 12px;
+                        margin: 5px;
+                        cursor: pointer;
+                    }
+
+                    @@media print {
+                        .actions {
+                            display: none;
+                        }
+                    }
+                </style>
+            </head>
+         
+
+                <h3>${$('#reportTitle').text()}</h3>
+
+                <table>
+                    <thead>
+                        ${$('#reportTable thead').html()}
+                    </thead>
+                    <tbody>
+                        ${$(allData).clone().wrapAll('<div>').parent().html()}
+                    </tbody>
+                </table>
+
+                <div class="actions">
+                    <button onclick="window.print()">🖨 Print</button>
+                    <button onclick="window.close()">❌ Close</button>
+                </div>
+
+           
+            </html>
+        `;
+
+        let printWindow = window.open('', '', 'width=400,height=600');
+        printWindow.document.open();
+        printWindow.document.write(printContent);
+        printWindow.document.close();
+    });
+
+        $('#printBtn').prop('disabled', false);
+
+</script>
+
 }
 
