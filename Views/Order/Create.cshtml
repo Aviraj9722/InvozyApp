@@ -2006,9 +2006,14 @@ function printReceipt80mm_Regional(
             if('@Org.Logo'.trim()!="")
             {
                      html += ` <div text-align: center;><img src='/uploads/@Org.Logo' Width="150px" style="display:block; margin:0 auto;"/></div>`;
+            }else
+            {
+                         html += `
+                    <div class="title">${orgTitle}</div>`;
             }
-          html += `
-            <div class="title">${orgTitle}</div>
+
+
+          html += `       
             <div class="addr">${address}</div>
             <div class="addr">${Contact}</div>
 
@@ -2169,17 +2174,17 @@ function printReceipt80mm_Regional(
 
             </style>
 
-
             </head>
-
-
                     <div id="receipt">`;
                     if('@Org.Logo'.trim()!="")
                     {
                              html += ` <div text-align: center;><img src='/uploads/@Org.Logo' Width="150px" style="display:block; margin:0 auto;"/></div>`;
+                    }else
+                    {
+                                 html += `
+                            <div class="title">${orgTitle}</div>`;
                     }
-                  html += `
-                    <div class="title">${orgTitle}</div>
+                  html += `                 
                     <div class="addr">${address}</div>
                     <div class="addr">${Contact}</div>
 
