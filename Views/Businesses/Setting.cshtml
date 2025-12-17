@@ -1,5 +1,6 @@
 ﻿@model eOrderTouchApp.Models.TblBusiness
 
+
 <div class="container mt-4">
 
     <div class="row justify-content-center">
@@ -24,20 +25,7 @@
                             <span asp-validation-for="BusinessName" class="text-danger"></span>
                         </div>
 
-                        <!-- Business Type -->
-                        <div class="mb-3">
-                            <label class="fw-semibold">Business Type</label>
-
-                            @Html.DropDownListFor(
-                            model => model.BusinessTypeId,
-                                                        new SelectList(ViewBag.BusinessTypes, "Id", "BusinessTypeName"),
-                                                        "-- Select --",
-                                                        new { @class = "form-control" }
-                                                        )
-
-                            <span asp-validation-for="BusinessTypeId" class="text-danger"></span>
-                        </div>
-
+          
                         <!-- Owner Name -->
                         <div class="mb-3">
                             <label class="fw-semibold">Owner Name</label>
@@ -80,60 +68,6 @@
                             <span asp-validation-for="City" class="text-danger"></span>
                         </div>
 
-                        <!-- Printer Size -->
-                        <div class="mb-3">
-                            <label class="fw-semibold">Printer Size</label>
-
-                            @Html.DropDownListFor(
-                                                        model => model.PrinterSizeId,
-                                                        new SelectList(ViewBag.PrinterSizes, "Id", "PrinterSize"),
-                                                        "-- Select --",
-                                                        new { @class = "form-control" }
-                                                        )
-
-                            <span asp-validation-for="PrinterSizeId" class="text-danger"></span>
-                        </div>
-
-                        <!-- GST Applicable -->
-                        <div class="mb-3">
-                            <label class="fw-semibold">GST Applicable?</label>
-
-                            @Html.DropDownListFor(
-                                                        model => model.IsGstapplicable,
-                                                        new SelectList(ViewBag.YesNo, "key", "value"),
-                                                        "-- Select --",
-                                                        new { @class = "form-control" }
-                                                        )
-
-                            <span asp-validation-for="IsGstapplicable" class="text-danger"></span>
-                        </div>
-
-                        <!-- Hide Customer Field -->
-                        <div class="mb-3">
-                            <label class="fw-semibold">Hide Customer Field?</label>
-
-                            @Html.DropDownListFor(
-                                                        model => model.HideCustomerField,
-                                                        new SelectList(ViewBag.YesNo, "key", "value"),
-                                                        new { @class = "form-control" }
-                                                        )
-
-                            <span asp-validation-for="HideCustomerField" class="text-danger"></span>
-                        </div>
-
-                        <!-- Hide Table Dropdown -->
-                        <div class="mb-3">
-                            <label class="fw-semibold">Hide Table Dropdown?</label>
-
-                            @Html.DropDownListFor(
-                                                        model => model.HideTableDropDown,
-                                                        new SelectList(ViewBag.YesNo, "key", "value"),
-                                                        new { @class = "form-control" }
-                                                        )
-
-                            <span asp-validation-for="HideTableDropDown" class="text-danger"></span>
-                        </div>
-
                         <button type="submit" class="btn btn-success w-100 mt-2" id="btnSave">Save</button>
 
                     </form>
@@ -144,3 +78,69 @@
         </div>
     </div>
 </div>
+
+
+
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+
+            $("#SaveSettings").on("submit", function (e) {
+
+                let isValid = true;
+
+                // Remove old validation messages
+                $(".js-error").remove();
+                $(".is-invalid").removeClass("is-invalid");
+
+                function showError(input, message) {
+                    input.addClass("is-invalid");
+                    input.after(
+                        '<span class="text-danger js-error">' + message + '</span>'
+                    );
+                    isValid = false;
+                }
+
+                // Business Name
+                if ($("#BusinessName").val().trim() === "") {
+                    showError($("#BusinessName"), "Business Name is required");
+                }
+
+                // Owner Name
+                if ($("#OwnerName").val().trim() === "") {
+                    showError($("#OwnerName"), "Owner Name is required");
+                }
+
+                // Email (Razor-safe regex)
+                let email = $("#Email").val().trim();
+                let emailRegex = /^[^\s@@]+@@[^\s@@]+\.[^\s@@]+$/;
+
+                if (email === "") {
+                    showError($("#Email"), "Email is required");
+                }
+                else if (!emailRegex.test(email)) {
+                    showError($("#Email"), "Enter a valid email address");
+                }
+
+                // Address
+                if ($("#Address").val().trim() === "") {
+                    showError($("#Address"), "Address is required");
+                }
+
+                // Stop form submit if invalid
+                if (!isValid) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+
+            // Remove validation message on typing
+            $("#SaveSettings input").on("input", function () {
+                $(this).removeClass("is-invalid");
+                $(this).next(".js-error").remove();
+            });
+
+        });
+    </script>
+}
