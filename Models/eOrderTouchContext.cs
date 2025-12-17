@@ -258,6 +258,8 @@ public partial class eOrderTouchContext : DbContext
             entity.Property(e => e.Price).HasColumnType("decimal(18, 2)");
             entity.Property(e => e.RegionalName).HasMaxLength(1000);
             entity.Property(e => e.UoMid).HasColumnName("UoMId");
+            entity.Property(e => e.HSNCode).HasMaxLength(50);
+            entity.Property(e => e.PurchasePrice).HasColumnType("decimal(18, 2)");
 
             entity.HasOne(d => d.Business).WithMany(p => p.TblProducts)
                 .HasForeignKey(d => d.BusinessId)

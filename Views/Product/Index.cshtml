@@ -5,124 +5,365 @@
 }
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
 
+<style>
+    .dataTables_wrapper .dataTables_length,
+    .dataTables_wrapper .dataTables_filter {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 12px;
+    }
+
+    .dataTables_length select {
+        padding-right: 28px;
+        height: 32px;
+    }
+
+    .dataTables_filter input {
+        margin-left: 6px;
+    }
+
+    .dataTables_wrapper .dataTables_paginate {
+        margin-top: 12px;
+    }
+
+    .dataTables_wrapper .dataTables_length label {
+        display: flex !important;
+        align-items: center !important;
+        gap: 8px;
+        font-weight: 500;
+    }
+
+    .dataTables_wrapper .dataTables_length select {
+        min-width: 80px;
+        height: 34px;
+        padding: 4px 28px 4px 8px;
+        border-radius: 6px;
+    }
+
+    @@media (min-width: 768px) {
+
+        table#ProductTB {
+            width: 100% !important;
+        }
+
+            table#ProductTB th,
+            table#ProductTB td {
+                vertical-align: middle;
+            }
+
+        #ProductTB td:last-child {
+            white-space: nowrap;
+        }
+
+            #ProductTB td:last-child .btn {
+                margin-right: 6px;
+                margin-bottom: 4px;
+            }
+    }
+
+
+    /* Better mobile layout */
+    @@media (max-width: 767px) {
+        .dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter {
+            float: none !important;
+            width: 100%;
+            text-align: left !important;
+            margin-bottom: 10px;
+        }
+
+            .dataTables_wrapper .dataTables_filter input {
+                width: 100% !important;
+            }
+    }
+    /* Desktop → normal layout */
+    #formContainer {
+        display: block;
+    }
+
+    /* Mobile view adjustments */
+    #ProductTB img {
+        width: 120px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 6px;
+    }
+
+
+
+    /* ---------------------- */
+    /* MOBILE VIEW */
+    /* ---------------------- */
+    @@media (max-width: 767px) {
+        /* Convert table rows to card style */
+        #ProductTB table, #ProductTB thead, #ProductTB tbody, #ProductTB th, #ProductTB td, #ProductTB tr {
+            display: block;
+            width: 100%;
+        }
+
+        #ProductTB thead {
+            display: none; /* hide headers */
+        }
+
+        #ProductTB tr {
+            background: #fff;
+            margin-bottom: 12px;
+            border-radius: 10px;
+            padding: 12px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        #ProductTB td {
+            padding: 6px 0 !important;
+            border: none !important;
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+        }
+
+            #ProductTB td::before {
+                content: attr(data-title);
+                font-weight: bold;
+                color: #444;
+                margin-right: 8px;
+            }
+
+        #ProductTB img {
+            width: 100%;
+            max-height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+
+        table#ProductTB img {
+            width: 60px !important;
+            height: 60px !important;
+            object-fit: cover;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            background: #fff;
+        }
+
+        table#ProductTB tbody tr {
+            background: #ffffff !important;
+            border-left: 4px solid #0d6efd;
+            border-radius: 10px;
+            padding: 12px;
+            margin-bottom: 14px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+        }
+    }
+</style>
 
 
 <div class="container mt-3">
+
+    <!-- TOP BAR -->
+    <div class="d-flex justify-content-between align-items-center mb-2">
+        <h4 class="fw-bold">Products</h4>
+
+        <button class="btn btn-success d-block d-md-none mb-3" id="btnAddProductMobile">
+            + Add Product
+        </button>
+    </div>
 
     <form id="productForm" enctype="multipart/form-data">
         <input type="hidden" id="Id" name="Id" />
 
         <div class="row">
 
-            <div class="col-md-4">
+            <!-- ================= FORM PANEL ================= -->
+            <div class="col-md-4" id="formContainer">
                 <div class="card shadow-sm p-3">
+
+                    <button type="button" class="btn btn-outline-secondary btn-sm mb-2 d-md-none" id="btnBackToGrid">
+                        ← Back to Products
+                    </button>
+
                     <h5 id="formTitle">Add / Edit Products</h5>
-                <div class="mb-2">
-                    <label>Name</label>
-                    <input type="text" class="form-control" id="Name" name="Name" required />
-                    <span class="text-danger small" id="errName"></span>
+
+                    <div class="mb-2">
+                        <label>Name</label>
+                        <input type="text" class="form-control" id="Name" name="Name" required />
+                        <span class="text-danger small" id="errName"></span>
+                    </div>
+
+                    <div class="mb-2">
+                        <label>Bar Code</label>
+                        <input type="text" class="form-control" id="Code" name="Code" />
+
+                    </div>
+
+                    <div class="mb-2">
+                        <label>Price</label>
+                        <input type="number" class="form-control" id="Price" name="Price" step="0.01" required />
+                        <span class="text-danger small" id="errPrice"></span>
+                    </div>
+
+                    <div class="mb-2">
+                        <label>Purchase Price</label>
+                        <input type="number" class="form-control" id="PurchasePrice" name="PurchasePrice" step="0.01" />
+
+                    </div>
+
+
+                    <div class="mb-2">
+                        <label>HSN Code</label>
+                        <input type="text" class="form-control" id="HSNCode" name="HSNCode" step="0.01" />
+
+                    </div>
+
+                    <div class="mb-2">
+                        <label>Category</label>
+                        <select class="form-control" id="CategoryId" name="CategoryId">
+                            <option value="">Select</option>
+                            @foreach (var c in ViewBag.Categories)
+                            {
+                                <option value="@c.Id">@c.Name</option>
+                            }
+                        </select>
+                        <span class="text-danger small" id="errCategory"></span>
+                    </div>
+
+                    <div class="mb-2">
+                        <label>GST</label>
+                        <select class="form-control" id="GstPercentage" name="GstPercentage">
+                            <option value="0">0 %</option>
+
+                            @foreach (var gst in ViewBag.GST)
+                            {
+                                <option value="@gst.GSTValue">
+                                    @gst.GSTValue %
+                                </option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="mb-2">
+                        <label>Upload Image</label>
+                        <input type="file" id="photoInput" accept="image/*" class="form-control" />
+                    </div>
+
+                    <img id="imagePreview"
+                         style="width:150px;height:150px;display:none;object-fit:cover;border:1px solid #ccc;" />
+
+                    <input type="hidden" id="croppedImageData" name="croppedImageData" />
+
+                    <button type="button" class="btn btn-primary mt-3 w-100" id="btnSaveProduct">
+                        Save Product
+                    </button>
+
                 </div>
-
-                <div class="mb-2">
-                    <label>BarCode Number</label>
-                    <input type="text" class="form-control" id="Code" name="Code" />
-                </div>
-                    @* 
-                <div class="mb-2">
-                    <label>Regional Name</label>
-                    <input type="text" class="form-control" id="RegionalName" name="RegionalName" />
-                </div> *@
-
-                <div class="mb-2">
-                    <label>Price</label>
-                    <input type="number" class="form-control" id="Price" name="Price" step="0.01" required />
-                    <span class="text-danger small" id="errPrice"></span>
-                </div>
-
-                <div class="mb-2">
-                    <label>Category</label>
-                    <select class="form-control" id="CategoryId" name="CategoryId">
-                        <option value="">Select</option>
-                        @foreach (var c in ViewBag.Categories)
-                        {
-                            <option value="@c.Id">@c.Name</option>
-                        }
-                    </select>
-                    <span class="text-danger small" id="errCategory"></span>
-                </div>
-
-                <div class="mb-2">
-                    <label>Upload Image</label>
-                    <input type="file" id="photoInput" accept="image/*" class="form-control" />
-                </div>
-
-                <!-- Preview -->
-                <img id="imagePreview"
-                     style="width:150px;height:150px;display:none;object-fit:cover;border:1px solid #ccc;" />
-
-                <!-- Hidden for cropped image base64 -->
-                <input type="hidden" id="croppedImageData" name="croppedImageData" />
-
-                <button type="button" class="btn btn-primary mt-3" id="btnSaveProduct">Save Product</button>
-
             </div>
-            </div>
-            <div class="col-md-8">
 
-                <table id="ProductTB" class="table table-bordered table-striped w-100 dataTable no-footer">
-                    <thead class="table-dark">
-                        <tr>
-                            <th>Photo</th>
-                            <th>Name</th>
-                            <th>Price</th>
-                            <th>Category</th>
-                            <th>Barcode#</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var p in Model)
-                        {
+
+            <!-- ================= GRID PANEL ================= -->
+            <div class="col-md-8" id="gridContainer">
+                <div class="datatable-wrapper" style="overflow-x:auto;">
+                    <table id="ProductTB" class="table table-bordered table-striped w-100">
+                        <thead class="table-dark">
                             <tr>
-                                <td>
-                                    @if (!string.IsNullOrEmpty(p.Photo))
-                                    {
-                                        <img src="@p.Photo" style="width:50px;height:50px;object-fit:cover;" />
-                                    }
-                                </td>
-                                <td>@p.Name</td>
-                                <td>@p.Price</td>
-                                <td>@p.Code</td>
-                                <td>@p.Category?.Name</td>
-                                <td>
-                                    <button type="button" class="btn btn-warning btn-sm"
-                                            onclick="editProduct(@p.Id)"
-                                            data-name="@p.Name"
-                                            data-price="@p.Price"
-                                            data-category="@p.CategoryId"
-                                            data-regional="@p.RegionalName"
-                                            data-code="@p.Code">
-                                        Edit
-                                    </button>
-                                    <button type="button" class="btn btn-danger btn-sm" onclick="deleteProduct(@p.Id)">Delete</button>
-                                </td>
+                                <th>Photo</th>
+                                <th>Name</th>
+                                <th>BarCode</th>
+                                <th>Price</th>
+                                <th>Purchase Price</th>
+                                <th>HSN Code</th>
+                                <th>Category</th>
+                                <th>GST Percentage</th>
+                                <th>GST Amount</th>
+                                <th>Action</th>
+
                             </tr>
-                        }
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach (var p in Model)
+                            {
+                                <tr>
+
+                                    <!-- 1. PHOTO -->
+                                    <td data-title="Photo">
+                                        @if (!string.IsNullOrEmpty(p.Photo))
+                                        {
+                                            <img src="@p.Photo" class="prod-img" />
+                                        }
+                                    </td>
+
+                                    <!-- 2. NAME -->
+                                    <td data-title="Name">
+                                        @p.Name
+                                    </td>
+
+                                    <td data-title="Code">
+                                        @p.Code
+                                    </td>
+
+                                    <!-- 3. PRICE -->
+                                    <td data-title="Price">
+                                        ₹ @p.Price
+                                    </td>
+
+                                    <td data-title="PurchasePrice">
+                                        ₹ @p.PurchasePrice
+                                    </td>
+
+                                    <td data-title="HSN Code">
+                                        @p.HSNCode
+                                    </td>
+
+
+
+                                    <!-- 4. CATEGORY -->
+                                    <td data-title="Category">
+                                        @p.Category?.Name
+                                    </td>
+
+                                    <!-- 4. GST -->
+                                    <td data-title="GST">
+                                        @p.Gstpercentage
+                                    </td>
+
+                                    <td>₹ @p.Gstamount</td>
+
+                                    <!-- 5. ACTION -->
+                                    <td data-title="Actions">
+                                        <button type="button" class="btn btn-warning btn-sm"
+                                                onclick="editProduct(@p.Id)"
+                                                data-name="@p.Name"
+                                                data-price="@p.Price"
+                                                data-purchaseprice="@p.PurchasePrice"
+                                                data-hsncode="@p.HSNCode"
+                                                data-category="@p.CategoryId"
+                                                data-gst="@p.Gstpercentage"
+                                                data-regional="@p.RegionalName"
+                                                data-code="@p.Code">
+                                            Edit
+                                        </button>
+
+                                        <button type="button" class="btn btn-danger btn-sm"
+                                                onclick="deleteProduct(@p.Id)">
+                                            Delete
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+
+                    </table>
+                </div>
+
+
             </div>
 
         </div>
     </form>
 </div>
 
-
-
-
-<!-- ----------------------- CROPPER MODAL ----------------------- -->
-
+<!-- CROPPER MODAL -->
 <div class="modal fade" id="cropModal" tabindex="-1">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -130,11 +371,9 @@
                 <h5 class="modal-title">Crop Image</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
-
             <div class="modal-body">
                 <img id="cropImage" style="max-width:100%;" />
             </div>
-
             <div class="modal-footer">
                 <button type="button" id="btnCrop" class="btn btn-primary">Crop & Save</button>
             </div>
@@ -143,172 +382,225 @@
 </div>
 
 
-
-
-
-<!-- --------------------- CROP & RESIZE SCRIPT --------------------- -->
-
 @section Scripts {
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
-<script>
-     $(document).ready(function () {
 
-            let table = $("#ProductTB").DataTable({
+
+    <script>
+
+        // ============================================================
+        // 1️⃣ GRID TABLE INITIALIZE
+               function initProductTable() {
+
+            if ($.fn.DataTable.isDataTable('#ProductTB')) {
+                $('#ProductTB').DataTable().clear().destroy();
+            }
+
+            $('#ProductTB').DataTable({
+                dom:
+                    '<"row mb-2"' +
+                        '<"col-md-6 col-12 d-flex align-items-center"l>' +
+                        '<"col-md-6 col-12 text-md-end mt-2 mt-md-0"f>' +
+                    '>' +
+                    'rt' +
+                    '<"row mt-3"' +
+                        '<"col-md-6 col-12"i>' +
+                        '<"col-md-6 col-12 text-md-end"p>' +
+                    '>',
                 pageLength: 10,
                 lengthMenu: [5, 10, 25, 50],
-                responsive: true,
-                ordering: true,
-                searching: true
-                
+                responsive: false,
+                autoWidth: false
             });
-      });
-
-
-
-    let cropper;
-
-    document.getElementById("photoInput").addEventListener("change", function (e) {
-        let file = e.target.files[0];
-        if (!file) return;
-
-        let reader = new FileReader();
-        reader.onload = function (ev) {
-            document.getElementById("cropImage").src = ev.target.result;
-
-            let modal = new bootstrap.Modal(document.getElementById("cropModal"));
-            modal.show();
-
-            if (cropper) cropper.destroy();
-
-            cropper = new Cropper(document.getElementById("cropImage"), {
-                aspectRatio: 1,
-                viewMode: 1
-            });
-        };
-        reader.readAsDataURL(file);
-    });
-
-    document.getElementById("btnCrop").addEventListener("click", function () {
-
-        let canvas = cropper.getCroppedCanvas({
-            width: 400,
-            height: 400,
-            imageSmoothingQuality: 'high'
-        });
-
-        canvas.toBlob(function (blob) {
-
-            if (blob.size > 50000) {
-                alert("Image size is more than 50KB. Please crop smaller.");
-                return;
-            }
-
-            // Preview
-            document.getElementById("imagePreview").src = URL.createObjectURL(blob);
-            document.getElementById("imagePreview").style.display = "block";
-
-            // Convert to base64
-            let reader = new FileReader();
-            reader.onloadend = function () {
-                document.getElementById("croppedImageData").value = reader.result;
-            };
-            reader.readAsDataURL(blob);
-
-            bootstrap.Modal.getInstance(document.getElementById("cropModal")).hide();
-
-        }, "image/jpeg", 0.8);
-    });
-
-
-
-    // ---------------- SAVE PRODUCT -------------------
-
-    document.getElementById("btnSaveProduct").addEventListener("click", function () {
-
-    // Clear previous errors
-       document.getElementById("errName").innerHTML = "";
-       document.getElementById("errPrice").innerHTML = "";
-       document.getElementById("errCategory").innerHTML = "";
-
-       let name = document.getElementById("Name").value.trim();
-       let price = document.getElementById("Price").value.trim();
-       let category = document.getElementById("CategoryId").value;
-
-       let isValid = true;
-
-       // --- Name Validation ---
-       if (name === "") {
-           document.getElementById("errName").innerText = "Product name is required.";
-           isValid = false;
-       }
-
-       // --- Price Validation ---
-       if (price === "" || parseFloat(price) <= 0) {
-           document.getElementById("errPrice").innerText = "Please enter a valid price.";
-           isValid = false;
-       }
-
-       // --- Category Validation ---
-       if (category === "" || category === "0") {
-           document.getElementById("errCategory").innerText = "Please select a category.";
-           isValid = false;
-       }
-
-       // Stop submit if validation fails
-       if (!isValid) return;
-
-
-        let formData = new FormData(document.getElementById("productForm"));
-
-        fetch("/Product/Save", {
-            method: "POST",
-            body: formData
-        })
-            .then(res => res.json())
-            .then(data => {
-                alert(data.message);
-                if (data.success) location.reload();
-            });
-    });
-
-
-    // ------------- EDIT PRODUCT (Load existing data) -------------
-
-          function editProduct(id) {
-
-            let btn = event.target;   // the clicked EDIT button
-
-            document.getElementById("Id").value = id;
-            document.getElementById("Name").value = btn.dataset.name;
-            document.getElementById("Price").value = btn.dataset.price;
-            document.getElementById("CategoryId").value = btn.dataset.category;
-            document.getElementById("RegionalName").value = btn.dataset.regional || "";
-            document.getElementById("Code").value = btn.dataset.code || "";
-
-            // Scroll to form (optional)
-            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-    function deleteProduct(id) {
+        // ============================================================
+        // 2️⃣ MOBILE TOGGLE BEHAVIOR
+        // ============================================================
+        function isMobile() { return window.innerWidth <= 767; }
 
-        if (!confirm("Are you sure want to delete?")) return;
+        $("#btnAddProductMobile").click(function () {
 
-        $.ajax({
-            url: "/Product/Delete",
-            type: "POST",
-            data: { id: id },
-            success: function (response) {
-                debugger;
-                // Remove row smoothly
-              
-                   location.reload();
-              
-            },
-            error: function () {
-                alert("Something went wrong while deleting.");
+            // Reset form
+            $("#productForm")[0].reset();
+            $("#btnSaveProduct").text("Save Product");
+            $("#formTitle").text("Add Product");
+            $("#Id").val("");
+
+            if (isMobile()) {
+                $("#gridContainer").hide();
+                $("#formContainer").show();
+                window.scrollTo({ top: 0, behavior: "smooth" });
             }
         });
-    }
-</script>
+
+        $("#btnBackToGrid").click(function () {
+            $("#formContainer").hide();
+            $("#gridContainer").show();
+        });
+
+
+        // ============================================================
+        // 3️⃣ CROPPER SCRIPT (unchanged)
+        // ============================================================
+        let cropper;
+
+        document.getElementById("photoInput").addEventListener("change", function (e) {
+            let file = e.target.files[0];
+            if (!file) return;
+
+            let reader = new FileReader();
+            reader.onload = function (ev) {
+                document.getElementById("cropImage").src = ev.target.result;
+
+                let modal = new bootstrap.Modal(document.getElementById("cropModal"));
+                modal.show();
+
+                if (cropper) cropper.destroy();
+
+                cropper = new Cropper(document.getElementById("cropImage"), {
+                    aspectRatio: 1,
+                    viewMode: 1
+                });
+            };
+            reader.readAsDataURL(file);
+        });
+
+        document.getElementById("btnCrop").addEventListener("click", function () {
+
+            let canvas = cropper.getCroppedCanvas({
+                width: 400,
+                height: 400,
+                imageSmoothingQuality: 'high'
+            });
+
+            canvas.toBlob(function (blob) {
+
+                if (blob.size > 50000) {
+                    alert("Image size is more than 50KB. Please crop smaller.");
+                    return;
+                }
+
+                document.getElementById("imagePreview").src = URL.createObjectURL(blob);
+                document.getElementById("imagePreview").style.display = "block";
+
+                let reader = new FileReader();
+                reader.onloadend = function () {
+                    document.getElementById("croppedImageData").value = reader.result;
+                };
+                reader.readAsDataURL(blob);
+
+                bootstrap.Modal.getInstance(document.getElementById("cropModal")).hide();
+            }, "image/jpeg", 0.8);
+        });
+
+
+        // ============================================================
+        // 4️⃣ SAVE PRODUCT (unchanged)
+        // ============================================================
+        document.getElementById("btnSaveProduct").addEventListener("click", function () {
+
+            errName.innerHTML = "";
+            errPrice.innerHTML = "";
+            errCategory.innerHTML = "";
+
+            let name = Name.value.trim();
+            let price = Price.value.trim();
+            let purchasePrice = PurchasePrice.value.trim();
+            let hsnCode = HSNCode.value.trim();
+            let category = CategoryId.value;
+
+
+            let valid = true;
+
+            if (name === "") { errName.innerText = "Product name is required."; valid = false; }
+            if (price === "" || parseFloat(price) <= 0) { errPrice.innerText = "Please enter a valid price."; valid = false; }
+            if (category === "") { errCategory.innerText = "Please select a category."; valid = false; }
+
+
+            if (!valid) return;
+
+            let formData = new FormData(document.getElementById("productForm"));
+
+            fetch("/Product/Save", {
+                method: "POST",
+                body: formData
+            }).then(res => res.json())
+                .then(data => {
+                    alert(data.message);
+                    if (data.success) location.reload();
+                });
+        });
+
+
+        // ============================================================
+        // ⭐⭐⭐ 5️⃣ FIXED EDIT PRODUCT (works perfectly on mobile) ⭐⭐⭐
+        // ============================================================
+               window.editProduct = function (id) {
+
+            let btn = event.target.closest("button");
+
+            if (!btn) return;
+
+            // Fill values
+            Id.value = id;
+            Name.value = btn.dataset.name;
+            Price.value = btn.dataset.price;
+            PurchasePrice.value = btn.dataset.purchaseprice;
+            HSNCode.value = btn.dataset.hsncode;
+            CategoryId.value = btn.dataset.category;
+            Code.value = btn.dataset.code;
+
+            let gstVal = btn.dataset.gst;
+
+            if (gstVal === "" || gstVal === null || gstVal === undefined) {
+                gstVal = "0";
+            }
+
+            // Convert to string without decimals (18.00 → 18)
+            gstVal = parseFloat(gstVal).toString();
+
+            $("#GstPercentage").val(gstVal).trigger("change");
+
+
+
+            // Open form automatically on BOTH mobile & desktop
+            $("#formContainer").show();
+
+            // If mobile → hide grid
+            if (isMobile()) {
+                $("#gridContainer").hide();
+            }
+
+            // Scroll to form
+            $('html, body').animate({
+                scrollTop: $("#formContainer").offset().top - 20
+            }, 300);
+
+            // Change button text
+            $("#btnSaveProduct").text("Update Product");
+            $("#formTitle").text("Edit Product");
+        };
+
+        // ============================================================
+        // 6️⃣ DELETE PRODUCT (unchanged)
+        // ============================================================
+        window.deleteProduct = function (id) {
+
+            if (!confirm("Are you sure want to delete?")) return;
+
+            $.post("/Product/Delete", { id: id })
+                .done(() => location.reload())
+                .fail(() => alert("Something went wrong while deleting."));
+        }
+
+        $(document).ready(function () {
+            initProductTable();
+        });
+    </script>
 }
+

@@ -41,7 +41,7 @@
     <!-- LEFT SIDE FORM -->
     <div class="col-md-4">
         <div class="card shadow">
-            <div class="card-header bg-primary text-white">         
+            <div class="card-header bg-primary text-white">
                 <h5 id="formTitle">Add Vendor</h5>
             </div>
 
@@ -133,182 +133,155 @@
 </div>
 
 
-<!-- DELETE CONFIRMATION MODAL -->
-<div class="modal fade" id="deleteModal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header bg-danger text-white">
-                <h5>Confirm Delete</h5>
-            </div>
-            <div class="modal-body">
-                Are you sure you want to delete this vendor?
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button id="confirmDelete" class="btn btn-danger">Delete</button>
-            </div>
-        </div>
-    </div>
-</div>
 
-@* <!-- SUCCESS TOAST -->
-<div class="position-fixed bottom-0 end-0 p-3" style="z-index:9999">
-    <div id="successToast" class="toast text-bg-success" role="alert">
-        <div class="toast-body">Saved successfully</div>
-    </div>
-</div> *@
 
 
 @section Scripts {
 
     <script>
-        let deleteId = 0;
+         let deleteId = 0;
 
-        $(document).ready(function () {
+         $(document).ready(function () {
 
-            $("#vendorTable").DataTable({
-                pageLength: 10,
-                lengthMenu: [5, 10, 25, 50],
-                ordering: true,
-                searching: true,
-                responsive: true
-            });
+             $("#vendorTable").DataTable({
+                 pageLength: 10,
+                 lengthMenu: [5, 10, 25, 50],
+                 ordering: true,
+                 searching: true,
+                 responsive: true
+             });
 
-            // REMOVE ERROR ON TYPING (same as dealer)
-            $("input, textarea").on("input", function () {
-                $(this).removeClass("invalid-input");
-                $("#err_" + this.id).text("");
-            });
+             // REMOVE ERROR ON TYPING (same as dealer)
+             $("input, textarea").on("input", function () {
+                 $(this).removeClass("invalid-input");
+                 $("#err_" + this.id).text("");
+             });
 
-        });
+         });
 
-        // ----------------------------------------------------
-        // VALIDATION 
-        // ----------------------------------------------------
-        function validateVendorForm() {
+         // ----------------------------------------------------
+         // VALIDATION
+         // ----------------------------------------------------
+         function validateVendorForm() {
 
-            let valid = true;
+             let valid = true;
 
-            // Clear previous errors
-            $(".form-control").removeClass("invalid-input");
-            $(".text-danger").text("");
+             // Clear previous errors
+             $(".form-control").removeClass("invalid-input");
+             $(".text-danger").text("");
 
-            // Name
-            if ($("#Name").val().trim() === "") {
-                $("#err_Name").text("Name is required");
-                $("#Name").addClass("invalid-input");
-                valid = false;
-            }
-
-            // Email
-             let email = $("#EmailId").val().trim();
-             let emailPattern = /^[^\s@@]+@@[^\s@@]+\.[^\s@@]+$/;
-
-             if (email === "") {
-                 $("#err_EmailId").text("Email is required");
-                 $("#EmailId").addClass("invalid-input");
-                 isValid = false;
-             }
-             else if (!emailPattern.test(email)) {
-                 $("#err_EmailId").text("Invalid email format");
-                 $("#EmailId").addClass("invalid-input");
-                 isValid = false;
+             // Name
+             if ($("#Name").val().trim() === "") {
+                 $("#err_Name").text("Name is required");
+                 $("#Name").addClass("invalid-input");
+                 valid = false;
              }
 
-             // Mobile Validation
-             let mobile = $("#MobileNo").val().trim();
-             let mobilePattern = /^[0-9]{10}$/;
+             // Email
+              let email = $("#EmailId").val().trim();
+              let emailPattern = /^[^\s@@]+@@[^\s@@]+\.[^\s@@]+$/;
 
-             if (mobile === "") {
-                 $("#err_MobileNo").text("Mobile number is required");
-                 $("#MobileNo").addClass("invalid-input");
-                 isValid = false;
+              if (email === "") {
+                  $("#err_EmailId").text("Email is required");
+                  $("#EmailId").addClass("invalid-input");
+                  isValid = false;
+              }
+              else if (!emailPattern.test(email)) {
+                  $("#err_EmailId").text("Invalid email format");
+                  $("#EmailId").addClass("invalid-input");
+                  isValid = false;
+              }
+
+              // Mobile Validation
+              let mobile = $("#MobileNo").val().trim();
+              let mobilePattern = /^[0-9]{10}$/;
+
+              if (mobile === "") {
+                  $("#err_MobileNo").text("Mobile number is required");
+                  $("#MobileNo").addClass("invalid-input");
+                  isValid = false;
+              }
+              else if (!mobilePattern.test(mobile)) {
+                  $("#err_MobileNo").text("Mobile number must be 10 digits");
+                  $("#MobileNo").addClass("invalid-input");
+                  isValid = false;
+              }
+
+
+             // GSTN
+             if ($("#GSTN").val().trim() === "") {
+                 $("#err_GSTN").text("GSTN is required");
+                 $("#GSTN").addClass("invalid-input");
+                 valid = false;
              }
-             else if (!mobilePattern.test(mobile)) {
-                 $("#err_MobileNo").text("Mobile number must be 10 digits");
-                 $("#MobileNo").addClass("invalid-input");
-                 isValid = false;
+
+             // Address
+             if ($("#Address").val().trim() === "") {
+                 $("#err_Address").text("Address is required");
+                 $("#Address").addClass("invalid-input");
+                 valid = false;
              }
 
+             // Location
+             if ($("#Location").val().trim() === "") {
+                 $("#err_Location").text("Location is required");
+                 $("#Location").addClass("invalid-input");
+                 valid = false;
+             }
 
-            // GSTN
-            if ($("#GSTN").val().trim() === "") {
-                $("#err_GSTN").text("GSTN is required");
-                $("#GSTN").addClass("invalid-input");
-                valid = false;
-            }
+             return valid;
+         }
 
-            // Address
-            if ($("#Address").val().trim() === "") {
-                $("#err_Address").text("Address is required");
-                $("#Address").addClass("invalid-input");
-                valid = false;
-            }
+         // ----------------------------------------------------
+         // SAVE (Create / Update)
+         // ----------------------------------------------------
+         $(document).on("click", "#btnSave", function () {
 
-            // Location
-            if ($("#Location").val().trim() === "") {
-                $("#err_Location").text("Location is required");
-                $("#Location").addClass("invalid-input");
-                valid = false;
-            }
+             if (!validateVendorForm()) return;
 
-            return valid;
-        }
+             $.ajax({
+                 url: "/Vendor/SaveVendor",
+                 type: "POST",
+                 data: $("#vendorForm").serialize(),
+                 success: function (res) {
+                     alert(res.message);
+                     setTimeout(() => location.reload(), 500);
+                 }
+             });
+         });
 
-        // ----------------------------------------------------
-        // SAVE (Create / Update)
-        // ----------------------------------------------------
-        $(document).on("click", "#btnSave", function () {
+         // ----------------------------------------------------
+         // EDIT
+         // ----------------------------------------------------
+         $(document).on("click", ".editBtn", function () {
 
-            if (!validateVendorForm()) return;
+             let id = $(this).data("id");
 
-            $.ajax({
-                url: "/Vendor/SaveVendor",
-                type: "POST",
-                data: $("#vendorForm").serialize(),
-                success: function (res) {
-                    alert(res.message);
-                    setTimeout(() => location.reload(), 500);
-                }
-            });
-        });
+             $.get("/Vendor/GetVendor?id=" + id, function (v) {
 
-        // ----------------------------------------------------
-        // EDIT
-        // ----------------------------------------------------
-        $(document).on("click", ".editBtn", function () {
+                 $("#formTitle").text("Edit Vendor");
+                 $("#btnSave").text("Update");
 
-            let id = $(this).data("id");
+                 $("#Id").val(v.id);
+                 $("#Name").val(v.name);
+                 $("#EmailId").val(v.emailId);
+                 $("#MobileNo").val(v.mobileNo);
+                 $("#GSTN").val(v.gstn);
+                 $("#Address").val(v.address);
+                 $("#Location").val(v.location);
+             });
+         });
 
-            $.get("/Vendor/GetVendor?id=" + id, function (v) {
+        $('#vendorTable').on('click', '.deleteBtn', function () {
 
-                $("#formTitle").text("Edit Vendor");
-                $("#btnSave").text("Update");
+             if (!confirm("Are you sure you want to delete this vendor?")) return;
 
-                $("#Id").val(v.id);
-                $("#Name").val(v.name);
-                $("#EmailId").val(v.emailId);
-                $("#MobileNo").val(v.mobileNo);
-                $("#GSTN").val(v.gstn);
-                $("#Address").val(v.address);
-                $("#Location").val(v.location);
-            });
-        });
+             let id = $(this).data("id");
 
-        // ----------------------------------------------------
-        // DELETE
-        // ----------------------------------------------------
-        $(".deleteBtn").click(function () {
-            deleteId = $(this).data("id");
-            $("#deleteModal").modal("show");
-        });
-
-        $("#confirmDelete").click(function () {
-            $.get("/Vendor/Delete?id=" + deleteId, function (res) {
-                alert(res.message);
-                $("#deleteModal").modal("hide");
-                setTimeout(() => location.reload(), 500);
-            });
+             $.get("/Vendor/Delete?id=" + id, function (res) {
+                 alert(res.message);   
+                 setTimeout(() => location.reload(), 500);
+             });
         });
 
     </script>
