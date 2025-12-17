@@ -23,12 +23,12 @@ namespace eOrderTouchApp.Controllers
         [AuthorizeToRoles("Admin")]
         public async Task<IActionResult> Index(int page = 1)
         {
-            int pageSize = 20;
+            //int pageSize = 20;
 
             var data = await _context.TblBusinesses
                         .OrderByDescending(x => x.Id)
-                        .Skip((page - 1) * pageSize)
-                        .Take(pageSize)
+                        //.Skip((page - 1) * pageSize)
+                        //.Take(pageSize)
                         .ToListAsync();
 
             // Drop-down list data

@@ -22,7 +22,10 @@ namespace eOrderTouchApp.Controllers
             int businessId = Convert.ToInt32(User.FindFirst("OrgId")?.Value);
 
             ViewBag.Categories = await _context.TblCategories.Where(w => w.BusinessId == businessId).ToListAsync();
-            var products = await _context.TblProducts.Where(w=>w.BusinessId == businessId).Include(p => p.Category).OrderByDescending(o=>o.Id).ToListAsync();
+            ViewBag.GST = await _context.TblGsts
+            .Where(w => w.BusinessId == businessId)
+            .ToListAsync();
+            var products = await _context.TblProducts.Where(w => w.BusinessId == businessId).Include(p => p.Category).OrderByDescending(o => o.Id).ToListAsync();
             return View(products);
         }
 
@@ -31,6 +34,25 @@ namespace eOrderTouchApp.Controllers
         {
             int businessId = Convert.ToInt32(User.FindFirst("OrgId")?.Value);
 
+            //Checks BarCode 
+            if (!string.IsNullOrWhiteSpace(product.Code))
+            {
+                bool exists = await _context.TblProducts
+                    .AnyAsync(p =>
+                        p.BusinessId == businessId &&
+                        p.Code == product.Code &&
+                        p.Id != product.Id
+                    );
+
+                if (exists)
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = "Barcode already exists in your organization. Please enter a unique barcode."
+                    });
+                }
+            }
 
             if (!string.IsNullOrEmpty(Request.Form["croppedImageData"]))
             {
@@ -49,6 +71,13 @@ namespace eOrderTouchApp.Controllers
                 System.IO.File.WriteAllBytes(filePath, bytes);
                 product.Photo = "/uploads/" + fileName;
             }
+            decimal price = product.Price ?? 0;
+            decimal gstPercent = product.Gstpercentage ?? 0;
+
+            product.Gstamount = Math.Round(
+                (price * gstPercent) / 100,
+                2
+            );
             product.BusinessId = businessId;
             if (product.Id == 0)
             {
@@ -65,6 +94,10 @@ namespace eOrderTouchApp.Controllers
                 existing.RegionalName = product.RegionalName;
                 existing.Price = product.Price;
                 existing.CategoryId = product.CategoryId;
+                existing.Gstpercentage = product.Gstpercentage;
+                existing.Gstamount = product.Gstamount;
+                existing.PurchasePrice = product.PurchasePrice;
+                existing.HSNCode = product.HSNCode;
                 if (product.Photo != null) existing.Photo = product.Photo;
             }
 

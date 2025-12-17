@@ -17,7 +17,7 @@ namespace eOrderTouchApp.Controllers
         public async Task<IActionResult> Index()
         {
             int businessId = Convert.ToInt32(User.FindFirst("OrgId")?.Value);
-            var vendors = await _context.TblVendors.Where(w=>w.BusinessId == businessId).ToListAsync();
+            var vendors = await _context.TblVendors.Where(w => w.BusinessId == businessId).ToListAsync();
             return View(vendors);
         }
 
@@ -29,7 +29,8 @@ namespace eOrderTouchApp.Controllers
             if (!ModelState.IsValid)
                 return BadRequest("Invalid data");
             vendor.BusinessId = businessId;
-            if (vendor.Id == 0)
+            bool isNew = vendor.Id == 0;
+            if (isNew)
             {
                 _context.TblVendors.Add(vendor);
             }
@@ -39,7 +40,10 @@ namespace eOrderTouchApp.Controllers
             }
 
             await _context.SaveChangesAsync();
-            return Ok(new { message = vendor.Id == 0 ? "Vendor created!" : "Vendor updated!" });
+            return Ok(new
+            {
+                message = isNew ? "Saved successfully" : "Updated successfully"
+            });
         }
 
         // GET BY ID (AJAX)
