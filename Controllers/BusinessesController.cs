@@ -27,8 +27,8 @@ namespace eOrderTouchApp.Controllers
 
             var data = await _context.TblBusinesses
                         .OrderByDescending(x => x.Id)
-                        .Skip((page - 1) * pageSize)
-                        .Take(pageSize)
+                        //.Skip((page - 1) * pageSize)
+                        //.Take(pageSize)
                         .ToListAsync();
 
             // Drop-down list data

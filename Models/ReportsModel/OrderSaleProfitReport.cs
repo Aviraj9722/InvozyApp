@@ -1,6 +1,6 @@
 ﻿namespace eOrderTouchApp.Models.ReportsModel
 {
-    public class OrderWiseSaleProfitReport
+    public class OrderSaleProfitReport
     {
         public int? OrderId { get; set; }
         public string? CustomerName { get; set; }
