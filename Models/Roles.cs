@@ -12,6 +12,8 @@ namespace eOrderTouchApp.Models
             List<Roles> rl = new List<Roles>();
             rl.Add(new Roles() { value="Owner", key= "Owner" });
             rl.Add(new Roles() { value = "User", key = "User" });
+            rl.Add(new Roles() { value = "HeadOfficer", key = "HeadOfficer" });
+            
 
             return rl;
         }

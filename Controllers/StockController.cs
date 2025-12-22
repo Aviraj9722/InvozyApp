@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.Blazor;
 using System.Threading.Channels;
 
-[AuthorizeToRoles("Owner")]
+[AuthorizeToRoles("Owner", "HeadOfficer")]
 public class StockController : Controller
 {
     private readonly eOrderTouchContext _context;
