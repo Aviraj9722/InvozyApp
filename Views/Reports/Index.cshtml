@@ -238,19 +238,19 @@
                     });
 
                     // ===== FOOTER HTML =====
-                    table += `<tfoot><tr class="table-secondary fw-bold">`;
+                    table += `<tr class="table-secondary fw-bold">`;
 
                     columns.forEach((col, index) => {
                         if (index === 0) {
-                            table += `<td>Grand Total</td>`;
+                            table += `<th>Grand Total</th>`;
                         } else if (typeof totals[col] === "number" && totals[col] > 0) {
-                            table += `<td>${totals[col]}</td>`;
+                            table += `<th>${totals[col]}</th>`;
                         } else {
-                            table += `<td></td>`;
+                            table += `<th></th>`;
                         }
                     });
 
-                    table += `</tr></tfoot>`;
+                    table += `</tr>`;
 
                 table += "</tbody></table>";
 
@@ -279,8 +279,6 @@
 
     });
 
-
-        
 
         function formatHeaderName(col) {
             // Replace camelCase → snake_case
@@ -312,7 +310,8 @@
         }
 
         // Get ALL rows (ignore pagination)
-        let allData = table.rows({ search: 'applied' }).nodes();
+       // let allData = table.rows({ search: 'applied' }).nodes();
+        let allData = table.rows().nodes();
 
         let printContent = `
             <html>
@@ -330,6 +329,10 @@
                     }
 
                     h3 {
+                        text-align: center;
+                        margin-bottom: 10px;
+                    }
+                    h2 {
                         text-align: center;
                         margin-bottom: 10px;
                     }
@@ -366,22 +369,42 @@
                         .actions {
                             display: none;
                         }
+
+                        body {
+                            margin: 0 !important;
+                            padding: 0 !important;
+                            width: 80mm !important;
+                            -webkit-print-color-adjust: exact !important;
+                            print-color-adjust: exact !important;
+                        }
+
                     }
+
+                    table { width: 100%; border-collapse: collapse; }
+                    td, th { padding: 3px; }
+                    .qty { text-align: center; }
+                    .rate, .total { text-align: right; }
+
+                    .title { font-size: 24px; text-align:center; font-weight:bold; }
+                    .addr { font-size: 18px; text-align:center; }
                 </style>
             </head>
          
 
-                <h3>${$('#reportTitle').text()}</h3>
-
+                <h2>${$('#reportTitle').text()}</h2>
+                        <h3>${$('#fromDate').val()} To ${$('#toDate').val()}</h3>
                 <table>
                     <thead>
                         ${$('#reportTable thead').html()}
                     </thead>
                     <tbody>
                         ${$(allData).clone().wrapAll('<div>').parent().html()}
+
                     </tbody>
                 </table>
-
+                <br>
+                <h3>~~~ Thank you ~~~</h3>
+                <br> <br>
                 <div class="actions">
                     <button onclick="window.print()">🖨 Print</button>
                     <button onclick="window.close()">❌ Close</button>
