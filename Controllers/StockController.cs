@@ -21,23 +21,17 @@ public class StockController : Controller
         int businessId = Convert.ToInt32(User.FindFirst("OrgId")?.Value);
 
         var products =  _context.TblProducts.Where(w => w.BusinessId == businessId).ToList();
-        
-        LoadVendors();
+
+
+        List<ProductStockLine> data = _context.Database.SqlQueryRaw<ProductStockLine>("select P.id as ProductId,P.Name as ProductName,dbo.fn_getStock(P.Id,P.BusinessId) as AvailableStock,0 as NewQuantity from tblProduct as P where BusinessId =" + businessId).ToList();
+       
+            
+            LoadVendors();
 
         var vm = new StockPurchaseVM
         {
             PurchaseDate = DateTime.Now,
-            Products = _context.TblProducts
-            .Where(p => p.BusinessId == businessId)
-            .Select(p => new ProductStockLine
-            {
-                ProductId = p.Id,
-                ProductName = p.Name,
-                AvailableStock =
-                    (_context.TblPODetails.Where(x => x.ProductId == p.Id).Sum(x => (int?)x.Quantity) ?? 0)
-                    -
-                    (_context.TblOrderDetails.Where(x => x.ProductId == p.Id).Sum(x => (int?)x.Qty) ?? 0)
-            }).ToList()
+            Products = data
         };
 
         return View(vm);

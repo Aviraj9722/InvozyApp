@@ -1665,7 +1665,7 @@
                 contentType: 'application/json',
                 data: JSON.stringify(order),
                 success: function (res) {
-
+                    debugger;
                     if (res.success) {
                          
 
@@ -1747,7 +1747,7 @@
                                 try {
 
                                     if ('@Org.PrinterSizeId' == '2') {
-                                        debugger;
+                                        
                                                 if('@Org.IsMultilengual'.toLowerCase()=='true')
                                                  {
                                                     printReceipt80mm_Regional(
@@ -1836,6 +1836,7 @@
                     }
                 },
                 error: function (err) {
+                    debugger;
                     alert("Save order failed.");
                     $('#checkoutBtn, #checkoutBtnDesktop').prop('disabled', false);
                 }
