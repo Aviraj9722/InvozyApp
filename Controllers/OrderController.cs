@@ -33,6 +33,9 @@ public class OrderController : Controller
         public bool isPaymentDone { get; set; }
         public bool isPrinted { get; set; }
 
+        public decimal discountPercent { get; set; }   // NEW
+        public decimal discountedPrice { get; set; }   // NEW
+
         public List<OrderItemDto> items { get; set; }
     }
 
@@ -339,7 +342,14 @@ public class OrderController : Controller
             }
         }
 
+        // decimal grandTotal = orderDto.items.Sum(x => x.price * x.qty);
+
         decimal grandTotal = orderDto.items.Sum(x => x.price * x.qty);
+
+        decimal discountPercent = orderDto.discountPercent;
+        decimal discountAmount = (grandTotal * discountPercent) / 100;
+        decimal discountedPrice = grandTotal - discountAmount;
+
 
         // ----------------------------------------------------------
         // UPDATE EXISTING ORDER
@@ -365,12 +375,19 @@ public class OrderController : Controller
                     existingMaster.PaymentMode = orderDto.paymentMode;
                     existingMaster.PaymentStatus = orderDto.isPaymentDone;
                     existingMaster.Printed = orderDto.isPrinted;
-                    existingMaster.GrandTotal = grandTotal;
-                    existingMaster.TotalAmount = grandTotal;
+                  
+                   
+               
                     existingMaster.Gsttotal = 0;
                     existingMaster.DateOfOrder = istNow;
                     existingMaster.UserId = UserId;
                     existingMaster.CreatedOn = istNow;
+
+                  
+                    existingMaster.TotalAmount = grandTotal;      // ORIGINAL total
+                    existingMaster.DiscountPercent = (float)discountPercent;
+                    existingMaster.DiscountedPrice = (float)discountedPrice;
+                    existingMaster.GrandTotal = discountedPrice;   // PAYABLE amount
 
                     // NEW KOT LIST (TblKOTDetails)
                     List<TblKOTDetail> kotList = new List<TblKOTDetail>();
@@ -517,8 +534,12 @@ public class OrderController : Controller
         {
             CustomerName = orderDto.customerName,
             DateOfOrder = istNow,
-            GrandTotal = grandTotal,
-            TotalAmount = grandTotal,
+
+            TotalAmount = grandTotal,        // BEFORE discount
+            DiscountPercent = (float)discountPercent,
+            DiscountedPrice = (float)discountedPrice,
+            GrandTotal = discountedPrice,     // AFTER discount
+
             Gsttotal = 0,
             PaymentStatus = orderDto.isPaymentDone,
             Printed = orderDto.isPrinted,
