@@ -43,4 +43,8 @@ public partial class TblProduct
     public virtual TblUser? User { get; set; }
 
     public ICollection<TblPODetails>? PODetails { get; set; }
+
+    public string? HSNCode { get; set; }
+
+    public decimal? PurchasePrice { get; set; }
 }
