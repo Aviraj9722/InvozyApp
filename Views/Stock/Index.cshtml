@@ -1,12 +1,41 @@
 ﻿@using eOrderTouchApp.ViewModel
 @model StockPurchaseVM
 
+@{
+    var selectedBusinessId = Context.Request.Query["selectedbusinessId"].ToString();
+}
 <div class="card p-3">
 
+    @if (User.IsInRole("HeadOfficer"))
+    {
+        <div class="mb-3 d-flex align-items-center">
+            
+            @if (User.IsInRole("HeadOfficer"))
+            {
+                <div style="display: flex;">
+                    <span style="margin-top: 7px;margin-right: 9px;">Selected Branch/Unit:</span>
+
+                    <select id="stockBusinessDropdown" style="font-weight:800" class="form-select w-auto">
+
+                        @foreach (var u in ViewBag.Units)
+                        {
+                            <option value="@u.Id"
+                                    selected="@(u.Id.ToString() == selectedBusinessId)">
+                                @u.BusinessName
+                            </option>
+                        }
+                    </select>
+
+                </div>
+
+            }
+        </div>
+    }
     <h3>Material Purchase</h3>
 
     <form method="post" asp-action="Save">
-
+    <input type="hidden" name="SelectedBusinessId" id="SelectedBusinessId" />
+    
         <div class="row mb-3">
             <div class="col-md-3">
                 <label>Invoice No</label>
@@ -76,11 +105,29 @@
 @section Scripts{
 
     <script>
+            $(document).ready(function () {
+            let currentBusinessId = $('#stockBusinessDropdown').val();
+            $('#SelectedBusinessId').val(currentBusinessId);
+        });
+        
         $("#searchProduct").on("keyup", function () {
             var value = $(this).val().toLowerCase();
             $("#stockTable tbody tr").filter(function () {
                 $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
             });
         });
+
+        let selectedBusinessId = null;
+
+        $('#stockBusinessDropdown').on('change', function () {
+
+        let selectedBusinessId = $(this).val();
+
+            if (selectedBusinessId) {
+            $('#SelectedBusinessId').val(selectedBusinessId);
+            window.location.href = `/Stock/Index?selectedbusinessId=${selectedBusinessId}`;
+            }
+        });
+
     </script>
 }

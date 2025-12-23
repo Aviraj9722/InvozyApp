@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.Blazor;
 using System.Threading.Channels;
 
-[AuthorizeToRoles("Owner")]
+[AuthorizeToRoles("Owner", "HeadOfficer")]
 public class StockController : Controller
 {
     private readonly eOrderTouchContext _context;
@@ -16,17 +16,40 @@ public class StockController : Controller
         _context = context;
     }
 
-    public IActionResult Index()
+    public IActionResult Index(int selectedbusinessId = 0)
     {
-        int businessId = Convert.ToInt32(User.FindFirst("OrgId")?.Value);
+        int userId = Convert.ToInt32(User.FindFirst("UserId")?.Value);
 
-        var products =  _context.TblProducts.Where(w => w.BusinessId == businessId).ToList();
+        if (_context.TblUsers.Find(userId).Role == "HeadOfficer")
+        {
+            var units = _context.TblHOUnits
+           .Where(x => x.UserId == userId)
+           .Include(x => x.Business)
+           .Select(x => new
+           {
+               x.Business.Id,
+               x.Business.BusinessName,
+               x.Business.Address
+           })
+           .ToList();
 
+            ViewBag.Units = units;
+        }
+        int businessId;
+        if (User.IsInRole("HeadOfficer"))
+        {
+            businessId = selectedbusinessId; // dropdown only
+        }
+        else
+        {
+            businessId = Convert.ToInt32(User.FindFirst("OrgId")!.Value);
+        }
+
+        var products = _context.TblProducts.Where(w => w.BusinessId == businessId).ToList();
 
         List<ProductStockLine> data = _context.Database.SqlQueryRaw<ProductStockLine>("select P.id as ProductId,P.Name as ProductName,dbo.fn_getStock(P.Id,P.BusinessId) as AvailableStock,0 as NewQuantity from tblProduct as P where BusinessId =" + businessId).ToList();
-       
-            
-            LoadVendors();
+
+        LoadVendors(businessId);
 
         var vm = new StockPurchaseVM
         {
@@ -38,11 +61,11 @@ public class StockController : Controller
     }
 
     [HttpPost]
-    public IActionResult Save(StockPurchaseVM model)
+    public IActionResult Save(StockPurchaseVM model, int? SelectedBusinessId)
     {
-        LoadVendors();
-        int businessId = Convert.ToInt32(User.FindFirst("OrgId")?.Value);
-
+        int businessId = SelectedBusinessId?? Convert.ToInt32(User.FindFirst("OrgId")?.Value);
+        LoadVendors(businessId);
+       
         // 1️⃣ Create PO Master for this invoice
         var po = new TblPOMaster
         {
@@ -88,7 +111,7 @@ public class StockController : Controller
         _context.SaveChanges();
 
         TempData["Success"] = "Stock updated successfully!";
-        return RedirectToAction("Index");
+        return RedirectToAction("Index", new { selectedbusinessId = businessId });
     }
 
     private void ReloadProducts(StockPurchaseVM model)
@@ -107,14 +130,11 @@ public class StockController : Controller
     }
 
 
-
-    private void LoadVendors()
+    private void LoadVendors(int businessId)
     {
-        int businessId = Convert.ToInt32(User.FindFirst("OrgId")?.Value);
-
-        ViewBag.Vendors = new SelectList(_context.TblVendors.Where(w => w.BusinessId == businessId).ToList(), "Id", "Name");
-
-
+        ViewBag.Vendors = new SelectList(
+            _context.TblVendors.Where(w => w.BusinessId == businessId),
+            "Id", "Name");
     }
 
 

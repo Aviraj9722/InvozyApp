@@ -1,5 +1,6 @@
 ﻿@{
     var reports = ViewBag.Reports as List<eOrderTouchApp.Models.TblReports>;
+    var units = ViewBag.Units as IEnumerable<dynamic>;
 }
 
 <style>
@@ -13,11 +14,11 @@
         font-size: 16px;
     }
 
-        .report-list h5 {
-            font-size: 20px;
-            font-weight: 600;
-            color: #2c3e50;
-        }
+    .report-list h5 {
+        font-size: 20px;
+        font-weight: 600;
+        color: #2c3e50;
+    }
 
     .report-item {
         padding: 8px 10px;
@@ -26,14 +27,14 @@
         transition: background 0.3s;
     }
 
-        .report-item:hover {
-            background: #dbeafe;
-        }
+    .report-item:hover {
+        background: #dbeafe;
+    }
 
-        .report-item input {
-            margin-right: 8px;
-            transform: scale(1.2);
-        }
+    .report-item input {
+        margin-right: 8px;
+        transform: scale(1.2);
+    }
 
     /* RIGHT PANEL */
     #reportTitle {
@@ -98,7 +99,29 @@
     <!-- RIGHT SIDE -->
     <div class="col-md-9">
 
-        <h4 id="reportTitle">Report Output</h4>
+        <div class="d-flex justify-content-between align-items-center">
+            <h4 id="reportTitle">Report Output</h4>
+
+
+            @if (User.IsInRole("HeadOfficer") && units != null)
+            {
+                <div style="display: flex;">
+                    <span style="margin-top: 7px;margin-right: 9px;">Selected Branch/Unit:</span>
+                 
+                        <select id="unitDropdown" style="font-weight:800" class="form-select w-auto">
+
+                            @foreach (var u in units)
+                            {
+                                <option value="@u.Id">@u.BusinessName</option>
+                            }
+                        </select>
+                 
+                </div>
+
+
+            }
+       
+        </div>
         <hr />
 
         <!-- STATIC DATE FILTERS -->
@@ -148,6 +171,7 @@
             let today = new Date().toISOString().split('T')[0];
             $('#fromDate').val(today);
             $('#toDate').val(today);
+            let selectedBusinessId = null;
 
             // ✅ Auto select "Item Sale Reports"
             let defaultReport = $('.report-radio').filter(function () {
@@ -184,6 +208,7 @@
             var reportId = $("input[name='reportType']:checked").val();
             var fromDate = $("#fromDate").val();
             var toDate = $("#toDate").val();
+                var BID = $("#unitDropdown").val();
 
 
             if (!reportId) {
@@ -197,7 +222,8 @@
             data: {
                 reportName: reportId,
                 fromDate: fromDate,
-                toDate: toDate
+                toDate: toDate,
+                    selectedbusinessId: Number(BID)
             },
             success: function (result) {
                 debugger;

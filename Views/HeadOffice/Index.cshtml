@@ -1,0 +1,377 @@
+﻿@model IEnumerable<eOrderTouchApp.Models.TblUser>
+
+<h3>Manage Head Office Users -<u>@ViewBag.OrgName</u> </h3>
+<br />
+
+<link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+
+<style>
+    .dataTables_wrapper .dataTables_length,
+    .dataTables_wrapper .dataTables_filter {
+        display: flex !important;
+        align-items: center !important;
+        gap: 10px !important;
+        margin-bottom: 15px !important;
+    }
+
+    .dataTables_length select {
+        padding-right: 28px !important;
+        padding-left: 6px !important;
+        height: 32px;
+    }
+
+    .dataTables_wrapper .dataTables_filter input {
+        margin-left: 6px !important;
+    }
+
+    .dataTables_wrapper .dataTables_paginate {
+        margin-top: 12px !important;
+    }
+</style>
+
+<div class="container-fluid mt-3">
+
+    <div class="row">
+        <!-- Left Side: Form (30%) -->
+        <div class="col-md-4">
+            <h5 id="formTitle">Add/Edit User</h5>
+            <form id="hoForm" novalidate>
+                <input type="hidden" id="userId" />
+
+                <div class="mb-2">
+                    <label class="form-label">Name</label>
+                    <input type="text" id="name" class="form-control" required />
+                    <span class="text-danger" id="err_Name"></span>
+                </div>
+                <div class="mb-2">
+                    <label class="form-label">Email</label>
+                    <input type="text" id="emailid" class="form-control" required />
+                    <span class="text-danger" id="err_Email"></span>
+                </div>
+                <div class="mb-2">
+                    <label class="form-label">Mobile No.</label>
+                    <input type="text" id="mobilenumber" class="form-control" required />
+                    <span class="text-danger" id="err_Mobile"></span>
+                </div>
+                <div class="mb-2">
+                    <label class="form-label">Role</label>
+                    <input type="text" class="form-control" value="HeadOfficer" disabled />
+                </div>
+                
+                <div class="mb-2">
+                    <label class="form-label">Map Business</label>
+
+                    <div class="dropdown">
+                        <button class="btn btn-outline-secondary dropdown-toggle w-100"
+                                type="button"
+                                data-bs-toggle="dropdown">
+                            Select Businesses
+                        </button>
+
+                        <ul class="dropdown-menu w-100 p-2" style="max-height:250px; overflow:auto;">
+
+                            <!-- 🔍 Search box -->
+                            <li class="mb-2">
+                                <input type="text"
+                                       class="form-control form-control-sm"
+                                       id="businessSearch"
+                                       placeholder="Search business or location..." />
+                            </li>
+
+                            <!-- Business List -->
+                            @foreach (var b in ViewBag.AllBusinesses)
+                            {
+                                <li class="business-item">
+                                    <div class="form-check">
+                                        <input class="form-check-input businessChk"
+                                               type="checkbox"
+                                               value="@b.Id"
+                                               id="biz_@b.Id">
+
+                                        <label class="form-check-label w-100" for="biz_@b.Id">
+                                            <strong>@b.BusinessName</strong><br />
+                                            <small class="text-muted">@b.City</small>
+                                        </label>
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="mb-2">
+                    <label class="form-label">Is Active?</label><br />
+                    <input type="checkbox" id="isactive" class="form-check-control" />
+                </div>
+                <div class="mb-2">
+                    <label class="form-label">Username</label>
+                    <input type="text" id="username" class="form-control" required />
+                    <span class="text-danger" id="err_Username"></span>
+                </div>
+                <div class="mb-2">
+                    <label class="form-label">Password</label>
+                    <input type="password" id="password" class="form-control" required />
+                    <span class="text-danger" id="err_Password"></span>
+                </div>
+
+                <div class="d-grid gap-2 mt-3">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-outline-secondary" id="btnClear">Clear</button>
+                </div>
+
+            </form>
+        </div>
+
+        <!-- Right Side: Table (70%) -->
+        <div class="col-md-8">
+            <div class="card shadow-sm p-3">
+                <table id="HouserTable" class="table table-bordered table-striped w-100">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>EmailId</th>
+                            <th>Mobile Number</th>
+                            
+                            <th>Is Active?</th>
+                            <th>UserName</th>
+                            <th>Password</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="HouserTableBody">
+                        @foreach (var user in Model)
+                        {
+                            <tr>
+                                <td>@user.Id</td>
+                                <td>@user.Name</td>
+                                <td>@user.EmailId</td>
+                                <td>@user.MobileNumber</td>
+                                
+                                <td>@user.IsActive</td>
+
+                                <td>@user.UserName</td>
+                                <td>@user.Password</td>
+                                <td>
+                                    <div class="d-grid gap-2">
+
+                                        <button class="btn btn-sm btn-primary editUser"
+                                                data-id="@user.Id"
+                                                data-name="@user.Name"
+                                                data-email="@user.EmailId"
+                                                data-mobile="@user.MobileNumber"
+                                                
+                                                data-active="@user.IsActive"
+                                                data-username="@user.UserName"
+                                                data-password="@user.Password">
+                                            Edit
+                                        </button>
+
+                                        <button class="btn btn-sm btn-danger deleteUser" data-id="@user.Id">
+                                            Delete
+                                        </button>
+
+                                        <a href="/UserLicense/Index/@user.Id" class="btn btn-sm btn-success">
+                                            Licenses
+                                        </a>
+                                    </div>
+
+
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+
+            // Initialize DataTable
+            let table = $("#HouserTable").DataTable({
+                pageLength: 10,
+                responsive: true,  
+                columnDefs: [
+                    {
+                        targets: 0,
+                        render: function (data, type, row, meta) {
+                            return meta.row + 1; // Auto row number
+                        }
+                    }
+                ]
+            });
+
+            // ====== LIVE VALIDATION CLEARING ======
+            $("#name").on("input", function () { $("#err_Name").text(""); });
+            $("#emailid").on("input", function () { $("#err_Email").text(""); });
+            $("#mobilenumber").on("input", function () { $("#err_Mobile").text(""); });
+            $("#username").on("input", function () { $("#err_Username").text(""); });
+            $("#password").on("input", function () { $("#err_Password").text(""); });
+
+            //Validation on User Form
+           function validatehoForm() {
+            let valid = true;
+
+            // Clear previous errors
+            $("#err_Name, #err_Email, #err_Mobile, #err_Username, #err_Password").text("");
+
+            // Get field values
+            let name = $("#name").val().trim();
+            let email = $("#emailid").val().trim();
+            let mobile = $("#mobilenumber").val().trim();
+            let username = $("#username").val().trim();
+            let password = $("#password").val().trim();
+
+            // Name validation
+            if (name === "") {
+                $("#err_Name").text("Name is required");
+                valid = false;
+            }
+
+            // Email validation
+            let emailPattern = /^[^\s@@]+@@[^\s@@]+\.[^\s@@]+$/;
+            if (email === "") {
+                $("#err_Email").text("Email is required");
+                valid = false;
+            } else if (!emailPattern.test(email)) {
+                $("#err_Email").text("Invalid email format");
+                valid = false;
+            }
+
+            // Mobile validation
+            let mobilePattern = /^[0-9]{10}$/;
+            if (mobile === "") {
+                $("#err_Mobile").text("Mobile number is required");
+                valid = false;
+            } else if (!mobilePattern.test(mobile)) {
+                $("#err_Mobile").text("Mobile must be 10 digits");
+                valid = false;
+            }
+
+            // Username validation
+            if (username === "") {
+                $("#err_Username").text("Username is required");
+                valid = false;
+            }
+
+            // Password validation
+            if (password === "") {
+                $("#err_Password").text("Password is required");
+                valid = false;
+            }
+
+            return valid;
+        }
+
+            // Save User
+            $('#hoForm').submit(function (e) {
+                debugger;
+            e.preventDefault();
+
+            if (!validatehoForm()) {
+                return; // Stop if validation fails
+            }
+
+            let businessIds  = [];
+            $('.businessChk:checked').each(function () {
+                businessIds .push(parseInt($(this).val()));
+            });
+
+            let user = {
+                Id: $('#userId').val() ? parseInt($('#userId').val()) : 0,
+                Name: $('#name').val(),
+                EmailId: $('#emailid').val(),
+                MobileNumber: $('#mobilenumber').val(),
+                IsActive: $('#isactive').is(':checked'),
+                UserName: $('#username').val(),
+                Password: $('#password').val(),
+                // BusinessIds: businessIds   
+            };
+
+
+            let url = user.Id == 0 ? '/HeadOffice/Create' : '/HeadOffice/Edit';
+
+            let payload = {
+                user: user,
+                businessIds: businessIds
+            }
+            console.log(JSON.stringify(payload));
+            $.ajax({
+                url: url,
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(payload),
+                success: function (res) {
+                    if (res.success) location.reload();
+                    else alert(res.message);
+                },
+                    error: function (err) {
+                console.error("AJAX ERROR:", err.responseText);
+                }
+            });
+
+        });
+
+
+            // Edit User
+           $('#HouserTable').on('click', '.editUser', function () {
+
+                let userId = $(this).data('id');
+
+                $('.businessChk').prop('checked', false);
+
+                $.get('/HeadOffice/GetUserBusinesses/' + userId, function (bizIds) {
+                    bizIds.forEach(id => {
+                        $('#biz_' + id).prop('checked', true);
+                    });
+                });
+                
+                $('#userId').val(userId);
+                $('#name').val($(this).data('name'));
+                $('#emailid').val($(this).data('email'));
+                $('#mobilenumber').val($(this).data('mobile'));
+                
+                $('#isactive').prop('checked', $(this).data('active'));
+                $('#username').val($(this).data('username'));
+                $('#password').val($(this).data('password'));
+          });
+
+
+            // Delete User
+            $('#HouserTable').on('click', '.deleteUser',function () {
+                if (!confirm('Do you want to delete this user?')) return;
+
+                let id = $(this).data('id');
+
+                $.post('/HeadOffice/Delete', { id: id }, function (res) {
+                    if (res.success) location.reload();
+                    else alert(res.message);
+                });
+            });
+
+            //  Business dropdown search
+            $('#businessSearch').on('keyup', function () {
+                let value = $(this).val().toLowerCase();
+
+                $('.business-item').filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                });
+            });
+
+
+        });
+    </script>
+}
+

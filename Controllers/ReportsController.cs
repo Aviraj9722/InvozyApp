@@ -19,6 +19,24 @@ namespace eOrderTouchApp.Controllers
 
         public IActionResult Index()
         {
+            int userId = Convert.ToInt32(User.FindFirst("UserId")?.Value);
+
+            if (_context.TblUsers.Find(userId).Role=="HeadOfficer")
+            {
+                var units =  _context.TblHOUnits
+               .Where(x => x.UserId == userId)
+               .Include(x => x.Business)
+               .Select(x => new
+               {
+                   x.Business.Id,
+                   x.Business.BusinessName,
+                   x.Business.Address
+               })
+               .ToList();
+
+                ViewBag.Units = units;
+            }
+
             ViewBag.Reports = _context.TblReports.ToList();
             return View();
         }
@@ -34,12 +52,12 @@ namespace eOrderTouchApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> GenerateReport(string reportName, DateTime? fromDate, DateTime? toDate)
+        public async Task<IActionResult> GenerateReport(string reportName, DateTime? fromDate, DateTime? toDate, int selectedbusinessId=0)
         {
             try
             {
 
-                int businessId = Convert.ToInt32(User.FindFirst("OrgId")?.Value);
+                int businessId = selectedbusinessId >0? selectedbusinessId :Convert.ToInt32(User.FindFirst("OrgId")?.Value);
 
                 if (fromDate == null || toDate == null)
                     return BadRequest("Dates cannot be empty!");

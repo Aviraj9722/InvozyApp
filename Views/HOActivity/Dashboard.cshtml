@@ -1,0 +1,124 @@
+﻿@{
+    ViewData["Title"] = "Head Office Dashboard";
+}
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+<style>
+    footer {
+        display: none;
+    }
+
+    .dashboard-card {
+        border-radius: 18px;
+        background: #1e1e1e;
+        transition: all 0.25s ease-in-out;
+        box-shadow: 0px 4px 12px rgba(0,0,0,0.25);
+    }
+
+    /* ===== HO DASHBOARD CARD COLORS ===== */
+    .dash-col:nth-child(1) .dashboard-card {
+        background: #2c3e50; /* Unit Pune */
+    }
+
+    .dash-col:nth-child(2) .dashboard-card {
+        background: #1f4b99; /* Unit Mumbai */
+    }
+
+    .dash-col:nth-child(3) .dashboard-card {
+        background: #6a1b9a; /* Unit Bengaluru */
+    }
+
+    .dash-col:nth-child(4) .dashboard-card {
+        background: #004d40; /* Unit Kolkata */
+    }
+
+    .dash-col:nth-child(5) .dashboard-card {
+        background: #1b5e20; /* All Reports */
+    }
+
+    .dash-col:nth-child(6) .dashboard-card {
+        background: #880e4f; /* Logout */
+    }
+
+
+    .dashboard-card:hover {
+        transform: scale(1.03);
+    }
+
+    .dashboard-card i,
+    .dashboard-card h6 {
+        color: #ffffff !important;
+    }
+
+    .dash-col {
+        width: 33.33%;
+        max-width: 33.33%;
+        padding: 5px;
+    }
+
+    @@media (max-width: 768px) {
+        .dash-col
+
+    {
+        width: 50%;
+        max-width: 50%;
+    }
+
+    .dashboard-card {
+        height: 135px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    }
+</style>
+
+
+<div class="container-fluid py-4">
+    <h3 class="text-center fw-bold text-primary mb-4">
+        Head Office Dashboard
+    </h3>
+
+    <div class="row justify-content-center g-3">
+
+        <!-- Branch Stock -->
+        <div class="dash-col mobile-col">
+            <a asp-controller="Stock" asp-action="Index" class="text-decoration-none">
+                <div class="dashboard-card text-center shadow-sm border-0">
+                    <div class="card-body p-3">
+                        <i class="fas fa-warehouse fa-2x  mb-2"></i>
+                        <h6 class="fw-semibold  mb-0">Branch Stock</h6>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+
+        <!-- ===== Branch REPORTS ===== -->
+        <div class="dash-col mobile-col">
+            <a asp-controller="Reports" asp-action="Index" class="text-decoration-none">
+                <div class="dashboard-card text-center">
+                    <div class="card-body p-3">
+                        <i class="fas fa-chart-line fa-2x mb-2"></i>
+                        <h6 class="fw-semibold mb-0">Branch Reports</h6>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- ===== LOGOUT ===== -->
+        <div class="dash-col mobile-col mb-5">
+            <a asp-controller="Account" asp-action="Logout" class="text-decoration-none">
+                <div class="dashboard-card text-center">
+                    <div class="card-body p-3">
+                        <i class="fas fa-sign-out-alt fa-2x mb-2"></i>
+                        <h6 class="fw-semibold mb-0">Logout</h6>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+    </div>
+</div>

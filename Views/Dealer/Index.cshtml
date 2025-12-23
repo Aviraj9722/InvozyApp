@@ -33,23 +33,6 @@
     .dataTables_wrapper .dataTables_paginate {
         margin-top: 12px !important;
     }
-
-    /* Force horizontal grid lines */
-    #dealerTable tbody tr {
-        border-bottom: 1px solid #dee2e6;
-    }
-
-    /* Optional: top border for header separation */
-    #dealerTable thead th {
-        border-bottom: 2px solid #343a40;
-    }
-
-    /* Ensure table cells show borders properly */
-    #dealerTable th,
-    #dealerTable td {
-        border-top: 1px solid #dee2e6 !important;
-    }
-
 </style>
 
 <div class="row">
@@ -113,8 +96,12 @@
 
     <!-- RIGHT SIDE GRID -->
     <div class="col-md-8">
+       @*  <div class="card p-3 shadow-sm ">
+            
+            <table id="dealerTable" class="table table-bordered table-striped">
+                <thead class="table-dark"> *@
         <div class="card-body" id="gridContainer" style="overflow-x:auto;">
-            <table class="table table-bordered datatable table-striped" id="dealerTable">
+            <table class="table table-bordered datatable" id="dealerTable">
                 <thead class="table-dark">
                     <tr>
                         <th style="width: 150px;">Action</th>

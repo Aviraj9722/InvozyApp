@@ -51,9 +51,14 @@ namespace eOrderTouchApp.Controllers
 
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);
 
+                if (user.Role == "HeadOfficer")
+                {
+                    return RedirectToAction("Dashboard", "HOActivity");
+                }
 
                 return RedirectToAction("Dashboard", "Home");
             }
+            
 
             ViewBag.Message = "Invalid username or password";
             return View();

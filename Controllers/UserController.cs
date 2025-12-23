@@ -91,7 +91,7 @@ namespace eOrderTouchApp.Controllers
 
             // === DUPLICATE CHECK WHILE EDIT ===
             bool emailExists = await _context.TblUsers
-        .AnyAsync(u => u.BussinessId == orgId
+            .AnyAsync(u => u.BussinessId == orgId
                     && u.EmailId == user.EmailId
                     && u.Id != user.Id);
 
