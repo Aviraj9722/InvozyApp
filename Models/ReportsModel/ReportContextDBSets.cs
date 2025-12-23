@@ -15,6 +15,17 @@ namespace eOrderTouchApp.Models
         public DbSet<CustomerSaleReportModel> CustomerSaleReports { get; set; }
         public DbSet<CustomerAreaSaleReport> CustomerAreaSaleReports { get; set; }
         public DbSet<CustomerCreditSaleReport> CustomerCreditSaleReports { get; set; }
+        public DbSet<ItemSaleProfitReport> ItemSaleProfitReports { get; set; }
+        public DbSet<OrderSaleProfitReport> OrderSaleProfitReports { get; set; }
+        public DbSet<SaleProfitReport> SaleProfitReports { get; set; }
+        public DbSet<MaterialListReportModel> MaterialSaleReportModels { get; set; }
+        public DbSet<BillCancellationReportModel> BillCancellationReports { get; set; }
+        public DbSet<CustomerListReportModel> CustomerListReportModels { get; set; }
+        public DbSet<VendorListReportModel> VendorListReportModels { get; set; }
+        public DbSet<DateWiseSaleReportModel> DateWiseSaleReportModels { get; set; }
+        public DbSet<DateWiseSaleProfitReportModel> DateWiseSaleProfitReports { get; set; }
+        public DbSet<StockReportModel> StockReportModels { get; set; }
+        public DbSet<OrderDiscountReportModel> OrderDiscountReportModels { get; set; }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder)
         {
@@ -28,6 +39,21 @@ namespace eOrderTouchApp.Models
 
             modelBuilder.Entity<CustomerAreaSaleReport>().HasNoKey();
             modelBuilder.Entity<CustomerCreditSaleReport>().HasNoKey();
+
+            modelBuilder.Entity<ItemSaleProfitReport>().HasNoKey();
+            modelBuilder.Entity<OrderSaleProfitReport>().HasNoKey();
+            modelBuilder.Entity<SaleProfitReport>().HasNoKey();
+
+            modelBuilder.Entity<MaterialListReportModel>().HasNoKey();
+            modelBuilder.Entity<BillCancellationReportModel>().HasNoKey();
+            modelBuilder.Entity<CustomerListReportModel>().HasNoKey();
+            modelBuilder.Entity<VendorListReportModel>().HasNoKey();
+            modelBuilder.Entity<DateWiseSaleReportModel>().HasNoKey();
+            modelBuilder.Entity<DateWiseSaleProfitReportModel>().HasNoKey();
+            modelBuilder.Entity<StockReportModel>().HasNoKey();
+            modelBuilder.Entity<OrderDiscountReportModel>().HasNoKey();
+
+
         }
         private static readonly Dictionary<string, Type> ReportsModel = new()
         {
@@ -38,7 +64,19 @@ namespace eOrderTouchApp.Models
             { "Category Sale Reports", typeof(CategorySaleModel) },
             { "Customer Sale Reports", typeof(CustomerSaleReportModel) },
             { "Customer Area Sale Reports", typeof(CustomerAreaSaleReport) },
-            { "Customer Credit Sale Reports", typeof(CustomerCreditSaleReport) }
+            { "Customer Credit Sale Reports", typeof(CustomerCreditSaleReport) },
+            { "Item Sale Profit Reports", typeof(ItemSaleProfitReport) },
+            { "Order Sale Profit Reports", typeof(OrderSaleProfitReport) },
+            { "Sale Profit Reports", typeof(SaleProfitReport) },
+            { "MaterialList Reports", typeof(MaterialListReportModel) },
+            { "Bill Cancellation Reports", typeof(BillCancellationReportModel) },
+            { "CustomerList Reports", typeof(CustomerListReportModel) },
+            { "VendorList Reports", typeof(VendorListReportModel) },
+            { "Date-Wise Sale Reports", typeof(DateWiseSaleReportModel) },
+            { "Date-Wise Sale Profit Reports", typeof(DateWiseSaleProfitReportModel) },
+            { "Stock Reports", typeof(StockReportModel) },
+            { "Order Discount Reports", typeof(OrderDiscountReportModel) },
+
 
         };
 

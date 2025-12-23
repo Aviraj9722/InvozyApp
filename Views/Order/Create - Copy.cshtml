@@ -1116,6 +1116,10 @@
             // -------- RAWBT PRINT --------
             const encoded = btoa(unescape(encodeURIComponent(receipt)));
             window.location.href = "rawbt:base64," + encoded;
+
+            if (confirm("This receipt has already been printed.\nDo you want to re-print it?")) {
+                 window.location.href = "rawbt:base64," + encoded;
+            }
         }
 
         function printKotText_Regional(kotArray,TableName) {
@@ -1668,23 +1672,39 @@
                                                         tableNo
                                                         );
                                                  }
-                                     
-
-                                      
 
                                     } else {
-                                        printPlainReceipt58mm(
-                                            '@Org.BusinessName',
-                                            '@Org.Address',
-                                            res.orderId,
-                                            new Date().toLocaleString(),
-                                            order.customerName,
-                                            order.items,
-                                            0,
-                                            '@Org.MobileNo',
-                                            paymentMode,
-                                            tableNo
-                                        );
+
+                                                        if('@Org.IsMultilengual'.toLowerCase()=='true')
+                                                         {
+                                                                    printPlainReceipt58mm_Regional(
+                                                                        '@Org.BusinessName',
+                                                                        '@Org.Address',
+                                                                        res.orderId,
+                                                                        new Date().toLocaleString(),
+                                                                        order.customerName,
+                                                                        order.items,
+                                                                        0,
+                                                                        '@Org.MobileNo',
+                                                                        paymentMode,
+                                                                        tableNo
+                                                                    );
+                                                         }else
+                                                         {
+
+                                                            printPlainReceipt58mm(
+                                                                '@Org.BusinessName',
+                                                                '@Org.Address',
+                                                                res.orderId,
+                                                                new Date().toLocaleString(),
+                                                                order.customerName,
+                                                                order.items,
+                                                                0,
+                                                                '@Org.MobileNo',
+                                                                paymentMode,
+                                                                tableNo
+                                                            );
+                                                         }
                                     }
 
                                 } catch (er) {
@@ -1915,7 +1935,25 @@ function printReceipt80mm_Regional(
     orgTitle, address, invoiceNo, date, customerName,
     productList, grandTotal = 0, Contact, Mode, TableNo
 ) {
-    const cleanDate = date.split(":").slice(0, 2).join(":");
+    debugger;
+        const cleanDate = date.split(":").slice(0, 2).join(":");
+
+        let GrandTotalLabel = '@Org.CounterPrinterName'.toLowerCase()  != 'marathi'? 'Total:': 'एकूण:';
+        let ThankYouLabel = '@Org.CounterPrinterName'.toLowerCase()  != 'marathi'? 'Thank you, visit again!': 'धन्यवाद, पुन्हा भेट द्या!';
+        let TableNoLabel = '@Org.CounterPrinterName'.toLowerCase()  != 'marathi'? 'Table:': 'टेबल क्रमांक:';
+
+        let InvoiceLabel = '@Org.CounterPrinterName'.toLowerCase() != 'marathi'? 'Invoice:': 'चलन क्रमांक:';
+
+        let CustomerNameLabel = '@Org.CounterPrinterName'.toLowerCase()  != 'marathi'? 'Name:': 'ग्राहक:';
+        let DateLabel = '@Org.CounterPrinterName'.toLowerCase()  != 'marathi'? 'Date:': 'दिनांक:';
+        let PaymentModeLabel = '@Org.CounterPrinterName'.toLowerCase() != 'marathi'? 'Payment Mode:': 'पद्धत:';
+
+        let ItemLabel = '@Org.CounterPrinterName'.toLowerCase()  != 'marathi'? 'Item': 'वस्तू';
+        let QtyLabel = '@Org.CounterPrinterName'.toLowerCase()  != 'marathi'? 'Qty': 'प्रमाण';
+        let RateLabel = '@Org.CounterPrinterName'.toLowerCase()  != 'marathi'? 'Price': 'दर';
+        let TotalLabel = '@Org.CounterPrinterName'.toLowerCase()  != 'marathi'? 'Total': 'एकूण';
+
+               
 
     let html = `
     <html>
@@ -1964,29 +2002,39 @@ function printReceipt80mm_Regional(
     </head>
 
 
-            <div id="receipt">
-            <div class="title">${orgTitle}</div>
+            <div id="receipt">`;
+            if('@Org.Logo'.trim()!="")
+            {
+                     html += ` <div text-align: center;><img src='/uploads/@Org.Logo' Width="150px" style="display:block; margin:0 auto;"/></div>`;
+            }else
+            {
+                         html += `
+                    <div class="title">${orgTitle}</div>`;
+            }
+
+
+          html += `       
             <div class="addr">${address}</div>
             <div class="addr">${Contact}</div>
 
             <hr>
 
-            <div>चलन क्रमांक: ${invoiceNo}</div>
-            ${TableNo ? `<div>टेबल क्रमांक: ${TableNo}</div>` : ""}
+             <div>${InvoiceLabel} ${invoiceNo}</div>
+             ${TableNo ? `<div>${TableNoLabel} ${TableNo}</div>` : ""}
 
-            <div>ग्राहक: ${customerName}</div>
-            <div>दिनांक: ${cleanDate}</div>
-            <div>पद्धत: ${Mode}</div>
+            <div>${CustomerNameLabel} ${customerName}</div>
+            <div>${DateLabel} ${cleanDate}</div>
+            <div>${PaymentModeLabel} ${Mode}</div>
 
             <hr>
 
             <table>
                 <thead>
                     <tr>
-                        <th>वस्तू</th>
-                        <th class="qty">प्रमाण</th>
-                        <th class="rate">दर</th>
-                        <th class="total">एकूण</th>
+                        <th>${ItemLabel}</th>
+                        <th class="qty">${QtyLabel}</th>
+                        <th class="rate">${RateLabel}</th>
+                        <th class="total">${TotalLabel}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -2000,7 +2048,7 @@ function printReceipt80mm_Regional(
         const total = qty * rate;
         grandTotal += total;
 
-        html += `
+          html += `
             <tr>
                 <td>${name}</td>
                 <td class="qty">${qty}</td>
@@ -2012,8 +2060,10 @@ function printReceipt80mm_Regional(
 
     html += `
             <tr>
-                <td colspan="3" style="text-align:right"><strong>एकूण:</strong></td>
-                <td class="total"><strong>${grandTotal}/-</strong></td>
+            <td colspan="4" style="text-align: center;font-size: 20px;"><strong>
+            ${GrandTotalLabel}
+            ${grandTotal}/-</strong></td>
+              
             </tr>
             </tbody>
         </table>
@@ -2036,17 +2086,17 @@ function printReceipt80mm_Regional(
         </div>`;
         }
 
-         html += `
-                <hr>
+        html += `
+        <hr>
 
-                        <div style="text-align:center;margin-top:5px;">धन्यवाद, पुन्हा भेट द्या!</div>
-                <br>
-                        <div style="text-align:center;font-size: 12px;">Aviraj Innovations Pvt. Ltd.</div>
-                        <div style="text-align:center;font-size: 12px;">Inquiry On: +91 9096152118</div>
-            </div> 
+        <div style="text-align:center;margin-top:5px;">${ThankYouLabel}</div>
+        <br>
+        <div style="text-align:center;font-size: 12px;">Aviraj Innovations Pvt. Ltd.</div>
+        <div style="text-align:center;font-size: 12px;">Inquiry On: +91 9096152118</div>
+        </div> 
             
         </html>
-    `;
+        `;
       
             openPrintPreviewFromHtml(html,grandTotal);
         // const printWin = window.open("", "_blank", "width=350,height=600");
@@ -2055,6 +2105,173 @@ function printReceipt80mm_Regional(
         //  printWin.focus();
         // printWin.print();
 }
+
+
+    function printPlainReceipt58mm_Regional(
+            orgTitle, address, invoiceNo, date, customerName,
+            productList, grandTotal = 0, Contact, Mode, TableNo
+        ) {
+            debugger;
+            const cleanDate = date.split(":").slice(0, 2).join(":");
+
+            let GrandTotalLabel = '@Org.CounterPrinterName'.toLowerCase() != 'marathi'? 'Total:': 'एकूण:';
+            let ThankYouLabel = '@Org.CounterPrinterName'.toLowerCase()  != 'marathi'? 'Thank you, visit again!': 'धन्यवाद, पुन्हा भेट द्या!';
+            let TableNoLabel = '@Org.CounterPrinterName'.toLowerCase() != 'marathi'? 'Table:': 'टेबल क्रमांक:';
+
+            let InvoiceLabel = '@Org.CounterPrinterName'.toLowerCase()  != 'marathi'? 'Invoice:': 'चलन क्रमांक:';
+
+            let CustomerNameLabel = '@Org.CounterPrinterName'.toLowerCase()  != 'marathi'? 'Name:': 'ग्राहक:';
+            let DateLabel = '@Org.CounterPrinterName'.toLowerCase()  != 'marathi'? 'Date:': 'दिनांक:';
+            let PaymentModeLabel = '@Org.CounterPrinterName'.toLowerCase()  != 'marathi'? 'Payment Mode:': 'पद्धत:';
+
+            let ItemLabel = '@Org.CounterPrinterName'.toLowerCase()  != 'marathi'? 'Item': 'वस्तू';
+            let QtyLabel = '@Org.CounterPrinterName'.toLowerCase()  != 'marathi'? 'Qty': 'प्रमाण';
+            let RateLabel = '@Org.CounterPrinterName'.toLowerCase()  != 'marathi'? 'Price': 'दर';
+            let TotalLabel = '@Org.CounterPrinterName'.toLowerCase()  != 'marathi'? 'Total': 'एकूण';
+
+
+
+            let html = `
+            <html>
+            <head>
+            <style>
+
+
+            @@page{
+                size: 58mm auto;
+                margin: 0;
+            }
+
+            @@media print {
+                #printBtn { display: none !important; }
+
+                body {
+                    margin: 0 !important;
+                    padding: 0 !important;
+                    width: 80mm !important;
+                    -webkit-print-color-adjust: exact !important;
+                    print-color-adjust: exact !important;
+                }
+            }
+
+
+            #receipt {
+                width: 58mm !important;
+                max-width:58mm !important;
+                margin: 0 auto !important;
+                padding: 0;
+                font-family: Arial, sans-serif;
+                font-size: 16px;
+            }
+
+            table { width: 100%; border-collapse: collapse; }
+            td, th { padding: 3px; }
+            .qty { text-align: center; }
+            .rate, .total { text-align: right; }
+
+            .title { font-size: 24px; text-align:center; font-weight:bold; }
+            .addr { font-size: 18px; text-align:center; }
+
+            </style>
+
+            </head>
+                    <div id="receipt">`;
+                    if('@Org.Logo'.trim()!="")
+                    {
+                             html += ` <div text-align: center;><img src='/uploads/@Org.Logo' Width="150px" style="display:block; margin:0 auto;"/></div>`;
+                    }else
+                    {
+                                 html += `
+                            <div class="title">${orgTitle}</div>`;
+                    }
+                  html += `                 
+                    <div class="addr">${address}</div>
+                    <div class="addr">${Contact}</div>
+
+                    <hr>
+
+                     <div>${InvoiceLabel} ${invoiceNo}</div>
+                     ${TableNo ? `<div>${TableNoLabel} ${TableNo}</div>` : ""}
+
+                    <div>${CustomerNameLabel} ${customerName}</div>
+                    <div>${DateLabel} ${cleanDate}</div>
+                    <div>${PaymentModeLabel} ${Mode}</div>
+
+                    <hr>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>${ItemLabel}</th>
+                                <th class="qty">${QtyLabel}</th>
+                                <th class="rate">${RateLabel}</th>
+                                <th class="total">${TotalLabel}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+            `;
+
+            productList.forEach(p => {
+                const prod = allProducts.find(x => x.Id === p.productId);
+                const name = prod?.Name || "";
+                const qty = p.qty;
+                const rate = p.price;
+                const total = qty * rate;
+                grandTotal += total;
+
+                  html += `
+                    <tr>
+                        <td>${name}</td>
+                        <td class="qty">${qty}</td>
+                        <td class="rate">${rate}</td>
+                        <td class="total">${total}</td>
+                    </tr>
+                `;
+            });
+
+            html += `
+                    <tr>
+                    <td colspan="4" style="text-align: center;font-size: 20px;"><strong>
+                    ${GrandTotalLabel}
+                    ${grandTotal}/-</strong></td>
+
+                    </tr>
+                    </tbody>
+                </table>
+                `;
+
+                if ('@Org.Qrcode'.trim()!="")
+                {
+                html += `
+                <hr>
+                 <div id="QRContainer" style="text-align:center;margin-top:8px;">
+                    <div style="font-size:14px;margin-bottom:4px;">UPI Payment</div>
+
+                    <div id="upiQr"
+                         style="
+                            display:flex;
+                            justify-content:center;
+                            align-items:center;
+                         ">
+                    </div>
+                </div>`;
+                }
+
+                html += `
+                <hr>
+
+                <div style="text-align:center;margin-top:5px;">${ThankYouLabel}</div>
+                <br>
+                <div style="text-align:center;font-size: 12px;">Aviraj Innovations Pvt. Ltd.</div>
+                <div style="text-align:center;font-size: 12px;">Inquiry On: +91 9096152118</div>
+                </div>
+
+                </html>
+                `;
+
+                    openPrintPreviewFromHtml(html,grandTotal);
+            
+        }
 
 
 
@@ -2164,9 +2381,10 @@ function printReceipt80mm_Regional(
         const encoded = btoa(unescape(encodeURIComponent(receipt)));
         window.location.href = "rawbt:base64," + encoded;
 
-        // window.onfocus = function () {
-        //     location.reload();
-        // };
+        if (confirm("This receipt has already been printed.\nDo you want to re-print it?")) 
+        {
+        window.location.href = "rawbt:base64," + encoded;
+        }
 
         }
 
@@ -2276,9 +2494,9 @@ function printReceipt80mm_Regional(
                 const encoded = btoa(unescape(encodeURIComponent(receipt)));
                 window.location.href = "rawbt:base64," + encoded;
 
-                // window.onfocus = function () {
-                //     location.reload();
-                // };
+                if (confirm("This receipt has already been printed.\nDo you want to re-print it?")) {
+                                        window.location.href = "rawbt:base64," + encoded;
+                }
             }
 
 
@@ -2511,8 +2729,8 @@ function printReceipt80mm_Regional(
 
         new QRCode(qrDiv, {
             text: upiUrl,
-            width: 180,
-            height: 180
+            width: 150,
+            height: 150
         });
     }
 
