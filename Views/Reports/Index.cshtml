@@ -300,13 +300,7 @@
 
 
         function formatHeaderName(col) {
-            // Replace camelCase → snake_case
-            col = col.replace(/([a-z])([A-Z])/g, '$1_$2');
-
-            // Replace spaces → underscore
-            col = col.replace(/\s+/g, '_');
-
-            // Convert to Title Case
+           // Convert to Title Case
             col = col.charAt(0).toUpperCase() + col.slice(1);
 
             return col;
