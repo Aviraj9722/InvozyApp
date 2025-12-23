@@ -267,6 +267,7 @@
                     <table id="ProductTB" class="table table-bordered table-striped w-100">
                         <thead class="table-dark">
                             <tr>
+                                <th>Action</th>
                                 <th>Photo</th>
                                 <th>Name</th>
                                 <th>BarCode</th>
@@ -276,7 +277,7 @@
                                 <th>Category</th>
                                 <th>GST Percentage</th>
                                 <th>GST Amount</th>
-                                <th>Action</th>
+                              
 
                             </tr>
                         </thead>
@@ -284,7 +285,26 @@
                             @foreach (var p in Model)
                             {
                                 <tr>
+                                    <!-- 5. ACTION -->
+                                    <td data-title="Actions">
+                                        <button type="button" class="btn btn-warning btn-sm"
+                                                onclick="editProduct(@p.Id)"
+                                                data-name="@p.Name"
+                                                data-price="@p.Price"
+                                                data-purchaseprice="@p.PurchasePrice"
+                                                data-hsncode="@p.HSNCode"
+                                                data-category="@p.CategoryId"
+                                                data-gst="@p.Gstpercentage"
+                                                data-regional="@p.RegionalName"
+                                                data-code="@p.Code">
+                                            Edit
+                                        </button>
 
+                                        <button type="button" class="btn btn-danger btn-sm"
+                                                onclick="deleteProduct(@p.Id)">
+                                            Delete
+                                        </button>
+                                    </td>
                                     <!-- 1. PHOTO -->
                                     <td data-title="Photo">
                                         @if (!string.IsNullOrEmpty(p.Photo))
@@ -329,26 +349,7 @@
 
                                     <td>₹ @p.Gstamount</td>
 
-                                    <!-- 5. ACTION -->
-                                    <td data-title="Actions">
-                                        <button type="button" class="btn btn-warning btn-sm"
-                                                onclick="editProduct(@p.Id)"
-                                                data-name="@p.Name"
-                                                data-price="@p.Price"
-                                                data-purchaseprice="@p.PurchasePrice"
-                                                data-hsncode="@p.HSNCode"
-                                                data-category="@p.CategoryId"
-                                                data-gst="@p.Gstpercentage"
-                                                data-regional="@p.RegionalName"
-                                                data-code="@p.Code">
-                                            Edit
-                                        </button>
-
-                                        <button type="button" class="btn btn-danger btn-sm"
-                                                onclick="deleteProduct(@p.Id)">
-                                            Delete
-                                        </button>
-                                    </td>
+                                
                                 </tr>
                             }
                         </tbody>
