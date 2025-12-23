@@ -67,15 +67,34 @@
         <h5>📊 Select Report</h5>
         <hr />
 
-        @foreach (var item in reports)
+       @*  @foreach (var item in reports)
         {
             <div class="report-item">
                 <input type="radio" name="reportType" value="@item.Name" class="report-radio" />
                 <strong>@item.Name</strong>
             </div>
-        }
-    </div>
+        } *@
+        <input type="text"
+               id="searchReport"
+               placeholder="Search report..."
+               class="form-control mb-3" />
 
+        <div id="reportList">
+            @foreach (var item in reports)
+            {
+                <div class="report-item">
+                    <input type="radio"
+                           name="reportType"
+                           value="@item.Name"
+                           class="report-radio" />
+                    <strong>@item.Name</strong>
+                </div>
+            }
+        </div>
+        
+    </div>
+   
+    
     <!-- RIGHT SIDE -->
     <div class="col-md-9">
 
@@ -295,9 +314,18 @@
             return col;
         }
 
+                    
+        $("#searchReport").on("keyup", function () {
+            let value = $(this).val().toLowerCase();
 
-       
-
+            $("#reportList .report-item").filter(function () {
+                $(this).toggle(
+                    $(this).text().toLowerCase().indexOf(value) > -1
+                );
+            });
+        });
+   
+          
 
     </script>
 

@@ -24,6 +24,7 @@ namespace eOrderTouchApp.Models
         public DbSet<DateWiseSaleReportModel> DateWiseSaleReportModels { get; set; }
         public DbSet<DateWiseSaleProfitReportModel> DateWiseSaleProfitReports { get; set; }
         public DbSet<StockReportModel> StockReportModels { get; set; }
+        public DbSet<OrderDiscountReportModel> OrderDiscountReportModels { get; set; }
 
 
 
@@ -54,6 +55,7 @@ namespace eOrderTouchApp.Models
             modelBuilder.Entity<DateWiseSaleReportModel>().HasNoKey();
             modelBuilder.Entity<DateWiseSaleProfitReportModel>().HasNoKey();
             modelBuilder.Entity<StockReportModel>().HasNoKey();
+            modelBuilder.Entity<OrderDiscountReportModel>().HasNoKey();
 
 
         }
@@ -78,6 +80,7 @@ namespace eOrderTouchApp.Models
             { "Date-Wise Sale Reports", typeof(DateWiseSaleReportModel) },
             { "Date-Wise Sale Profit Reports", typeof(DateWiseSaleProfitReportModel) },
             { "Stock Reports", typeof(StockReportModel) },
+            { "Order Discount Reports", typeof(OrderDiscountReportModel) },
 
 
         };
