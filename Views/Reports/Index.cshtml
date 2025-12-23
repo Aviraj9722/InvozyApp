@@ -83,18 +83,25 @@
         <div class="d-flex justify-content-between align-items-center">
             <h4 id="reportTitle">Report Output</h4>
 
-            @if (units != null)
+
+            @if (User.IsInRole("HeadOfficer") && units != null)
             {
-                <select id="unitDropdown" class="form-select w-auto">
-                    <option value="">All Units</option>
-                    @foreach (var u in units)
-                    {
-                        <option value="@u.Id">
-                            @u.BusinessName
-                        </option>
-                    }
-                </select>
+                <div style="display: flex;">
+                    <span style="margin-top: 7px;margin-right: 9px;">Selected Branch/Unit:</span>
+                 
+                        <select id="unitDropdown" style="font-weight:800" class="form-select w-auto">
+
+                            @foreach (var u in units)
+                            {
+                                <option value="@u.Id">@u.BusinessName</option>
+                            }
+                        </select>
+                 
+                </div>
+
+
             }
+       
         </div>
         <hr />
 
@@ -139,7 +146,23 @@
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 
     <script>
+            $(document).ready(function () {
 
+            // ✅ Set today's date
+            let today = new Date().toISOString().split('T')[0];
+            $('#fromDate').val(today);
+            $('#toDate').val(today);
+            let selectedBusinessId = null;
+
+            // ✅ Auto select "Item Sale Reports"
+            let defaultReport = $('.report-radio').filter(function () {
+                return $(this).val().toLowerCase().includes('item');
+            }).first();
+
+            if (defaultReport.length > 0) {
+                defaultReport.prop('checked', true).trigger('change');
+            }
+        });
         // Change report type - loads description
         $('.report-radio').on('change', function () {
             
@@ -166,6 +189,7 @@
             var reportId = $("input[name='reportType']:checked").val();
             var fromDate = $("#fromDate").val();
             var toDate = $("#toDate").val();
+                var BID = $("#unitDropdown").val();
 
 
             if (!reportId) {
@@ -179,7 +203,8 @@
             data: {
                 reportName: reportId,
                 fromDate: fromDate,
-                toDate: toDate
+                toDate: toDate,
+                    selectedbusinessId: Number(BID)
             },
             success: function (result) {
                 debugger;
@@ -207,10 +232,51 @@
                 result.forEach(row => {
                     table += `<tr>`;
                     columns.forEach(col => {
-                        table += `<td>${row[col] ?? ""}</td>`;
+                            let value = row[col];
+
+                            // ✅ Format date ONLY for Date-Wise Sale Report
+                            if (
+                                col.toLowerCase().includes("date") &&
+                                reportId.toLowerCase().includes("date-wise")
+                            ) {
+                                if (value) {
+                                    let d = new Date(value);
+                                    value = d.toLocaleDateString("en-GB"); // dd/MM/yyyy
+                                    value = value.replaceAll("/", "-");   // dd-MM-yyyy
+                                }
+                            }
+                            table += `<td>${value ?? ""}</td>`;
                     });
                     table += `</tr>`;
                 });
+
+                        // ===== GRAND TOTAL CALCULATION =====
+                    let totals = {};
+
+                    columns.forEach(col => totals[col] = 0);
+
+                    result.forEach(row => {
+                        columns.forEach(col => {
+                            if (typeof row[col] === "number") {
+                                totals[col] += row[col];
+                            }
+                        });
+                    });
+
+                    // ===== FOOTER HTML =====
+                    table += `<tfoot><tr class="table-secondary fw-bold">`;
+
+                    columns.forEach((col, index) => {
+                        if (index === 0) {
+                            table += `<td>Grand Total</td>`;
+                        } else if (typeof totals[col] === "number" && totals[col] > 0) {
+                            table += `<td>${totals[col]}</td>`;
+                        } else {
+                            table += `<td></td>`;
+                        }
+                    });
+
+                    table += `</tr></tfoot>`;
 
                 table += "</tbody></table>";
 
@@ -222,7 +288,8 @@
                     pageLength: 10,         // default rows per page
                     lengthMenu: [5, 10, 25, 50, 100],
                     order: [],              // no default sorting
-                    responsive: true
+                    responsive: true,
+                    footer: true
                 });
 
                
