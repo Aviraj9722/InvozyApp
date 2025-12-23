@@ -11,7 +11,7 @@ namespace eOrderTouchApp.Models
         public DbSet<UserReportModel> UserReportResults { get; set; }
         public DbSet<TableReportModel> TableReportResults { get; set; }
         public DbSet<CategorySaleModel> CategorySaleReports { get; set; }
-        public DbSet<DailySaleReportModel> DailySaleReportModels { get; set; }
+        public DbSet<SaleReportModel> SaleReportModels { get; set; }
         public DbSet<CustomerSaleReportModel> CustomerSaleReports { get; set; }
         public DbSet<CustomerAreaSaleReport> CustomerAreaSaleReports { get; set; }
         public DbSet<CustomerCreditSaleReport> CustomerCreditSaleReports { get; set; }
@@ -34,7 +34,7 @@ namespace eOrderTouchApp.Models
             modelBuilder.Entity<TableReportModel>().HasNoKey();
 
             modelBuilder.Entity<CategorySaleModel>().HasNoKey();
-            modelBuilder.Entity<DailySaleReportModel>().HasNoKey();
+            modelBuilder.Entity<SaleReportModel>().HasNoKey();
             modelBuilder.Entity<CustomerSaleReportModel>().HasNoKey();
 
             modelBuilder.Entity<CustomerAreaSaleReport>().HasNoKey();
@@ -60,7 +60,7 @@ namespace eOrderTouchApp.Models
             { "Item Sale Reports", typeof(ItemReportModel) },
             { "User Sale Reports", typeof(UserReportModel) },
             { "Table Sale Reports", typeof(TableReportModel) },
-            { "Daily Sale Reports", typeof(DailySaleReportModel) },
+            { "Sale Reports", typeof(SaleReportModel) },
             { "Category Sale Reports", typeof(CategorySaleModel) },
             { "Customer Sale Reports", typeof(CustomerSaleReportModel) },
             { "Customer Area Sale Reports", typeof(CustomerAreaSaleReport) },
