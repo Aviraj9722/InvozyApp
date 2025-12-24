@@ -1196,13 +1196,17 @@
                 receipt += "------------------------------\n";
             });
 
-            // -------- FOOTER --------
+              // -------- FOOTER --------
             receipt += NORMAL_FONT;
             receipt += "\n\n"; // paper feed
 
             // -------- RAWBT PRINT --------
             const encoded = btoa(unescape(encodeURIComponent(receipt)));
             window.location.href = "rawbt:base64," + encoded;
+
+            if (confirm("This receipt has already been printed.\nDo you want to re-print it?")) {
+                 window.location.href = "rawbt:base64," + encoded;
+            }
         }
 
         function printKotText_Regional(kotArray,TableName) {
@@ -1756,7 +1760,7 @@
                                                         0,
                                                         '@Org.MobileNo',
                                                         paymentMode,
-                                                        tableNo
+                                                        tableNo,discountPercent,discountedTotal
                                                     );
                                                  }else
                                                  {
@@ -1770,7 +1774,7 @@
                                                         0,
                                                         '@Org.MobileNo',
                                                         paymentMode,
-                                                        tableNo
+                                                                tableNo,discountPercent,discountedTotal
                                                         );
                                                  }
                                      
@@ -1778,26 +1782,54 @@
                                       
 
                                     } else {
-                                        printPlainReceipt58mm(
-                                            '@Org.BusinessName',
-                                            '@Org.Address',
-                                            res.orderId,
-                                            new Date().toLocaleString(),
-                                            order.customerName,
-                                            order.items,
-                                            0,
-                                            '@Org.MobileNo',
-                                            paymentMode,
-                                            tableNo
-                                        );
+                                                    if('@Org.IsMultilengual'.toLowerCase()=='true')
+                                                                 {
+                                                                            printPlainReceipt58mm_Regional(
+                                                                                '@Org.BusinessName',
+                                                                                '@Org.Address',
+                                                                                res.orderId,
+                                                                                new Date().toLocaleString(),
+                                                                                order.customerName,
+                                                                                order.items,
+                                                                                0,
+                                                                                '@Org.MobileNo',
+                                                                                paymentMode,
+                                                                                        tableNo,discountPercent,discountedTotal
+                                                                            );
+                                                                 }else
+                                                                 {
+
+                                                                    printPlainReceipt58mm(
+                                                                        '@Org.BusinessName',
+                                                                        '@Org.Address',
+                                                                        res.orderId,
+                                                                        new Date().toLocaleString(),
+                                                                        order.customerName,
+                                                                        order.items,
+                                                                        0,
+                                                                        '@Org.MobileNo',
+                                                                        paymentMode,
+                                                                                tableNo,discountPercent,discountedTotal
+                                                                    );
+                                                                 }
                                     }
 
                                 } catch (er) {
                                             console.log(er);
                                 }
                             }
-                                       $("#txtCustNameMobile").val("");
-                                    $('#ddlTableMobile option:first').prop('selected', true);
+
+                                    try{
+                                        $("#txtCustNameMobile").val("");
+                                        $('#discountPercentMobile option:first').prop('selected', true);
+                                        $('#ddlTableMobile option:first').prop('selected', true);
+                                    }catch(er){}
+                                    try{
+                                         $("#txtCustNameDesktop").val("");
+                                         $('#discountPercentDesktop option:first').prop('selected', true);
+                                         $('#ddlTableDesktop option:first').prop('selected', true);
+                                    }catch(er){}
+                                                    
                             //-------------------------------------------------------
                             //  Clear UI
                             //-------------------------------------------------------
@@ -1831,7 +1863,7 @@
             const paymentMode = $('[name="paymentMobile"]:checked').val();
 
             const discountPercent = $("#discountPercentMobile").val();
-            const discountPrice = $("#discountedTotalMobile").val();
+            const discountPrice = $("#discountedTotalMobile").text();
 
              doCheckout(customerName, tableDetail, paymentMode,true,true,discountPercent,discountPrice);
         });
@@ -1842,7 +1874,7 @@
             const paymentMode = $('[name="paymentDesktop"]:checked').val();
 
             const discountPercent = $("#discountPercentDesktop").val();
-            const discountPrice = $("#discountedTotalDesktop").val();
+            const discountPrice = $("#discountedTotalDesktop").text();
 
             doCheckout(customerName, tableDetail, paymentMode,true,true,discountPercent,discountPrice);
         });
@@ -2021,401 +2053,613 @@
             });
         });
 
+    function printReceipt80mm_Regional(
+        orgTitle, address, invoiceNo, date, customerName,
+                productList, grandTotal = 0, Contact, Mode, TableNo,discountPercent,discountedTotal
+        ) {
+        debugger;
+            const cleanDate = date.split(":").slice(0, 2).join(":");
 
-function printReceipt80mm_Regional(
-    orgTitle, address, invoiceNo, date, customerName,
-    productList, grandTotal = 0, Contact, Mode, TableNo
-) {
-    debugger;
-    const cleanDate = date.split(":").slice(0, 2).join(":");
-                   
-    let GrandTotalLabel = '@Org.CounterPrinterName'.toLowerCase() === 'english'? 'Total:': 'एकूण:';
-    let ThankYouLabel = '@Org.CounterPrinterName'.toLowerCase() === 'english'? 'Thank you, visit again!': 'धन्यवाद, पुन्हा भेट द्या!';
-    let TableNoLabel = '@Org.CounterPrinterName'.toLowerCase() === 'english'? 'Table:': 'टेबल क्रमांक:';
+            let GrandTotalLabel = '@Org.CounterPrinterName'.toLowerCase()  != 'marathi'? 'Total:': 'एकूण:';
+            let ThankYouLabel = '@Org.CounterPrinterName'.toLowerCase()  != 'marathi'? 'Thank you, visit again!': 'धन्यवाद, पुन्हा भेट द्या!';
+            let TableNoLabel = '@Org.CounterPrinterName'.toLowerCase()  != 'marathi'? 'Table:': 'टेबल क्रमांक:';
 
-    let InvoiceLabel = '@Org.CounterPrinterName'.toLowerCase() === 'english'? 'Invoice:': 'चलन क्रमांक:';
+            let InvoiceLabel = '@Org.CounterPrinterName'.toLowerCase() != 'marathi'? 'Invoice:': 'चलन क्रमांक:';
 
-    let CustomerNameLabel = '@Org.CounterPrinterName'.toLowerCase() === 'english'? 'Name:': 'ग्राहक:';
-    let DateLabel = '@Org.CounterPrinterName'.toLowerCase() === 'english'? 'Date:': 'दिनांक:';
-    let PaymentModeLabel = '@Org.CounterPrinterName'.toLowerCase() === 'english'? 'Payment Mode:': 'पद्धत:';
+            let CustomerNameLabel = '@Org.CounterPrinterName'.toLowerCase()  != 'marathi'? 'Name:': 'ग्राहक:';
+            let DateLabel = '@Org.CounterPrinterName'.toLowerCase()  != 'marathi'? 'Date:': 'दिनांक:';
+            let PaymentModeLabel = '@Org.CounterPrinterName'.toLowerCase() != 'marathi'? 'Payment Mode:': 'पद्धत:';
 
-    let ItemLabel = '@Org.CounterPrinterName'.toLowerCase() === 'english'? 'Item': 'वस्तू';
-    let QtyLabel = '@Org.CounterPrinterName'.toLowerCase() === 'english'? 'Qty': 'प्रमाण';
-    let RateLabel = '@Org.CounterPrinterName'.toLowerCase() === 'english'? 'Price': 'दर';
-    let TotalLabel = '@Org.CounterPrinterName'.toLowerCase() === 'english'? 'Total': 'एकूण';
-
-               
-
-    let html = `
-    <html>
-    <head>
-    <style>
+            let ItemLabel = '@Org.CounterPrinterName'.toLowerCase()  != 'marathi'? 'Item': 'वस्तू';
+            let QtyLabel = '@Org.CounterPrinterName'.toLowerCase()  != 'marathi'? 'Qty': 'प्रमाण';
+            let RateLabel = '@Org.CounterPrinterName'.toLowerCase()  != 'marathi'? 'Price': 'दर';
+            let TotalLabel = '@Org.CounterPrinterName'.toLowerCase()  != 'marathi'? 'Total': 'एकूण';
+         
+        let html = `
+        <html>
+        <head>
+        <style>
 
 
-    @@page{
-        size: 80mm auto;
-        margin: 0;
-    }
+        @@page{
+            size: 80mm auto;
+            margin: 0;
+        }
 
-    @@media print {
-        #printBtn { display: none !important; }
+        @@media print {
+            #printBtn { display: none !important; }
 
-        body {
-            margin: 0 !important;
-            padding: 0 !important;
+            body {
+                margin: 0 !important;
+                padding: 0 !important;
+                width: 80mm !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+        }
+
+
+        #receipt {
             width: 80mm !important;
-            -webkit-print-color-adjust: exact !important;
-            print-color-adjust: exact !important;
+            max-width: 80mm !important;
+            margin: 0 auto !important;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
         }
-    }
 
- 
-    #receipt {
-        width: 80mm !important;
-        max-width: 80mm !important;
-        margin: 0 auto !important;
-        padding: 0;
-        font-family: Arial, sans-serif;
-        font-size: 16px;
-    }
+        table { width: 100%; border-collapse: collapse; }
+        td, th { padding: 3px; }
+        .qty { text-align: center; }
+        .rate, .total { text-align: right; }
 
-    table { width: 100%; border-collapse: collapse; }
-    td, th { padding: 3px; }
-    .qty { text-align: center; }
-    .rate, .total { text-align: right; }
+        .title { font-size: 24px; text-align:center; font-weight:bold; }
+        .addr { font-size: 18px; text-align:center; }
 
-    .title { font-size: 24px; text-align:center; font-weight:bold; }
-    .addr { font-size: 18px; text-align:center; }
-
-    </style>
-           
-
-    </head>
+        </style>
 
 
-            <div id="receipt">`;
-            if('@Org.Logo'.trim()!="")
-            {
-                     html += ` <div text-align: center;><img src='/uploads/@Org.Logo' Width="150px" style="display:block; margin:0 auto;"/></div>`;
-            }
-          html += `
-            <div class="title">${orgTitle}</div>
-            <div class="addr">${address}</div>
-            <div class="addr">${Contact}</div>
+        </head>
 
-            <hr>
 
-             <div>${InvoiceLabel} ${invoiceNo}</div>
-             ${TableNo ? `<div>${TableNoLabel} ${TableNo}</div>` : ""}
+                <div id="receipt">`;
+                if('@Org.Logo'.trim()!="")
+                {
+                    html += ` <div text-align: center;><img src='/uploads/@Org.Logo' Width="150px" style="display:block; margin:0 auto;"/></div>`;
+                }else
+                {
+                    html += `
+                        <div class="title">${orgTitle}</div>`;
+                }
 
-            <div>${CustomerNameLabel} ${customerName}</div>
-            <div>${DateLabel} ${cleanDate}</div>
-            <div>${PaymentModeLabel} ${Mode}</div>
 
-            <hr>
+                html += `
+                <div class="addr">${address}</div>
+                <div class="addr">${Contact}</div>
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>${ItemLabel}</th>
-                        <th class="qty">${QtyLabel}</th>
-                        <th class="rate">${RateLabel}</th>
-                        <th class="total">${TotalLabel}</th>
-                    </tr>
-                </thead>
-                <tbody>
-    `;
+                <hr>
 
-    productList.forEach(p => {
-        const prod = allProducts.find(x => x.Id === p.productId);
-        const name = prod?.Name || "";
-        const qty = p.qty;
-        const rate = p.price;
-        const total = qty * rate;
-        grandTotal += total;
+                    <div>${InvoiceLabel} ${invoiceNo}</div>
+                    ${TableNo ? `<div>${TableNoLabel} ${TableNo}</div>` : ""}
 
-          html += `
-            <tr>
-                <td>${name}</td>
-                <td class="qty">${qty}</td>
-                <td class="rate">${rate}</td>
-                <td class="total">${total}</td>
-            </tr>
+                <div>${CustomerNameLabel} ${customerName}</div>
+                <div>${DateLabel} ${cleanDate}</div>
+                <div>${PaymentModeLabel} ${Mode}</div>
+
+                <hr>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>${ItemLabel}</th>
+                            <th class="qty">${QtyLabel}</th>
+                            <th class="rate">${RateLabel}</th>
+                            <th class="total">${TotalLabel}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
         `;
-    });
-
-    html += `
-            <tr>
-            <td colspan="4" style="text-align: center;font-size: 20px;"><strong>
-            ${GrandTotalLabel}
-            ${grandTotal}/-</strong></td>
-              
-            </tr>
-            </tbody>
-        </table>
-        `;
-
-        if ('@Org.Qrcode'.trim()!="")
-        {
-        html += `
-        <hr>
-         <div id="QRContainer" style="text-align:center;margin-top:8px;">
-            <div style="font-size:14px;margin-bottom:4px;">UPI Payment</div>
-
-            <div id="upiQr"
-                 style="
-                    display:flex;
-                    justify-content:center;
-                    align-items:center;
-                 ">
-            </div>
-        </div>`;
-        }
-
-        html += `
-        <hr>
-
-        <div style="text-align:center;margin-top:5px;">${ThankYouLabel}</div>
-        <br>
-        <div style="text-align:center;font-size: 12px;">Aviraj Innovations Pvt. Ltd.</div>
-        <div style="text-align:center;font-size: 12px;">Inquiry On: +91 9096152118</div>
-        </div> 
-            
-        </html>
-        `;
-      
-            openPrintPreviewFromHtml(html,grandTotal);
-        // const printWin = window.open("", "_blank", "width=350,height=600");
-        // printWin.document.write(html);
-        // printWin.document.close();
-        //  printWin.focus();
-        // printWin.print();
-}
-
-
-
-        function printPlainReceipt80mm(orgTitle, address, invoiceNo, date, customerName, productList, grandTotal = 0,Contact,Mode,TableNo)
-        {
-        const ESC = "\x1B";
-        const DOUBLE = ESC + "!" + "\x38";        // Big font
-        const MEDIUM = ESC + "!" + "\x20";        // Medium (double height)
-        const NORMAL = ESC + "!" + "\x00";        // Normal
-        const SMALL = ESC + "M" + "\x01";         // Small font
-        const NORMAL_FONT = ESC + "M" + "\x00";
-
-        // Split long text into lines
-        function wrapText(text, max) {
-            let lines = [];
-            while (text.length > 0) {
-                lines.push(text.substring(0, max));
-                text = text.substring(max);
-            }
-            return lines;
-        }
-
-        // 80mm normal width = 48 chars
-        function center48(text) {
-            const total = 48;
-            let pad = Math.max(0, Math.floor((total - text.length) / 2));
-            return " ".repeat(pad) + text;
-        }
-
-        // 80mm double-width = 24 chars
-        function center24(text) {
-            text = text.substring(0, 24);
-            const total = 24;
-            let pad = Math.max(0, Math.floor((total - text.length) / 2));
-            return " ".repeat(pad) + text;
-        }
-
-        // Clean date (remove seconds)
-        let cleanDate = date.split(":");
-        if (cleanDate.length >= 2) {
-            cleanDate = cleanDate[0] + ":" + cleanDate[1];
-        } else {
-            cleanDate = date;
-        }
-
-        let receipt = "";
-        receipt += "------------------------------------------------\n";
-
-        // ---- Title (Medium Font + Auto Wrap) ----
-        let titleLines = wrapText(orgTitle, 24).slice(0, 2);
-
-        titleLines.forEach(line => {
-            receipt += MEDIUM + center24(line) + NORMAL + "\n";
-        });
-
-        // ---- Address (Auto Wrap in 48 chars) ----
-        let addressLines = wrapText(address, 48).slice(0, 2);
-        addressLines.forEach(line => {
-            receipt += center48(line) + "\n";
-        });
-
-        receipt +=  center24(Contact) + "\n";
-        receipt += "------------------------------------------------\n";
-
-        // Invoice details
-        receipt += `Invoice#: ${invoiceNo}\n`;
-        if (TableNo) receipt += `Table No: ${TableNo}\n`;
-        receipt += `Customer : ${customerName}\n`;
-        receipt += `Date     : ${cleanDate}\n`;
-        receipt += `Mode     : ${Mode}\n`;
-        receipt += "------------------------------------------------\n";
-
-        // 80mm Table Header (48 chars)
-        receipt += "Item                     Qty    Rate     Total\n";
-        receipt += "------------------------------------------------\n";
-
-        // Items
+        debugger;
         productList.forEach(p => {
-            const product = allProducts.find(w => w.Id === p.productId);
+            const prod = allProducts.find(x => x.Id === p.productId);
+            const name = prod?.Name || "";
+            const qty = p.qty;
+            const rate = p.price;
+            const total = qty * rate;
+            grandTotal += total;
 
-            const name = (product?.Name || "").padEnd(21, " ").substring(0, 21); // 21 chars
-            const qty = String(p.qty).padStart(5, " ");                          // 5 chars
-            const rate = String(p.price).padStart(8, " ");                       // 8 chars
-            const total = String(p.qty * p.price).padStart(10, " ");             // 10 chars
-
-            // Total length = 21 + 1 + 5 + 1 + 8 + 1 + 10 = 47–48 chars
-            receipt += `${name} ${qty} ${rate} ${total}\n`;
-
-            grandTotal += p.qty * p.price;
+                html += `
+                <tr>
+                    <td>${name}</td>
+                    <td class="qty">${qty}</td>
+                    <td class="rate">${rate}</td>
+                    <td class="total">${total}</td>
+                </tr>
+            `;
         });
 
-        receipt += "------------------------------------------------\n";
+        if(discountPercent>0){
 
-        // Grand Total (Medium font, centered)
-        const grandText = "Total: " + grandTotal + "/-";
-        receipt += MEDIUM + center24(grandText) + NORMAL + "\n";
+        html += `
+                    <tr>
+                    <td></td>
+                    
+                    <td colspan="2" style="font-weight:800">${GrandTotalLabel}</td>
+                    <td class="total" style="font-weight:800">${grandTotal}</td>
+                    </tr>
+                    <tr>
+                    <td></td>
 
-        receipt += "------------------------------------------------\n";
+                    <td colspan="2" style="font-weight:800">Disc.</td>
+                    <td class="total" style="font-weight:800">${discountPercent}%</td>
+                    </tr>
+                    `;
+        }
+        html += `<tr>
+                <td colspan="4" style="text-align: center;font-size: 20px;"><strong>
+                ${GrandTotalLabel}
+                ${Math.round(discountedTotal)}/-</strong></td>
 
-        // Footer small text
-        receipt += center48("Thank you, visit again!") + "\n\n";
-        receipt += SMALL + center48("Aviraj Innovations Pvt. Ltd.") + "\n";
-        receipt += center48("Inquiry On: +91 9096152118") + "\n";
-        receipt += NORMAL_FONT + "\n";
+                </tr>
+                </tbody>
+            </table>
+            `;
 
-        // Print using RAWBT
-        const encoded = btoa(unescape(encodeURIComponent(receipt)));
-        window.location.href = "rawbt:base64," + encoded;
+                     if ('@Org.Qrcode'.trim()!="" && Mode.toLowerCase()=="online")
+            {
+            html += `
+            <hr>
+                <div id="QRContainer" style="text-align:center;margin-top:8px;">
+                <div style="font-size:14px;margin-bottom:4px;">UPI Payment</div>
 
-        // window.onfocus = function () {
-        //     location.reload();
-        // };
+                <div id="upiQr"
+                        style="
+                        display:flex;
+                        justify-content:center;
+                        align-items:center;
+                        ">
+                </div>
+            </div>`;
+            }
 
+            html += `
+            <hr>
+
+            <div style="text-align:center;margin-top:5px;">${ThankYouLabel}</div>
+            <br>
+            <div style="text-align:center;font-size: 12px;">Aviraj Innovations Pvt. Ltd.</div>
+            <div style="text-align:center;font-size: 12px;">Inquiry On: +91 9096152118</div>
+            </div>
+
+            </html>
+            `;
+
+                openPrintPreviewFromHtml(html,grandTotal);
+            // const printWin = window.open("", "_blank", "width=350,height=600");
+            // printWin.document.write(html);
+            // printWin.document.close();
+            //  printWin.focus();
+            // printWin.print();
         }
 
 
-        function printPlainReceipt58mm(orgTitle, address, invoiceNo, date, customerName, productList, grandTotal = 0, Contact, Mode, TableNo) {
+        function printPlainReceipt58mm_Regional(
+                orgTitle, address, invoiceNo, date, customerName,
+                        productList, grandTotal = 0, Contact, Mode, TableNo,discountPercent,discountedTotal
+            ) {
+                debugger;
+                const cleanDate = date.split(":").slice(0, 2).join(":");
 
-                const ESC = "\x1B";
-                const DOUBLE = ESC + "!" + "\x38";        // Big font
-                const MEDIUM = ESC + "!" + "\x20";        // Medium (double height)
-                const NORMAL = ESC + "!" + "\x00";        // Normal
-                const SMALL = ESC + "M" + "\x01";         // Small font
-                const NORMAL_FONT = ESC + "M" + "\x00";
+                let GrandTotalLabel = '@Org.CounterPrinterName'.toLowerCase() != 'marathi'? 'Total:': 'एकूण:';
+                let ThankYouLabel = '@Org.CounterPrinterName'.toLowerCase()  != 'marathi'? 'Thank you, visit again!': 'धन्यवाद, पुन्हा भेट द्या!';
+                let TableNoLabel = '@Org.CounterPrinterName'.toLowerCase() != 'marathi'? 'Table:': 'टेबल क्रमांक:';
 
-                // Split long text into lines of fixed width
-                function wrapText(text, max) {
-                    let lines = [];
-                    while (text.length > 0) {
-                        lines.push(text.substring(0, max));
-                        text = text.substring(max);
+                let InvoiceLabel = '@Org.CounterPrinterName'.toLowerCase()  != 'marathi'? 'Invoice:': 'चलन क्रमांक:';
+
+                let CustomerNameLabel = '@Org.CounterPrinterName'.toLowerCase()  != 'marathi'? 'Name:': 'ग्राहक:';
+                let DateLabel = '@Org.CounterPrinterName'.toLowerCase()  != 'marathi'? 'Date:': 'दिनांक:';
+                let PaymentModeLabel = '@Org.CounterPrinterName'.toLowerCase()  != 'marathi'? 'Payment Mode:': 'पद्धत:';
+
+                let ItemLabel = '@Org.CounterPrinterName'.toLowerCase()  != 'marathi'? 'Item': 'वस्तू';
+                let QtyLabel = '@Org.CounterPrinterName'.toLowerCase()  != 'marathi'? 'Qty': 'प्रमाण';
+                let RateLabel = '@Org.CounterPrinterName'.toLowerCase()  != 'marathi'? 'Price': 'दर';
+                let TotalLabel = '@Org.CounterPrinterName'.toLowerCase()  != 'marathi'? 'Total': 'एकूण';
+
+
+
+                let html = `
+                <html>
+                <head>
+                <style>
+
+
+                @@page{
+                    size: 58mm auto;
+                    margin: 0;
+                }
+
+                @@media print {
+                    #printBtn { display: none !important; }
+
+                    body {
+                        margin: 0 !important;
+                        padding: 0 !important;
+                        width: 80mm !important;
+                        -webkit-print-color-adjust: exact !important;
+                        print-color-adjust: exact !important;
                     }
-                    return lines;
                 }
 
-                // Center 32-wide lines
-                function center32(text) {
-                    const total = 32;
-                    let pad = Math.max(0, Math.floor((total - text.length) / 2));
-                    return " ".repeat(pad) + text;
+
+                #receipt {
+                    width: 58mm !important;
+                    max-width:58mm !important;
+                    margin: 0 auto !important;
+                    padding: 0;
+                    font-family: Arial, sans-serif;
+                    font-size: 16px;
                 }
 
-                // Center 16-wide lines (medium / double-width)
-                function center16(text) {
-                    text = text.substring(0, 16);
-                    const total = 16;
-                    let pad = Math.max(0, Math.floor((total - text.length) / 2));
-                    return " ".repeat(pad) + text;
-                }
+                table { width: 100%; border-collapse: collapse; }
+                td, th { padding: 3px; }
+                .qty { text-align: center; }
+                .rate, .total { text-align: right; }
 
-                // Format date (remove seconds)
-                let cleanDate = date.split(":");
-                if (cleanDate.length >= 2) {
-                    cleanDate = cleanDate[0] + ":" + cleanDate[1]; // keep HH:mm only
-                } else {
-                    cleanDate = date;
-                }
+                .title { font-size: 24px; text-align:center; font-weight:bold; }
+                .addr { font-size: 18px; text-align:center; }
 
-                let receipt = "";
-                receipt += "--------------------------------\n";
+                </style>
 
-                // ---- Title (Medium Font + Auto wrap) ----
-                let titleLines = wrapText(orgTitle, 16).slice(0, 2); // max 2 lines
+                </head>
+                        <div id="receipt">`;
+                        if('@Org.Logo'.trim()!="")
+                        {
+                                    html += ` <div text-align: center;><img src='/uploads/@Org.Logo' Width="150px" style="display:block; margin:0 auto;"/></div>`;
+                        }else
+                        {
+                                        html += `
+                                <div class="title">${orgTitle}</div>`;
+                        }
+                        html += `
+                        <div class="addr">${address}</div>
+                        <div class="addr">${Contact}</div>
 
-                titleLines.forEach(line => {
-                    receipt += MEDIUM + center16(line) + NORMAL + "\n";
-                });
+                        <hr>
 
-                // ---- Address (Auto Wrap in 32) ----
-                let addressLines = wrapText(address, 32).slice(0, 2);
-                addressLines.forEach(line => {
-                    receipt += center32(line) + "\n";
-                });
+                            <div>${InvoiceLabel} ${invoiceNo}</div>
+                            ${TableNo ? `<div>${TableNoLabel} ${TableNo}</div>` : ""}
 
-                receipt += "Contact : " + Contact + "\n";
-                receipt += "--------------------------------\n";
+                        <div>${CustomerNameLabel} ${customerName}</div>
+                        <div>${DateLabel} ${cleanDate}</div>
+                        <div>${PaymentModeLabel} ${Mode}</div>
 
-                // Invoice details
-                receipt += `Invoice#: ${invoiceNo}\n`;
-                if (TableNo) receipt += `Table No: ${TableNo}\n`;
-                receipt += `Customer : ${customerName}\n`;
-                receipt += `Date     : ${cleanDate}\n`;
-                receipt += `Mode     : ${Mode}\n`;
-                receipt += "--------------------------------\n";
+                        <hr>
 
-                // Table header
-                receipt += "Item            Qty  Rate  Total\n";
-                receipt += "--------------------------------\n";
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>${ItemLabel}</th>
+                                    <th class="qty">${QtyLabel}</th>
+                                    <th class="rate">${RateLabel}</th>
+                                    <th class="total">${TotalLabel}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                `;
 
-                // Items
                 productList.forEach(p => {
-                    const product = allProducts.find(w => w.Id === p.productId);
+                    const prod = allProducts.find(x => x.Id === p.productId);
+                    const name = prod?.Name || "";
+                    const qty = p.qty;
+                    const rate = p.price;
+                    const total = qty * rate;
+                    grandTotal += total;
 
-                    const name = (product?.Name || "").padEnd(14, " ").substring(0, 14);
-                    const qty = String(p.qty).padStart(3, " ");
-                    const rate = String(p.price).padStart(5, " ");
-                    const total = String(p.qty * p.price).padStart(7, " ");
-
-                    receipt += `${name} ${qty} ${rate} ${total}\n`;
-
-                    grandTotal += p.qty * p.price;
+                        html += `
+                        <tr>
+                            <td>${name}</td>
+                            <td class="qty">${qty}</td>
+                            <td class="rate">${rate}</td>
+                            <td class="total">${total}</td>
+                        </tr>
+                    `;
                 });
 
-                receipt += "--------------------------------\n";
 
-                // Grand total – Medium font centered
-                const grandText = "Total: " + grandTotal + "/-";
-                receipt += MEDIUM + center16(grandText) + NORMAL + "\n";
+                if(discountPercent>0){
 
-                receipt += "--------------------------------\n";
+                html += `
+                            <tr>
+                            <td></td>
 
-                // Footer small text
-                receipt += center32("Thank you, visit again!") + "\n\n";
-                receipt += SMALL + center32("Aviraj Innovations Pvt. Ltd.") + "\n";
-                receipt += center32("Inquiry On: +91 9096152118") + "\n";
-                receipt += NORMAL_FONT + "\n";
+                            <td colspan="2" style="font-weight:800">${GrandTotalLabel}</td>
+                            <td class="total" style="font-weight:800">${grandTotal}</td>
+                            </tr>
+                            <tr>
+                            <td></td>
 
-                // Print
-                const encoded = btoa(unescape(encodeURIComponent(receipt)));
-                window.location.href = "rawbt:base64," + encoded;
+                            <td colspan="2" style="font-weight:800">Disc.</td>
+                            <td class="total" style="font-weight:800">${discountPercent}%</td>
+                            </tr>
+                            `;
+                }
+                html += `<tr>
+                        <td colspan="4" style="text-align: center;font-size: 20px;"><strong>
+                        ${GrandTotalLabel}
+                        ${Math.round(discountedTotal)}/-</strong></td>
 
-                // window.onfocus = function () {
-                //     location.reload();
-                // };
+                        </tr>
+                        </tbody>
+                    </table>
+                    `;
+
+
+                            if ('@Org.Qrcode'.trim()!="" && Mode.toLowerCase()=="online")
+                    {
+                    html += `
+                    <hr>
+                        <div id="QRContainer" style="text-align:center;margin-top:8px;">
+                        <div style="font-size:14px;margin-bottom:4px;">UPI Payment</div>
+
+                        <div id="upiQr"
+                                style="
+                                display:flex;
+                                justify-content:center;
+                                align-items:center;
+                                ">
+                        </div>
+                    </div>`;
+                    }
+
+                    html += `
+                    <hr>
+
+                    <div style="text-align:center;margin-top:5px;">${ThankYouLabel}</div>
+                    <br>
+                    <div style="text-align:center;font-size: 12px;">Aviraj Innovations Pvt. Ltd.</div>
+                    <div style="text-align:center;font-size: 12px;">Inquiry On: +91 9096152118</div>
+                    </div>
+
+                    </html>
+                    `;
+
+                        openPrintPreviewFromHtml(html,grandTotal);
+
             }
+
+
+
+            function printPlainReceipt80mm(orgTitle, address, invoiceNo, date, customerName, productList, grandTotal = 0,Contact,Mode,TableNo,discountPercent,discountedTotal)
+            {
+            const ESC = "\x1B";
+            const DOUBLE = ESC + "!" + "\x38";        // Big font
+            const MEDIUM = ESC + "!" + "\x20";        // Medium (double height)
+            const NORMAL = ESC + "!" + "\x00";        // Normal
+            const SMALL = ESC + "M" + "\x01";         // Small font
+            const NORMAL_FONT = ESC + "M" + "\x00";
+
+            // Split long text into lines
+            function wrapText(text, max) {
+                let lines = [];
+                while (text.length > 0) {
+                    lines.push(text.substring(0, max));
+                    text = text.substring(max);
+                }
+                return lines;
+            }
+
+            // 80mm normal width = 48 chars
+            function center48(text) {
+                const total = 48;
+                let pad = Math.max(0, Math.floor((total - text.length) / 2));
+                return " ".repeat(pad) + text;
+            }
+
+            // 80mm double-width = 24 chars
+            function center24(text) {
+                text = text.substring(0, 24);
+                const total = 24;
+                let pad = Math.max(0, Math.floor((total - text.length) / 2));
+                return " ".repeat(pad) + text;
+            }
+
+            // Clean date (remove seconds)
+            let cleanDate = date.split(":");
+            if (cleanDate.length >= 2) {
+                cleanDate = cleanDate[0] + ":" + cleanDate[1];
+            } else {
+                cleanDate = date;
+            }
+
+            let receipt = "";
+            receipt += "------------------------------------------------\n";
+
+            // ---- Title (Medium Font + Auto Wrap) ----
+            let titleLines = wrapText(orgTitle, 24).slice(0, 2);
+
+            titleLines.forEach(line => {
+                receipt += MEDIUM + center24(line) + NORMAL + "\n";
+            });
+
+            // ---- Address (Auto Wrap in 48 chars) ----
+            let addressLines = wrapText(address, 48).slice(0, 2);
+            addressLines.forEach(line => {
+                receipt += center48(line) + "\n";
+            });
+
+            receipt +=  center24(Contact) + "\n";
+            receipt += "------------------------------------------------\n";
+
+            // Invoice details
+            receipt += `Invoice#: ${invoiceNo}\n`;
+            if (TableNo) receipt += `Table No: ${TableNo}\n`;
+            receipt += `Customer : ${customerName}\n`;
+            receipt += `Date     : ${cleanDate}\n`;
+            receipt += `Mode     : ${Mode}\n`;
+            receipt += "------------------------------------------------\n";
+
+            // 80mm Table Header (48 chars)
+            receipt += "Item                     Qty    Rate     Total\n";
+            receipt += "------------------------------------------------\n";
+
+            // Items
+            productList.forEach(p => {
+                const product = allProducts.find(w => w.Id === p.productId);
+
+                const name = (product?.Name || "").padEnd(21, " ").substring(0, 21); // 21 chars
+                const qty = String(p.qty).padStart(5, " ");                          // 5 chars
+                const rate = String(p.price).padStart(8, " ");                       // 8 chars
+                const total = String(p.qty * p.price).padStart(10, " ");             // 10 chars
+
+                // Total length = 21 + 1 + 5 + 1 + 8 + 1 + 10 = 47–48 chars
+                receipt += `${name} ${qty} ${rate} ${total}\n`;
+
+                grandTotal += p.qty * p.price;
+            });
+
+            receipt += "------------------------------------------------\n";
+
+            if(discountPercent>0){
+                receipt += `                                Total: ${grandTotal}\n`;
+                receipt += `                                Disc.: ${discountPercent}%\n`;
+            }
+                    // Grand Total (Medium font, centered)
+            const grandText = "Total: " + Math.round(discountedTotal)+ "/-";
+            receipt += MEDIUM + center24(grandText) + NORMAL + "\n";
+
+            receipt += "------------------------------------------------\n";
+
+            // Footer small text
+            receipt += center48("Thank you, visit again!") + "\n\n";
+            receipt += SMALL + center48("Aviraj Innovations Pvt. Ltd.") + "\n";
+            receipt += center48("Inquiry On: +91 9096152118") + "\n";
+            receipt += NORMAL_FONT + "\n";
+
+            // Print using RAWBT
+            const encoded = btoa(unescape(encodeURIComponent(receipt)));
+            window.location.href = "rawbt:base64," + encoded;
+
+                if (confirm("This receipt has already been printed.\nDo you want to re-print it?"))
+                {
+                window.location.href = "rawbt:base64," + encoded;
+                }
+
+            }
+
+
+                    function printPlainReceipt58mm(orgTitle, address, invoiceNo, date, customerName, productList, grandTotal = 0, Contact, Mode, TableNo,discountPercent,discountedTotal) {
+
+                    const ESC = "\x1B";
+                    const DOUBLE = ESC + "!" + "\x38";        // Big font
+                    const MEDIUM = ESC + "!" + "\x20";        // Medium (double height)
+                    const NORMAL = ESC + "!" + "\x00";        // Normal
+                    const SMALL = ESC + "M" + "\x01";         // Small font
+                    const NORMAL_FONT = ESC + "M" + "\x00";
+
+                    // Split long text into lines of fixed width
+                    function wrapText(text, max) {
+                        let lines = [];
+                        while (text.length > 0) {
+                            lines.push(text.substring(0, max));
+                            text = text.substring(max);
+                        }
+                        return lines;
+                    }
+
+                    // Center 32-wide lines
+                    function center32(text) {
+                        const total = 32;
+                        let pad = Math.max(0, Math.floor((total - text.length) / 2));
+                        return " ".repeat(pad) + text;
+                    }
+
+                    // Center 16-wide lines (medium / double-width)
+                    function center16(text) {
+                        text = text.substring(0, 16);
+                        const total = 16;
+                        let pad = Math.max(0, Math.floor((total - text.length) / 2));
+                        return " ".repeat(pad) + text;
+                    }
+
+                    // Format date (remove seconds)
+                    let cleanDate = date.split(":");
+                    if (cleanDate.length >= 2) {
+                        cleanDate = cleanDate[0] + ":" + cleanDate[1]; // keep HH:mm only
+                    } else {
+                        cleanDate = date;
+                    }
+
+                    let receipt = "";
+                    receipt += "--------------------------------\n";
+
+                    // ---- Title (Medium Font + Auto wrap) ----
+                    let titleLines = wrapText(orgTitle, 16).slice(0, 2); // max 2 lines
+
+                    titleLines.forEach(line => {
+                        receipt += MEDIUM + center16(line) + NORMAL + "\n";
+                    });
+
+                    // ---- Address (Auto Wrap in 32) ----
+                    let addressLines = wrapText(address, 32).slice(0, 2);
+                    addressLines.forEach(line => {
+                        receipt += center32(line) + "\n";
+                    });
+
+                    receipt += "Contact : " + Contact + "\n";
+                    receipt += "--------------------------------\n";
+
+                    // Invoice details
+                    receipt += `Invoice#: ${invoiceNo}\n`;
+                    if (TableNo) receipt += `Table No: ${TableNo}\n`;
+                    receipt += `Customer : ${customerName}\n`;
+                    receipt += `Date     : ${cleanDate}\n`;
+                    receipt += `Mode     : ${Mode}\n`;
+                    receipt += "--------------------------------\n";
+
+                    // Table header
+                    receipt += "Item            Qty  Rate  Total\n";
+                    receipt += "--------------------------------\n";
+
+                    // Items
+                    productList.forEach(p => {
+                        const product = allProducts.find(w => w.Id === p.productId);
+
+                        const name = (product?.Name || "").padEnd(14, " ").substring(0, 14);
+                        const qty = String(p.qty).padStart(3, " ");
+                        const rate = String(p.price).padStart(5, " ");
+                        const total = String(p.qty * p.price).padStart(7, " ");
+
+                        receipt += `${name} ${qty} ${rate} ${total}\n`;
+
+                        grandTotal += p.qty * p.price;
+                    });
+
+                    receipt += "--------------------------------\n";
+
+                    if(discountPercent>0){
+                    receipt += `            Total: ${grandTotal}\n`;
+                    receipt += `            Disc.: ${discountPercent}%\n`;
+                    }
+                    // Grand total – Medium font centered
+                    const grandText = "Total: " + Math.round(discountedTotal)+ "/-";
+                    receipt += MEDIUM + center16(grandText) + NORMAL + "\n";
+
+                    receipt += "--------------------------------\n";
+
+                    // Footer small text
+                    receipt += center32("Thank you, visit again!") + "\n\n";
+                    receipt += SMALL + center32("Aviraj Innovations Pvt. Ltd.") + "\n";
+                    receipt += center32("Inquiry On: +91 9096152118") + "\n";
+                    receipt += NORMAL_FONT + "\n";
+
+                    // Print
+                    const encoded = btoa(unescape(encodeURIComponent(receipt)));
+                    window.location.href = "rawbt:base64," + encoded;
+
+                    if (confirm("This receipt has already been printed.\nDo you want to re-print it?")) {
+                                            window.location.href = "rawbt:base64," + encoded;
+                    }
+                }
 
 
         // Open Cart Modal
@@ -2426,23 +2670,25 @@ function printReceipt80mm_Regional(
 
         // Save button → same as checkout button
         $(".btnMobileSave").click(function () {
+            debugger;
             const customerName = $("#txtCustNameMobile").val();
             const tableDetail = $("#ddlTableMobile option:selected").val();
             const paymentMode = $('[name="paymentMobile"]:checked').val();
            const discountPercent = $("#discountPercentMobile").val();
-                    const discountPrice = $("#discountedTotalMobile").val();
+                    const discountPrice = $("#discountedTotalMobile").text();
 
                      doCheckout(customerName, tableDetail, paymentMode,false,false,discountPercent,discountPrice);
         });
 
          // Save button → same as checkout button
         $(".btnDesktopSave").click(function () {
+            debugger;
             const customerName = $("#txtCustNameDesktop").val();
             const tableDetail = $("#ddlTableDesktop option:selected").val();
             const paymentMode = $('[name="paymentDesktop"]:checked').val();
 
             const discountPercent = $("#discountPercentDesktop").val();
-            const discountPrice = $("#discountedTotalDesktop").val();
+            const discountPrice = $("#discountedTotalDesktop").text();
 
             doCheckout(customerName, tableDetail, paymentMode,false,false,discountPercent,discountPrice);
         });
@@ -2677,8 +2923,8 @@ function printReceipt80mm_Regional(
 
         new QRCode(qrDiv, {
             text: upiUrl,
-            width: 180,
-            height: 180
+            width: 150,
+            height: 150
         });
     }
 
