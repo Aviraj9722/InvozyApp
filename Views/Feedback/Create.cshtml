@@ -1,0 +1,125 @@
+﻿@{
+    ViewData["Title"] = "Customer Feedback";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white text-center py-4">
+                    <h4 class="fw-bold mb-2">
+                        Submit Your Feedback
+                    </h4>
+
+                    <span class="badge bg-light text-primary fs-6 px-3 py-2">
+                        @ViewBag.BusinessName
+                    </span>
+                </div>
+
+                <div class="card-body">
+                    <form id="feedbackForm">
+
+                        <!-- Business Id -->
+                        <input type="hidden" name="BuisnessId" value="@ViewBag.BusinessId" />
+
+                        <div class="mb-2">
+                            <label class="form-label">Customer Name</label>
+                            <input type="text" name="CustomerName" class="form-control" required />
+                            <small class="text-danger d-none" id="errCustomerName">Customer name is required</small>
+                        </div>
+
+                        <div class="mb-2">
+                            <label class="form-label">Mobile No</label>
+                            <input type="text" name="MobileNo" class="form-control" maxlength="10" />
+                            <small class="text-danger d-none" id="errMobile">Enter valid 10-digit mobile number</small>
+                        </div>
+
+                        <div class="mb-2">
+                            <label class="form-label">Feedback</label>
+                            <textarea name="Feedback" class="form-control" required></textarea>
+                            <small class="text-danger d-none" id="errFeedback">Feedback is required</small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Rating</label>
+                            <select name="Ratings" class="form-select" required>
+                                <option value="">-- Select Rating --</option>
+                                <option value="1">⭐</option>
+                                <option value="2">⭐⭐</option>
+                                <option value="3">⭐⭐⭐</option>
+                                <option value="4">⭐⭐⭐⭐</option>
+                                <option value="5">⭐⭐⭐⭐⭐</option>
+                            </select>
+                            <small class="text-danger d-none" id="errRating">Please select rating</small>
+                        </div>
+
+                        <button type="button" class="btn btn-success w-100" id="btnSubmitFeedback">
+                            Submit Feedback
+                        </button>
+
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $("#btnSubmitFeedback").click(function () {
+
+            let isValid = true;
+
+            const name = $("input[name='CustomerName']").val().trim();
+            const mobile = $("input[name='MobileNo']").val().trim();
+            const feedback = $("textarea[name='Feedback']").val().trim();
+            const rating = $("select[name='Ratings']").val();
+
+            $(".text-danger").addClass("d-none");
+
+            if (name === "") {
+                $("#errCustomerName").removeClass("d-none");
+                isValid = false;
+            }
+
+            if (!/^\d{10}$/.test(mobile)) {
+                $("#errMobile").removeClass("d-none");
+                isValid = false;
+            }
+
+            if (feedback === "") {
+                $("#errFeedback").removeClass("d-none");
+                isValid = false;
+            }
+
+            if (rating === "") {
+                $("#errRating").removeClass("d-none");
+                isValid = false;
+            }
+
+            if (!isValid) return;
+
+            var form = document.getElementById("feedbackForm");
+            var formData = new FormData(form);
+
+            $.ajax({
+                url: "/Feedback/SubmitFeedback",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (res) {
+                    alert(res.message);
+                    form.reset();
+                },
+                error: function () {
+                    alert("Error submitting feedback.");
+                }
+            });
+        });
+    </script>
+
+
+}
