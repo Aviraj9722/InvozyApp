@@ -173,7 +173,12 @@
                         <input class="form-check-input" type="checkbox" id="IsTableNoRequired" name="IsTableNoRequired" />
                         <label class="form-check-label">Is TableNo Required?</label>
                     </div>
-                    
+                    <!-- Isreprint Enabled  -->
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="IsReceiptReprint" name="IsReceiptReprint" />
+                        <label class="form-check-label">Is Receipt Reprint Required?</label>
+                    </div>
+
 
                     <!-- Kichen Printer Name  -->
                     <div class="b-3">
@@ -254,6 +259,7 @@
                         <th>Counter Printer</th>
                         <th>Kichen Printer</th>
                         <th>TableNo Required?</th>
+                        <th>Receipt Reprint</th>
                         <th>Active</th>
                     </tr>
                 </thead>
@@ -302,6 +308,7 @@
                             <td>@item.CounterPrinterName</td>
                             <td>@item.KichenPrinterName</td>
                             <td>@item.IsTableNoRequired</td>
+                            <td>@item.IsReceiptReprint</td>
                             <td>@(item.IsActive == true ? "Yes" : "No")</td>
                         </tr>
 
@@ -477,7 +484,8 @@
                formData.set("BarcodeEnabled", $("#BarcodeEnabled").is(":checked"));
                  formData.set("IsMultilengual", $("#IsMultilengual").is(":checked"));
                    formData.set("IsTableNoRequired", $("#IsTableNoRequired").is(":checked"));
-            
+              formData.set("IsReceiptReprint", $("#IsReceiptReprint").is(":checked"));
+
            // formData.set("IsGstapplicable", $("#IsGstapplicable").is(":checked"));
             $.ajax({
                 url: url,
@@ -522,7 +530,8 @@
                 $("#BarcodeEnabled").prop('checked', data.barcodeEnabled);
                    $("#IsMultilengual").prop('checked', data.isMultilengual);
                      $("#IsTableNoRequired").prop('checked', data.isTableNoRequired);
-                
+                  $("#IsReceiptReprint").prop('checked', data.isReceiptReprint);
+
                 $("#KichenPrinterName").val(data.kichenPrinterName);
                 $("#CounterPrinterName").val(data.counterPrinterName);
                 $("#QRCode").val(data.qrCode);
@@ -559,7 +568,7 @@
             $("#KichenPrinterName").val("");
             $("#CounterPrinterName").val("");
               $("#IsTableNoRequired").prop("checked",false);
-            
+            $("#IsReceiptReprint").prop("checked",false);
         }
 
     </script>

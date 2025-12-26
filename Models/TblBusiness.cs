@@ -36,6 +36,8 @@ public partial class TblBusiness
 
     public bool? IsGstapplicable { get; set; }
 
+    public bool IsReceiptReprint { get; set; }
+
     public string? Qrcode { get; set; }
 
     public bool? IsKOTEnabled { get; set; }

@@ -1203,9 +1203,11 @@
             // -------- RAWBT PRINT --------
             const encoded = btoa(unescape(encodeURIComponent(receipt)));
             window.location.href = "rawbt:base64," + encoded;
-
-            if (confirm("This receipt has already been printed.\nDo you want to re-print it?")) {
-                 window.location.href = "rawbt:base64," + encoded;
+            if('@Org.IsReceiptReprint'.toLowerCase()=='true')
+            {
+                if (confirm("This receipt has already been printed.\nDo you want to re-print it?")) {
+                        window.location.href = "rawbt:base64," + encoded;
+                }
             }
         }
 
@@ -2539,9 +2541,11 @@
             const encoded = btoa(unescape(encodeURIComponent(receipt)));
             window.location.href = "rawbt:base64," + encoded;
 
-                if (confirm("This receipt has already been printed.\nDo you want to re-print it?"))
+                if('@Org.IsReceiptReprint'.toLowerCase()=='true')
                 {
-                window.location.href = "rawbt:base64," + encoded;
+                    if (confirm("This receipt has already been printed.\nDo you want to re-print it?")) {
+                            window.location.href = "rawbt:base64," + encoded;
+                    }
                 }
 
             }
@@ -2656,8 +2660,11 @@
                     const encoded = btoa(unescape(encodeURIComponent(receipt)));
                     window.location.href = "rawbt:base64," + encoded;
 
-                    if (confirm("This receipt has already been printed.\nDo you want to re-print it?")) {
-                                            window.location.href = "rawbt:base64," + encoded;
+                    if('@Org.IsReceiptReprint'.toLowerCase()=='true')
+                    {
+                        if (confirm("This receipt has already been printed.\nDo you want to re-print it?")) {
+                                window.location.href = "rawbt:base64," + encoded;
+                        }
                     }
                 }
 
