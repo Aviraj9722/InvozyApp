@@ -492,8 +492,8 @@
     <!-- 🛒 DESKTOP CART -->
     <div class="desktop-cart" id="desktopCart">
         <h5>
-            Your Cart <span id="desktopCartCount" class="badge-count bg-success text-light">0</span> </span>
-            </h3>
+            Your Cart <span id="desktopCartCount" class="badge-count bg-success text-light">0</span> 
+            <span id="lblMsg" class="text-danger"></span>
         </h5>
         <div id="desktopCartItems" style="margin-top:8px;overflow-y: auto;height: 366px;"></div>
 
@@ -2822,14 +2822,24 @@
 
             }, 60);
         });
+        const findQtyById = (cart, id) => {
+            let qty = 0;
 
+            cart.forEach(item => {
+            if (item.id === id) {
+                qty = item.qty;
+            }
+            });
+
+            return qty;
+        };
         function processBarcode(code) {
-
+             $("#lblMsg").empty();
             fetch(`/Order/GetProductByBarcode?code=${code}`)
                 .then(r => r.json())
                 .then(res => {
                     if (!res.success) {
-                        alert("Barcode not found");
+                        $("#lblMsg").text("Barcode not found");
                         return;
                     }
 
@@ -2838,14 +2848,23 @@
                     const id = p.id;
                     const price = parseFloat(p.price);
                     const name = p.name;
+                    debugger;
+                   // const input = $(`#qty-${id}`);
 
-                    const input = $(`#qty-${id}`);
+
+                 var OldQty = findQtyById(cart, id);
+
                     let qty = 1;
 
-                    if (input.length > 0) {
-                        qty = parseInt(input.val()) + 1;
-                        input.val(qty);
-                    }
+                    try{
+                       // if (input.length > 0) {
+                        if (OldQty > 0) {
+                            //qty = parseInt(input.val()) + 1;
+                            qty = parseInt(OldQty) + 1;
+                            input.val(qty);
+                        }
+                    }catch(er)
+                    {}
 
                     updateCart(id, name, price, qty);
 
