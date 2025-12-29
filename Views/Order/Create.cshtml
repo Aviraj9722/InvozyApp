@@ -1139,7 +1139,13 @@
             const query = this.value.toLowerCase();
             document.querySelectorAll(".product-card").forEach(card => {
                 const name = card.querySelector("h6").innerText.toLowerCase();
-                if (name.includes(query)) {
+
+                const h6 = card.querySelector("h6");
+                let code = h6.getAttribute("code");
+                code = code === "null" ? null : code;
+
+
+                if (name.includes(query) || code?.includes(query) ) {
                     card.style.display = "";
                 } else {
                     card.style.display = "none";
@@ -1311,7 +1317,7 @@
                 container.append('<p>No products found.</p>');
                 return;
             }
-
+                            console.log(paginated);
             paginated.forEach(p => {
                 const img = p.Photo
                     ? `<img src="${p.Photo}" alt="${htmlEscape(p.Name)}" />`
@@ -1325,7 +1331,7 @@
                 container.append(`
                     <div class="product-card ${p.Photo?'':'product-card-WithoutImage'}" data-id="${p.Id}">
                         ${img}
-                        <h6  title="${htmlEscape(p.Name)}">${htmlEscape(p.Photo?p.Name:'')}</h6>
+                        <h6  title="${htmlEscape(p.Name)}" code="${p.Code}">${htmlEscape(p.Photo?p.Name:'')}</h6>
                         <p class="price">₹${p.Price}</p>
                         <div class="qty-controls">
                             <button class="btn btn-sm btn-outline-secondary qty-down" data-id="${p.Id}">-</button>
