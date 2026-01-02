@@ -1,0 +1,105 @@
+﻿@model List<eOrderTouchApp.Models.TblFeedback>
+
+@{
+    ViewData["Title"] = "Customer Feedbacks";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h4 class="mb-0">Customer Feedbacks</h4>
+
+    <button class="btn btn-outline-primary"
+            id="btnDownloadQR">
+        <i class="bi bi-qr-code"></i> Download Feedback QR
+    </button>
+</div>
+
+<table class="table table-bordered table-striped">
+    <thead class="table-dark">
+        <tr>
+            <th>Date</th>
+            <th>Customer</th>
+            <th>Mobile</th>
+            <th>Feedback</th>
+            <th>Rating</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.CreatedOn?.ToString("dd-MM-yyyy hh:mm tt")</td>
+                <td>@item.CustomerName</td>
+                <td>@item.MobileNo</td>
+                <td>@item.Feedback</td>
+                <td>
+                    @for (int i = 1; i <= item.Ratings; i++)
+                    {
+                        <span>⭐</span>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<!-- QR Modal -->
+<div class="modal fade" id="qrModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Feedback QR Code</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body text-center">
+                <div id="qrCodeContainer"></div>
+                <p class="mt-3 small text-muted">
+                    Scan to submit feedback
+                </p>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-success" id="btnDownloadImage">
+                    Download QR
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+@section Scripts {
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+    <script>
+        const businessId = '@ViewBag.BusinessId';
+        const feedbackUrl = `${window.location.origin}/Feedback/Create?BID=${businessId}`;
+
+        let qr;
+
+        $("#btnDownloadQR").click(function () {
+
+            $("#qrCodeContainer").html("");
+
+            qr = new QRCode(document.getElementById("qrCodeContainer"), {
+                text: feedbackUrl,
+                width: 220,
+                height: 220
+            });
+
+            $("#qrModal").modal("show");
+        });
+
+        $("#btnDownloadImage").click(function () {
+            const img = $("#qrCodeContainer img")[0];
+            const link = document.createElement("a");
+
+            link.href = img.src;
+            link.download = "Feedback_QR.png";
+            link.click();
+        });
+    </script>
+}
+
+
+

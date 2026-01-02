@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using eOrderTouchApp.Models;
+﻿using eOrderTouchApp.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace eOrderTouchApp.Controllers
 {
-    [AuthorizeToRoles("User", "Owner")]
+   
     public class FeedbackController : Controller
     {
         private readonly eOrderTouchContext _context;
@@ -13,13 +14,44 @@ namespace eOrderTouchApp.Controllers
             _context = context;
         }
 
-
-        public IActionResult IndexPartial()
+        // CUSTOMER VIEW (NO GRID)
+        [AllowAnonymous] // customers don't need login
+        public IActionResult Create(int BID = 0)
         {
-            return PartialView("_FeedbackModal");
+            ViewBag.BusinessId = BID;
+
+            // 🔹 Fetch business name for this BID
+            var businessName = _context.TblBusinesses
+                .Where(b => b.Id == BID)
+                .Select(b => b.BusinessName)
+                .FirstOrDefault();
+
+            ViewBag.BusinessName = businessName ?? "Our Business";
+
+            return View();
         }
 
-        // SAVE FEEDBACK (POST)
+
+        [AuthorizeToRoles("Owner")]
+        public IActionResult List()
+        {
+            var orgClaim = User.FindFirst("OrgId");
+            if (orgClaim == null)
+                return Unauthorized();
+
+            int businessId = int.Parse(orgClaim.Value);
+
+            ViewBag.BusinessId = businessId;   // ✅ ADD THIS
+
+            var feedbacks = _context.TblFeedbacks
+                .Where(x => x.BuisnessId == businessId)
+                .OrderByDescending(x => x.CreatedOn)
+                .ToList();
+
+            return View(feedbacks);
+        }
+
+        [AllowAnonymous]
         [HttpPost]
         public IActionResult SubmitFeedback(TblFeedback model)
         {
@@ -28,13 +60,27 @@ namespace eOrderTouchApp.Controllers
 
             model.CreatedOn = DateTime.Now;
 
-            // If business is selected from modal (hidden field)
-            model.BuisnessId = model.BuisnessId == 0 ? null : model.BuisnessId;
+            var orgClaim = User.FindFirst("OrgId");
+
+            if (orgClaim != null)
+            {
+                // Owner submitting feedback
+                model.BuisnessId = int.Parse(orgClaim.Value);
+            }
+            else
+            {
+                // Customer submitting feedback
+                if (model.BuisnessId == 0)
+                    return BadRequest("BusinessId missing");
+            }
 
             _context.TblFeedbacks.Add(model);
             _context.SaveChanges();
 
             return Ok(new { message = "Feedback submitted successfully!" });
         }
+
+
+
     }
 }

@@ -60,7 +60,7 @@ namespace eOrderTouchApp.Models
             { "Item Sale Reports", typeof(ItemReportModel) },
             { "User Sale Reports", typeof(UserReportModel) },
             { "Table Sale Reports", typeof(TableReportModel) },
-            { " Sale Reports", typeof(SaleReportModel) },
+            { "Sale Reports", typeof(SaleReportModel) },
             { "Category Sale Reports", typeof(CategorySaleModel) },
             { "Customer Sale Reports", typeof(CustomerSaleReportModel) },
             { "Customer Area Sale Reports", typeof(CustomerAreaSaleReport) },

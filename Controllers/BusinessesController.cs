@@ -53,6 +53,7 @@ namespace eOrderTouchApp.Controllers
             ModelState.Remove("BarcodeEnabled");
             ModelState.Remove("IsMultilengual");
             ModelState.Remove("IsTableNoRequired");
+            ModelState.Remove("IsReceiptReprint");
             if (!ModelState.IsValid)
             {
                 var allErrors = ModelState
@@ -130,6 +131,7 @@ namespace eOrderTouchApp.Controllers
                 counterPrinterName = b.CounterPrinterName,
                 isMultilengual = b.IsMultilengual,
                 isTableNoRequired = b.IsTableNoRequired,
+                isReceiptReprint = b.IsReceiptReprint,
                 isActive = b.IsActive,
                 logo = b.Logo,
                 mobileNo = b.MobileNo,
@@ -159,6 +161,7 @@ namespace eOrderTouchApp.Controllers
             ModelState.Remove("BarcodeEnabled");
             ModelState.Remove("IsMultilengual");
             ModelState.Remove("IsTableNoRequired");
+            ModelState.Remove("IsReceiptReprint");
             
             if (!ModelState.IsValid)
             {
@@ -222,6 +225,7 @@ namespace eOrderTouchApp.Controllers
             existing.KichenPrinterName = business.KichenPrinterName;
             existing.CounterPrinterName = business.CounterPrinterName;
             existing.IsTableNoRequired = business.IsTableNoRequired;
+            existing.IsReceiptReprint = business.IsReceiptReprint;
             existing.Qrcode = business.Qrcode;
             //// Replace logo if file selected
             //if (LogoFile != null)

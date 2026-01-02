@@ -74,6 +74,8 @@ public partial class eOrderTouchContext : DbContext
                 .HasMaxLength(20)
                 .HasColumnName("GSTIN");
             entity.Property(e => e.IsGstapplicable).HasColumnName("IsGSTApplicable");
+
+            
             entity.Property(e => e.Logo).IsUnicode(false);
             entity.Property(e => e.OwnerName).HasMaxLength(100);
             entity.Property(e => e.Qrcode)
@@ -81,6 +83,7 @@ public partial class eOrderTouchContext : DbContext
                 .HasColumnName("QRCode");
 
             entity.Property(e => e.IsGstapplicable).HasColumnType("bit");
+            entity.Property(e => e.IsReceiptReprint).HasColumnType("bit");
 
             entity.Property(e => e.IsCustomerMandetory).HasColumnType("bit");
             entity.Property(e => e.BarcodeEnabled).HasColumnType("bit");
