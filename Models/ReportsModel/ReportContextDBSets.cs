@@ -52,8 +52,7 @@ namespace eOrderTouchApp.Models
             modelBuilder.Entity<DateWiseSaleProfitReportModel>().HasNoKey();
             modelBuilder.Entity<StockReportModel>().HasNoKey();
             modelBuilder.Entity<OrderDiscountReportModel>().HasNoKey();
-
-
+           
         }
         private static readonly Dictionary<string, Type> ReportsModel = new()
         {

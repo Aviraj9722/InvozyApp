@@ -92,7 +92,7 @@
                 </a>
             </div>
 
-            <!-- UOM -->
+           @*  <!-- UOM -->
             <div class="dash-col mobile-col">
                 <a asp-controller="UOM" asp-action="Index" class="text-decoration-none">
                     <div class="dashboard-card text-center shadow-sm border-0">
@@ -102,7 +102,19 @@
                         </div>
                     </div>
                 </a>
+            </div> *@
+            <!-- Statistics / Graph -->
+            <div class="dash-col mobile-col">
+                <a asp-controller="Home" asp-action="Graph" class="text-decoration-none">
+                    <div class="dashboard-card text-center shadow-sm border-0">
+                        <div class="card-body p-3">
+                            <i class="fas fa-chart-bar fa-2x mb-2"></i>
+                            <h6 class="fw-semibold mb-0">Statistics / Graph</h6>
+                        </div>
+                    </div>
+                </a>
             </div>
+
 
             <!-- GST -->
             <div class="dash-col mobile-col">
@@ -130,7 +142,7 @@
             </div>
             <!-- Feedback -->
             <div class="dash-col mobile-col">
-                <a href="javascript:void(0)" id="btnOpenFeedback" class="text-decoration-none">
+                <a asp-controller="Feedback" asp-action="List" class="text-decoration-none">
                     <div class="dashboard-card text-center shadow-sm border-0">
                         <div class="card-body p-3">
                             <i class="fas fa-comment-dots fa-2x text-primary mb-2"></i>
@@ -141,7 +153,7 @@
             </div>
 
 
-              <!-- Cuustomer -->
+              <!-- Customer -->
             <div class="dash-col mobile-col">
                 <a asp-controller="Customer" asp-action="Index" class="text-decoration-none">
                     <div class="dashboard-card text-center shadow-sm border-0">
@@ -165,10 +177,7 @@
                 </a>
             </div>
 
-     
-
-          
-            <!-- All Report -->
+          <!-- All Report -->
             <div class="dash-col mobile-col">
                 <a asp-controller="Reports" asp-action="Index" class="text-decoration-none">
                     <div class="dashboard-card text-center shadow-sm border-0">
@@ -313,30 +322,199 @@
             text-align: center;
         }
 
-    .dash-col {
-        margin-bottom: 12px;
-    }
+        .dash-col {
+            margin-bottom: 12px;
+        }
 
         .dash-col:last-child {
             margin-bottom: 90px;
         }
 
+       
     }
+  
 </style>
 
 <link rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<script>
-    $("#btnOpenFeedback").click(function () {
 
-        $.get("/Feedback/IndexPartial", function (html) {
 
-            $("#feedbackModalContainer").html(html);
+@* @section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
 
-            $("#feedbackModal").modal("show");
+
+    <script>
+        let salesProfitChart;
+
+        async function loadChart(fromDate, toDate) {
+            try {
+                const formatDate = d => new Date(d).toISOString().split('T')[0];
+                const res = await fetch(`/Home/SaleProfitChart?fromDate=${formatDate(fromDate)}&toDate=${formatDate(toDate)}`);
+                const data = await res.json();
+
+                const labels = data.map(x => x.date);
+                const sales = data.map(x => x.sale);
+                const profits = data.map(x => x.profit);
+
+                const ctx = document.getElementById('salesProfitChart').getContext('2d');
+
+                if (salesProfitChart) salesProfitChart.destroy(); // destroy previous chart
+
+                salesProfitChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [
+                            {
+                                label: 'Sales',
+                                data: sales,
+                                backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                                borderColor: 'rgba(54, 162, 235, 1)',
+                                borderWidth: 1
+                            },
+                            {
+                                label: 'Profit',
+                                data: profits,
+                                backgroundColor: 'rgba(255, 206, 86, 0.6)',
+                                borderColor: 'rgba(255, 206, 86, 1)',
+                                borderWidth: 1
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: { position: 'top' },
+                            title: { display: true, text: `Sales & Profit (${labels[0]} - ${labels[labels.length-1]})` }
+                        },
+                        scales: {
+                            y: { beginAtZero: true }
+                        }
+                    }
+                });
+
+            } catch (err) {
+                console.error('Error loading chart data:', err);
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const today = new Date();
+            const lastWeek = new Date();
+            lastWeek.setDate(today.getDate() - 6);
+
+            // set default date pickers
+            document.getElementById('fromDate').valueAsDate = lastWeek;
+            document.getElementById('toDate').valueAsDate = today;
+
+            loadChart(lastWeek, today);
+            loadItemHorizontalBar(
+                lastWeek.toISOString().split('T')[0],
+                today.toISOString().split('T')[0]
+            );
+           
+             btnUpdateChart.addEventListener('click', () => {
+                    loadChart(new Date(fromDate.value), new Date(toDate.value));
+                    loadItemHorizontalBar(fromDate.value, toDate.value);
+             });
         });
+    </script>
+   <script>
+        let itemBarChart;
 
-    });
-</script>
+        function loadItemHorizontalBar(fromDate, toDate) {
+
+            fetch(`/Home/ItemWiseSaleBar?fromDate=${fromDate}&toDate=${toDate}`)
+                .then(res => res.json())
+                .then(data => {
+
+                    if (!data || data.length === 0) return;
+
+                    const labels = data.map(x => x.label);
+                    const values = data.map(x => x.value);
+
+                    const total = values.reduce((a, b) => a + b, 0);
+                    const percentages = values.map(v => ((v / total) * 100).toFixed(1));
+
+                    /* 🔹 Dynamic height for 100+ items */
+                    const barHeight = 28;
+                    const minHeight = 420;
+                    const canvasHeight = Math.max(labels.length * barHeight, minHeight);
+                    document.getElementById('itemItemBarChart').height = canvasHeight;
+
+                    const ctx = document.getElementById('itemItemBarChart').getContext('2d');
+
+                    if (itemBarChart) itemBarChart.destroy();
+
+                    itemBarChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                data: values,
+                                backgroundColor: '#4CAF50',
+                                borderRadius: 8,
+                                barThickness: 18,
+                                maxBarThickness: 22
+                            }]
+                        },
+                        options: {
+                            indexAxis: 'y',
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            layout: {
+                                padding: { right: 60 }
+                            },
+                            plugins: {
+                                legend: { display: false },
+                                tooltip: {
+                                    callbacks: {
+                                        label: ctx => `₹ ${ctx.raw.toLocaleString()} (${percentages[ctx.dataIndex]}%)`
+                                    }
+                                }
+                            },
+                            scales: {
+                                x: {
+                                    beginAtZero: true,
+                                    ticks: {
+                                        callback: value => '₹ ' + value
+                                    },
+                                    grid: {
+                                        color: '#eee'
+                                    }
+                                },
+                                y: {
+                                    grid: { display: false }
+                                }
+                            }
+                        },
+                        plugins: [{
+                            /* 🔹 Percentage on bar (right side) */
+                            afterDatasetsDraw(chart) {
+                                const { ctx } = chart;
+                                ctx.save();
+                                ctx.font = 'bold 13px Arial';
+                                ctx.fillStyle = '#2e7d32';
+
+                                chart.getDatasetMeta(0).data.forEach((bar, index) => {
+                                    ctx.fillText(
+                                        percentages[index] + '%',
+                                        bar.x + 10,
+                                        bar.y + 4
+                                    );
+                                });
+                            }
+                        }]
+                    });
+                })
+                .catch(err => console.error(err));
+        }
+    </script>
+
+
+
+
+} *@

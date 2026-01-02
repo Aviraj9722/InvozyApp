@@ -1,0 +1,334 @@
+﻿@{
+    ViewData["Title"] = "Graphs";
+}
+
+<div class="container-fluid px-4">
+
+    <!-- PAGE TITLE -->
+    <h2 class="text-center fw-bold text-primary mb-4">Sales Analytics</h2>
+
+    <!-- ================= FILTER SECTION ================= -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <div class="row g-3 align-items-end">
+
+                <div class="col-md-3">
+                    <label class="form-label fw-semibold">From Date</label>
+                    <input type="date" id="fromDate" class="form-control">
+                </div>
+
+                <div class="col-md-3">
+                    <label class="form-label fw-semibold">To Date</label>
+                    <input type="date" id="toDate" class="form-control">
+                </div>
+
+                <div class="col-md-2">
+                    <button id="btnUpdateChart" class="btn btn-primary w-100">
+                        Update Charts
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= CHARTS SECTION ================= -->
+    <div class="row g-4">
+
+        <!-- SALES & PROFIT -->
+        <div class="col-lg-6">
+            <div class="card shadow-sm h-100">
+                <div class="card-header fw-semibold text-center">
+                    Sales & Profit
+                </div>
+                <div class="card-body sales-profit-wrapper">
+                    <canvas id="salesProfitChart"></canvas>
+                </div>
+            </div>
+        </div>
+    
+        <!-- ITEM WISE DISTRIBUTION -->
+        <div class="col-lg-6">
+            <div class="card shadow-sm h-100">
+                <div class="card-header fw-semibold text-center">
+                    Item Wise Sale Distribution (%)
+                </div>
+                <div class="card-body chart-scroll-wrapper">
+                    <canvas id="itemItemBarChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<style>
+    .chart-container {
+        position: relative;
+        width: 100%;
+        height: 320px; /* SAME HEIGHT FOR BOTH */
+    }
+
+        .chart-container canvas {
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+    .chart-container {
+        position: relative;
+        height: 420px; /* fixed height */
+        overflow-y: auto;
+    }
+
+    .chart-container {
+        position: relative;
+        width: 100%;
+        height: 420px; /* REQUIRED */
+    }
+    /* Bigger horizontal bar chart */
+    .item-chart {
+        height: 420px; /* Medium size */
+    }
+    /* If many items (50–100), auto scroll instead of squeezing */
+    .item-chart {
+        overflow-y: auto;
+    }
+    /* ===== ITEM HORIZONTAL BAR (PRO LOOK) ===== */
+    .item-chart-wrapper {
+        position: relative;
+        width: 100%;
+        height: 420px; /* Medium size like left chart */
+        overflow-y: auto; /* Scroll when many items */
+        padding-right: 6px;
+    }
+        /* Smooth scrollbar */
+        .item-chart-wrapper::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .item-chart-wrapper::-webkit-scrollbar-thumb {
+            background: #cfd8dc;
+            border-radius: 10px;
+        }
+    /* Canvas must stretch */
+    #itemItemBarChart {
+        min-height: 420px;
+    }
+
+    .chart-scroll-wrapper {
+        height: 420px; /* professional medium size */
+        overflow-y: auto; /* enable vertical scroll */
+        padding-right: 10px;
+    }
+
+    .chart-scroll-wrapper {
+        height: 520px; /* Same height as left chart */
+        overflow-y: auto;
+        padding-right: 12px;
+    }
+
+        .chart-scroll-wrapper::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .chart-scroll-wrapper::-webkit-scrollbar-thumb {
+            background: #cfd8dc;
+            border-radius: 6px;
+        }
+
+        .chart-scroll-wrapper::-webkit-scrollbar-track {
+            background: #f5f7fa;
+        }
+    /* Sales & Profit Chart container FIX */
+    .sales-profit-wrapper {
+        height: 420px;
+    }
+
+    @@media (max-width: 768px) {
+        .sales-profit-wrapper {
+            height: 320px; /* Mobile clean height */
+        }
+    }
+
+</style>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+
+
+    <script>
+        let salesProfitChart;
+
+        async function loadChart(fromDate, toDate) {
+            try {
+                const formatDate = d => new Date(d).toISOString().split('T')[0];
+                const res = await fetch(`/Home/SaleProfitChart?fromDate=${formatDate(fromDate)}&toDate=${formatDate(toDate)}`);
+                const data = await res.json();
+
+                const labels = data.map(x => x.date);
+                const sales = data.map(x => x.sale);
+                const profits = data.map(x => x.profit);
+
+                const ctx = document.getElementById('salesProfitChart').getContext('2d');
+
+                if (salesProfitChart) salesProfitChart.destroy(); // destroy previous chart
+
+                salesProfitChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [
+                            {
+                                label: 'Sales',
+                                data: sales,
+                                backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                                borderColor: 'rgba(54, 162, 235, 1)',
+                                borderWidth: 1
+                            },
+                            {
+                                label: 'Profit',
+                                data: profits,
+                                backgroundColor: 'rgba(255, 206, 86, 0.6)',
+                                borderColor: 'rgba(255, 206, 86, 1)',
+                                borderWidth: 1
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false, // REQUIRED
+                        plugins: {
+                            legend: { position: 'top' },
+                            title: { display: true, text: `Sales & Profit (${labels[0]} - ${labels[labels.length-1]})` }
+                        },
+                        scales: {
+                            y: { beginAtZero: true }
+                        }
+                    }
+                });
+
+            } catch (err) {
+                console.error('Error loading chart data:', err);
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const today = new Date();
+            const lastWeek = new Date();
+            lastWeek.setDate(today.getDate() - 6);
+
+            // set default date pickers
+            document.getElementById('fromDate').valueAsDate = lastWeek;
+            document.getElementById('toDate').valueAsDate = today;
+
+            loadChart(lastWeek, today);
+            loadItemHorizontalBar(
+                lastWeek.toISOString().split('T')[0],
+                today.toISOString().split('T')[0]
+            );
+
+             btnUpdateChart.addEventListener('click', () => {
+                    loadChart(new Date(fromDate.value), new Date(toDate.value));
+                    loadItemHorizontalBar(fromDate.value, toDate.value);
+             });
+        });
+    </script>
+
+    <script>
+        let itemBarChart;
+
+        function loadItemHorizontalBar(fromDate, toDate) {
+
+            fetch(`/Home/ItemWiseSaleBar?fromDate=${fromDate}&toDate=${toDate}`)
+                .then(res => res.json())
+                .then(data => {
+
+                    if (!data || data.length === 0) return;
+
+                    const labels = data.map(x => x.label);
+                    const values = data.map(x => x.value);
+
+                    const total = values.reduce((a, b) => a + b, 0);
+                    const percentages = values.map(v => ((v / total) * 100).toFixed(1));
+
+                    /* 🔹 Dynamic height for 100+ items */
+                    const barHeight = 28;
+                    const minHeight = 420;
+                    const canvasHeight = Math.max(labels.length * barHeight, minHeight);
+                    document.getElementById('itemItemBarChart').height = canvasHeight;
+
+                    const ctx = document.getElementById('itemItemBarChart').getContext('2d');
+
+                    if (itemBarChart) itemBarChart.destroy();
+
+                    itemBarChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                data: values,
+                                backgroundColor: '#4CAF50',
+                                borderRadius: 8,
+                                barThickness: 18,
+                                maxBarThickness: 22
+                            }]
+                        },
+                        options: {
+                            indexAxis: 'y',
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            layout: {
+                                padding: { right: 60 }
+                            },
+                            plugins: {
+                                legend: { display: false },
+                                tooltip: {
+                                    callbacks: {
+                                        label: ctx => `₹ ${ctx.raw.toLocaleString()} (${percentages[ctx.dataIndex]}%)`
+                                    }
+                                }
+                            },
+                            scales: {
+                                x: {
+                                    beginAtZero: true,
+                                    ticks: {
+                                        callback: value => '₹ ' + value
+                                    },
+                                    grid: {
+                                        color: '#eee'
+                                    }
+                                },
+                                y: {
+                                    grid: { display: false }
+                                }
+                            }
+                        },
+                        plugins: [{
+                            /* 🔹 Percentage on bar (right side) */
+                            afterDatasetsDraw(chart) {
+                                const { ctx } = chart;
+                                ctx.save();
+                                ctx.font = 'bold 13px Arial';
+                                ctx.fillStyle = '#2e7d32';
+
+                                chart.getDatasetMeta(0).data.forEach((bar, index) => {
+                                    ctx.fillText(
+                                        percentages[index] + '%',
+                                        bar.x + 10,
+                                        bar.y + 4
+                                    );
+                                });
+                            }
+                        }]
+                    });
+                })
+                .catch(err => console.error(err));
+        }
+    </script>
+
+
+
+
+}
