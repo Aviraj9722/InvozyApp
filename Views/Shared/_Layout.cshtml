@@ -27,6 +27,8 @@
     <!-- For iOS -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <link rel="apple-touch-icon" href="/icons/logo.png">
+
+
 </head>
 <body>
 
@@ -97,19 +99,19 @@
                                 else
                                 {
                                     <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-controller="Home" asp-action="Dashboard">Dashboard</a>
+                                        <a class="nav-link text-dark" asp-controller="Home" asp-action="Dashboard">Home</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link text-dark" asp-controller="Order" asp-action="Create">New Order</a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-controller="Order" asp-action="Report">Order Report</a>
-                                    </li>
+                                @*     <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-controller="Order" asp-action="Report">Order Summary</a>
+                                    </li> *@
                                    @*  <li class="nav-item">
                                         <a class="nav-link text-dark" asp-controller="User" asp-action="Index">Users</a>
                                     </li> *@
                                     <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-controller="UOM" asp-action="Index">UOM</a>
+                                        <a class="nav-link text-dark" asp-controller="Home" asp-action="Graph">Graphs</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link text-dark" asp-controller="Category" asp-action="Index">Categories</a>
@@ -127,13 +129,16 @@
                                         <a class="nav-link text-dark" asp-controller="GST" asp-action="Index">GSTs</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-controller="Table" asp-action="Index">Table</a>
+                                        <a class="nav-link text-dark" asp-controller="Table" asp-action="Index">Tables</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-controller="Account" asp-action="Test">Test</a>
+                                        <a class="nav-link text-dark" asp-controller="Reports" asp-action="Index">Reports</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-controller="Feedback" asp-action="List">ViewFeedback</a>
+                                        <a class="nav-link text-dark" asp-controller="Feedback" asp-action="List">Feedback</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-controller="Businesses" asp-action="Setting">Settings</a>
                                     </li>
 
                                     <li class="nav-item d-flex align-items-center bg-info text-dark px-3 rounded">
@@ -184,6 +189,8 @@
 
     <!-- DataTables JS -->
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
     <script>
