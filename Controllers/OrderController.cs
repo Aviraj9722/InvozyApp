@@ -116,7 +116,9 @@ public class OrderController : Controller
                 Price = p.Price,
                 CategoryId = p.CategoryId,
                 Photo = string.IsNullOrEmpty(p.Photo) ? "" : p.Photo,
-                businessId
+                businessId,
+                p.Code
+               
             })
             .ToListAsync();
 

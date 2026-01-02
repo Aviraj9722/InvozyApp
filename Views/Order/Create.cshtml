@@ -492,8 +492,8 @@
     <!-- 🛒 DESKTOP CART -->
     <div class="desktop-cart" id="desktopCart">
         <h5>
-            Your Cart <span id="desktopCartCount" class="badge-count bg-success text-light">0</span> </span>
-            </h3>
+            Your Cart <span id="desktopCartCount" class="badge-count bg-success text-light">0</span> 
+            <span id="lblMsg" class="text-danger"></span>
         </h5>
         <div id="desktopCartItems" style="margin-top:8px;overflow-y: auto;height: 366px;"></div>
 
@@ -1139,7 +1139,13 @@
             const query = this.value.toLowerCase();
             document.querySelectorAll(".product-card").forEach(card => {
                 const name = card.querySelector("h6").innerText.toLowerCase();
-                if (name.includes(query)) {
+
+                const h6 = card.querySelector("h6");
+                let code = h6.getAttribute("code");
+                code = code === "null" ? null : code;
+
+
+                if (name.includes(query) || code?.includes(query) ) {
                     card.style.display = "";
                 } else {
                     card.style.display = "none";
@@ -1203,9 +1209,11 @@
             // -------- RAWBT PRINT --------
             const encoded = btoa(unescape(encodeURIComponent(receipt)));
             window.location.href = "rawbt:base64," + encoded;
-
-            if (confirm("This receipt has already been printed.\nDo you want to re-print it?")) {
-                 window.location.href = "rawbt:base64," + encoded;
+            if('@Org.IsReceiptReprint'.toLowerCase()=='true')
+            {
+                if (confirm("This receipt has already been printed.\nDo you want to re-print it?")) {
+                        window.location.href = "rawbt:base64," + encoded;
+                }
             }
         }
 
@@ -1309,7 +1317,7 @@
                 container.append('<p>No products found.</p>');
                 return;
             }
-
+                            console.log(paginated);
             paginated.forEach(p => {
                 const img = p.Photo
                     ? `<img src="${p.Photo}" alt="${htmlEscape(p.Name)}" />`
@@ -1323,7 +1331,7 @@
                 container.append(`
                     <div class="product-card ${p.Photo?'':'product-card-WithoutImage'}" data-id="${p.Id}">
                         ${img}
-                        <h6  title="${htmlEscape(p.Name)}">${htmlEscape(p.Photo?p.Name:'')}</h6>
+                        <h6  title="${htmlEscape(p.Name)}" code="${p.Code}">${htmlEscape(p.Photo?p.Name:'')}</h6>
                         <p class="price">₹${p.Price}</p>
                         <div class="qty-controls">
                             <button class="btn btn-sm btn-outline-secondary qty-down" data-id="${p.Id}">-</button>
@@ -2539,9 +2547,11 @@
             const encoded = btoa(unescape(encodeURIComponent(receipt)));
             window.location.href = "rawbt:base64," + encoded;
 
-                if (confirm("This receipt has already been printed.\nDo you want to re-print it?"))
+                if('@Org.IsReceiptReprint'.toLowerCase()=='true')
                 {
-                window.location.href = "rawbt:base64," + encoded;
+                    if (confirm("This receipt has already been printed.\nDo you want to re-print it?")) {
+                            window.location.href = "rawbt:base64," + encoded;
+                    }
                 }
 
             }
@@ -2656,8 +2666,11 @@
                     const encoded = btoa(unescape(encodeURIComponent(receipt)));
                     window.location.href = "rawbt:base64," + encoded;
 
-                    if (confirm("This receipt has already been printed.\nDo you want to re-print it?")) {
-                                            window.location.href = "rawbt:base64," + encoded;
+                    if('@Org.IsReceiptReprint'.toLowerCase()=='true')
+                    {
+                        if (confirm("This receipt has already been printed.\nDo you want to re-print it?")) {
+                                window.location.href = "rawbt:base64," + encoded;
+                        }
                     }
                 }
 
@@ -2815,14 +2828,24 @@
 
             }, 60);
         });
+        const findQtyById = (cart, id) => {
+            let qty = 0;
 
+            cart.forEach(item => {
+            if (item.id === id) {
+                qty = item.qty;
+            }
+            });
+
+            return qty;
+        };
         function processBarcode(code) {
-
+             $("#lblMsg").empty();
             fetch(`/Order/GetProductByBarcode?code=${code}`)
                 .then(r => r.json())
                 .then(res => {
                     if (!res.success) {
-                        alert("Barcode not found");
+                        $("#lblMsg").text("Barcode not found");
                         return;
                     }
 
@@ -2831,14 +2854,23 @@
                     const id = p.id;
                     const price = parseFloat(p.price);
                     const name = p.name;
+                    debugger;
+                   // const input = $(`#qty-${id}`);
 
-                    const input = $(`#qty-${id}`);
+
+                 var OldQty = findQtyById(cart, id);
+
                     let qty = 1;
 
-                    if (input.length > 0) {
-                        qty = parseInt(input.val()) + 1;
-                        input.val(qty);
-                    }
+                    try{
+                       // if (input.length > 0) {
+                        if (OldQty > 0) {
+                            //qty = parseInt(input.val()) + 1;
+                            qty = parseInt(OldQty) + 1;
+                            input.val(qty);
+                        }
+                    }catch(er)
+                    {}
 
                     updateCart(id, name, price, qty);
 

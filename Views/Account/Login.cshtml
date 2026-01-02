@@ -60,15 +60,16 @@
             <div class="modal-body">
 
                 <!-- FORM FOR FORGET PASSWORD INSIDE POPUP -->
-                <form asp-controller="Account" asp-action="ForgetPassword" method="post">
+                <form id="forgotPasswordForm" asp-controller="Account" asp-action="ForgetPassword" method="post">
 
                     <div class="mb-3">
                         <label class="form-label fw-semibold">Enter your Email</label>
-                        <input asp-for="Email" class="form-control shadow-sm" placeholder="Enter Email" required />
+                        <input asp-for="Email" id="forgotEmail" class="form-control shadow-sm" placeholder="Enter Email" required />
                         <span asp-validation-for="Email" class="text-danger small"></span>
                     </div>
-
-                    <button type="submit" class="btn btn-primary w-100">
+                    <div id="forgotSuccess"
+                         class="alert alert-success d-none text-center"></div>
+                    <button type="submit" id="forgotSubmit" class="btn btn-primary w-100">
                         Submit
                     </button>
 
@@ -82,6 +83,50 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <script>
+            var forgotModal = new bootstrap.Modal(
+                document.getElementById('forgotPasswordModal')
+            );
+            forgotModal.show();
+        </script>
+    }
+
+    <script>
+        $("#forgotPasswordForm").submit(function (e) {
+            e.preventDefault();
+
+            $("#forgotSubmit").prop("disabled", true);
+            $("#forgotSuccess").addClass("d-none").html("");
+
+            $.ajax({
+                url: '@Url.Action("ForgetPassword", "Account")',
+                type: 'POST',
+                data: $(this).serialize(),
+
+                success: function (res) {
+                    $("#forgotSuccess")
+                        .removeClass("d-none")
+                        .html(res.message);
+
+                    $("#forgotEmail").prop("readonly", true);
+                    $("#forgotSubmit").hide();
+                },
+
+                error: function (xhr) {
+                    let msg = xhr.responseJSON?.message || "Something went wrong";
+
+                    $("#forgotSubmit").prop("disabled", false);
+
+                    $("span[data-valmsg-for='Email']")
+                        .text(msg);
+                }
+            });
+        });
+    </script>
+
 }
 
 <style>
@@ -130,4 +175,10 @@
     .text-primary {
         color: #0078d7 !important;
     }
+
+    #forgotSuccess {
+        font-size: 14px;
+        font-weight: 500;
+    }
 </style>
+
