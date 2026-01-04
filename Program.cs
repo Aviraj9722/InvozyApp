@@ -1,4 +1,5 @@
 using eOrderTouchApp.Models; // Namespace where your DbContext will reside
+using eOrderTouchApp.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,6 +12,7 @@ builder.Services.AddControllersWithViews()
         options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
         options.JsonSerializerOptions.WriteIndented = true;
     });
+builder.Services.AddScoped<IEmailService, SmtpEmailService>();
 
 
 // Register DbContext
