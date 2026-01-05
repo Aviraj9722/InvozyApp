@@ -1,4 +1,5 @@
 using eOrderTouchApp.Models; // Namespace where your DbContext will reside
+using eOrderTouchApp.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
