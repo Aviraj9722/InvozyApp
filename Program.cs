@@ -25,6 +25,15 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.ExpireTimeSpan = TimeSpan.FromMinutes(120);
     });
 
+// Email Services 
+builder.Services.Configure<SmtpSettings>(
+    builder.Configuration.GetSection("SmtpSettings"));
+
+builder.Services.AddScoped<IEmailService, SmtpEmailService>();
+
+// REQUIRED for token without DB
+builder.Services.AddDataProtection();
+
 builder.Services.AddAuthorization();
 
 var app = builder.Build();
