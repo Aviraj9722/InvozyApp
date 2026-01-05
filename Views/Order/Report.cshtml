@@ -75,6 +75,7 @@
             <th>Table</th>
             <th>User</th>
             <th>Payment Mode</th>
+            <th>Canceled?</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -108,10 +109,21 @@
                 <td>@item.TableDetails</td>
                 <td>@item.User?.UserName</td>
                 <td>@item.PaymentMode</td>
+                @if ((bool)item?.IsCanceled)
+                {
+                    <td>@item.CancelNote</td>
+                               
+                }else
+                {
+                    <td></td>
+                }
                 <td>
                     <div class="d-grid gap-2">
-                        <button type="button" class="btn btn-primary"> Edit</button>
-                        <button type="button" class="btn btn-danger"> Cancel</button>
+                     @*    <button type="button" class="btn btn-primary"> Edit</button> *@
+                    @if ((bool)item?.IsCanceled == false)
+                    {
+                        <button type="button" onclick="CancelOrder(@item.Id)" class="btn btn-danger"> Cancel</button>
+                    }
                     </div>
                    
                 </td>
@@ -150,8 +162,37 @@
                 table.button('.buttons-excel').trigger();
             });
 
+
+
        
         });
+
+        function CancelOrder(orderId)
+        {
+     
+            let note = prompt("Enter cancellation reason:");
+
+            if (!note) {
+                alert("Cancellation note is required.");
+                return;
+            }
+
+            $.ajax({
+                url: '@Url.Action("CancelOrder","Order")',
+                method: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({ orderId: orderId, note: note }),
+                success: function (res) {
+                    if (res.success) {
+                        alert("Order cancelled");
+                     $("#btnGen").trigger();
+                    } else {
+                        alert(res.message);
+                    }
+                }
+            });
+       
+        }
     </script>
 }
 
