@@ -82,10 +82,10 @@ public class OrderController : Controller
         .OrderByDescending(o => o.Id)
         .ToListAsync();
 
-        ViewBag.TotalCash = Orders.Where(w => w.PaymentMode == "Cash").Sum(w => w.GrandTotal);
-        ViewBag.Online = Orders.Where(w => w.PaymentMode == "Online").Sum(s => s.GrandTotal);
-        ViewBag.Free = Orders.Where(w => w.PaymentMode == "Free").Sum(s => s.GrandTotal);
-        ViewBag.Credit = Orders.Where(w => w.PaymentMode == "Credit").Sum(s => s.GrandTotal);
+        ViewBag.TotalCash = Orders.Where(w => w.PaymentMode == "Cash" && w.PaymentStatus==true && w.IsCanceled ==false).Sum(w => w.GrandTotal);
+        ViewBag.Online = Orders.Where(w => w.PaymentMode == "Online" && w.PaymentStatus == true && w.IsCanceled == false).Sum(s => s.GrandTotal);
+        ViewBag.Free = Orders.Where(w => w.PaymentMode == "Free" && w.PaymentStatus == true && w.IsCanceled == false).Sum(s => s.GrandTotal);
+        ViewBag.Credit = Orders.Where(w => w.PaymentMode == "Credit" && w.PaymentStatus == true && w.IsCanceled == false).Sum(s => s.GrandTotal);
         ViewBag.Materials = _context.TblProducts.Where(w => w.BusinessId == businessId).ToList();
 
         //To keep the dates after posting the data//
@@ -198,8 +198,8 @@ public class OrderController : Controller
         if (order == null)
             return Json(new { success = false, message = "Order not found." });
 
-        if (order.PaymentStatus == true)
-            return Json(new { success = false, message = "Order already completed. Cannot cancel." });
+        //if (order.PaymentStatus == true)
+        //    return Json(new { success = false, message = "Order already completed. Cannot cancel." });
 
         // Mark as cancelled
         //order.PaymentStatus = false;

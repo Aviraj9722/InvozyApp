@@ -4,6 +4,13 @@
     Layout = "_Layout";
 }
 
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Error"]
+    </div>
+}
+
 <div class="login-page d-flex align-items-center justify-content-center">
     <div class="login-container">
         <div class="text-center mb-4">

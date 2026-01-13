@@ -110,39 +110,59 @@ namespace eOrderTouchApp.Controllers
                 Request.Scheme);
 
             var body = $@"
-                <h3>Password Reset Link</h3>
-                <p>Click below to reset your password for Invozy Account:</p>
-                <a href='{resetLink}'>Reset Password</a>
-                <p>This link expires in 30 minutes.</p>";
+                <div style='font-family: Arial, sans-serif;'>
+                    <h3>Password Reset Link</h3>
 
-              await _emailService.SendEmailAsync(
+                    <p>Click the button below to reset your password for your <b>Invozy</b> account:</p>
+
+                    <p>
+                        <a href='{resetLink}'
+                           style='background:#4CAF50;color:white;padding:10px 15px;
+                                  text-decoration:none;border-radius:5px;'>
+                           Reset Password
+                        </a>
+                    </p>
+
+                    <p><b>This link expires in 30 minutes.</b></p>
+
+                    <hr />
+                    <p style='font-size:12px;color:gray;'>
+                        Powered by <b>Invozy</b>
+                    </p>
+                </div>";
+
+
+            await _emailService.SendEmailAsync(
                     user.EmailId,
-                    "Reset Your Invozy Password",
+                    "Link for resetting the password for your Invozy account",
                     body);
 
             return Ok(new
             {
-                message = "Reset password link has been sent to your registered email."
+                message = "Password reset link has been sent to your registered email."
             });
         }
 
         public IActionResult ResetPassword(string token)
         {
             if (string.IsNullOrEmpty(token))
-                return RedirectToAction("ForgetPassword");
+                return RedirectToAction("Login");
 
             try
             {
-                var decrypted = _protector.Unprotect(token);
-                var parts = decrypted.Split('|');
+                var tokenBytes = Convert.FromBase64String(token);
+                var tokenData = System.Text.Encoding.UTF8.GetString(tokenBytes);
 
+                var parts = tokenData.Split('|');
                 var email = parts[0];
-                var sentTime = DateTime.Parse(parts[1]);
+                var expiryTicks = long.Parse(parts[1]);
 
-                if ((DateTime.UtcNow - sentTime).TotalMinutes > 30)
+                var expiryTime = new DateTime(expiryTicks, DateTimeKind.Utc);
+
+                if (DateTime.UtcNow > expiryTime)
                 {
-                    TempData["Error"] = "Reset link expired.";
-                    return RedirectToAction("ForgetPassword");
+                    TempData["Error"] = "This reset password link has been expired.";
+                    return RedirectToAction("Login");
                 }
 
                 return View(new ResetPasswordViewModel
@@ -153,8 +173,8 @@ namespace eOrderTouchApp.Controllers
             }
             catch
             {
-                TempData["Error"] = "Invalid reset link.";
-                return RedirectToAction("ForgetPassword");
+                TempData["Error"] = "This reset password link has been expired or is invalid.";
+                return RedirectToAction("Login");
             }
         }
 
@@ -164,16 +184,20 @@ namespace eOrderTouchApp.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            if (model.Password != model.ConfirmPassword)
-            {
-                ModelState.AddModelError("", "Passwords do not match.");
-                return View(model);
-            }
-
             try
             {
-                var decrypted = _protector.Unprotect(model.Token);
-                var email = decrypted.Split('|')[0];
+                var tokenBytes = Convert.FromBase64String(model.Token);
+                var tokenData = System.Text.Encoding.UTF8.GetString(tokenBytes);
+
+                var parts = tokenData.Split('|');
+                var email = parts[0];
+                var expiryTicks = long.Parse(parts[1]);
+
+                if (DateTime.UtcNow > new DateTime(expiryTicks, DateTimeKind.Utc))
+                {
+                    ModelState.AddModelError("", "Reset link has expired.");
+                    return View(model);
+                }
 
                 var user = _context.TblUsers.FirstOrDefault(x => x.EmailId == email);
                 if (user == null)
@@ -187,14 +211,16 @@ namespace eOrderTouchApp.Controllers
 
                 ViewBag.Success = "Password reset successfully.";
                 ViewBag.Redirect = true;
+
                 return View(model);
             }
             catch
             {
-                ModelState.AddModelError("", "Invalid or expired token.");
+                ModelState.AddModelError("", "Invalid reset link.");
                 return View(model);
             }
         }
+
 
 
 
