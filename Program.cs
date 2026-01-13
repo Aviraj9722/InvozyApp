@@ -1,4 +1,5 @@
 using eOrderTouchApp.Models; // Namespace where your DbContext will reside
+using eOrderTouchApp.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
@@ -24,6 +25,15 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.AccessDeniedPath = "/Account/AccessDenied";
         options.ExpireTimeSpan = TimeSpan.FromMinutes(120);
     });
+
+// Email Services 
+builder.Services.Configure<SmtpSettings>(
+    builder.Configuration.GetSection("SmtpSettings"));
+
+builder.Services.AddScoped<IEmailService, SmtpEmailService>();
+
+// REQUIRED for token without DB
+builder.Services.AddDataProtection();
 
 builder.Services.AddAuthorization();
 

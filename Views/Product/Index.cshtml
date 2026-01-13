@@ -209,7 +209,16 @@
                         <input type="number" class="form-control" id="PurchasePrice" name="PurchasePrice" step="0.01" />
 
                     </div>
-
+                    <div class="mb-2">
+                        <label>UOM</label>
+                        <select class="form-select" id="UoMid" name="UoMid">
+                            <option value="">No</option>
+                            @foreach (var uom in ViewBag.UOMList)
+                            {
+                                <option value="@uom.Id">@uom.UnitName</option>
+                            }
+                        </select>
+                    </div>
 
                     <div class="mb-2">
                         <label>HSN Code</label>
@@ -227,6 +236,17 @@
                             }
                         </select>
                         <span class="text-danger small" id="errCategory"></span>
+                    </div>
+
+                    <div class="mb-2">
+                        <label>Kitchen Counter</label>
+                        <select id="KitchenCounterId" name="KitchenCounterId" class="form-select">
+                           <option value="">-- Select Kitchen Counter --</option>
+                            @foreach (var kc in ViewBag.KitchenCounters)
+                            {
+                                <option value="@kc.Id">@kc.Name</option>
+                            }
+                        </select>
                     </div>
 
                     <div class="mb-2">
@@ -273,8 +293,10 @@
                                 <th>BarCode</th>
                                 <th>Price</th>
                                 <th>Purchase Price</th>
+                                <th>Uom</th>
                                 <th>HSN Code</th>
                                 <th>Category</th>
+                                <th>Kitchen Counter</th>
                                 <th>GST Percentage</th>
                                 <th>GST Amount</th>
                               
@@ -287,19 +309,21 @@
                                 <tr>
                                     <!-- 5. ACTION -->
                                     <td data-title="Actions">
-                                        <button type="button" class="btn btn-warning btn-sm"
+                                        <button type="button"
+                                                class="btn btn-warning btn-sm"
                                                 onclick="editProduct(@p.Id)"
                                                 data-name="@p.Name"
                                                 data-price="@p.Price"
                                                 data-purchaseprice="@p.PurchasePrice"
+                                                data-uom="@p.UoMid"
                                                 data-hsncode="@p.HSNCode"
                                                 data-category="@p.CategoryId"
+                                                data-kitchen="@p.KitchenCounterId"
                                                 data-gst="@p.Gstpercentage"
                                                 data-regional="@p.RegionalName"
                                                 data-code="@p.Code">
                                             Edit
                                         </button>
-
                                         <button type="button" class="btn btn-danger btn-sm"
                                                 onclick="deleteProduct(@p.Id)">
                                             Delete
@@ -331,15 +355,21 @@
                                         ₹ @p.PurchasePrice
                                     </td>
 
+                                    <td data-title="Uom">
+                                        @p.Uom?.UnitName
+                                    </td>
+
                                     <td data-title="HSN Code">
                                         @p.HSNCode
                                     </td>
 
-
-
                                     <!-- 4. CATEGORY -->
                                     <td data-title="Category">
                                         @p.Category?.Name
+                                    </td>
+
+                                    <td data-title="Kitchen Counter">
+                                        @p.KitchenCounter?.Name
                                     </td>
 
                                     <!-- 4. GST -->
@@ -552,9 +582,11 @@
             Name.value = btn.dataset.name;
             Price.value = btn.dataset.price;
             PurchasePrice.value = btn.dataset.purchaseprice;
+            // UoMid.value = btn.dataset.uom || "";
             HSNCode.value = btn.dataset.hsncode;
             CategoryId.value = btn.dataset.category;
             Code.value = btn.dataset.code;
+            KitchenCounterId.value = btn.dataset.kitchen || "";
 
             let gstVal = btn.dataset.gst;
 

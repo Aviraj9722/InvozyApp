@@ -25,6 +25,16 @@ namespace eOrderTouchApp.Controllers
             ViewBag.GST = await _context.TblGsts
             .Where(w => w.BusinessId == businessId)
             .ToListAsync();
+
+            ViewBag.UOMList = await _context.TblUoms
+            .Where(x => x.BusinessId == businessId)
+            .ToListAsync();
+
+            // ✅ ADD THIS
+            ViewBag.KitchenCounters = await _context.TblKitchenCounters
+                .Where(k => k.BusinessId == businessId)
+                .ToListAsync();
+
             var products = await _context.TblProducts.Where(w => w.BusinessId == businessId).Include(p => p.Category).OrderByDescending(o => o.Id).ToListAsync();
             return View(products);
         }
@@ -97,7 +107,9 @@ namespace eOrderTouchApp.Controllers
                 existing.Gstpercentage = product.Gstpercentage;
                 existing.Gstamount = product.Gstamount;
                 existing.PurchasePrice = product.PurchasePrice;
+                existing.UoMid = product.UoMid;
                 existing.HSNCode = product.HSNCode;
+                existing.KitchenCounterId = product.KitchenCounterId;
                 if (product.Photo != null) existing.Photo = product.Photo;
             }
 

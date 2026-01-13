@@ -1,0 +1,169 @@
+﻿@model IEnumerable<eOrderTouchApp.Models.TblKitchenCounter>
+
+@{
+    ViewData["Title"] = "Kitchen Counter";
+}
+
+<link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+
+<style>
+    .invalid-input {
+        border: 1px solid red !important;
+        background-color: #fff6f6;
+    }
+</style>
+
+<div class="row mt-4">
+
+    <!-- ================= LEFT FORM ================= -->
+    <div class="col-md-4">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h5 id="formTitle">Add Kitchen Counter</h5>
+            </div>
+
+            <div class="card-body">
+                <input type="hidden" id="counterId" value="0" />
+
+                <div class="mb-3">
+                    <label>Counter Name</label>
+                    <input type="text" id="counterName" class="form-control" />
+                    <span class="text-danger" id="err_counterName"></span>
+                </div>
+
+                <button type="button" id="btnSave" class="btn btn-success w-100">Save</button>
+           
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= RIGHT GRID ================= -->
+    <div class="col-md-8">
+        <table id="counterGrid" class="table table-bordered table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>Id</th>
+                    <th>Counter Name</th>
+                    <th style="width:150px">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var c in Model)
+                {
+                    <tr data-id="@c.Id" data-name="@c.Name">
+                        <td>@c.Id</td>
+                        <td>@c.Name</td>
+                        <td>
+                            <button class="btn btn-sm btn-primary editBtn">Edit</button>
+                            <button class="btn btn-sm btn-danger deleteBtn">Delete</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+
+@section Scripts {
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            $('#counterGrid').DataTable({
+               order: [[0, 'desc']] // 0 = Id column
+            });
+
+            // Remove error while typing
+            $('#counterName').on('input', function () {
+                $(this).removeClass('invalid-input');
+                $('#err_counterName').text('');
+            });
+        });
+
+        // ---------------- VALIDATION ----------------
+        function validateCounterForm() {
+
+            let valid = true;
+
+            $('#counterName').removeClass('invalid-input');
+            $('#err_counterName').text('');
+
+            if ($('#counterName').val().trim() === '') {
+                $('#err_counterName').text('Counter name is required');
+                $('#counterName').addClass('invalid-input');
+                valid = false;
+            }
+
+            return valid;
+        }
+
+        // ---------------- SAVE ----------------
+        $('#btnSave').click(function () {
+
+            if (!validateCounterForm()) return;
+
+            let obj = {
+                Id: $('#counterId').val(),
+                Name: $('#counterName').val().trim()
+            };
+
+            let url = obj.Id == 0
+                ? '/KitchenCounter/Create'
+                : '/KitchenCounter/Edit';
+
+            $.ajax({
+                url: url,
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(obj),
+                success: function (res) {
+                    if (res.success) {
+                        location.reload();
+                    }
+                }
+            });
+        });
+
+        // ---------------- EDIT ----------------
+        $('#counterGrid').on('click', '.editBtn', function () {
+
+            let row = $(this).closest('tr');
+
+            $('#formTitle').text('Edit Kitchen Counter');
+            $('#btnSave').text('Update');
+
+            $('#counterId').val(row.data('id'));
+            $('#counterName').val(row.data('name'));
+        });
+
+        // ---------------- DELETE ----------------
+        $('#counterGrid').on('click', '.deleteBtn', function () {
+
+            if (!confirm('Delete this kitchen counter?')) return;
+
+            let id = $(this).closest('tr').data('id');
+
+            $.post('/KitchenCounter/Delete', { id: id }, function (res) {
+                if (res.success) {
+                    location.reload();
+                }
+            });
+        });
+
+        // ---------------- CLEAR ----------------
+        $('#btnClear').click(function () {
+
+            $('#counterId').val(0);
+            $('#counterName').val('');
+            $('#formTitle').text('Add Kitchen Counter');
+            $('#btnSave').text('Save');
+
+            $('#counterName').removeClass('invalid-input');
+            $('#err_counterName').text('');
+        });
+    </script>
+}
+
