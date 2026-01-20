@@ -31,6 +31,7 @@ public partial class TblProduct
     public int? BusinessId { get; set; }
 
     public int? UoMid { get; set; }
+    public virtual TblUom? Uom{ get; set; }
 
     public bool? IsActive { get; set; }
 
@@ -47,4 +48,6 @@ public partial class TblProduct
     public string? HSNCode { get; set; }
 
     public decimal? PurchasePrice { get; set; }
+    public int? KitchenCounterId { get; set; }   
+    public virtual TblKitchenCounter? KitchenCounter { get; set; }
 }

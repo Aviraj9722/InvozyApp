@@ -1,0 +1,152 @@
+﻿@model eOrderTouchApp.Models.ProductLedgerFilterVM
+
+@{
+    ViewData["Title"] = "Product Ledger Report";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- DATATABLE CSS -->
+<link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.bootstrap5.min.css" rel="stylesheet" />
+
+<style>
+    /* Align filter form nicely */
+    #ledgerForm {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+
+    /* Small styling for DataTables UI */
+    .dataTables_wrapper .dataTables_length,
+    .dataTables_wrapper .dataTables_filter {
+        display: flex !important;
+        align-items: center !important;
+        margin-bottom: 10px !important;
+    }
+
+        .dataTables_wrapper .dataTables_filter input {
+            margin-left: 6px !important;
+        }
+
+    .dataTables_wrapper .dataTables_paginate {
+        margin-top: 12px !important;
+    }
+</style>
+
+<h1>Product Ledger Report</h1>
+
+<form id="ledgerForm">
+    <label>Product:</label>
+    <select asp-for="ProductId" asp-items="Model.Products" class="form-select" style="max-width: 220px;">
+        <option value="">-- Select Product --</option>
+    </select>
+
+    <label>From:</label>
+    <input type="date" asp-for="FromDate" class="form-control" style="max-width: 180px;" />
+
+    <label>To:</label>
+    <input type="date" asp-for="ToDate" class="form-control" style="max-width: 180px;" />
+
+    <button type="submit" class="btn btn-success">Generate</button>
+    <button type="button" id="btnExportExcel" class="btn btn-primary">Export Excel</button>
+</form>
+
+<table id="ledgerTable" class="table table-striped table-bordered w-100">
+    <thead class="table-dark">
+        <tr>
+            <th>Date</th>
+            <th>Opening</th>
+            <th>Received</th>
+            <th>Total</th>
+            <th>Sold</th>
+            <th>Final</th>
+        </tr>
+    </thead>
+    <tbody>
+        @* Data will be populated via AJAX *@
+    </tbody>
+</table>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            // Initialize DataTable
+           var table = $('#ledgerTable').DataTable({
+            dom: 'Bfrtip',
+            buttons: [{
+                extend: 'excelHtml5',
+                title: 'Product_Ledger_Report'
+            }],
+            columns: [
+                {
+                    data: 'dt',
+                    render: function(d) {
+                        var date = new Date(d);
+                        var day = ("0" + date.getDate()).slice(-2);
+                        var month = ("0" + (date.getMonth() + 1)).slice(-2);
+                        var year = date.getFullYear();
+                        return day + "-" + month + "-" + year; // dd-MM-yyyy
+                    }
+                },
+                { data: 'opening', render: $.fn.dataTable.render.number(',', '.', 2) },
+                { data: 'receivedItem', render: $.fn.dataTable.render.number(',', '.', 2) },
+                { data: 'totalStock', render: $.fn.dataTable.render.number(',', '.', 2) },
+                { data: 'soldItem', render: $.fn.dataTable.render.number(',', '.', 2) },
+                { data: 'finalStock', render: $.fn.dataTable.render.number(',', '.', 2) }
+            ]
+        });
+
+
+
+            // Export button trigger
+            $("#btnExportExcel").on("click", function () {
+                table.button('.buttons-excel').trigger();
+            });
+
+            // Generate button click
+            $("#ledgerForm").on("submit", function (e) {
+                e.preventDefault();
+
+                var productId = $("#ProductId").val();
+                var fromDate = $("#FromDate").val();
+                var toDate = $("#ToDate").val();
+
+                if (!productId || !fromDate || !toDate) {
+                    alert("Please select product and dates!");
+                    return;
+                }
+
+                $.ajax({
+                    url: '/ProductLedger/GetReportData',
+                    type: 'GET',
+                    data: { productId, fromDate, toDate },
+                    success: function (data) {
+                        table.clear();
+
+                        if (!data || data.length === 0) {
+                            alert("No data found for the selected product and dates.");
+                            return;
+                        }
+
+                        table.rows.add(data).draw();
+                    },
+                    error: function (err) {
+                        alert("Error loading report: " + err.responseText);
+                    }
+                });
+            });
+        });
+    </script>
+}

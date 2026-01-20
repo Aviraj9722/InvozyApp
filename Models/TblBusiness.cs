@@ -36,7 +36,7 @@ public partial class TblBusiness
 
     public bool? IsGstapplicable { get; set; }
 
-    public bool IsReceiptReprint { get; set; }
+    public bool? IsReceiptReprint { get; set; }
 
     public string? Qrcode { get; set; }
 
@@ -70,4 +70,6 @@ public partial class TblBusiness
     public virtual ICollection<TblGST> TblGsts { get; set; } = new List<TblGST>();
 
     public virtual ICollection<TblTable> TblTables { get; set; } = new List<TblTable>();
+    public virtual ICollection<TblKitchenCounter> TblKitchenCounters { get; set; }
+      = new List<TblKitchenCounter>();
 }

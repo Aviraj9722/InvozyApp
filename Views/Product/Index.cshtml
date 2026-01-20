@@ -157,6 +157,40 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.08);
         }
     }
+
+    .photo-wrapper {
+        position: relative;
+        width: 80px;
+        height: 60px;
+        border-radius: 6px;
+        overflow: hidden;
+        display: inline-block;
+    }
+
+    .product-photo {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .photo-delete-icon {
+        position: absolute;
+        bottom: 2px; /* move to bottom */
+        right: 2px; /* stay at right */
+        width: 18px;
+        height: 18px;
+        background: rgba(200,0,0,0.85);
+        color: #fff;
+        font-size: 13px;
+        font-weight: bold;
+        line-height: 18px;
+        text-align: center;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+
+
+
 </style>
 
 
@@ -209,7 +243,16 @@
                         <input type="number" class="form-control" id="PurchasePrice" name="PurchasePrice" step="0.01" />
 
                     </div>
-
+                    <div class="mb-2">
+                        <label>UOM</label>
+                        <select class="form-select" id="UoMid" name="UoMid">
+                            <option value="">No</option>
+                            @foreach (var uom in ViewBag.UOMList)
+                            {
+                                <option value="@uom.Id">@uom.UnitName</option>
+                            }
+                        </select>
+                    </div>
 
                     <div class="mb-2">
                         <label>HSN Code</label>
@@ -227,6 +270,17 @@
                             }
                         </select>
                         <span class="text-danger small" id="errCategory"></span>
+                    </div>
+
+                    <div class="mb-2">
+                        <label>Kitchen Counter</label>
+                        <select id="KitchenCounterId" name="KitchenCounterId" class="form-select">
+                           <option value="">-- Select Kitchen Counter --</option>
+                            @foreach (var kc in ViewBag.KitchenCounters)
+                            {
+                                <option value="@kc.Id">@kc.Name</option>
+                            }
+                        </select>
                     </div>
 
                     <div class="mb-2">
@@ -248,8 +302,7 @@
                         <input type="file" id="photoInput" accept="image/*" class="form-control" />
                     </div>
 
-                    <img id="imagePreview"
-                         style="width:150px;height:150px;display:none;object-fit:cover;border:1px solid #ccc;" />
+                    <img id="imagePreview" style="width:150px;height:150px;display:none;object-fit:cover;border:1px solid #ccc;" /> 
 
                     <input type="hidden" id="croppedImageData" name="croppedImageData" />
 
@@ -273,8 +326,10 @@
                                 <th>BarCode</th>
                                 <th>Price</th>
                                 <th>Purchase Price</th>
+                                <th>Uom</th>
                                 <th>HSN Code</th>
                                 <th>Category</th>
+                                <th>Kitchen Counter</th>
                                 <th>GST Percentage</th>
                                 <th>GST Amount</th>
                               
@@ -287,29 +342,38 @@
                                 <tr>
                                     <!-- 5. ACTION -->
                                     <td data-title="Actions">
-                                        <button type="button" class="btn btn-warning btn-sm"
+                                        <button type="button"
+                                                class="btn btn-warning btn-sm"
                                                 onclick="editProduct(@p.Id)"
                                                 data-name="@p.Name"
                                                 data-price="@p.Price"
                                                 data-purchaseprice="@p.PurchasePrice"
+                                                data-uom="@p.UoMid"
                                                 data-hsncode="@p.HSNCode"
                                                 data-category="@p.CategoryId"
+                                                data-kitchen="@p.KitchenCounterId"
                                                 data-gst="@p.Gstpercentage"
                                                 data-regional="@p.RegionalName"
                                                 data-code="@p.Code">
                                             Edit
                                         </button>
-
                                         <button type="button" class="btn btn-danger btn-sm"
                                                 onclick="deleteProduct(@p.Id)">
                                             Delete
                                         </button>
                                     </td>
                                     <!-- 1. PHOTO -->
-                                    <td data-title="Photo">
+                                    <td data-title="Photo" style="width:100px;">
                                         @if (!string.IsNullOrEmpty(p.Photo))
                                         {
-                                            <img src="@p.Photo" class="prod-img" />
+                                            <div class="photo-wrapper" id="photo-@p.Id">
+                                                <img src="@p.Photo" class="product-photo" />
+                                                <span class="photo-delete-icon" onclick="deletePhoto(@p.Id)">×</span>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-muted small">No Image</span>
                                         }
                                     </td>
 
@@ -331,15 +395,21 @@
                                         ₹ @p.PurchasePrice
                                     </td>
 
+                                    <td data-title="Uom">
+                                        @p.Uom?.UnitName
+                                    </td>
+
                                     <td data-title="HSN Code">
                                         @p.HSNCode
                                     </td>
 
-
-
                                     <!-- 4. CATEGORY -->
                                     <td data-title="Category">
                                         @p.Category?.Name
+                                    </td>
+
+                                    <td data-title="Kitchen Counter">
+                                        @p.KitchenCounter?.Name
                                     </td>
 
                                     <!-- 4. GST -->
@@ -552,9 +622,11 @@
             Name.value = btn.dataset.name;
             Price.value = btn.dataset.price;
             PurchasePrice.value = btn.dataset.purchaseprice;
+            // UoMid.value = btn.dataset.uom || "";
             HSNCode.value = btn.dataset.hsncode;
             CategoryId.value = btn.dataset.category;
             Code.value = btn.dataset.code;
+            KitchenCounterId.value = btn.dataset.kitchen || "";
 
             let gstVal = btn.dataset.gst;
 
@@ -598,6 +670,22 @@
                 .done(() => location.reload())
                 .fail(() => alert("Something went wrong while deleting."));
         }
+
+                // ⭐ DELETE PRODUCT PHOTO
+        window.deletePhoto = function(id) {
+            if (!confirm("Are you sure you want to delete this image?")) return;
+
+            $.post("/Product/DeletePhoto", { id: id })
+                .done(res => {
+                    if (res.success) {
+                        alert("Image deleted successfully.");
+                        location.reload();
+                    } else {
+                        alert(res.message || "Failed to delete image.");
+                    }
+                })
+                .fail(() => alert("Server error while deleting image."));
+        };
 
         $(document).ready(function () {
             initProductTable();

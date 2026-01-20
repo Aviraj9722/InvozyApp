@@ -39,7 +39,7 @@
                 <div class="container-fluid">
                     <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Invozy</a>
 
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse">
+                    <button class="navbar-toggler d-lg-none" type="button" onclick="toggleMobileMenu()">
                         <span class="navbar-toggler-icon"></span>
                     </button>
 
@@ -59,11 +59,6 @@
                                     <li class="nav-item">
                                         <a class="nav-link text-dark" asp-controller="Enquiry" asp-action="AdminList">Enquiries</a>
                                     </li>
-
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-controller="Dealer" asp-action="Index">Dealers</a>
-                                    </li>
-
                                     <li class="nav-item">
                                         <a class="nav-link text-dark" asp-controller="HeadOffice" asp-action="Index">HO Users</a>
                                     </li>
@@ -102,7 +97,7 @@
                                         <a class="nav-link text-dark" asp-controller="Home" asp-action="Dashboard">Home</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-controller="Order" asp-action="Create">New Order</a>
+                                        <a class="nav-link text-dark" asp-controller="Order" asp-action="Create">NewOrder</a>
                                     </li>
                                 @*     <li class="nav-item">
                                         <a class="nav-link text-dark" asp-controller="Order" asp-action="Report">Order Summary</a>
@@ -138,6 +133,12 @@
                                         <a class="nav-link text-dark" asp-controller="Feedback" asp-action="List">Feedback</a>
                                     </li>
                                     <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-controller="KitchenCounter" asp-action="Index">KitchenCounter</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-controller="ProductLedger" asp-action="Index">ProductLedger</a>
+                                    </li>
+                                    <li class="nav-item">
                                         <a class="nav-link text-dark" asp-controller="Businesses" asp-action="Setting">Settings</a>
                                     </li>
 
@@ -160,6 +161,38 @@
                 </div>
             </nav>
         </header>
+        <!-- MOBILE SIDEBAR MENU (ONLY MOBILE) -->
+        <div id="mobileSidebar" class="mobile-sidebar d-lg-none">
+
+            <div class="mobile-sidebar-header">
+                <h5>Invozy</h5>
+                <button onclick="toggleMobileMenu()">✕</button>
+            </div>
+
+            <ul class="mobile-menu">
+                <li><a asp-controller="Home" asp-action="Dashboard">Home</a></li>
+                <li><a asp-controller="Order" asp-action="Create">New Order</a></li>
+                <li><a asp-controller="Home" asp-action="Graph">Graphs</a></li>
+                <li><a asp-controller="Category" asp-action="Index">Categories</a></li>
+                <li><a asp-controller="Product" asp-action="Index">Products</a></li>
+                <li><a asp-controller="Vendor" asp-action="Index">Vendors</a></li>
+                <li><a asp-controller="Customer" asp-action="Index">Customers</a></li>
+                <li><a asp-controller="GST" asp-action="Index">GSTs</a></li>
+                <li><a asp-controller="Table" asp-action="Index">Tables</a></li>
+                <li><a asp-controller="Reports" asp-action="Index">Reports</a></li>
+                <li><a asp-controller="Feedback" asp-action="List">Feedback</a></li>
+                <li><a asp-controller="KitchenCounter" asp-action="Index">KitchenCounter</a></li>
+                <li><a asp-controller="ProductLedger" asp-action="Index">ProductLedger</a></li>
+                <li><a asp-controller="Businesses" asp-action="Setting">Settings</a></li>
+
+                <li class="logout">
+                    <a asp-controller="Account" asp-action="Logout">
+                        Hello, @User.Identity.Name | Logout
+                    </a>
+                </li>
+            </ul>
+        </div>
+
     }
 
     <div class="container-fluid">
@@ -193,6 +226,13 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
+
+    <script>
+        function toggleMobileMenu() {
+            document.getElementById("mobileSidebar")
+                .classList.toggle("active");
+        }
+    </script>
     <script>
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('/service-worker.js')
