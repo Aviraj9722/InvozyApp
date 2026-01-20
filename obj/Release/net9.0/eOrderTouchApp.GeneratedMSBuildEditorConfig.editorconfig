@@ -64,16 +64,32 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW5xdWlyeVxBZG1pbkxpc3QuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Aviraj Innovations Pvt Ltd/Invoizy/GIT/Views/Feedback/_FeedbackModal.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmVlZGJhY2tcX0ZlZWRiYWNrTW9kYWwuY3NodG1s
+[D:/Aviraj Innovations Pvt Ltd/Invoizy/GIT/Views/Feedback/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmVlZGJhY2tcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Aviraj Innovations Pvt Ltd/Invoizy/GIT/Views/Feedback/List.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmVlZGJhY2tcTGlzdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Aviraj Innovations Pvt Ltd/Invoizy/GIT/Views/GST/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR1NUXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Aviraj Innovations Pvt Ltd/Invoizy/GIT/Views/HeadOffice/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSGVhZE9mZmljZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Aviraj Innovations Pvt Ltd/Invoizy/GIT/Views/HOActivity/Dashboard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSE9BY3Rpdml0eVxEYXNoYm9hcmQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Aviraj Innovations Pvt Ltd/Invoizy/GIT/Views/Home/Dashboard.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxEYXNoYm9hcmQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Aviraj Innovations Pvt Ltd/Invoizy/GIT/Views/Home/Graph.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxHcmFwaC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Aviraj Innovations Pvt Ltd/Invoizy/GIT/Views/Home/Index.cshtml]
@@ -82,62 +98,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/Aviraj Innovations Pvt Ltd/Invoizy/GIT/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Aviraj Innovations Pvt Ltd/Invoizy/GIT/Views/Order/Create - Copy (10).cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJcQ3JlYXRlIC0gQ29weSAoMTApLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Aviraj Innovations Pvt Ltd/Invoizy/GIT/Views/Order/Create - Copy (11).cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJcQ3JlYXRlIC0gQ29weSAoMTEpLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Aviraj Innovations Pvt Ltd/Invoizy/GIT/Views/Order/Create - Copy (12).cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJcQ3JlYXRlIC0gQ29weSAoMTIpLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Aviraj Innovations Pvt Ltd/Invoizy/GIT/Views/Order/Create - Copy (13).cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJcQ3JlYXRlIC0gQ29weSAoMTMpLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Aviraj Innovations Pvt Ltd/Invoizy/GIT/Views/Order/Create - Copy (14).cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJcQ3JlYXRlIC0gQ29weSAoMTQpLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Aviraj Innovations Pvt Ltd/Invoizy/GIT/Views/Order/Create - Copy (15).cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJcQ3JlYXRlIC0gQ29weSAoMTUpLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Aviraj Innovations Pvt Ltd/Invoizy/GIT/Views/Order/Create - Copy (2).cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJcQ3JlYXRlIC0gQ29weSAoMikuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Aviraj Innovations Pvt Ltd/Invoizy/GIT/Views/Order/Create - Copy (3).cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJcQ3JlYXRlIC0gQ29weSAoMykuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Aviraj Innovations Pvt Ltd/Invoizy/GIT/Views/Order/Create - Copy (4).cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJcQ3JlYXRlIC0gQ29weSAoNCkuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Aviraj Innovations Pvt Ltd/Invoizy/GIT/Views/Order/Create - Copy (5).cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJcQ3JlYXRlIC0gQ29weSAoNSkuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Aviraj Innovations Pvt Ltd/Invoizy/GIT/Views/Order/Create - Copy (6).cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJcQ3JlYXRlIC0gQ29weSAoNikuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Aviraj Innovations Pvt Ltd/Invoizy/GIT/Views/Order/Create - Copy (7).cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJcQ3JlYXRlIC0gQ29weSAoNykuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Aviraj Innovations Pvt Ltd/Invoizy/GIT/Views/Order/Create - Copy (8).cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJcQ3JlYXRlIC0gQ29weSAoOCkuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Aviraj Innovations Pvt Ltd/Invoizy/GIT/Views/Order/Create - Copy (9).cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJcQ3JlYXRlIC0gQ29weSAoOSkuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Aviraj Innovations Pvt Ltd/Invoizy/GIT/Views/Order/Create - Copy.cshtml]
@@ -154,6 +114,14 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/Aviraj Innovations Pvt Ltd/Invoizy/GIT/Views/Product/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Aviraj Innovations Pvt Ltd/Invoizy/GIT/Views/Reports/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVwb3J0c1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Aviraj Innovations Pvt Ltd/Invoizy/GIT/Views/Reports/_ReportContent.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVwb3J0c1xfUmVwb3J0Q29udGVudC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Aviraj Innovations Pvt Ltd/Invoizy/GIT/Views/Shared/Error.cshtml]
