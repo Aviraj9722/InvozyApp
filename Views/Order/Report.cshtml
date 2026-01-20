@@ -56,11 +56,13 @@
 </form>
 
 <!-- TOTAL SUMMARY -->
-<div class="alert alert-info d-flex gap-4 col-7">
-    <div><strong>Total Cash Sales:</strong> ₹@ViewBag.TotalCash</div>
-    <div><strong>Total Online Sales:</strong> ₹@ViewBag.Online</div>
-    <div><strong>Total Free Sales:</strong> ₹@ViewBag.Free</div>
-    <div><strong>Total Credit Sales:</strong> ₹@ViewBag.Credit</div>
+<div class="alert alert-info d-flex gap-4 col-12">
+    <div><strong>Total Cash:</strong> ₹@ViewBag.TotalCash</div>
+    <div><strong>Total Online:</strong> ₹@ViewBag.Online</div>
+    <div><strong>Total Free:</strong> ₹@ViewBag.Free</div>
+    <div><strong>Total Credit:</strong> ₹@ViewBag.Credit</div>
+    <div><strong>Total Discount:</strong> ₹@ViewBag.TotalDiscount</div>
+    <div class="text-danger"><h1>Grand Total: ₹@ViewBag.GrandTotal</h1></div>
 </div>
 
 <!-- TABLE -->
@@ -75,6 +77,7 @@
             <th>Table</th>
             <th>User</th>
             <th>Payment Mode</th>
+            <th>Discount(Rs)</th>
             <th>Canceled?</th>
             <th>Actions</th>
         </tr>
@@ -109,6 +112,7 @@
                 <td>@item.TableDetails</td>
                 <td>@item.User?.UserName</td>
                 <td>@item.PaymentMode</td>
+                <td>@Math.Round( (double)item.TotalAmount - (double)item.DiscountedPrice,2)</td>
                 @if ((bool)item?.IsCanceled)
                 {
                     <td>@item.CancelNote</td>
@@ -117,6 +121,7 @@
                 {
                     <td></td>
                 }
+            
                 <td>
                     <div class="d-grid gap-2">
                      @*    <button type="button" class="btn btn-primary"> Edit</button> *@

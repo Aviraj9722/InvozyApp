@@ -75,6 +75,8 @@ public class OrderController : Controller
         var Orders = await _context.TblOrderMasters
         .Where(w => w.BuisnessId == businessId
             && w.DateOfOrder.HasValue
+            && w.PaymentStatus == true 
+            && w.IsCanceled == false
             && w.DateOfOrder.Value.Date >= fromDT.Date
             && w.DateOfOrder.Value.Date <= toDT.Date)
         .Include(I => I.TblOrderDetails)
@@ -82,12 +84,17 @@ public class OrderController : Controller
         .OrderByDescending(o => o.Id)
         .ToListAsync();
 
-        ViewBag.TotalCash = Orders.Where(w => w.PaymentMode == "Cash" && w.PaymentStatus==true && w.IsCanceled ==false).Sum(w => w.GrandTotal);
-        ViewBag.Online = Orders.Where(w => w.PaymentMode == "Online" && w.PaymentStatus == true && w.IsCanceled == false).Sum(s => s.GrandTotal);
-        ViewBag.Free = Orders.Where(w => w.PaymentMode == "Free" && w.PaymentStatus == true && w.IsCanceled == false).Sum(s => s.GrandTotal);
-        ViewBag.Credit = Orders.Where(w => w.PaymentMode == "Credit" && w.PaymentStatus == true && w.IsCanceled == false).Sum(s => s.GrandTotal);
+        ViewBag.TotalCash = Orders.Where(w => w.PaymentMode == "Cash").Sum(w => w.GrandTotal);
+        ViewBag.Online = Orders.Where(w => w.PaymentMode == "Online").Sum(s => s.GrandTotal);
+        ViewBag.Free = Orders.Where(w => w.PaymentMode == "Free").Sum(s => s.GrandTotal);
+        ViewBag.Credit = Orders.Where(w => w.PaymentMode == "Credit").Sum(s => s.GrandTotal);
         ViewBag.Materials = _context.TblProducts.Where(w => w.BusinessId == businessId).ToList();
+        ViewBag.TotalDiscountedPrice = Orders.Sum(s => s.DiscountedPrice);
+        ViewBag.TotalDiscount = Math.Round((double)Orders.Sum(w => w.TotalAmount),2) - Math.Round((double)Orders.Sum(s => s.DiscountedPrice),2);
+        ViewBag.GrandTotal = (double)Orders.Sum(w => w.GrandTotal) + (double)ViewBag.TotalDiscount;
 
+            ViewBag.TotalDiscount = Math.Round(Convert.ToDouble(ViewBag.TotalDiscount), 2);
+        ViewBag.GrandTotal = Math.Round(Convert.ToDouble(ViewBag.GrandTotal), 2);
         //To keep the dates after posting the data//
         ViewBag.FromDate = fromDT.ToString("yyyy-MM-dd");
         ViewBag.ToDate = toDT.ToString("yyyy-MM-dd");
