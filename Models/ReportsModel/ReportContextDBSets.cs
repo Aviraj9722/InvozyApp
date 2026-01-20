@@ -27,6 +27,7 @@ namespace eOrderTouchApp.Models
         public DbSet<StockReportModel> StockReportModels { get; set; }
         public DbSet<OrderDiscountReportModel> OrderDiscountReportModels { get; set; }
         public DbSet<TodayDashboardVM> TodayDashboardVM { get; set; }
+        public DbSet<DateWiseSaleDiscountModel> DateWiseSaleDiscountModels { get; set; }
 
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder)
@@ -55,6 +56,7 @@ namespace eOrderTouchApp.Models
             modelBuilder.Entity<StockReportModel>().HasNoKey();
             modelBuilder.Entity<OrderDiscountReportModel>().HasNoKey();
             modelBuilder.Entity<TodayDashboardVM>().HasNoKey();
+            modelBuilder.Entity<DateWiseSaleDiscountModel>().HasNoKey();
 
         }
         private static readonly Dictionary<string, Type> ReportsModel = new()
@@ -78,7 +80,7 @@ namespace eOrderTouchApp.Models
             { "Date-Wise Sale Profit Reports", typeof(DateWiseSaleProfitReportModel) },
             { "Stock Reports", typeof(StockReportModel) },
             { "Order Discount Reports", typeof(OrderDiscountReportModel) },
-
+            { "Date-Wise Discount Reports", typeof(DateWiseSaleDiscountModel) },
 
         };
 

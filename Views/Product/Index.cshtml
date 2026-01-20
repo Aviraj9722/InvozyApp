@@ -157,6 +157,40 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.08);
         }
     }
+
+    .photo-wrapper {
+        position: relative;
+        width: 80px;
+        height: 60px;
+        border-radius: 6px;
+        overflow: hidden;
+        display: inline-block;
+    }
+
+    .product-photo {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .photo-delete-icon {
+        position: absolute;
+        bottom: 2px; /* move to bottom */
+        right: 2px; /* stay at right */
+        width: 18px;
+        height: 18px;
+        background: rgba(200,0,0,0.85);
+        color: #fff;
+        font-size: 13px;
+        font-weight: bold;
+        line-height: 18px;
+        text-align: center;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+
+
+
 </style>
 
 
@@ -268,8 +302,7 @@
                         <input type="file" id="photoInput" accept="image/*" class="form-control" />
                     </div>
 
-                    <img id="imagePreview"
-                         style="width:150px;height:150px;display:none;object-fit:cover;border:1px solid #ccc;" />
+                    <img id="imagePreview" style="width:150px;height:150px;display:none;object-fit:cover;border:1px solid #ccc;" /> 
 
                     <input type="hidden" id="croppedImageData" name="croppedImageData" />
 
@@ -330,10 +363,17 @@
                                         </button>
                                     </td>
                                     <!-- 1. PHOTO -->
-                                    <td data-title="Photo">
+                                    <td data-title="Photo" style="width:100px;">
                                         @if (!string.IsNullOrEmpty(p.Photo))
                                         {
-                                            <img src="@p.Photo" class="prod-img" />
+                                            <div class="photo-wrapper" id="photo-@p.Id">
+                                                <img src="@p.Photo" class="product-photo" />
+                                                <span class="photo-delete-icon" onclick="deletePhoto(@p.Id)">×</span>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-muted small">No Image</span>
                                         }
                                     </td>
 
@@ -630,6 +670,22 @@
                 .done(() => location.reload())
                 .fail(() => alert("Something went wrong while deleting."));
         }
+
+                // ⭐ DELETE PRODUCT PHOTO
+        window.deletePhoto = function(id) {
+            if (!confirm("Are you sure you want to delete this image?")) return;
+
+            $.post("/Product/DeletePhoto", { id: id })
+                .done(res => {
+                    if (res.success) {
+                        alert("Image deleted successfully.");
+                        location.reload();
+                    } else {
+                        alert(res.message || "Failed to delete image.");
+                    }
+                })
+                .fail(() => alert("Server error while deleting image."));
+        };
 
         $(document).ready(function () {
             initProductTable();

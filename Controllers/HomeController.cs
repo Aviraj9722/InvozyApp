@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using System.Security.Claims;
 using System.Security.Cryptography;
+using System.Globalization;
 
 namespace eOrderTouchApp.Controllers;
 
@@ -44,7 +45,6 @@ public class HomeController : Controller
         return View();
     }
 
-
     public IActionResult Privacy()
     {
         return View();
@@ -62,50 +62,57 @@ public class HomeController : Controller
     }
 
     [HttpGet]
-    public async Task<IActionResult> SaleProfitChart(DateTime fromDate, DateTime toDate)
+    public async Task<IActionResult> SaleProfitDiscountChart(DateTime fromDate, DateTime toDate)
     {
-        int OrgId = Convert.ToInt32(User.FindFirst("OrgId")?.Value);
+        try
+        {
+            int OrgId = Convert.ToInt32(User.FindFirst("OrgId")?.Value);
 
-        // SALES
-        var sales = await _context.DateWiseSaleReportModels
-            .FromSqlRaw(
-                "EXEC Pro_GenerateReport @ReportName,@BusinessId,@FromDate,@ToDate",
-                new SqlParameter("@ReportName", "Date-Wise Sale Reports"),
-                new SqlParameter("@BusinessId", OrgId),
-                new SqlParameter("@FromDate", fromDate),
-                new SqlParameter("@ToDate", toDate)
-            )
-            .AsNoTracking()
-            .ToListAsync();
+            // SALES + PROFIT
+            var profits = await _context.DateWiseSaleProfitReports
+                .FromSqlRaw(
+                    "EXEC Pro_GenerateReport @ReportName,@BusinessId,@FromDate,@ToDate",
+                    new SqlParameter("@ReportName", "Date-Wise Sale Profit Reports"),
+                    new SqlParameter("@BusinessId", OrgId),
+                    new SqlParameter("@FromDate", fromDate),
+                    new SqlParameter("@ToDate", toDate)
+                )
+                .AsNoTracking()
+                .ToListAsync();
 
-        // PROFIT
-        var profits = await _context.DateWiseSaleProfitReports
-            .FromSqlRaw(
-                "EXEC Pro_GenerateReport @ReportName,@BusinessId,@FromDate,@ToDate",
-                new SqlParameter("@ReportName", "Date-Wise Sale Profit Reports"),
-                new SqlParameter("@BusinessId", OrgId),
-                new SqlParameter("@FromDate", fromDate),
-                new SqlParameter("@ToDate", toDate)
-            )
-            .AsNoTracking()
-            .ToListAsync();
+            // DISCOUNT
+            var discounts = await _context.DateWiseSaleDiscountModels
+                .FromSqlRaw(
+                    "EXEC Pro_GenerateReport @ReportName,@BusinessId,@FromDate,@ToDate",
+                    new SqlParameter("@ReportName", "Date-Wise Discount Reports"),
+                    new SqlParameter("@BusinessId", OrgId),
+                    new SqlParameter("@FromDate", fromDate),
+                    new SqlParameter("@ToDate", toDate)
+                )
+                .AsNoTracking()
+                .ToListAsync();
 
-        // MERGE BY DATE
-        var result = sales
-            .GroupJoin(
-                profits,
-                s => s.DateOfOrder?.Date,
-                p => p.DateOfOrder.Date,
-                (s, p) => new DateWiseSaleProfitDto
-                {
-                    Date = s.DateOfOrder?.ToString("dd-MM-yyyy"),
-                    Sale = s.TotalSale ?? 0,
-                    Profit = p.FirstOrDefault()?.Profit ?? 0
-                })
-            .OrderBy(x => DateTime.ParseExact(x.Date, "dd-MM-yyyy", null))
-            .ToList();
+            var result = profits
+                .GroupJoin(discounts,
+                    p => p.DateOfOrder.Date,
+                    d => d.DateOfOrder.Date,
+                    (p, d) => new DateWiseSaleProfitDto
+                    {
+                        Date = p.DateOfOrder.ToString("dd-MM-yyyy"),
+                        Sale = p.TotalSale,
+                        Profit = p.Profit,
+                        Discount = d.FirstOrDefault()?.TotalDiscount ?? 0
+                    })
+                .OrderBy(x => DateTime.ParseExact(x.Date!, "dd-MM-yyyy", CultureInfo.InvariantCulture))
+                .ToList();
 
-        return Json(result);
+            return Json(result);
+        }
+        catch (Exception ex)
+        {
+            Response.StatusCode = 500;
+            return Json(new { error = ex.Message });
+        }
     }
 
     [HttpGet]
@@ -185,6 +192,5 @@ public class HomeController : Controller
 
         return View(dashboard);
     }
-
 
 }

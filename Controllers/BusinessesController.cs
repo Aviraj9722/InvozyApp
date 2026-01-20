@@ -2,6 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NuGet.ProjectModel;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Formats.Jpeg;
+using SixLabors.ImageSharp.Processing;
 
 namespace eOrderTouchApp.Controllers
 {
@@ -89,7 +92,8 @@ namespace eOrderTouchApp.Controllers
                         System.IO.File.Delete(oldPath);
                 }
 
-                business.Logo = await SaveFile(LogoFile);
+                business.Logo = await SaveCompressedLogo(LogoFile);
+
             }
 
 
@@ -184,9 +188,9 @@ namespace eOrderTouchApp.Controllers
             // Logo upload
             if (LogoFile != null)
             {
-                // 🔐 Size validation (100 KB)
-                if (LogoFile.Length > 100 * 1024)
-                    return BadRequest("Logo size must be less than 100 KB");
+                //// 🔐 Size validation (100 KB)
+                //if (LogoFile.Length > 100 * 1024)
+                //    return BadRequest("Logo size must be less than 100 KB");
 
                 // 🔐 Type validation
                 var allowedTypes = new[] { "image/jpeg", "image/png" };
@@ -201,7 +205,7 @@ namespace eOrderTouchApp.Controllers
                         System.IO.File.Delete(oldPath);
                 }
 
-                existing.Logo = await SaveFile(LogoFile);
+                existing.Logo = await SaveCompressedLogo(LogoFile);
             }
 
             // Update fields
@@ -310,7 +314,7 @@ namespace eOrderTouchApp.Controllers
         // ==========
         // DELETE
         // ==========
-        [AuthorizeToRoles("Owner")]
+        [AuthorizeToRoles("Admin")]
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
@@ -339,6 +343,71 @@ namespace eOrderTouchApp.Controllers
             {
                 await file.CopyToAsync(stream);
             }
+
+            return fileName;
+        }
+        [HttpPost]
+        public async Task<IActionResult> DeleteLogo(int id)
+        {
+            var business = await _context.TblBusinesses.FindAsync(id);
+
+            if (business == null || string.IsNullOrEmpty(business.Logo))
+                return BadRequest("No logo found");
+
+            string folder = Path.Combine(_env.WebRootPath, "Uploads");
+            string path = Path.Combine(folder, business.Logo);
+
+            if (System.IO.File.Exists(path))
+                System.IO.File.Delete(path);
+
+            business.Logo = null;
+            await _context.SaveChangesAsync();
+
+            return Ok();
+        }
+
+        private async Task<string> SaveCompressedLogo(IFormFile file)
+        {
+            using var image = await SixLabors.ImageSharp.Image.LoadAsync(file.OpenReadStream());
+
+            // Resize (optional but helps with compression)
+            image.Mutate(x => x.Resize(new ResizeOptions
+            {
+                Mode = ResizeMode.Max,
+                Size = new Size(120, 0) // limit width to 120px
+            }));
+
+            using var ms = new MemoryStream();
+
+            // First encoding attempt
+            var encoder = new JpegEncoder
+            {
+                Quality = 50 // init-only
+            };
+
+            await image.SaveAsJpegAsync(ms, encoder);
+
+            // If still too large, do a second pass
+            if (ms.Length > 10 * 1024) // >10 KB
+            {
+                ms.SetLength(0);
+
+                encoder = new JpegEncoder
+                {
+                    Quality = 30 // more aggressive
+                };
+
+                await image.SaveAsJpegAsync(ms, encoder);
+            }
+
+            string folder = Path.Combine(_env.WebRootPath, "Uploads");
+            if (!Directory.Exists(folder))
+                Directory.CreateDirectory(folder);
+
+            string fileName = Guid.NewGuid() + ".jpg";
+            string path = Path.Combine(folder, fileName);
+
+            await System.IO.File.WriteAllBytesAsync(path, ms.ToArray());
 
             return fileName;
         }

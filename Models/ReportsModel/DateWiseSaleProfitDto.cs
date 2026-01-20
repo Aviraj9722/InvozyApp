@@ -5,5 +5,6 @@
         public string? Date { get; set; }
         public decimal? Sale { get; set; }
         public decimal? Profit { get; set; }
+        public decimal? Discount { get; set; }
     }
 }

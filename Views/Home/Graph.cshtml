@@ -34,19 +34,17 @@
 
     <!-- ================= CHARTS SECTION ================= -->
     <div class="row g-4">
-
-        <!-- SALES & PROFIT -->
         <div class="col-lg-6">
             <div class="card shadow-sm h-100">
                 <div class="card-header fw-semibold text-center">
-                    Sales & Profit
+                    Sales vs Profit vs Discount
                 </div>
-                <div class="card-body sales-profit-wrapper">
-                    <canvas id="salesProfitChart"></canvas>
+                <div class="card-body" style="height:420px;">
+                    <canvas id="saleProfitDiscountChart"></canvas>
+                    @* <canvas id="saleProfitDiscountChart" style="height: 380px;"></canvas> *@
                 </div>
             </div>
         </div>
-    
         <!-- ITEM WISE DISTRIBUTION -->
         <div class="col-lg-6">
             <div class="card shadow-sm h-100">
@@ -157,51 +155,56 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
 
-
     <script>
-        let salesProfitChart;
+        let salesProfitDiscountChart;
 
-        async function loadChart(fromDate, toDate) {
+        async function loadSaleProfitDiscountChart(fromDate, toDate) {
             try {
                 const formatDate = d => new Date(d).toISOString().split('T')[0];
-                const res = await fetch(`/Home/SaleProfitChart?fromDate=${formatDate(fromDate)}&toDate=${formatDate(toDate)}`);
+
+                const res = await fetch(`/Home/SaleProfitDiscountChart?fromDate=${formatDate(fromDate)}&toDate=${formatDate(toDate)}`);
                 const data = await res.json();
 
                 const labels = data.map(x => x.date);
                 const sales = data.map(x => x.sale);
                 const profits = data.map(x => x.profit);
+                const discounts = data.map(x => x.discount);
 
-                const ctx = document.getElementById('salesProfitChart').getContext('2d');
+                const ctx = document.getElementById('saleProfitDiscountChart').getContext('2d');
 
-                if (salesProfitChart) salesProfitChart.destroy(); // destroy previous chart
+                if (salesProfitDiscountChart) salesProfitDiscountChart.destroy();
 
-                salesProfitChart = new Chart(ctx, {
+                salesProfitDiscountChart = new Chart(ctx, {
                     type: 'bar',
                     data: {
-                        labels: labels,
+                        labels,
                         datasets: [
                             {
                                 label: 'Sales',
                                 data: sales,
-                                backgroundColor: 'rgba(54, 162, 235, 0.6)',
-                                borderColor: 'rgba(54, 162, 235, 1)',
-                                borderWidth: 1
+                                backgroundColor: 'rgba(54, 162, 235, 0.6)'
                             },
                             {
                                 label: 'Profit',
                                 data: profits,
-                                backgroundColor: 'rgba(255, 206, 86, 0.6)',
-                                borderColor: 'rgba(255, 206, 86, 1)',
-                                borderWidth: 1
+                                backgroundColor: 'rgba(75, 192, 75, 0.6)'
+                            },
+                            {
+                                label: 'Discount',
+                                data: discounts,
+                                backgroundColor: 'rgba(255, 99, 132, 0.6)'
                             }
                         ]
                     },
                     options: {
                         responsive: true,
-                        maintainAspectRatio: false, // REQUIRED
+                        maintainAspectRatio: false,
                         plugins: {
                             legend: { position: 'top' },
-                            title: { display: true, text: `Sales & Profit (${labels[0]} - ${labels[labels.length-1]})` }
+                            title: {
+                                display: true,
+                                text: `Sales / Profit / Discount (${labels[0]} - ${labels[labels.length - 1]})`
+                            }
                         },
                         scales: {
                             y: { beginAtZero: true }
@@ -210,7 +213,7 @@
                 });
 
             } catch (err) {
-                console.error('Error loading chart data:', err);
+                console.error('Error loading discount chart:', err);
             }
         }
 
@@ -219,23 +222,30 @@
             const lastWeek = new Date();
             lastWeek.setDate(today.getDate() - 6);
 
-            // set default date pickers
-            document.getElementById('fromDate').valueAsDate = lastWeek;
-            document.getElementById('toDate').valueAsDate = today;
+            const fromDate = document.getElementById('fromDate');
+            const toDate = document.getElementById('toDate');
+            const btnUpdateChart = document.getElementById('btnUpdateChart');
 
-            loadChart(lastWeek, today);
+            // default date values
+            fromDate.valueAsDate = lastWeek;
+            toDate.valueAsDate = today;
+
+            // initial load
+            loadSaleProfitDiscountChart(lastWeek, today);
             loadItemHorizontalBar(
                 lastWeek.toISOString().split('T')[0],
                 today.toISOString().split('T')[0]
             );
 
-             btnUpdateChart.addEventListener('click', () => {
-                    loadChart(new Date(fromDate.value), new Date(toDate.value));
-                    loadItemHorizontalBar(fromDate.value, toDate.value);
-             });
+            btnUpdateChart.addEventListener('click', () => {
+                loadSaleProfitDiscountChart(
+                    new Date(fromDate.value),
+                    new Date(toDate.value)
+                );
+                loadItemHorizontalBar(fromDate.value, toDate.value);
+            });
         });
     </script>
-
     <script>
         let itemBarChart;
 
@@ -327,8 +337,5 @@
                 .catch(err => console.error(err));
         }
     </script>
-
-
-
 
 }
