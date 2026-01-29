@@ -1,10 +1,11 @@
 ﻿using eOrderTouchApp.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace eOrderTouchApp.Controllers
 {
-   
+    [AuthorizeToRoles("Owner", "HeadOfficer")]
     public class FeedbackController : Controller
     {
         private readonly eOrderTouchContext _context;
@@ -32,16 +33,38 @@ namespace eOrderTouchApp.Controllers
         }
 
 
-        [AuthorizeToRoles("Owner")]
-        public IActionResult List()
+        public IActionResult List(int selectedbusinessId = 0)
         {
-            var orgClaim = User.FindFirst("OrgId");
-            if (orgClaim == null)
-                return Unauthorized();
+            int userId = Convert.ToInt32(User.FindFirst("UserId")?.Value);
 
-            int businessId = int.Parse(orgClaim.Value);
+            // 🔹 HO Units Dropdown
+            if (User.IsInRole("HeadOfficer"))
+            {
+                var units = _context.TblHOUnits
+                    .Where(x => x.UserId == userId)
+                    .Include(x => x.Business)
+                    .Select(x => new
+                    {
+                        x.Business.Id,
+                        x.Business.BusinessName,
+                        x.Business.Address
+                    })
+                    .ToList();
 
-            ViewBag.BusinessId = businessId;   // ✅ ADD THIS
+                ViewBag.Units = units;
+            }
+
+            int businessId;
+            if (User.IsInRole("HeadOfficer"))
+            {
+                businessId = selectedbusinessId;
+            }
+            else
+            {
+                businessId = Convert.ToInt32(User.FindFirst("OrgId")!.Value);
+            }
+
+            ViewBag.SelectedBusinessId = businessId;
 
             var feedbacks = _context.TblFeedbacks
                 .Where(x => x.BuisnessId == businessId)

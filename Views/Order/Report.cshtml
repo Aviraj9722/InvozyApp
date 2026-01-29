@@ -5,6 +5,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@{
+    var selectedBusinessId = ViewBag.SelectedBusinessId?.ToString();
+}
+
 <!-- DATATABLE CSS -->
 <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
 
@@ -35,7 +39,26 @@
 
 <h1>Order Report</h1>
 
+@if (User.IsInRole("HeadOfficer"))
+{
+    <div class="d-flex justify-content-end mb-3">
+        <select id="orderBusinessDropdown" class="form-select w-auto fw-bold">
+            @foreach (var u in ViewBag.Units)
+            {
+                <option value="@u.Id"
+                        selected="@(u.Id.ToString() == selectedBusinessId)">
+                    @u.BusinessName - @u.Address
+                </option>
+            }
+        </select>
+    </div>
+}
+
 <form asp-action="Report2" class="d-flex align-items-center gap-2 mb-3">
+    <input type="hidden"
+           id="selectedbusinessId"
+           name="selectedbusinessId"
+           value="@ViewBag.SelectedBusinessId" />
     <label class="me-2 mb-0">From Date:</label>
     <input type="date" id="fromDT" name="fromDT"
            value="@ViewBag.FromDate"
@@ -125,10 +148,14 @@
                 <td>
                     <div class="d-grid gap-2">
                      @*    <button type="button" class="btn btn-primary"> Edit</button> *@
-                    @if ((bool)item?.IsCanceled == false)
-                    {
-                        <button type="button" onclick="CancelOrder(@item.Id)" class="btn btn-danger"> Cancel</button>
-                    }
+                        @if (item.IsCanceled != true)
+                        {
+                            <button type="button"
+                                    onclick="CancelOrder(@item.Id)"
+                                    class="btn btn-danger">
+                                Cancel
+                            </button>
+                        }
                     </div>
                    
                 </td>
@@ -198,6 +225,15 @@
             });
        
         }
+
+         $('#orderBusinessDropdown').on('change', function () {
+            let selectedBusinessId = $(this).val();
+
+            $('#selectedbusinessId').val(selectedBusinessId);
+
+            window.location.href =
+                `/Order/Report?selectedbusinessId=${selectedBusinessId}`;
+        });
     </script>
 }
 

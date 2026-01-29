@@ -1,4 +1,6 @@
 ﻿//using eOrderTouchApp.Models.ReportsModel;
+using eOrderTouchApp.Models.ReportsModel;
+using eOrderTouchApp.ViewModel;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -55,6 +57,8 @@ public partial class eOrderTouchContext : DbContext
     public DbSet<TblHOUnit> TblHOUnits { get; set; }
     public DbSet<TblKitchenCounter> TblKitchenCounters { get; set; }
     public DbSet<ProductLedgerVM> ProductLedgerVM { get; set; }
+
+    public DbSet<HOBranchDashboardVM> HOBranchDashboardVMs { get; set; }
 
     //    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
@@ -439,6 +443,12 @@ public partial class eOrderTouchContext : DbContext
         });
         modelBuilder.Entity<ProductLedgerVM>()
         .HasNoKey();
+
+        modelBuilder.Entity<HOBranchDashboardVM>()
+           .HasNoKey()
+           .ToView(null);
+
+        modelBuilder.Entity<HOProfitReportDto>().HasNoKey();
 
         OnModelCreatingPartial(modelBuilder);
     }
