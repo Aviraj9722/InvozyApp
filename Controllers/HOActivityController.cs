@@ -204,7 +204,18 @@ namespace eOrderTouchApp.Controllers
             return Json(data);
         }
 
+        public IActionResult HOBranchSummary()
+        {
+            int hoUserId = Convert.ToInt32(User.FindFirst("UserId")!.Value);
 
+
+            var data = _context.HOBranchSummary
+                .FromSqlRaw("EXEC sp_HO_BranchSaleProfit_FY @HOUserId",
+                    new SqlParameter("@HOUserId", hoUserId))
+                .ToList();
+
+            return View(data);
+        }
 
 
     }

@@ -39,6 +39,19 @@
 <h1>Product Ledger Report</h1>
 
 <form id="ledgerForm">
+    @if (User.IsInRole("HeadOfficer"))
+    {
+        <label>Business:</label>
+        <select id="SelectedBusinessId" class="form-select" style="max-width: 240px;">
+            @foreach (var unit in ViewBag.Units)
+            {
+                <option value="@unit.BusinessId">
+                    @unit.BusinessName
+                </option>
+            }
+        </select>
+    }
+    
     <label>Product:</label>
     <select asp-for="ProductId" asp-items="Model.Products" class="form-select" style="max-width: 220px;">
         <option value="">-- Select Product --</option>
@@ -126,11 +139,13 @@
                     alert("Please select product and dates!");
                     return;
                 }
-
+                    var selectedBusinessId = $("#SelectedBusinessId").length
+                    ? $("#SelectedBusinessId").val()
+                    : 0;
                 $.ajax({
                     url: '/ProductLedger/GetReportData',
                     type: 'GET',
-                    data: { productId, fromDate, toDate },
+                       data: { productId, fromDate, toDate,selectedbusinessId: selectedBusinessId },
                     success: function (data) {
                         table.clear();
 
@@ -146,6 +161,26 @@
                     }
                 });
             });
-        });
+
+        $("#SelectedBusinessId").on("change", function () {
+            var businessId = $(this).val();
+
+            $.get('/ProductLedger/GetProductsByBusiness', { businessId }, function (data) {
+                var productDropdown = $("#ProductId");
+                productDropdown.empty();
+                productDropdown.append('<option value="">-- Select Product --</option>');
+
+                $.each(data, function (i, item) {
+                    productDropdown.append(
+                        $('<option>', {
+                            value: item.value,
+                            text: item.text
+                        })
+                    );
+                });
+            });
+         });
+        
+     });
     </script>
 }
