@@ -24,7 +24,7 @@ namespace eOrderTouchApp.Controllers
             int businessId = Convert.ToInt32(User.FindFirst("OrgId")?.Value);
 
             TempData["OrgId"] = businessId;
-            var users = await _context.TblUsers.Include(I => I.TblUserLicenses).Where(w => w.BussinessId == businessId).ToListAsync();
+            var users = await _context.TblUsers.Where(w => w.BussinessId == businessId).ToListAsync();
 
             return View(users);
         }

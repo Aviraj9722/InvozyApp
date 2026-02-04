@@ -52,9 +52,7 @@
         <tbody>
             @foreach (var item in Model)
             {
-                var lastLicense = item.TblUserLicenses?
-                .OrderByDescending(o => o.Id)
-                .FirstOrDefault();
+               
 
                 <tr>
                     <td></td> <!-- Auto numbering -->
@@ -63,8 +61,7 @@
                     <td>@item.MobileNumber</td>
                     <td>@item.IsActive</td>
                     <td>@item.EmailId</td>
-                    <td>@lastLicense?.StartDate?.ToString("dd-MM-yyyy")</td>
-                    <td>@lastLicense?.EndDate?.ToString("dd-MM-yyyy")</td>
+                    
                 </tr>
             }
         </tbody>

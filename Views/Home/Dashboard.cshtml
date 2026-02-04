@@ -176,6 +176,17 @@
     }
 </style>
 
+<!-- 🔔 LICENSE MESSAGE (PASTE HERE) -->
+@if (ViewBag.LicenseMessage != null)
+{
+    <div class="container-fluid mt-3">
+        <div class="alert @(ViewBag.LicenseType == "expired" ? "alert-danger" : "alert-warning")
+                        text-center fw-bold shadow-sm">
+            @ViewBag.LicenseMessage
+        </div>
+    </div>
+}
+
 @if (!User.IsInRole("Admin"))
 {
     <div class="container-fluid py-4">

@@ -14,53 +14,82 @@ namespace eOrderTouchApp.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index(int id=0)
+        public async Task<IActionResult> Index(int OrgId=0)
         {
 
-            TempData["UserId"] = id;
-            ViewBag.Users = await _context.TblUserLicenses.Where(w=>w.UserId==id).OrderByDescending(o=>o.Id).ToListAsync();
+            TempData["OrgId"] = OrgId;
+            ViewBag.Business = await _context.TblUserLicenses.Where(w=>w.BusinessId== OrgId).OrderByDescending(o=>o.BusinessId).ToListAsync();
             return View();
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            int uid = Convert.ToInt32(TempData.Peek("UserId"));
-            var data = await _context.TblUserLicenses.Where(w => w.UserId == uid)
-                .Include(x => x.User)
+            int OrgId = Convert.ToInt32(TempData.Peek("OrgId"));
+            var data = await _context.TblUserLicenses
+                .Where(w => w.BusinessId == OrgId)
+                .Include(x => x.Business)
                 .Select(x => new {
-                    x.Id,
-                    x.LicenseKey,
-                    x.StartDate,
-                    x.EndDate,
-                    UserName = x.User.UserName
-                }).ToListAsync();
+                    id = x.Id,
+                    licenseKey = x.LicenseKey,
+                    startDate = x.StartDate,
+                    endDate = x.EndDate,
+                    businessName = x.Business.BusinessName
+                })
+                .ToListAsync();
 
             return Json(data);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(TblUserLicense model)
+        public async Task<IActionResult> Create([FromBody] TblUserLicense model)
         {
-            model.UserId = Convert.ToInt32(TempData.Peek("UserId"));
-            model.CreatedOn = DateTime.Now;
+            try
+            {
+                int orgId = Convert.ToInt32(TempData.Peek("OrgId"));
 
-            await _context.TblUserLicenses.AddAsync(model);
-            await _context.SaveChangesAsync();
+                if (string.IsNullOrWhiteSpace(model.LicenseKey))
+                    return Json(new { success = false, message = "License Key is required" });
 
-            return Json(new { success = true, message = "Saved successfully" });
+                if (model.StartDate == null)
+                    return Json(new { success = false, message = "Start Date is required" });
+
+                if (model.EndDate == null)
+                    return Json(new { success = false, message = "End Date is required" });
+
+                model.BusinessId = orgId;
+                model.CreatedOn = DateTime.Now;
+
+                _context.TblUserLicenses.Add(model);
+                await _context.SaveChangesAsync();
+
+                return Json(new { success = true, message = "Created successfully" });
+            }
+            catch (Exception er)
+            {
+                return Json(new { success = false, message = "Unable to create" });
+            }
+
+
         }
 
         [HttpPost]
-        public async Task<IActionResult> Update( TblUserLicense model)
+        public async Task<IActionResult> Update([FromBody] TblUserLicense model)
         {
-            var existing = await _context.TblUserLicenses.FindAsync(model.Id);
+            if (model.Id <= 0)
+                return Json(new { success = false, message = "Invalid license Id" });
+
+            int orgId = Convert.ToInt32(TempData.Peek("OrgId"));
+
+            var existing = await _context.TblUserLicenses
+                .Where(x => x.Id == model.Id && x.BusinessId == orgId)
+                .FirstOrDefaultAsync();
+
             if (existing == null)
-                return Json(new { success = false, message = "Not found" });
-            
-            model.UserId = Convert.ToInt32(TempData.Peek("UserId"));
-            existing.UserId = model.UserId;
-            existing.LicenseKey = model.LicenseKey;
+                return Json(new { success = false, message = "License not found" });
+
+            // Update fields
+            existing.LicenseKey = model.LicenseKey?.Trim();
             existing.StartDate = model.StartDate;
             existing.EndDate = model.EndDate;
 
@@ -72,10 +101,13 @@ namespace eOrderTouchApp.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
-            int UserId = Convert.ToInt32(TempData.Peek("UserId"));
-            var obj = await _context.TblUserLicenses.Where(w=>w.UserId == UserId).FirstOrDefaultAsync();
+            int OrgId = Convert.ToInt32(TempData.Peek("OrgId"));
+            var obj = await _context.TblUserLicenses
+                .Where(w => w.Id == id && w.BusinessId == OrgId)
+                .FirstOrDefaultAsync();
+
             if (obj == null)
-                return Json(new { success = false });
+                return Json(new { success = false, message = "License not found" });
 
             _context.TblUserLicenses.Remove(obj);
             await _context.SaveChangesAsync();

@@ -26,6 +26,10 @@
     .dataTables_paginate {
         margin-top: 14px !important;
     }
+
+    .input-error {
+        border: 1px solid red !important;
+    }
 </style>
 
 <h3 class="mb-4">User License Management</h3>
@@ -36,7 +40,6 @@
     <div class="col-md-4">
         <div class="card shadow-sm p-3">
             <h5 id="formTitle" class="mb-3">Add License</h5>
-
             <form id="frmLicense">
 
                 <input type="hidden" id="Id" name="Id" />
@@ -44,16 +47,19 @@
                 <div class="mb-2">
                     <label class="form-label">License Key</label>
                     <input id="LicenseKey" name="LicenseKey" class="form-control" required />
+                    <span class="text-danger" id="LicenseKeyError"></span>
                 </div>
 
                 <div class="mb-2">
                     <label class="form-label">Start Date</label>
-                    <input type="date" id="StartDate" name="StartDate" class="form-control" required />
+                    <input type="date" id="StartDate" name="StartDate" class="form-control" />
+                    <span class="text-danger" id="StartDateError"></span>
                 </div>
 
                 <div class="mb-2">
                     <label class="form-label">End Date</label>
-                    <input type="date" id="EndDate" name="EndDate" class="form-control" required />
+                    <input type="date" id="EndDate" name="EndDate" class="form-control" />
+                    <span class="text-danger" id="EndDateError"></span>
                 </div>
 
                 <div class="d-grid gap-2 mt-3">
@@ -64,7 +70,6 @@
             </form>
         </div>
     </div>
-
 
     <!-- RIGHT : DATATABLE -->
     <div class="col-md-8">
@@ -88,8 +93,6 @@
         </div>
     </div>
 </div>
-
-
 
 @section Scripts {
 
@@ -124,8 +127,8 @@
                         <td>${x.startDate?.substring(0, 10) ?? ""}</td>
                         <td>${x.endDate?.substring(0, 10) ?? ""}</td>
                         <td>
-                            <button class="btn btn-sm btn-primary" onclick="edit(${x.id})">Edit</button>
-                            <button class="btn btn-sm btn-danger" onclick="remove(${x.id})">Delete</button>
+                          <button class="btn btn-sm btn-primary" onclick="edit(${x.id})">Edit</button>
+                          <button class="btn btn-sm btn-danger" onclick="remove(${x.id})">Delete</button>
                         </td>
                     </tr>`;
             });
@@ -147,7 +150,6 @@
             });
         }
 
-
         // -------------------------
         // CLEAR FORM
         // -------------------------
@@ -160,23 +162,54 @@
             $("#formTitle").text("Add License");
         }
 
-
-        // -------------------------
-        // SAVE LICENSE
-        // -------------------------
         function saveLicense() {
 
+            // Clear previous errors
+            $("#LicenseKeyError").text("");
+            $("#StartDateError").text("");
+            $("#EndDateError").text("");
+
+            // remove red borders first
+            $("#LicenseKey").removeClass("input-error");
+            $("#StartDate").removeClass("input-error");
+            $("#EndDate").removeClass("input-error");
+
+            let isValid = true;
+
+            if (!$("#LicenseKey").val()) {
+                $("#LicenseKeyError").text("License Key is required");
+                $("#LicenseKey").addClass("input-error"); // <-- HERE
+                isValid = false;
+            }
+
+            if (!$("#StartDate").val()) {
+                $("#StartDateError").text("Start Date is required");
+                $("#StartDate").addClass("input-error"); // <-- HERE
+                isValid = false;
+            }
+
+            if (!$("#EndDate").val()) {
+                $("#EndDateError").text("End Date is required");
+                $("#EndDate").addClass("input-error"); // <-- HERE
+                isValid = false;
+            }
+
+            if (!isValid) return;
+            // continue saving...
             let url = $("#Id").val() ? "/UserLicense/Update" : "/UserLicense/Create";
 
-            let formData = new FormData($("#frmLicense")[0]);
-
+            let payload = {
+                Id: $("#Id").val() ? parseInt($("#Id").val()) : 0,
+                LicenseKey: $("#LicenseKey").val(),
+                StartDate: $("#StartDate").val(),
+                EndDate: $("#EndDate").val()
+            };
+            console.log("payload");
             $.ajax({
                 url: url,
                 type: "POST",
-                data: formData,
-                contentType: false,
-                processData: false,
-
+                contentType: "application/json",
+                data: JSON.stringify(payload),
                 success: function (result) {
                     alert(result.message);
                     loadTable();
@@ -185,7 +218,6 @@
             });
         }
 
-
         // -------------------------
         // EDIT LICENSE
         // -------------------------
@@ -193,7 +225,12 @@
             const res = await fetch('/UserLicense/GetAll');
             const data = await res.json();
 
-            const row = data.find(x => x.id === id);
+            const row = data.find(x => x.id === id); // ✅ lowercase "id"
+
+            if (!row) {
+                alert("License not found");
+                return;
+            }
 
             $("#Id").val(row.id);
             $("#LicenseKey").val(row.licenseKey);
@@ -203,7 +240,6 @@
             $("#formTitle").text("Edit License");
         }
 
-
         // -------------------------
         // DELETE LICENSE
         // -------------------------
@@ -211,14 +247,18 @@
 
             if (!confirm("Do you want to delete this License?")) return;
 
-            const res = await fetch('/UserLicense/Delete?id=' + id, {
-                method: "POST"
+            const res = await fetch('/UserLicense/Delete', {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ id })
             });
 
             const result = await res.json();
 
             if (result.success) {
                 loadTable();
+            } else {
+                alert(result.message || "Delete failed");
             }
         }
 

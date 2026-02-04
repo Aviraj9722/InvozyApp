@@ -8,7 +8,7 @@ public partial class TblUserLicense
 {
     public int Id { get; set; } = 0;
 
-    public int? UserId { get; set; }
+    public int? BusinessId { get; set; }
 
     public string? LicenseKey { get; set; }
 
@@ -18,5 +18,5 @@ public partial class TblUserLicense
 
     public DateTime? CreatedOn { get; set; }
 
-    public virtual TblUser? User { get; set; }
+    public virtual TblBusiness? Business { get; set; }
 }

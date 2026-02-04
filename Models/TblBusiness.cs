@@ -68,6 +68,8 @@ public partial class TblBusiness
     public bool? IsTableNoRequired { get; set; }
 
     public virtual ICollection<TblGST> TblGsts { get; set; } = new List<TblGST>();
+    public virtual ICollection<TblUserLicense> UserLicenses { get; set; }
+
 
     public virtual ICollection<TblTable> TblTables { get; set; } = new List<TblTable>();
     public virtual ICollection<TblKitchenCounter> TblKitchenCounters { get; set; }

@@ -143,6 +143,55 @@ public class HomeController : Controller
         return Json(result);
     }
 
+    //public async Task<IActionResult> Dashboard()
+    //{
+    //    var claimValue = User.FindFirstValue("OrgId");
+
+    //    if (!int.TryParse(claimValue, out int orgId))
+    //    {
+    //        return RedirectToAction("Login", "Account");
+    //    }
+
+    //    //int orgId = int.Parse(User.FindFirst("OrgId")!.Value);
+    //    DateTime today = DateTime.Today;
+
+    //    // 1️⃣ Get today's sale (Date-Wise Sale Reports)
+    //    var saleList = await _context.DateWiseSaleReportModels
+    //        .FromSqlRaw(
+    //            "EXEC Pro_GenerateReport @ReportName, @BusinessId, @FromDate, @ToDate",
+    //            new SqlParameter("@ReportName", "Date-Wise Sale Reports"),
+    //            new SqlParameter("@BusinessId", orgId),
+    //            new SqlParameter("@FromDate", today),
+    //            new SqlParameter("@ToDate", today)
+    //        )
+    //        .AsNoTracking()
+    //        .ToListAsync();
+
+    //    // 2️⃣ Get today's profit (Date-Wise Sale Profit Reports)
+    //    var profitList = await _context.DateWiseSaleProfitReports
+    //        .FromSqlRaw(
+    //            "EXEC Pro_GenerateReport @ReportName, @BusinessId, @FromDate, @ToDate",
+    //            new SqlParameter("@ReportName", "Date-Wise Sale Profit Reports"),
+    //            new SqlParameter("@BusinessId", orgId),
+    //            new SqlParameter("@FromDate", today),
+    //            new SqlParameter("@ToDate", today)
+    //        )
+    //        .AsNoTracking()
+    //        .ToListAsync();
+
+    //    // 3️⃣ Merge into a single KPI object
+    //    var dashboard = new TodayDashboardVM
+    //    {
+    //        TotalOrders = saleList.Sum(x => (int?)x.TotalOrders) ?? 0,
+    //        TotalSale = saleList.Sum(x => (decimal?)x.TotalSale) ?? 0,
+    //        Cash = saleList.Sum(x => (decimal?)x.Cash) ?? 0,
+    //        Online = saleList.Sum(x => (decimal?)x.Online) ?? 0,
+    //        Credit = saleList.Sum(x => (decimal?)x.Credit) ?? 0,
+    //        Profit = profitList.Sum(x => (decimal?)x.Profit) ?? 0
+    //    };
+
+    //    return View(dashboard);
+    //}
     public async Task<IActionResult> Dashboard()
     {
         var claimValue = User.FindFirstValue("OrgId");
@@ -152,10 +201,38 @@ public class HomeController : Controller
             return RedirectToAction("Login", "Account");
         }
 
-        //int orgId = int.Parse(User.FindFirst("OrgId")!.Value);
         DateTime today = DateTime.Today;
 
-        // 1️⃣ Get today's sale (Date-Wise Sale Reports)
+        // ============================
+        // 🔔 LICENSE WARNING LOGIC
+        // ============================
+        var licenseEndClaim = User.FindFirst("LicenseEnd");
+
+        if (licenseEndClaim != null)
+        {
+            DateTime licenseEndDate = DateTime.Parse(licenseEndClaim.Value);
+            int daysLeft = (licenseEndDate.Date - today).Days;
+
+            if (daysLeft < 0)
+            {
+                // ❌ License expired (this month or earlier)
+                ViewBag.LicenseMessage =
+                    $"❌ Your license expired on {licenseEndDate:dd MMM yyyy}. Please renew to continue using the system.";
+                ViewBag.LicenseType = "expired";
+            }
+            else if (daysLeft <= 30)
+            {
+                // ⚠ Expiring within 1 month
+                ViewBag.LicenseMessage =
+                    $"⚠ Your license will expire in {daysLeft} day(s) (on {licenseEndDate:dd MMM yyyy}). Please renew soon.";
+                ViewBag.LicenseType = "warning";
+            }
+        }
+
+        // ============================
+        // 📊 EXISTING DASHBOARD DATA
+        // ============================
+
         var saleList = await _context.DateWiseSaleReportModels
             .FromSqlRaw(
                 "EXEC Pro_GenerateReport @ReportName, @BusinessId, @FromDate, @ToDate",
@@ -167,7 +244,6 @@ public class HomeController : Controller
             .AsNoTracking()
             .ToListAsync();
 
-        // 2️⃣ Get today's profit (Date-Wise Sale Profit Reports)
         var profitList = await _context.DateWiseSaleProfitReports
             .FromSqlRaw(
                 "EXEC Pro_GenerateReport @ReportName, @BusinessId, @FromDate, @ToDate",
@@ -179,7 +255,6 @@ public class HomeController : Controller
             .AsNoTracking()
             .ToListAsync();
 
-        // 3️⃣ Merge into a single KPI object
         var dashboard = new TodayDashboardVM
         {
             TotalOrders = saleList.Sum(x => (int?)x.TotalOrders) ?? 0,

@@ -35,40 +35,118 @@ namespace eOrderTouchApp.Controllers
             return View();
         }
 
+        //[HttpPost]
+        //public async Task<IActionResult> Login(string username, string password)
+        //{
+        //    var user = await _context.TblUsers
+        //        .FirstOrDefaultAsync(u => u.UserName == username && u.Password == password);
+
+        //    if (user != null)
+        //    {
+        //        var claims = new List<Claim>
+        //        {
+        //            new Claim(ClaimTypes.Name, user.UserName),
+
+        //            new Claim("UserId",user.Id.ToString()),
+        //            new Claim(ClaimTypes.Role,user.Role),
+        //             new Claim("OrgId", user.BussinessId.ToString()??"0")
+        //        };
+
+        //        var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+        //        var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+
+        //        await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);
+
+        //        if (user.Role == "HeadOfficer")
+        //        {
+        //            return RedirectToAction("Dashboard", "HOActivity");
+        //        }
+
+        //        return RedirectToAction("Dashboard", "Home");
+        //    }
+
+
+        //    ViewBag.Message = "Invalid username or password";
+        //    return View();
+        //}
+
         [HttpPost]
         public async Task<IActionResult> Login(string username, string password)
         {
             var user = await _context.TblUsers
                 .FirstOrDefaultAsync(u => u.UserName == username && u.Password == password);
 
-            if (user != null)
+            if (user == null)
             {
+                ViewBag.Message = "Invalid username or password";
+                return View();
+            }
 
-                var claims = new List<Claim>
+            var today = DateTime.UtcNow.Date;
+
+            // Admin & Owner bypass license
+            bool requireLicense = !(user.Role == "Admin" || user.Role == "Owner");
+
+            TblUserLicense license = null;
+
+            if (requireLicense)
+            {
+                // Fetch last license for this Business
+                license = await _context.TblUserLicenses
+                    .Where(x => x.BusinessId == user.BussinessId)
+                    .OrderByDescending(x => x.Id)
+                    .FirstOrDefaultAsync();
+
+                if (license == null)
                 {
-                    new Claim(ClaimTypes.Name, user.UserName),
-                   
-                    new Claim("UserId",user.Id.ToString()),
-                    new Claim(ClaimTypes.Role,user.Role),
-                     new Claim("OrgId", user.BussinessId.ToString()??"0")
-                };
-
-                var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-                var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
-
-                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);
-
-                if (user.Role == "HeadOfficer")
-                {
-                    return RedirectToAction("Dashboard", "HOActivity");
+                    ViewBag.Message = "No license found for this business.";
+                    return View(); // Block login
                 }
 
-                return RedirectToAction("Dashboard", "Home");
-            }
-            
+                // Check FromDate & ToDate validity
+                if (!license.StartDate.HasValue || !license.EndDate.HasValue)
+                {
+                    ViewBag.Message = "License date is not valid.";
+                    return View(); // Block login
+                }
 
-            ViewBag.Message = "Invalid username or password";
-            return View();
+                if (today < license.StartDate.Value.Date)
+                {
+                    ViewBag.Message = $"License not active yet. Starts on {license.StartDate.Value:dd MMM yyyy}.";
+                    return View(); // Block login
+                }
+
+                if (today > license.EndDate.Value.Date)
+                {
+                    ViewBag.Message = $"License expired on {license.EndDate.Value:dd MMM yyyy}.";
+                    return View(); // Block login
+                }
+            }
+
+            // If here → License valid OR Admin/Owner
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name, user.UserName),
+                new Claim("UserId", user.Id.ToString()),
+                new Claim(ClaimTypes.Role, user.Role),
+                new Claim("OrgId", user.BussinessId?.ToString() ?? "0")
+            };
+
+            if (license != null)
+            {
+                claims.Add(new Claim("LicenseStart", license.StartDate.Value.ToString("yyyy-MM-dd")));
+                claims.Add(new Claim("LicenseEnd", license.EndDate.Value.ToString("yyyy-MM-dd")));
+            }
+
+            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);
+
+            if (user.Role == "HeadOfficer")
+                return RedirectToAction("Dashboard", "HOActivity");
+
+            return RedirectToAction("Dashboard", "Home");
         }
 
         public async Task<IActionResult> Logout()

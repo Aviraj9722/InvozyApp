@@ -317,10 +317,13 @@ public partial class eOrderTouchContext : DbContext
             entity.Property(e => e.LicenseKey).HasMaxLength(100);
             entity.Property(e => e.StartDate).HasColumnType("datetime");
 
-            entity.HasOne(d => d.User).WithMany(p => p.TblUserLicenses)
-                .HasForeignKey(d => d.UserId)
-                .HasConstraintName("FK_tblUserLicense_tblUser");
+            entity.HasOne(d => d.Business)
+                .WithMany(p => p.UserLicenses)
+                .HasForeignKey(d => d.BusinessId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("FK_tblUserLicense_tblBusinesses");
         });
+
 
         modelBuilder.Entity<TblDealer>(entity =>
         {

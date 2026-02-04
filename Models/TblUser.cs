@@ -32,5 +32,4 @@ public partial class TblUser
 
     public virtual ICollection<TblProduct> TblProducts { get; set; } = new List<TblProduct>();
 
-    public virtual ICollection<TblUserLicense> TblUserLicenses { get; set; } = new List<TblUserLicense>();
 }

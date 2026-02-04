@@ -291,6 +291,7 @@
                                     <button class="btn btn-sm btn-primary" onclick="editRecord(@item.Id)">Edit</button>
                                     <button class="btn btn-sm btn-danger" onclick="deleteRecord(@item.Id)">Delete</button>
                                     @Html.ActionLink("Users", "Index", "user", new { OrgId = item.Id }, new { @class = "btn btn-sm btn-info" })
+                                    @Html.ActionLink("Licenses", "Index", "UserLicense", new { OrgId = item.Id }, new { @class = "btn btn-sm btn-success" })
                                 </div>
 
                             </td>
