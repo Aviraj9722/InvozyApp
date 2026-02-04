@@ -3,6 +3,25 @@
 @{
     ViewData["Title"] = "Customer Feedbacks";
 }
+@{
+    var selectedBusinessId = Context.Request.Query["selectedbusinessId"].ToString();
+}
+@if (User.IsInRole("HeadOfficer"))
+{
+    <div class="mb-3 d-flex align-items-center">
+        <span class="me-2 fw-bold">Selected Branch / Unit:</span>
+
+        <select id="feedbackBusinessDropdown" class="form-select w-auto fw-bold">
+            @foreach (var u in ViewBag.Units)
+            {
+                <option value="@u.Id"
+                        selected="@(u.Id.ToString() == selectedBusinessId)">
+                    @u.BusinessName - @u.Address
+                </option>
+            }
+        </select>
+    </div>
+}
 
 <div class="d-flex justify-content-between align-items-center mb-3">
     <h4 class="mb-0">Customer Feedbacks</h4>
@@ -97,6 +116,13 @@
             link.href = img.src;
             link.download = "Feedback_QR.png";
             link.click();
+        });
+
+        $('#feedbackBusinessDropdown').on('change', function () {
+            let selectedBusinessId = $(this).val();
+            if (selectedBusinessId) {
+                window.location.href = `/Feedback/List?selectedbusinessId=${selectedBusinessId}`;
+            }
         });
     </script>
 }

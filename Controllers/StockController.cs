@@ -25,20 +25,30 @@ public class StockController : Controller
             var units = _context.TblHOUnits
            .Where(x => x.UserId == userId)
            .Include(x => x.Business)
-           .Select(x => new
-           {
-               x.Business.Id,
-               x.Business.BusinessName,
-               x.Business.Address
-           })
-           .ToList();
+          .Select(x => new
+          {
+              BusinessId = x.Business.Id,
+              x.Business.BusinessName,
+              x.Business.Address
+          })
+            .ToList();
 
             ViewBag.Units = units;
         }
         int businessId;
         if (User.IsInRole("HeadOfficer"))
         {
-            businessId = selectedbusinessId; // dropdown only
+            if (selectedbusinessId > 0)
+            {
+                businessId = selectedbusinessId;
+            }
+            else
+            {
+                businessId = _context.TblHOUnits
+                    .Where(x => x.UserId == userId)
+                    .Select(x => x.BusinessId)
+                    .FirstOrDefault() ?? 0; // ✅ safe fallback
+            }
         }
         else
         {

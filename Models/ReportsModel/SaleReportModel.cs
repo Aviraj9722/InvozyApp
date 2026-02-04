@@ -4,7 +4,7 @@
     {
         public int? OrderId { get; set; }
         public string? DateOfOrder { get; set; }
-        public decimal? TotalOrders { get; set; }
+        public decimal? TotalItems { get; set; }
 
         public decimal? Cash { get; set; }
         public decimal? Online { get; set; }

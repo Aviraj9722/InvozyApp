@@ -1,0 +1,84 @@
+﻿@model IEnumerable<eOrderTouchApp.ViewModel.HOBranchSummaryVM>
+
+@{
+    ViewData["Title"] = "Branch-wise Sale & Profit";
+}
+@{
+    decimal totalTodaySale = Model.Sum(x => x.TodaySale);
+    decimal totalFYSale = Model.Sum(x => x.FYSale);
+    decimal totalTodayProfit = Model.Sum(x => x.TodayProfit);
+    decimal totalFYProfit = Model.Sum(x => x.FYProfit);
+}
+
+<div class="container-fluid mt-3">
+
+    <h4 class="mb-3">Branch-wise Sale & Profit (Today & Financial Year from 1st April to 31st March)</h4>
+
+    <div class="card shadow-sm">
+        <div class="card-body table-responsive">
+
+            <table class="table table-bordered text-nowrap">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Branch</th>
+                        <th>Location</th>
+
+                        <th class="text-end">Today Sale</th>
+                        <th class="text-end">Financial Year Sale</th>
+
+                        <th class="text-end">Today Profit</th>
+                        <th class="text-end">Financial Year Profit</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.BranchName</td>
+                            <td>@item.Location</td>
+
+                            <td class="text-end">@item.TodaySale.ToString("N2")</td>
+                            <td class="text-end">@item.FYSale.ToString("N2")</td>
+                            
+                            <td class="text-end text-success">
+                                @item.TodayProfit.ToString("N2")
+                            </td>
+
+
+                            <td class="text-end text-success">
+                                @item.FYProfit.ToString("N2")
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+
+                <tfoot class="table-secondary fw-bold">
+                    <tr>
+                        <td colspan="2" class="text-end">TOTAL</td>
+
+                        <td class="text-end">
+                            @totalTodaySale.ToString("N2")
+                        </td>
+
+                        <td class="text-end">
+                            @totalFYSale.ToString("N2")
+                        </td>
+
+                        <td class="text-end text-success">
+                            @totalTodayProfit.ToString("N2")
+                        </td>
+
+                        <td class="text-end text-success">
+                            @totalFYProfit.ToString("N2")
+                        </td>
+                    </tr>
+                </tfoot>
+
+
+            </table>
+
+        </div>
+    </div>
+
+</div>

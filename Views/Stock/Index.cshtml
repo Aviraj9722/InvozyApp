@@ -19,8 +19,8 @@
 
                         @foreach (var u in ViewBag.Units)
                         {
-                            <option value="@u.Id"
-                                    selected="@(u.Id.ToString() == selectedBusinessId)">
+                            <option value="@u.BusinessId"
+                                    selected="@(u.BusinessId.ToString() == selectedBusinessId)">
                                 @u.BusinessName - @u.Address
                             </option>
                         }

@@ -1,0 +1,418 @@
+﻿@{
+    ViewData["Title"] = "HOGraph";
+}
+
+<div class="container-fluid px-4">
+
+    <!-- PAGE TITLE -->
+    <h2 class="text-center fw-bold text-primary mb-4">Sales Analytics</h2>
+
+    <!-- ================= FILTER SECTION ================= -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <div class="row g-3 align-items-end">
+
+                <div class="col-md-3">
+                    <label class="form-label fw-semibold">From Date</label>
+                    <input type="date" id="fromDate" class="form-control">
+                </div>
+
+                <div class="col-md-3">
+                    <label class="form-label fw-semibold">To Date</label>
+                    <input type="date" id="toDate" class="form-control">
+                </div>
+
+                <div class="col-md-3">
+                    <label class="form-label fw-semibold">Business Unit</label>
+                    <select id="businessUnitId" class="form-select">
+                        <option value="">All Business Units</option>
+                    </select>
+                </div>
+
+                <div class="col-md-2">
+                    <button id="btnUpdateChart" class="btn btn-primary w-100">
+                        Update Charts
+                    </button>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= CHARTS SECTION ================= -->
+    <div class="row g-4">
+
+        <!-- SALES & PROFIT -->
+        <div class="col-lg-6">
+            <div class="card shadow-sm h-100">
+                <div class="card-header fw-semibold text-center">
+                    Sales & Profit
+                </div>
+                <div class="card-body sales-profit-wrapper">
+                    <canvas id="salesProfitChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- ITEM WISE DISTRIBUTION -->
+        <div class="col-lg-6">
+            <div class="card shadow-sm h-100">
+                <div class="card-header fw-semibold text-center">
+                    Item Wise Sale Distribution (%)
+                </div>
+                <div class="item-chart-wrapper">
+                    <canvas id="itemItemBarChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<style>
+    .chart-container {
+        position: relative;
+        width: 100%;
+        height: 320px; /* SAME HEIGHT FOR BOTH */
+    }
+
+        .chart-container canvas {
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+    .chart-container {
+        position: relative;
+        height: 420px; /* fixed height */
+        overflow-y: auto;
+    }
+
+    .chart-container {
+        position: relative;
+        width: 100%;
+        height: 420px; /* REQUIRED */
+    }
+    /* Bigger horizontal bar chart */
+    .item-chart {
+        height: 420px; /* Medium size */
+    }
+    /* If many items (50–100), auto scroll instead of squeezing */
+    .item-chart {
+        overflow-y: auto;
+    }
+    /* ===== ITEM HORIZONTAL BAR (PRO LOOK) ===== */
+    .item-chart-wrapper {
+        position: relative;
+        width: 100%;
+        height: 420px; /* Medium size like left chart */
+        overflow-y: auto; /* Scroll when many items */
+        padding-right: 6px;
+    }
+        /* Smooth scrollbar */
+        .item-chart-wrapper::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .item-chart-wrapper::-webkit-scrollbar-thumb {
+            background: #cfd8dc;
+            border-radius: 10px;
+        }
+    /* Canvas must stretch */
+    #itemItemBarChart {
+        min-height: 420px;
+    }
+
+    .chart-scroll-wrapper {
+        height: 420px; /* professional medium size */
+        overflow-y: auto; /* enable vertical scroll */
+        padding-right: 10px;
+    }
+
+    .chart-scroll-wrapper {
+        height: 520px; /* Same height as left chart */
+        overflow-y: auto;
+        padding-right: 12px;
+    }
+
+        .chart-scroll-wrapper::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .chart-scroll-wrapper::-webkit-scrollbar-thumb {
+            background: #cfd8dc;
+            border-radius: 6px;
+        }
+
+        .chart-scroll-wrapper::-webkit-scrollbar-track {
+            background: #f5f7fa;
+        }
+    /* Sales & Profit Chart container FIX */
+    .sales-profit-wrapper {
+        height: 420px;
+        position: relative;
+    }
+
+    #salesProfitChart {
+        height: 100% !important;
+        min-height: 380px;
+    }
+
+    @@media (max-width: 768px) {
+        .sales-profit-wrapper {
+            height: 320px; /* Mobile clean height */
+        }
+    }
+
+</style>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+
+
+    <script>
+        let salesProfitChart;
+
+        async function loadChart(fromDate, toDate) {
+            try {
+                const businessId = document.getElementById('businessUnitId').value;
+
+                let url = `/HOActivity/BranchSaleProfitChart?fromDate=${fromDate}&toDate=${toDate}`;
+
+                if (businessId) {
+                    url += `&businessId=${businessId}`;
+                }
+
+                    const res = await fetch(url, {
+                    method: 'GET',
+                    credentials: 'include',   // 🔥 IMPORTANT
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (!res.ok) {
+                    console.error("Chart API failed:", res.status);
+                    return;
+                }
+
+                const contentType = res.headers.get("content-type");
+                if (!contentType || !contentType.includes("application/json")) {
+                    console.error("Chart API returned HTML instead of JSON");
+                    return;
+                }
+
+                const data = await res.json();
+
+
+                if (!data || data.length === 0) {
+                    console.warn("No chart data available");
+                    return;
+                }
+
+                const labels = data.map(x => x.date);
+                const sales = data.map(x => x.sale);
+                const profits = data.map(x => x.profit);
+
+                const ctx = document.getElementById('salesProfitChart').getContext('2d');
+
+                if (salesProfitChart) salesProfitChart.destroy();
+
+                salesProfitChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels,
+                        datasets: [
+                            { label: 'Sales', data: sales },
+                            { label: 'Profit', data: profits }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: { beginAtZero: true }
+                        }
+                    }
+                });
+
+
+            } catch (err) {
+                console.error("Chart JS error:", err);
+            }
+        }
+
+
+        async function loadBusinessUnits() {
+            try {
+                const res = await fetch('/HOActivity/GetHOBusinessUnits', {
+                    method: 'GET',
+                    credentials: 'same-origin'
+                });
+
+                if (!res.ok) {
+                    console.error("BusinessUnit API failed:", res.status);
+                    return;
+                }
+
+                const contentType = res.headers.get("content-type");
+                if (!contentType || !contentType.includes("application/json")) {
+                    console.error("BusinessUnit API returned HTML instead of JSON");
+                    return;
+                }
+
+                const data = await res.json();
+
+
+                const ddl = document.getElementById('businessUnitId');
+                ddl.innerHTML = `<option value="">All Business Units</option>`;
+
+                data.forEach(b => {
+                    ddl.insertAdjacentHTML(
+                        'beforeend',
+                        `<option value="${b.id}">${b.name}</option>`
+                    );
+                });
+
+            } catch (err) {
+                console.error("Dropdown load error:", err);
+            }
+        }
+
+         document.getElementById('businessUnitId')
+        .addEventListener('change', () => {
+            loadChart(
+                document.getElementById('fromDate').value,
+                document.getElementById('toDate').value);
+
+                // 🔥🔥 ADD THIS
+                loadItemHorizontalBar(
+                document.getElementById('fromDate').value,
+                document.getElementById('toDate').value);
+
+        });
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const today = new Date().toISOString().split('T')[0];
+            const lastWeek = new Date(Date.now() - 6 * 86400000).toISOString().split('T')[0];
+
+            loadBusinessUnits();
+            const fromDate = document.getElementById('fromDate');
+            const toDate = document.getElementById('toDate');
+            const btnUpdateChart = document.getElementById('btnUpdateChart');
+
+            fromDate.value = lastWeek;
+            toDate.value = today;
+
+            loadChart(lastWeek, today);
+
+            loadItemHorizontalBar(lastWeek, today);
+
+            btnUpdateChart.addEventListener('click', () => {
+                loadChart(fromDate.value, toDate.value);
+                loadItemHorizontalBar(fromDate.value, toDate.value);
+            });
+        });
+    </script>
+
+
+
+    <script>
+        let itemBarChart;
+
+        function loadItemHorizontalBar(fromDate, toDate) {
+            const businessId = document.getElementById('businessUnitId').value;
+
+            let url = `/HOActivity/HOItemWiseSaleBar?fromDate=${fromDate}&toDate=${toDate}`;
+
+            if (businessId) {
+                url += `&businessUnitId=${businessId}`;
+            }
+
+            fetch(url)
+                .then(res => res.json())
+                .then(data => {
+
+                    if (!data || data.length === 0) {
+                        if (itemBarChart) itemBarChart.destroy();
+                        return;
+                    }
+
+                    const labels = data.map(x => x.label);
+                    const values = data.map(x => x.value);
+
+                    const total = values.reduce((a, b) => a + b, 0);
+                    const percentages = values.map(v =>
+                        total > 0 ? ((v / total) * 100).toFixed(1) : 0
+                    );
+
+                    /* Dynamic canvas height */
+                    const barHeight = 28;
+                    const minHeight = 420;
+                    const canvasHeight = Math.max(labels.length * barHeight, minHeight);
+
+                    const canvas = document.getElementById('itemItemBarChart');
+                    canvas.height = canvasHeight;
+
+                    const ctx = canvas.getContext('2d');
+
+                    if (itemBarChart) itemBarChart.destroy();
+
+                    itemBarChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels,
+                            datasets: [{
+                                data: values,
+                                backgroundColor: '#4CAF50',
+                                borderRadius: 8,
+                                barThickness: 18,
+                                maxBarThickness: 22
+                            }]
+                        },
+                        options: {
+                            indexAxis: 'y',
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: { display: false },
+                                tooltip: {
+                                    callbacks: {
+                                        label: c =>
+                                            `Qty: ${c.raw} (${percentages[c.dataIndex]}%)`
+                                    }
+                                }
+                            },
+                            scales: {
+                                x: { beginAtZero: true },
+                                y: { grid: { display: false } }
+                            }
+                        },
+                        plugins: [{
+                            afterDatasetsDraw(chart) {
+                                const { ctx } = chart;
+                                ctx.save();
+                                ctx.font = 'bold 12px Arial';
+                                ctx.fillStyle = '#2e7d32';
+
+                                chart.getDatasetMeta(0).data.forEach((bar, i) => {
+                                    ctx.fillText(
+                                        percentages[i] + '%',
+                                        bar.x + 8,
+                                        bar.y + 4
+                                    );
+                                });
+                            }
+                        }]
+                    });
+                })
+                .catch(err => console.error("Item chart error:", err));
+        }
+    </script>
+
+
+
+
+}

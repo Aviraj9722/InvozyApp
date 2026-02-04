@@ -18,7 +18,7 @@ namespace eOrderTouchApp.Models
         public DbSet<ItemSaleProfitReport> ItemSaleProfitReports { get; set; }
         public DbSet<OrderSaleProfitReport> OrderSaleProfitReports { get; set; }
         public DbSet<SaleProfitReport> SaleProfitReports { get; set; }
-        public DbSet<MaterialListReportModel> MaterialSaleReportModels { get; set; }
+        public DbSet<MaterialListReportModel> MaterialListReportModels { get; set; }
         public DbSet<BillCancellationReportModel> BillCancellationReports { get; set; }
         public DbSet<CustomerListReportModel> CustomerListReportModels { get; set; }
         public DbSet<VendorListReportModel> VendorListReportModels { get; set; }

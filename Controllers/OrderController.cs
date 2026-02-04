@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Runtime.CompilerServices;
 using System.Transactions;
 
-[AuthorizeToRoles("User", "Owner")]
+[AuthorizeToRoles("User", "Owner", "HeadOfficer")]
 public class OrderController : Controller
 {
     private readonly eOrderTouchContext _context;
@@ -40,62 +40,196 @@ public class OrderController : Controller
     }
 
     // ---------- Reporting actions (unchanged, kept for reference) ----------
-    public async Task<IActionResult> Report()
-    {
+    //public async Task<IActionResult> Report()
+    //{
 
+    //    var istZone = TimeZoneInfo.FindSystemTimeZoneById("Asia/Kolkata");
+    //    DateTime istNow = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, istZone);
+
+    //    int businessId = Convert.ToInt32(User.FindFirst("OrgId")?.Value ?? "0");
+
+    //    DateTime todayStart = istNow;
+    //    DateTime todayEnd = istNow.AddDays(1).AddTicks(-1);
+
+    //    ViewBag.Materials = null;
+
+    //    ViewBag.TotalCash = 0;
+    //    ViewBag.Online = 0;
+    //    ViewBag.Free = 0;
+    //    ViewBag.Credit = 0;
+
+    //    ViewBag.FromDate = todayStart.ToString("yyyy-MM-dd");
+    //    ViewBag.ToDate = todayStart.ToString("yyyy-MM-dd");
+
+    //    return View(new List<TblOrderMaster>());
+    //}
+
+
+    //[HttpPost]
+    //public async Task<IActionResult> Report2(DateTime fromDT, DateTime toDT)
+    //{
+    //    int businessId = Convert.ToInt32(User.FindFirst("OrgId")?.Value);
+    //    DateTime startDate = fromDT.Date;
+    //    DateTime endDate = toDT.Date.AddDays(1).AddTicks(-1);
+
+    //    var Orders = await _context.TblOrderMasters
+    //    .Where(w => w.BuisnessId == businessId
+    //        && w.DateOfOrder.HasValue
+    //        && w.PaymentStatus == true 
+    //        && w.IsCanceled == false
+    //        && w.DateOfOrder.Value.Date >= fromDT.Date
+    //        && w.DateOfOrder.Value.Date <= toDT.Date)
+    //    .Include(I => I.TblOrderDetails)
+    //    .Include(u => u.User)
+    //    .OrderByDescending(o => o.Id)
+    //    .ToListAsync();
+
+    //    ViewBag.TotalCash = Orders.Where(w => w.PaymentMode == "Cash").Sum(w => w.GrandTotal);
+    //    ViewBag.Online = Orders.Where(w => w.PaymentMode == "Online").Sum(s => s.GrandTotal);
+    //    ViewBag.Free = Orders.Where(w => w.PaymentMode == "Free").Sum(s => s.GrandTotal);
+    //    ViewBag.Credit = Orders.Where(w => w.PaymentMode == "Credit").Sum(s => s.GrandTotal);
+    //    ViewBag.Materials = _context.TblProducts.Where(w => w.BusinessId == businessId).ToList();
+    //    ViewBag.TotalDiscountedPrice = Orders.Sum(s => s.DiscountedPrice);
+    //    ViewBag.TotalDiscount = Math.Round((double)Orders.Sum(w => w.TotalAmount),2) - Math.Round((double)Orders.Sum(s => s.DiscountedPrice),2);
+    //    ViewBag.GrandTotal = (double)Orders.Sum(w => w.GrandTotal) + (double)ViewBag.TotalDiscount;
+
+    //        ViewBag.TotalDiscount = Math.Round(Convert.ToDouble(ViewBag.TotalDiscount), 2);
+    //    ViewBag.GrandTotal = Math.Round(Convert.ToDouble(ViewBag.GrandTotal), 2);
+    //    //To keep the dates after posting the data//
+    //    ViewBag.FromDate = fromDT.ToString("yyyy-MM-dd");
+    //    ViewBag.ToDate = toDT.ToString("yyyy-MM-dd");
+
+    //    return View("Report", Orders);
+    //}
+    public async Task<IActionResult> Report(int selectedbusinessId = 0)
+    {
         var istZone = TimeZoneInfo.FindSystemTimeZoneById("Asia/Kolkata");
         DateTime istNow = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, istZone);
 
-        int businessId = Convert.ToInt32(User.FindFirst("OrgId")?.Value ?? "0");
+        int userId = Convert.ToInt32(User.FindFirst("UserId")?.Value);
 
-        DateTime todayStart = istNow;
-        DateTime todayEnd = istNow.AddDays(1).AddTicks(-1);
+        // 🔹 HO dropdown
+        if (User.IsInRole("HeadOfficer"))
+        {
+            var units = _context.TblHOUnits
+                .Where(x => x.UserId == userId)
+                .Include(x => x.Business)
+                .Select(x => new
+                {
+                    x.Business.Id,
+                    x.Business.BusinessName,
+                    x.Business.Address
+                })
+                .ToList();
+
+            ViewBag.Units = units;
+        }
+
+        int businessId;
+        if (User.IsInRole("HeadOfficer"))
+        {
+            businessId = selectedbusinessId;   // dropdown driven
+        }
+        else
+        {
+            businessId = Convert.ToInt32(User.FindFirst("OrgId")!.Value);
+        }
+
+        ViewBag.SelectedBusinessId = businessId;
 
         ViewBag.Materials = null;
-
         ViewBag.TotalCash = 0;
         ViewBag.Online = 0;
         ViewBag.Free = 0;
         ViewBag.Credit = 0;
 
-        ViewBag.FromDate = todayStart.ToString("yyyy-MM-dd");
-        ViewBag.ToDate = todayStart.ToString("yyyy-MM-dd");
+        ViewBag.FromDate = istNow.ToString("yyyy-MM-dd");
+        ViewBag.ToDate = istNow.ToString("yyyy-MM-dd");
 
         return View(new List<TblOrderMaster>());
     }
 
 
     [HttpPost]
-    public async Task<IActionResult> Report2(DateTime fromDT, DateTime toDT)
+    public async Task<IActionResult> Report2(
+    DateTime fromDT,
+    DateTime toDT,
+    int selectedbusinessId = 0)
     {
-        int businessId = Convert.ToInt32(User.FindFirst("OrgId")?.Value);
+        int userId = Convert.ToInt32(User.FindFirst("UserId")?.Value);
+
+        // 🔹 HO dropdown
+        if (User.IsInRole("HeadOfficer"))
+        {
+            var units = _context.TblHOUnits
+                .Where(x => x.UserId == userId)
+                .Include(x => x.Business)
+                .Select(x => new
+                {
+                    x.Business.Id,
+                    x.Business.BusinessName,
+                    x.Business.Address
+                })
+                .ToList();
+
+            ViewBag.Units = units;
+        }
+
+        int businessId;
+        if (User.IsInRole("HeadOfficer"))
+        {
+            businessId = selectedbusinessId;
+        }
+        else
+        {
+            businessId = Convert.ToInt32(User.FindFirst("OrgId")!.Value);
+        }
+
+        ViewBag.SelectedBusinessId = businessId;
+
         DateTime startDate = fromDT.Date;
         DateTime endDate = toDT.Date.AddDays(1).AddTicks(-1);
 
         var Orders = await _context.TblOrderMasters
-        .Where(w => w.BuisnessId == businessId
-            && w.DateOfOrder.HasValue
-            && w.PaymentStatus == true 
-            && w.IsCanceled == false
-            && w.DateOfOrder.Value.Date >= fromDT.Date
-            && w.DateOfOrder.Value.Date <= toDT.Date)
-        .Include(I => I.TblOrderDetails)
-        .Include(u => u.User)
-        .OrderByDescending(o => o.Id)
-        .ToListAsync();
+            .Where(w =>
+                w.BuisnessId == businessId
+                && w.DateOfOrder.HasValue
+                && w.DateOfOrder.Value.Date >= startDate.Date
+                && w.DateOfOrder.Value.Date <= endDate.Date
+            )
+            .Include(o => o.TblOrderDetails)
+            .Include(o => o.User)
+            .OrderByDescending(o => o.Id)
+            .ToListAsync();
 
-        ViewBag.TotalCash = Orders.Where(w => w.PaymentMode == "Cash").Sum(w => w.GrandTotal);
-        ViewBag.Online = Orders.Where(w => w.PaymentMode == "Online").Sum(s => s.GrandTotal);
-        ViewBag.Free = Orders.Where(w => w.PaymentMode == "Free").Sum(s => s.GrandTotal);
-        ViewBag.Credit = Orders.Where(w => w.PaymentMode == "Credit").Sum(s => s.GrandTotal);
-        ViewBag.Materials = _context.TblProducts.Where(w => w.BusinessId == businessId).ToList();
-        ViewBag.TotalDiscountedPrice = Orders.Sum(s => s.DiscountedPrice);
-        ViewBag.TotalDiscount = Math.Round((double)Orders.Sum(w => w.TotalAmount),2) - Math.Round((double)Orders.Sum(s => s.DiscountedPrice),2);
-        ViewBag.GrandTotal = (double)Orders.Sum(w => w.GrandTotal) + (double)ViewBag.TotalDiscount;
+        ViewBag.TotalCash = Orders
+        .Where(w => w.PaymentMode == "Cash"
+                 && (w.PaymentStatus ?? false)
+                 && w.IsCanceled == false)
+        .Sum(w => w.GrandTotal);
 
-            ViewBag.TotalDiscount = Math.Round(Convert.ToDouble(ViewBag.TotalDiscount), 2);
-        ViewBag.GrandTotal = Math.Round(Convert.ToDouble(ViewBag.GrandTotal), 2);
-        //To keep the dates after posting the data//
+        ViewBag.Online = Orders
+        .Where(w => w.PaymentMode == "Online"
+                 && (w.PaymentStatus ?? false)
+                 && w.IsCanceled == false)
+        .Sum(w => w.GrandTotal);
+
+        ViewBag.Free = Orders
+        .Where(w => w.PaymentMode == "Free"
+                 && (w.PaymentStatus ?? false)
+                 && w.IsCanceled == false)
+        .Sum(w => w.GrandTotal);
+
+        ViewBag.Credit = Orders
+         .Where(w => w.PaymentMode == "Credit"
+                  && (w.PaymentStatus ?? false)
+                  && w.IsCanceled == false)
+         .Sum(w => w.GrandTotal);
+
+        ViewBag.Materials = _context.TblProducts
+            .Where(w => w.BusinessId == businessId)
+            .ToList();
+
         ViewBag.FromDate = fromDT.ToString("yyyy-MM-dd");
         ViewBag.ToDate = toDT.ToString("yyyy-MM-dd");
 
