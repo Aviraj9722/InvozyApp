@@ -85,7 +85,7 @@ namespace eOrderTouchApp.Controllers
             var today = DateTime.UtcNow.Date;
 
             // Admin & Owner bypass license
-            bool requireLicense = !(user.Role == "Admin" || user.Role == "Owner");
+            bool requireLicense = !(user.Role == "Admin");
 
             TblUserLicense license = null;
 

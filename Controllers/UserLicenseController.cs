@@ -1,4 +1,5 @@
 ﻿using eOrderTouchApp.Models;
+using eOrderTouchApp.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -28,13 +29,11 @@ namespace eOrderTouchApp.Controllers
             int OrgId = Convert.ToInt32(TempData.Peek("OrgId"));
             var data = await _context.TblUserLicenses
                 .Where(w => w.BusinessId == OrgId)
-                .Include(x => x.Business)
                 .Select(x => new {
                     id = x.Id,
                     licenseKey = x.LicenseKey,
                     startDate = x.StartDate,
                     endDate = x.EndDate,
-                    businessName = x.Business.BusinessName
                 })
                 .ToListAsync();
 
@@ -99,12 +98,12 @@ namespace eOrderTouchApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete([FromBody] DeleteLicenseVM model)
         {
             int OrgId = Convert.ToInt32(TempData.Peek("OrgId"));
+
             var obj = await _context.TblUserLicenses
-                .Where(w => w.Id == id && w.BusinessId == OrgId)
-                .FirstOrDefaultAsync();
+                .FirstOrDefaultAsync(w => w.Id == model.Id && w.BusinessId == OrgId);
 
             if (obj == null)
                 return Json(new { success = false, message = "License not found" });
@@ -112,7 +111,8 @@ namespace eOrderTouchApp.Controllers
             _context.TblUserLicenses.Remove(obj);
             await _context.SaveChangesAsync();
 
-            return Json(new { success = true });
+            return Json(new { success = true, message = "Deleted successfully" });
         }
+
     }
 }

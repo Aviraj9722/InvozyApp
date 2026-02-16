@@ -547,8 +547,7 @@
                 {
                     <!-- Discount -->
                     <div class="col-12">
-                        <input type="text" id="discountPercentDesktop" class="form-control" value="0" />
-                       @*  <select id="discountPercentDesktop" class="form-select form-select-sm">
+                        <select id="discountPercentDesktop" class="form-select form-select-sm">
                             <option value="0" selected>Discount 0%</option>
                             <option value="1">Discount 1%</option>
                             <option value="2">Discount 2%</option>
@@ -559,7 +558,7 @@
                             <option value="15">Discount 15%</option>
                             <option value="20">Discount 20%</option>
                             <option value="25">Discount 25%</option>
-                        </select> *@
+                        </select>
                     </div>
                 }
 
@@ -725,8 +724,7 @@
                         @if (User.IsInRole("Owner"))
                         {
                             <div class="col-5">
-                                <input type="text" id="discountPercentMobile" class="form-control" value="0" />
-                               @*  <select id="discountPercentMobile" class="form-select form-select-sm">
+                                <select id="discountPercentMobile" class="form-select form-select-sm">
                                     <option value="0" selected>Disc 0%</option>
                                     <option value="1">Discount 1%</option>
                                     <option value="2">Discount 2%</option>
@@ -737,7 +735,7 @@
                                     <option value="15">Disc 15%</option>
                                     <option value="20">Disc 20%</option>
                                     <option value="25">Disc 25%</option>
-                                </select> *@
+                                </select>
                             </div>
                         }
 
@@ -849,7 +847,7 @@
 
             <div class="modal-header bg-dark text-white py-2" style="background: #515b52 !important;">
                 <h5 class="modal-title">Kichen Order Ticket</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" onclick="ClearKOTList()"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
 
             <div class="modal-body" id="kotModalBody" style="background: #606a61 !important;">
@@ -1162,10 +1160,6 @@
                 }
             });
         });
-        function ClearKOTList()
-        {
-                    kotArray=[];
-        }
         $("#btnPrintKOT").click(function () {
 
             if (!kotArray || kotArray.length === 0) {
@@ -2213,7 +2207,7 @@
                     <td></td>
 
                     <td colspan="2" style="font-weight:800">Disc.</td>
-                    <td class="total" style="font-weight:800">${discountPercent}/-</td>
+                    <td class="total" style="font-weight:800">${discountPercent}%</td>
                     </tr>
                     `;
         }
@@ -2401,7 +2395,7 @@
                             <td></td>
 
                             <td colspan="2" style="font-weight:800">Disc.</td>
-                            <td class="total" style="font-weight:800">${discountPercent}/-</td>
+                            <td class="total" style="font-weight:800">${discountPercent}%</td>
                             </tr>
                             `;
                 }
@@ -2543,7 +2537,7 @@
 
             if(discountPercent>0){
                 receipt += `                                Total: ${grandTotal}\n`;
-                receipt += `                                Disc.: ${discountPercent}/-\n`;
+                receipt += `                                Disc.: ${discountPercent}%\n`;
             }
                     // Grand Total (Medium font, centered)
             const grandText = "Total: " + Math.round(discountedTotal)+ "/-";
@@ -2662,7 +2656,7 @@
 
                     if(discountPercent>0){
                     receipt += `            Total: ${grandTotal}\n`;
-                    receipt += `            Disc.: ${discountPercent}/-\n`;
+                    receipt += `            Disc.: ${discountPercent}%\n`;
                     }
                     // Grand total – Medium font centered
                     const grandText = "Total: " + Math.round(discountedTotal)+ "/-";
@@ -2746,66 +2740,26 @@
 
     <script>
   
-        // function calculateDiscountedTotalDesktop() {
-        //         debugger;
-        //     let total = parseFloat($("#desktopCartTotal").text()) || 0;
-        //     let discountPercent = parseFloat($("#discountPercentDesktop").val()) || 0;
-
-        //     let discountAmount = (total * discountPercent) / 100;
-        //     let discountedTotal = total - discountAmount;
-
-        //     $("#discountedTotalDesktop").text(discountedTotal.toFixed(2));
-        // }
-
         function calculateDiscountedTotalDesktop() {
-            debugger;
-
+                debugger;
             let total = parseFloat($("#desktopCartTotal").text()) || 0;
-            let discountAmount = parseFloat($("#discountPercentDesktop").val()) || 0;
-            if (discountAmount <0) {
-                  $("#discountPercentDesktop").val(0);
-                  return;
-            }
-            // Ensure discount does not exceed total
-            if (discountAmount > total) {
-                discountAmount = total;
-                $("#discountPercentDesktop").val(total);
-            }
+            let discountPercent = parseFloat($("#discountPercentDesktop").val()) || 0;
 
+            let discountAmount = (total * discountPercent) / 100;
             let discountedTotal = total - discountAmount;
 
             $("#discountedTotalDesktop").text(discountedTotal.toFixed(2));
         }
-
-        function calculateDiscountedTotalMobile() {
-            debugger;
-
+         function calculateDiscountedTotalMobile() {
+                debugger;
             let total = parseFloat($("#cartTotal").text()) || 0;
-            let discountAmount = parseFloat($("#discountPercentMobile").val()) || 0;
-              if (discountAmount <0) {
-                  $("#discountPercentDesktop").val(0);
-                  return;
-            }
-            // Ensure discount does not exceed total
-            if (discountAmount > total) {
-                discountAmount = total;
-                   $("#discountPercentMobile").val(total);
-            }
+            let discountPercent = parseFloat($("#discountPercentMobile").val()) || 0;
 
+            let discountAmount = (total * discountPercent) / 100;
             let discountedTotal = total - discountAmount;
 
             $("#discountedTotalMobile").text(discountedTotal.toFixed(2));
         }
-        //  function calculateDiscountedTotalMobile() {
-        //         debugger;
-        //     let total = parseFloat($("#cartTotal").text()) || 0;
-        //     let discountPercent = parseFloat($("#discountPercentMobile").val()) || 0;
-
-        //     let discountAmount = (total * discountPercent) / 100;
-        //     let discountedTotal = total - discountAmount;
-
-        //     $("#discountedTotalMobile").text(discountedTotal.toFixed(2));
-        // }
         
         let scanBuffer = "";
         let scanTimer = null;
