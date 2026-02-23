@@ -226,6 +226,20 @@ public class OrderController : Controller
                   && w.IsCanceled == false)
          .Sum(w => w.GrandTotal);
 
+        ViewBag.TotalDiscount = Orders
+         .Where(w => (w.PaymentStatus ?? false) && w.IsCanceled == false)
+         .Sum(w => Convert.ToDecimal(w.TotalAmount ?? 0)
+                 - Convert.ToDecimal(w.DiscountedPrice ?? 0));
+
+        // 🔹 Grand Total (Final Payable Total)
+        ViewBag.GrandTotal = Orders
+            .Where(w => (w.PaymentStatus ?? false) && w.IsCanceled == false)
+            .Sum(w => Convert.ToDecimal(w.GrandTotal ?? 0));
+
+        // Round values
+        ViewBag.TotalDiscount = Math.Round(Convert.ToDecimal(ViewBag.TotalDiscount), 2);
+        ViewBag.GrandTotal = Math.Round(Convert.ToDecimal(ViewBag.GrandTotal), 2);
+
         ViewBag.Materials = _context.TblProducts
             .Where(w => w.BusinessId == businessId)
             .ToList();
