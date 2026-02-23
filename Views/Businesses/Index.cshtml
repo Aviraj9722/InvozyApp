@@ -140,6 +140,17 @@
                         <span class="text-danger" id="err_PrinterSize"></span>
                     </div>
 
+                    <!-- Discount Type -->
+                    <div class="mb-3">
+                        <label>Discount Type</label>
+                        <select id="DiscountType" name="DiscountType" class="form-control">
+                            <option value="">-- Select --</option>
+                            <option value="Amount">Amount</option>
+                            <option value="Percentage">Percentage</option>
+                        </select>
+                        <span class="text-danger" id="err_DiscountType"></span>
+                    </div>
+
                     <!-- GST Applicable -->
                     <div class="mb-3">
                         <label>GST Applicable?</label>
@@ -265,7 +276,7 @@
                         <th>Mobile No</th>
                         <th>GSTN</th>
                         <th>Printer</th>
-
+                        <th>DiscountType</th>
                         <th>Is GST?</th>
                         <th>KOT Enabled?</th>
                         <th>Customer Field</th>
@@ -318,7 +329,10 @@
                             <td>@item.MobileNo</td>
                             <td>@item.Gstin</td>
                             <td>@item.PrinterSize?.PrinterSize</td>
-
+                            <td>
+                                @(item.DiscountType == "Amount" ? "Amount" :
+                                  item.DiscountType == "Percentage" ? "Percentage" : "")
+                            </td>
                             <td>@item.IsGstapplicable</td>
                             <td>@item.IsKOTEnabled</td>
                             <td>@item.HideCustomerField</td>
@@ -483,6 +497,13 @@
                  isValid = false;
              }
 
+            // Discount Type
+            if ($("#DiscountType").val() === "") {
+                $("#err_DiscountType").text("Select Discount Type");
+                $("#DiscountType").addClass("invalid-input");
+                isValid = false;
+            }
+
              return isValid;
         }
 
@@ -541,6 +562,7 @@
 
                 $("#BusinessTypeId").val(data.businessTypeId);
                 $("#PrinterSizeId").val(data.printerSizeId);
+                $("#DiscountType").val(data.discountType);
                 $("#IsGSTApplicable").val(data.isGstApplicable?.toString());
 
                 $("#HideCustomerField").prop('checked', data.hideCustomerField);
@@ -603,6 +625,7 @@
             $("#CounterPrinterName").val("");
               $("#IsTableNoRequired").prop("checked",false);
             $("#IsReceiptReprint").prop("checked",false);
+            $("#DiscountType").val("");
         }
 
     </script>

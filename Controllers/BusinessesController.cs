@@ -139,7 +139,8 @@ namespace eOrderTouchApp.Controllers
                 isActive = b.IsActive,
                 logo = b.Logo,
                 mobileNo = b.MobileNo,
-                qrCode = b.Qrcode
+                qrCode = b.Qrcode,
+                discountType = b.DiscountType
             });
         }
 
@@ -218,6 +219,7 @@ namespace eOrderTouchApp.Controllers
             existing.Address = business.Address;
             existing.City = business.City;
             existing.PrinterSizeId = business.PrinterSizeId;
+            existing.DiscountType = business.DiscountType;
             existing.IsGstapplicable = business.IsGstapplicable;
             existing.HideCustomerField = business.HideCustomerField;
             existing.HideTableDropDown = business.HideTableDropDown;

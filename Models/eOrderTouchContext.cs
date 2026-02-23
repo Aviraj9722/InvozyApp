@@ -106,6 +106,10 @@ public partial class eOrderTouchContext : DbContext
             entity.HasOne(d => d.PrinterSize).WithMany(p => p.TblBusinesses)
                 .HasForeignKey(d => d.PrinterSizeId)
                 .HasConstraintName("FK_tblBusinesses_tblPrinterSize");
+
+            entity.Property(e => e.DiscountType)
+                .HasMaxLength(10)
+                .IsUnicode(false);
         });
 
         modelBuilder.Entity<TblBusinessType>(entity =>
