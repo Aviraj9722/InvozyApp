@@ -501,11 +501,32 @@ public class OrderController : Controller
 
         // decimal grandTotal = orderDto.items.Sum(x => x.price * x.qty);
 
+        decimal discountPercent = orderDto.discountPercent;
+        decimal discountAmount = 0;
+        decimal discountedPrice = 0;
+
         decimal grandTotal = orderDto.items.Sum(x => x.price * x.qty);
 
-        decimal discountPercent = orderDto.discountPercent;
-        decimal discountAmount = (grandTotal * discountPercent) / 100;
-        decimal discountedPrice = grandTotal - discountAmount;
+        if (business.DiscountType?.Trim().ToLower()=="amount")
+        {
+            var Amout = discountPercent;
+            // Flat discount amount
+            discountAmount = discountPercent;
+
+            // Safety: discount should not exceed total
+            if (discountAmount > grandTotal)
+                discountAmount = grandTotal;
+
+            discountedPrice = grandTotal - discountAmount;
+        }
+        else
+        {
+            var percent= discountPercent;
+             discountAmount = (grandTotal * percent) / 100;
+             discountedPrice = grandTotal - discountAmount;
+         
+        }
+
 
 
         // ----------------------------------------------------------

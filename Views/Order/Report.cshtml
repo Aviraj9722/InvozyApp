@@ -135,8 +135,15 @@
                 <td>@item.TableDetails</td>
                 <td>@item.User?.UserName</td>
                 <td>@item.PaymentMode</td>
-                <td>@Math.Round( (double)item.TotalAmount - (double)item.DiscountedPrice,2)</td>
-                @if ((bool)item?.IsCanceled)
+                @{
+                    decimal finalDiscount = Math.Round(
+                    (item.TotalAmount ?? 0m) -
+                    Convert.ToDecimal(item.DiscountedPrice ?? 0),
+                    2
+                    );
+                }
+                <td>@finalDiscount</td>
+                @if (item.IsCanceled == true)
                 {
                     <td>@item.CancelNote</td>
                                
