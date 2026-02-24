@@ -102,7 +102,7 @@
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody id="userTableBody">
+                    <tbody id="userTable">
                         @foreach (var user in Model)
                         {
                             <tr>
@@ -162,17 +162,28 @@
 
         $(document).ready(function () {
 
-            // Initialize DataTable
-            let table = $("#userTable").DataTable({
+           // Destroy if already initialized (prevents duplicate init error)
+            if ($.fn.DataTable.isDataTable('#userTable')) {
+                $('#userTable').DataTable().destroy();
+            }
+
+            $('#userTable').DataTable({
                 pageLength: 10,
                 responsive: true,
-                order: [[0, "desc"]],  // Sort by Name column ascending
+                order: [[1, "asc"]], // sort by Name column
                 columnDefs: [
                     {
                         targets: 0,
+                        orderable: false,
+                        searchable: false,
                         render: function (data, type, row, meta) {
-                            return meta.row + 1; // Auto row number
+                            return meta.row + 1;
                         }
+                    },
+                    {
+                        targets: -1, // Actions column
+                        orderable: false,
+                        searchable: false
                     }
                 ]
             });

@@ -41,27 +41,29 @@
                 <th>#</th>
                 <th>Login Name</th>
                 <th>UserName</th>
+                <th>Password</th>
+                <th>Role</th>
                 <th>Mobile No.</th>
                 <th>Is Active?</th>
                 <th>Email Id</th>
-                <th>Subscription Start</th>
-                <th>Expiring On</th>
+                @* <th>Subscription Start</th>
+                <th>Expiring On</th> *@
             </tr>
         </thead>
 
         <tbody>
             @foreach (var item in Model)
             {
-               
-
                 <tr>
                     <td></td> <!-- Auto numbering -->
                     <td>@item.Name</td>
                     <td>@item.UserName</td>
+                    <td>@item.Password</td>
+                    <td>@item.Role</td>
                     <td>@item.MobileNumber</td>
                     <td>@item.IsActive</td>
                     <td>@item.EmailId</td>
-                    
+
                 </tr>
             }
         </tbody>
