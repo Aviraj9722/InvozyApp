@@ -101,7 +101,7 @@ public class HomeController : Controller
                         Date = p.DateOfOrder.ToString("dd-MM-yyyy"),
                         Sale = p.TotalSale,
                         Profit = p.Profit,
-                        Discount = d.FirstOrDefault()?.TotalDiscount ?? 0
+                        Discount = d.FirstOrDefault()?.Discount ?? 0
                     })
                 .OrderBy(x => DateTime.ParseExact(x.Date!, "dd-MM-yyyy", CultureInfo.InvariantCulture))
                 .ToList();
