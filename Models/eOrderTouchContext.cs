@@ -325,6 +325,7 @@ public partial class eOrderTouchContext : DbContext
             entity.Property(e => e.EndDate).HasColumnType("datetime");
             entity.Property(e => e.LicenseKey).HasMaxLength(100);
             entity.Property(e => e.StartDate).HasColumnType("datetime");
+            entity.Property(e => e.DealerId);
 
         });
 

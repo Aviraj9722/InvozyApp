@@ -8,6 +8,7 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace eOrderTouchApp.Controllers
 {
+    [AuthorizeToRoles("Owner")]
     public class ReportsController : Controller
     {
         private readonly eOrderTouchContext _context;

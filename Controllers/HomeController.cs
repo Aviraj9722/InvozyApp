@@ -229,10 +229,18 @@ public class HomeController : Controller
             }
         }
 
-        // ============================
-        // 📊 EXISTING DASHBOARD DATA
-        // ============================
+        // ===========================
+        // 🔐 OWNER ONLY SUMMARY CHECK
+        // ===========================
+        if (!User.IsInRole("Owner"))
+        {
+            // Admin & User will NOT load summary data
+            return View(new TodayDashboardVM());
+        }
 
+        // ===========================
+        // 📊 ONLY OWNER REACHES HERE
+        // ===========================
         var saleList = await _context.DateWiseSaleReportModels
             .FromSqlRaw(
                 "EXEC Pro_GenerateReport @ReportName, @BusinessId, @FromDate, @ToDate",
