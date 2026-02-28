@@ -146,6 +146,11 @@ public class OrderController : Controller
         ViewBag.FromDate = istNow.ToString("yyyy-MM-dd");
         ViewBag.ToDate = istNow.ToString("yyyy-MM-dd");
 
+        var business = _context.TblBusinesses
+    .FirstOrDefault(x => x.Id == businessId);
+
+        ViewBag.GstApplicable = business?.IsGstapplicable ?? false;
+
         return View(new List<TblOrderMaster>());
     }
 
@@ -201,7 +206,10 @@ public class OrderController : Controller
             .Include(o => o.User)
             .OrderByDescending(o => o.Id)
             .ToListAsync();
+        var business = _context.TblBusinesses
+   .FirstOrDefault(x => x.Id == businessId);
 
+        ViewBag.GstApplicable = business?.IsGstapplicable ?? false;
         ViewBag.TotalCash = Orders
         .Where(w => w.PaymentMode == "Cash"
                  && (w.PaymentStatus ?? false)
