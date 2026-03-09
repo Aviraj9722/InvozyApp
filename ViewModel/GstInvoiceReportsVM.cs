@@ -1,16 +1,18 @@
 ﻿namespace eOrderTouchApp.ViewModel
 {
-    public class GstSaleReportsVM
+    public class GstInvoiceReportsVM
     {
         public string BusinessName { get; set; }
+        public string BusinessAddress { get; set; }
+        public string BusinessGSTIN { get; set; }
+        public string BusinessMobNo { get; set; }
 
         public string OrderNo { get; set; }
         public DateTime OrderDate { get; set; }
         public string InvoiceNo { get; set; }
 
         public string CustomerName { get; set; }
-        public string CustomerGST { get; set; }
-        public string CustomerAddress { get; set; }
+        public string CustomerMobNo { get; set; }
 
         public List<GstItemVM> Items { get; set; }
         public List<GstTaxGroupingVM> GstGrouping { get; set; }
@@ -25,9 +27,9 @@
     {
         public string ItemName { get; set; }
         public decimal Quantity { get; set; }
-        public decimal Price { get; set; } 
-        public decimal GstPercent { get; set; } 
         public string UOM { get; set; }
+        public decimal Price { get; set; }      
+        public decimal GstPercent { get; set; }     
         public decimal TotalAmount { get; set; }
     }
 

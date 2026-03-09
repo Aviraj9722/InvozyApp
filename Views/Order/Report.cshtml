@@ -166,11 +166,10 @@
                         @if (showGstButton)
                         {
                             <a asp-controller="Reports"
-                               asp-action="GstSaleReportPrint"
+                               asp-action="PrintGstInvoice"
                                asp-route-orderId="@item.Id"
-                               target="_blank"
-                               class="btn btn-success">
-                                GST Print
+                               class="btn btn-primary">
+                               GST Print 
                             </a>
                         }
 
