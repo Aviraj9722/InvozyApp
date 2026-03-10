@@ -1689,7 +1689,7 @@
                     productId: item.id,
                     qty: item.qty,
                     price: item.price
-                })) 
+                }))
             };
 
             $.ajax({
@@ -1697,7 +1697,7 @@
                 type: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify(order),
-                success: async function (res) {
+                success: function (res) {
 
                     if (res.success) {
                          
@@ -1762,7 +1762,7 @@
                         //-------------------------------------------------------
                         //  EXISTING BILL PRINT LOGIC — NO CHANGE
                         //-------------------------------------------------------
-                                setTimeout(async () => {
+                        setTimeout(() => {
                             const isDesktop = window.innerWidth > 991;
                            
                             const tableNo = isDesktop ? $("#ddlTableDesktop").val() : $("#ddlTableMobile").val();
@@ -1778,16 +1778,11 @@
 
                             if (IsPrinted == true) {
                                 try {
-                                    debugger;
-                                           var GSTSummary = await GetGSTSummary(res.orderId);
-                                     
 
                                     if ('@Org.PrinterSizeId' == '2') {
                                         debugger;
                                                 if('@Org.IsMultilengual'.toLowerCase()=='true')
                                                  {
-                                                     debugger;
-                                                     console.log(res.grandtotal);
                                                     printReceipt80mm_Regional(
                                                         '@Org.BusinessName',
                                                         '@Org.Address',
@@ -1795,11 +1790,10 @@
                                                         new Date().toLocaleString(),
                                                         order.customerName,
                                                         order.items,
-                                                        res.grandtotal,
+                                                        0,
                                                         '@Org.MobileNo',
                                                         paymentMode,
-                                                                tableNo,discountPercent,discountedTotal, GSTSummary
-                                                             
+                                                        tableNo,discountPercent,discountedTotal
                                                     );
                                                  }else
                                                  {
@@ -1813,7 +1807,7 @@
                                                         0,
                                                         '@Org.MobileNo',
                                                         paymentMode,
-                                                                        tableNo,discountPercent,discountedTotal, GSTSummary
+                                                                tableNo,discountPercent,discountedTotal
                                                         );
                                                  }
                                      
@@ -1833,7 +1827,7 @@
                                                                                 0,
                                                                                 '@Org.MobileNo',
                                                                                 paymentMode,
-                                                                               tableNo,discountPercent,discountedTotal, GSTSummary
+                                                                                        tableNo,discountPercent,discountedTotal
                                                                             );
                                                                  }else
                                                                  {
@@ -1848,11 +1842,10 @@
                                                                         0,
                                                                         '@Org.MobileNo',
                                                                         paymentMode,
-                                                                      tableNo,discountPercent,discountedTotal, GSTSummary
+                                                                                tableNo,discountPercent,discountedTotal
                                                                     );
                                                                  }
                                     }
-                               
 
                                 } catch (er) {
                                             console.log(er);
@@ -1930,34 +1923,6 @@
             fetchHistory();
         });
 
-        async function GetGSTSummary(orderId) {
-            try {
-
-                const response = await fetch(`/Order/GetOrderGstSummary?orderId=${orderId}`, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                });
-
-                if (!response.ok) {
-                    throw new Error("Failed to fetch GST summary");
-                }
-               
-                const result = await response.json();
-
-                if (result.success) {
-                    return result.data.result;
-                } else {
-                    return [];
-                }
-
-            } catch (error) {
-                console.error("GST Summary Error:", error);
-                return [];
-            }
-        }
-
         function fetchHistory() {
             $.ajax({
                 url: '/Order/GetLastOrders',
@@ -1968,7 +1933,7 @@
                         return;
                     }
                   //  debugger;
-            const rows = res.data.map(o => `
+                          const rows = res.data.map(o => `
             <div class="order-card shadow-sm mb-2 p-2">
                 <div class="d-flex justify-content-between align-items-center mb-1">
                     <strong class="order-id">#${o.id}</strong>
@@ -2123,7 +2088,7 @@
 
     function printReceipt80mm_Regional(
         orgTitle, address, invoiceNo, date, customerName,
-                        productList, grandTotal, Contact, Mode, TableNo,discountPercent,discountedTotal,GSTSummury
+                productList, grandTotal = 0, Contact, Mode, TableNo,discountPercent,discountedTotal
         ) {
         debugger;
             const cleanDate = date.split(":").slice(0, 2).join(":");
@@ -2142,13 +2107,7 @@
             let QtyLabel = '@Org.CounterPrinterName'.toLowerCase()  != 'marathi'? 'Qty': 'प्रमाण';
             let RateLabel = '@Org.CounterPrinterName'.toLowerCase()  != 'marathi'? 'Price': 'दर';
             let TotalLabel = '@Org.CounterPrinterName'.toLowerCase()  != 'marathi'? 'Total': 'एकूण';
-            let dscUom = '%';
-            let discountType = '@Org.DiscountType';
-            discountType = discountType ? discountType.trim().toLowerCase() : '';
-
-            if (discountType === "amount") {
-                dscUom = '/-';
-            }
+         
         let html = `
         <html>
         <head>
@@ -2240,7 +2199,7 @@
             const qty = p.qty;
             const rate = p.price;
             const total = qty * rate;
-         //   grandTotal += total;
+            grandTotal += total;
 
                 html += `
                 <tr>
@@ -2251,8 +2210,6 @@
                 </tr>
             `;
         });
-
-     
 
         if(discountPercent>0){
 
@@ -2267,60 +2224,21 @@
                     <td></td>
 
                     <td colspan="2" style="font-weight:800">Disc.</td>
-                    <td class="total" style="font-weight:800">${discountPercent} ${dscUom}  </td>
+                    <td class="total" style="font-weight:800">${discountPercent}/-</td>
                     </tr>
                     `;
         }
-        debugger;
-
-        if('@Org.IsGstapplicable'.toLowerCase()=='true')
-        {
-            html += `
-                <tr>
-                    <td colspan="4">
-                        <hr style="margin:6px 0;border-top:1px dashed #000;">
-                    </td>
-                </tr>
-            `;
-                html+= `
-                    <tr>
-                    <th style="text-align:left;">GST</th>
-                    <th style="text-align:center;">SGST</th>
-                    <th style="text-align:right; padding-left:50px;">CGST</th>
-                    </tr>
-                `;
-            $.each(GSTSummury,function(index,item){
-
-                    html += `
-                     
-                    <tr>
-                        <td style="text-align:left;">${item.gstPercentage}%</td>
-                        <td style="text-align:center;">${item.sgst}</td>
-                        <td style="text-align:center; padding-left:50px;">${item.cgst}</td>
-                    </tr>
-                            
-                `;
-            });
-            html += `
-                <tr>
-                    <td colspan="4">
-                        <hr style="margin:6px 0;border-top:1px dashed #000;">
-                    </td>
-                </tr>
-            `;
-        }
-       
         html += `<tr>
                 <td colspan="4" style="text-align: center;font-size: 20px;"><strong>
                 ${GrandTotalLabel}
-                        ${Math.round(grandTotal)}/-</strong></td>
+                ${Math.round(discountedTotal)}/-</strong></td>
 
                 </tr>
                 </tbody>
             </table>
             `;
 
-        if ('@Org.Qrcode'.trim()!="" && Mode.toLowerCase()=="online")
+                     if ('@Org.Qrcode'.trim()!="" && Mode.toLowerCase()=="online")
             {
             html += `
             <hr>
@@ -2552,13 +2470,7 @@
             const NORMAL = ESC + "!" + "\x00";        // Normal
             const SMALL = ESC + "M" + "\x01";         // Small font
             const NORMAL_FONT = ESC + "M" + "\x00";
-                    let dscUom = '%';
-                    let discountType = '@Org.DiscountType';
-                    discountType = discountType ? discountType.trim().toLowerCase() : '';
 
-                    if (discountType === "amount") {
-                        dscUom = '/-';
-                    }
             // Split long text into lines
             function wrapText(text, max) {
                 let lines = [];
@@ -2642,7 +2554,7 @@
 
             if(discountPercent>0){
                 receipt += `                                Total: ${grandTotal}\n`;
-                        receipt += `                        Disc.: ${discountPercent} ${dscUom}\n`;
+                receipt += `                                Disc.: ${discountPercent}/-\n`;
             }
                     // Grand Total (Medium font, centered)
             const grandText = "Total: " + Math.round(discountedTotal)+ "/-";
