@@ -101,7 +101,7 @@ public class HomeController : Controller
                         Date = p.DateOfOrder.ToString("dd-MM-yyyy"),
                         Sale = p.TotalSale,
                         Profit = p.Profit,
-                        Discount = d.FirstOrDefault()?.TotalDiscount ?? 0
+                        Discount = d.FirstOrDefault()?.Discount ?? 0
                     })
                 .OrderBy(x => DateTime.ParseExact(x.Date!, "dd-MM-yyyy", CultureInfo.InvariantCulture))
                 .ToList();
@@ -229,10 +229,18 @@ public class HomeController : Controller
             }
         }
 
-        // ============================
-        // 📊 EXISTING DASHBOARD DATA
-        // ============================
+        // ===========================
+        // 🔐 OWNER ONLY SUMMARY CHECK
+        // ===========================
+        if (!User.IsInRole("Owner"))
+        {
+            // Admin & User will NOT load summary data
+            return View(new TodayDashboardVM());
+        }
 
+        // ===========================
+        // 📊 ONLY OWNER REACHES HERE
+        // ===========================
         var saleList = await _context.DateWiseSaleReportModels
             .FromSqlRaw(
                 "EXEC Pro_GenerateReport @ReportName, @BusinessId, @FromDate, @ToDate",

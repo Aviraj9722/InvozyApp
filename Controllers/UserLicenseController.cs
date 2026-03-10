@@ -1,6 +1,7 @@
 ﻿using eOrderTouchApp.Models;
 using eOrderTouchApp.ViewModel;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace eOrderTouchApp.Controllers
@@ -20,6 +21,18 @@ namespace eOrderTouchApp.Controllers
 
             TempData["OrgId"] = OrgId;
             ViewBag.Business = await _context.TblUserLicenses.Where(w=>w.BusinessId== OrgId).OrderByDescending(o=>o.BusinessId).ToListAsync();
+            ViewBag.Dealers = await _context.TblDealer
+                                        .Select(d => new SelectListItem
+                                        {
+                                            Value = d.Id.ToString(),
+                                            Text = d.Name
+                                        }).ToListAsync();
+
+            ViewBag.OrgName = await _context.TblBusinesses
+                                   .Where(x => x.Id == OrgId)
+                                   .Select(x => x.BusinessName)
+                                   .FirstOrDefaultAsync();
+
             return View();
         }
 
@@ -34,6 +47,11 @@ namespace eOrderTouchApp.Controllers
                     licenseKey = x.LicenseKey,
                     startDate = x.StartDate,
                     endDate = x.EndDate,
+                    dealerId = x.DealerId,
+                    dealerName = _context.TblDealer
+                                .Where(d => d.Id == x.DealerId)
+                                .Select(d => d.Name)
+                                .FirstOrDefault()
                 })
                 .ToListAsync();
 
@@ -91,6 +109,7 @@ namespace eOrderTouchApp.Controllers
             existing.LicenseKey = model.LicenseKey?.Trim();
             existing.StartDate = model.StartDate;
             existing.EndDate = model.EndDate;
+            existing.DealerId = model.DealerId;
 
             await _context.SaveChangesAsync();
 
@@ -114,5 +133,63 @@ namespace eOrderTouchApp.Controllers
             return Json(new { success = true, message = "Deleted successfully" });
         }
 
+        public async Task<IActionResult> LicenseStatus()
+        {
+            var today = DateTime.Today;
+
+            var data = await _context.TblBusinesses
+                .Select(b => new BusinessLicenseStatusVM
+                {
+                    BusinessId = b.Id,
+                    BusinessName = b.BusinessName,
+
+                    LicenseKey = _context.TblUserLicenses
+                        .Where(l => l.BusinessId == b.Id)
+                        .OrderByDescending(l => l.EndDate)
+                        .Select(l => l.LicenseKey)
+                        .FirstOrDefault(),
+
+                    LicenseStartDate = _context.TblUserLicenses
+                        .Where(l => l.BusinessId == b.Id)
+                        .OrderByDescending(l => l.EndDate)
+                        .Select(l => l.StartDate)
+                        .FirstOrDefault(),
+
+                    LicenseEndDate = _context.TblUserLicenses
+                        .Where(l => l.BusinessId == b.Id)
+                        .OrderByDescending(l => l.EndDate)
+                        .Select(l => l.EndDate)
+                        .FirstOrDefault()
+                })
+                .ToListAsync();
+
+            // ✅ STATUS LOGIC
+            foreach (var item in data)
+            {
+                if (item.LicenseEndDate == null)
+                {
+                    item.Status = "No License";
+                }
+                else if (item.LicenseEndDate < today)
+                {
+                    item.Status = "Expired";
+                }
+                else if (item.LicenseEndDate <= today.AddDays(7))
+                {
+                    item.Status = "Expiring Soon";
+                }
+                else
+                {
+                    item.Status = "Active";
+                }
+            }
+
+            // Order by EndDate descending
+            data = data
+                .OrderByDescending(x => x.LicenseEndDate)
+                .ToList();
+
+            return View(data);
+        }
     }
 }

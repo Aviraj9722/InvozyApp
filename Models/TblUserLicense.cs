@@ -17,5 +17,6 @@ public partial class TblUserLicense
     public DateTime? EndDate { get; set; }
 
     public DateTime? CreatedOn { get; set; }
- 
+    public int? DealerId { get; set; }
+
 }

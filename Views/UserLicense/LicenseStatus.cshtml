@@ -1,0 +1,57 @@
+﻿@using eOrderTouchApp.ViewModel;
+@model IEnumerable<BusinessLicenseStatusVM>
+
+<link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+
+<table id="licenseTable" class="table table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th>Business ID</th>
+            <th>Business Name</th>
+            <th>License Key</th>
+            <th>License Start Date</th>
+            <th>License End Date</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.BusinessId</td>
+                <td>@item.BusinessName</td>
+                <td>@item.LicenseKey</td>
+                <td>@item.LicenseStartDate?.ToString("dd-MM-yyyy")</td>
+                <td>@item.LicenseEndDate?.ToString("dd-MM-yyyy")</td>
+                <td>
+                    @if (item.Status == "Expired")
+                    {
+                        <span class="badge bg-danger">Expired</span>
+                    }
+                    else if (item.Status == "Expiring Soon")
+                    {
+                        <span class="badge bg-warning text-dark">Expiring Soon</span>
+                    }
+                    else if (item.Status == "Active")
+                    {
+                        <span class="badge bg-success">Active</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-secondary">No License</span>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#licenseTable').DataTable({
+            "order": [[3, "desc"]] // Sort by License End Date descending
+        });
+    });
+</script>

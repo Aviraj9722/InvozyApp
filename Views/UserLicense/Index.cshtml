@@ -32,7 +32,9 @@
     }
 </style>
 
-<h3 class="mb-4">User License Management</h3>
+<h3 class="mb-4">
+    Business License Management - <u>@ViewBag.OrgName</u>    
+</h3>
 
 <div class="row">
 
@@ -62,6 +64,17 @@
                     <span class="text-danger" id="EndDateError"></span>
                 </div>
 
+                <div class="mb-3">
+                    <label class="form-label">Dealer</label>
+                    <select id="DealerId" name="DealerId" class="form-control">
+                        <option value="">-- Select Dealer --</option>
+                        @foreach (var dealer in ViewBag.Dealers)
+                        {
+                            <option value="@dealer.Value">@dealer.Text</option>
+                        }
+                    </select>
+                </div>
+
                 <div class="d-grid gap-2 mt-3">
                     <button type="button" class="btn btn-primary" onclick="saveLicense()">Save</button>
                     <button type="button" class="btn btn-outline-secondary" onclick="clearForm()">Clear</button>
@@ -84,6 +97,7 @@
                         <th>License Key</th>
                         <th>Start</th>
                         <th>End</th>
+                        <th>Dealer</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -126,6 +140,7 @@
                         <td>${x.licenseKey}</td>
                         <td>${x.startDate?.substring(0, 10) ?? ""}</td>
                         <td>${x.endDate?.substring(0, 10) ?? ""}</td>
+                        <td>${x.dealerName ?? ""}</td>
                         <td>
                           <button class="btn btn-sm btn-primary" onclick="edit(${x.id})">Edit</button>
                           <button class="btn btn-sm btn-danger" onclick="remove(${x.id})">Delete</button>
@@ -158,6 +173,7 @@
             $("#LicenseKey").val("");
             $("#StartDate").val("");
             $("#EndDate").val("");
+            $('#DealerId').val('').trigger('change');
 
             $("#formTitle").text("Add License");
         }
@@ -202,7 +218,8 @@
                 Id: $("#Id").val() ? parseInt($("#Id").val()) : 0,
                 LicenseKey: $("#LicenseKey").val(),
                 StartDate: $("#StartDate").val(),
-                EndDate: $("#EndDate").val()
+                EndDate: $("#EndDate").val(),
+                DealerId: $("#DealerId").val() ? parseInt($("#DealerId").val()) : null
             };
             console.log("payload");
             $.ajax({
@@ -211,9 +228,13 @@
                 contentType: "application/json",
                 data: JSON.stringify(payload),
                 success: function (result) {
-                    alert(result.message);
-                    loadTable();
-                    clearForm();
+                    if (result.success) {
+                        alert(result.message);
+                        loadTable();
+                        clearForm();
+                    } else {
+                        alert(result.message);
+                    }
                 }
             });
         }
@@ -236,6 +257,7 @@
             $("#LicenseKey").val(row.licenseKey);
             $("#StartDate").val(row.startDate?.substring(0, 10));
             $("#EndDate").val(row.endDate?.substring(0, 10));
+           $("#DealerId").val(row.dealerId).trigger('change');
 
             $("#formTitle").text("Edit License");
         }
@@ -261,6 +283,19 @@
                 alert(result.message || "Delete failed");
             }
         }
+
+        // function loadDealers() {
+        //     $.get('/UserLicense/GetDealers', function (data) {
+
+        //         let dropdown = $("#DealerId");
+        //         dropdown.empty();
+        //         dropdown.append('<option value="">-- Select Dealer --</option>');
+
+        //         $.each(data, function (i, item) {
+        //             dropdown.append('<option value="' + item.id + '">' + item.name + '</option>');
+        //         });
+        //     });
+        // }
 
     </script>
 

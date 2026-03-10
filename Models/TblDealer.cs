@@ -13,5 +13,6 @@ namespace eOrderTouchApp.Models
         public string? GSTN { get; set; }
         public string? Location { get; set; }
         public string? DealerCode { get; set; }
+        public string? Password { get; set; }
     }
 }

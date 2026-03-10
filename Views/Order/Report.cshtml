@@ -8,6 +8,14 @@
 @{
     var selectedBusinessId = ViewBag.SelectedBusinessId?.ToString();
 }
+@{
+    bool showGstButton = false;
+
+    if (ViewBag.GstApplicable != null)
+    {
+        showGstButton = Convert.ToBoolean(ViewBag.GstApplicable);
+    }
+}
 
 <!-- DATATABLE CSS -->
 <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
@@ -151,10 +159,20 @@
                 {
                     <td></td>
                 }
-            
+
                 <td>
                     <div class="d-grid gap-2">
-                     @*    <button type="button" class="btn btn-primary"> Edit</button> *@
+
+                        @if (showGstButton)
+                        {
+                            <a asp-controller="Reports"
+                               asp-action="PrintGstInvoice"
+                               asp-route-orderId="@item.Id"
+                               class="btn btn-primary">
+                               GST Print 
+                            </a>
+                        }
+
                         @if (item.IsCanceled != true)
                         {
                             <button type="button"
@@ -164,7 +182,6 @@
                             </button>
                         }
                     </div>
-                   
                 </td>
 
             </tr>

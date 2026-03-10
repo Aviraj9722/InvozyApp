@@ -54,12 +54,9 @@
 <div class="row">
     <!-- LEFT SIDE FORM -->
     <div class="col-md-4">
-        <div class="card p-3 shadow-sm">
-            <div class="card-header bg-primary text-white">
+        <div class="card p-3 shadow-sm">           
                 <h5 id="form-title">Add Dealer</h5>
-            </div>
-
-
+  
             <form id="dealerForm">
                 <input type="hidden" id="Id" name="Id" value="0" />
 
@@ -104,6 +101,11 @@
                     <input type="text" class="form-control" id="Location" name="Location" />
                     <span class="text-danger" id="err_Location"></span>
                 </div>
+                <div class="mb-3">
+                    <label>Password</label>
+                    <input type="text" class="form-control" id="Password" name="Password" />
+                    <span class="text-danger" id="err_Password"></span>
+                </div>
 
                 <button type="submit" class="btn btn-primary w-100">Save</button>
             </form>
@@ -123,6 +125,9 @@
                         <th>Email</th>
                         <th>Mobile</th>
                         <th>GSTN</th>
+                        <th>Address</th>
+                        <th>Location</th>
+                        <th>Password</th>
                         
                     </tr>
                 </thead>
@@ -140,7 +145,9 @@
                             <td>@d.EmailId</td>
                             <td>@d.MobileNo</td>
                             <td>@d.GSTN</td>
-                            
+                            <td>@d.Address</td>
+                            <td>@d.Location</td>
+                            <td>@d.Password</td>
                         </tr>
                     }
                 </tbody>
@@ -221,6 +228,12 @@
                     valid = false;
                 }
 
+                // Address
+                if ($('#Address').val().trim() === "") {
+                    $('#err_Address').text("Address is required");
+                    $('#Address').addClass('invalid-input');
+                    valid = false;
+                }
                 // Location
                 if ($('#Location').val().trim() === "") {
                     $('#err_Location').text("Location is required");
@@ -228,6 +241,12 @@
                     valid = false;
                 }
 
+                // Password
+                if ($('#Password').val().trim() === "") {
+                    $('#err_Password').text("Password is required");
+                    $('#Password').addClass('invalid-input');
+                    valid = false;
+                }
                 return valid;
             }
 
@@ -269,6 +288,7 @@
                     $('#GSTN').val(data.gstn);
                     $('#Address').val(data.address);
                     $('#Location').val(data.location);
+                    $('#Password').val(data.password);
                 });
             });
 

@@ -2761,8 +2761,9 @@
 
                     if(discountPercent>0){
                     receipt += `            Total: ${grandTotal}\n`;
-                    receipt += `            Disc.: ${discountPercent}/-\n`;
-                    }
+                    receipt += `           Disc.: ${discountPercent} ${dscUom}\n`;
+
+                            }
                     // Grand total – Medium font centered
                     const grandText = "Total: " + Math.round(discountedTotal)+ "/-";
                     receipt += MEDIUM + center16(grandText) + NORMAL + "\n";

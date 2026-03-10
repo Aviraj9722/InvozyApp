@@ -1,0 +1,263 @@
+﻿@model eOrderTouchApp.ViewModel.GstInvoiceReportsVM
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>GST Sale Report</title>
+
+    <style>
+        @@page {
+            size: A4;
+            margin: 15mm;
+        }
+
+        body {
+            font-family: Arial;
+            font-size: 12px;
+        }
+
+        .header {
+            text-align: center;
+        }
+
+        .business-name {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .business-details {
+            font-size: 13px;
+            font-weight: normal;
+        }
+
+        .sub-header {
+            text-align: center;
+            font-size: 14px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .box {
+            width: 48%;
+            border: 1px solid black;
+            padding: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        th, td {
+            padding: 6px;
+            text-align: center;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .summary-table {
+            width: 60%;
+            margin-top: 20px;
+            float: right;
+        }
+
+        .footer {
+            margin-top: 80px;
+            text-align: right;
+        }
+
+        /* .bold {
+            font-weight: bold;
+        } */
+
+        @@media print {
+            body {
+                -webkit-print-color-adjust: exact;
+            }
+        }
+
+        .no-print {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 15px;
+        }
+
+        .pdf-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            font-size: 13px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+            .pdf-btn:hover {
+                background-color: #0056b3;
+            }
+
+        @@media print {
+            .no-print {
+                display: none;
+            }
+        }
+
+        .bold {
+            font-weight: bold;
+            background: #f5f5f5;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ✅ DOWNLOAD BUTTON (TOP RIGHT) -->
+    <div class="no-print">
+        <button onclick="window.print()" class="pdf-btn">
+            🖨 Download / Print Invoice
+        </button>
+    </div>
+
+    <!-- Business Name -->
+    <div class="header">
+        <div class="business-name">
+            @Model.BusinessName
+        </div>
+
+        <div class="business-details">
+            @Model.BusinessAddress <br />
+            GSTIN: @Model.BusinessGSTIN <br />
+            MobNo: @Model.BusinessMobNo
+        </div>
+    </div>
+    <br />
+    <div class="sub-header">
+        Tax Invoice
+    </div>
+
+    <!-- Order & Customer Section -->
+    <div class="row">
+        <div class="box">
+            <span class="bold">Order Information</span><br /><br />
+            <strong>Invoice No:</strong> @Model.InvoiceNo <br />
+            <strong>Date:</strong> @Model.OrderDate.ToString("dd-MM-yyyy")
+        </div>
+
+        <div class="box">
+            <span class="bold">Customer Information</span><br /><br />
+            <strong>Name:</strong> @Model.CustomerName <br />
+            <strong>Mobile No:</strong> @Model.CustomerMobNo
+        </div>
+    </div>
+
+    <!-- Items Grid -->
+    <table>
+        <thead>
+            <tr>
+                <th style="width:5%;">Id</th>
+                <th style="width:30%;">Item Name</th>
+                <th style="width:10%;">Qty</th>
+                <th style="width:10%;">UOM</th>
+                <th style="width:15%;">Price</th>
+                <th style="width:15%;">GST %</th>
+                <th style="width:15%;">Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int i = 1;
+            }
+
+            @foreach (var item in Model.Items)
+            {
+                <tr>
+                    <td>@i</td>
+                    <td style="text-align:left;">@item.ItemName</td>
+                    <td class="text-center">@item.Quantity</td>
+                    <td class="text-center">@item.UOM</td>
+                    <td class="text-right">₹ @item.Price.ToString("N2")</td>
+                    <td>@item.GstPercent %</td>
+                    <td class="text-right">₹ @item.TotalAmount.ToString("N2")</td>
+                </tr>
+                i++;
+            }
+            <!-- ✅ TOTAL ROW -->
+            <tr class="bold">
+                <td colspan="2" style="text-align:right;">Total</td>
+                <td>@Model.Items.Sum(x => x.Quantity)</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="text-right">
+                    ₹ @Model.Items.Sum(x => x.TotalAmount).ToString("N2")
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- GST Grouping Summary -->
+    <table class="summary-table">
+        <thead>
+            <tr>
+                <th>GST %</th>
+                <th>Taxable</th>
+                <th>CGST</th>
+                <th>SGST</th>
+                <th>Total Tax</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var tax in Model.GstGrouping)
+            {
+                <tr>
+                    <td>@tax.GstPercentage %</td>
+                    <td class="text-right">@tax.TaxableAmount.ToString("N2")</td>
+                    <td class="text-right">@tax.CGST.ToString("N2")</td>
+                    <td class="text-right">@tax.SGST.ToString("N2")</td>
+                    <td class="text-right">@tax.TotalTax.ToString("N2")</td>
+                </tr>
+            }
+
+            <tr class="bold">
+                <td>Total</td>
+                <td class="text-right">₹ @Model.TotalTaxable.ToString("N2")</td>
+                <td class="text-right">@Model.TotalCGST.ToString("N2")</td>
+                <td class="text-right">@Model.TotalSGST.ToString("N2")</td>
+                <td class="text-right">₹ @Model.GrandTax.ToString("N2")</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div style="clear: both;"></div>
+
+    <!-- Signature -->
+    <div class="footer">
+        Authorised Signatory
+    </div>
+    <script>
+        window.onload = function () {
+            window.print();
+        };
+    </script>
+</body>
+</html>
