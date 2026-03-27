@@ -67,6 +67,7 @@ public partial class TblBusiness
     public string? CounterPrinterName { get;  set; }
     public bool? IsTableNoRequired { get; set; }
     public string? DiscountType { get; set; }
+    public string? ReportData { get; set; }
 
     public virtual ICollection<TblGST> TblGsts { get; set; } = new List<TblGST>();
    

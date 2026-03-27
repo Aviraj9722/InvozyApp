@@ -23,16 +23,42 @@ namespace eOrderTouchApp.Controllers
         // ========================
         // INDEX (Grid + Pagination)
         // ========================
-        [AuthorizeToRoles("Admin")]
+        [AuthorizeToRoles("Admin","Dealer")]
         public async Task<IActionResult> Index(int page = 1)
         {
-            //int pageSize = 20;
+            var role = User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value;
 
-            var data = await _context.TblBusinesses
-                        .OrderByDescending(x => x.Id)
-                        //.Skip((page - 1) * pageSize)
-                        //.Take(pageSize)
-                        .ToListAsync();
+            List<TblBusiness> data;
+
+            if (role == "Dealer")
+            {
+                int dealerId = Convert.ToInt32(User.FindFirst("DealerId")?.Value);
+
+                data = await (from b in _context.TblBusinesses
+                              join l in _context.TblUserLicenses
+                              on b.Id equals l.BusinessId
+                              where l.DealerId == dealerId
+                              orderby b.Id descending
+                              select b).ToListAsync();
+                // ======================================
+                // ✅ ADD THIS BLOCK (NO DISTURB)
+                // ======================================
+                int totalPurchased = await _context.TblDealerLicenseTransactions
+                    .Where(x => x.DealerId == dealerId)
+                    .SumAsync(x => (int?)x.PurchaseQty) ?? 0;
+
+                int usedLicenses = await _context.TblUserLicenses
+                    .Where(x => x.DealerId == dealerId)
+                    .CountAsync();
+
+                ViewBag.RemainingLicenses = totalPurchased - usedLicenses;
+            }
+            else
+            {
+                data = await _context.TblBusinesses
+                            .OrderByDescending(x => x.Id)
+                            .ToListAsync();
+            }
 
             // Drop-down list data
             ViewBag.BusinessTypes = await _context.TblBusinessTypes.ToListAsync();
@@ -40,13 +66,14 @@ namespace eOrderTouchApp.Controllers
 
             return View(data);
         }
-        [AuthorizeToRoles("Admin")]
-        // ===============
-        // CREATE BUSINESS
-        // ===============
+
+        [AuthorizeToRoles("Admin", "Dealer")]      
         [HttpPost]
         public async Task<IActionResult> Create(TblBusiness business, IFormFile? LogoFile)
         {
+            // -----------------------------
+            // MODELSTATE CLEAN
+            // -----------------------------
             ModelState.Remove("Id");
             ModelState.Remove("IsActive");
             ModelState.Remove("HideCustomerField");
@@ -57,34 +84,62 @@ namespace eOrderTouchApp.Controllers
             ModelState.Remove("IsMultilengual");
             ModelState.Remove("IsTableNoRequired");
             ModelState.Remove("IsReceiptReprint");
+
             if (!ModelState.IsValid)
             {
                 var allErrors = ModelState
-              .Where(x => x.Value.Errors.Count > 0)
-              .Select(x => new
-              {
-                  Field = x.Key,
-                  Errors = x.Value.Errors.Select(e => e.ErrorMessage).ToList()
-              }).ToList();
+                    .Where(x => x.Value.Errors.Count > 0)
+                    .Select(x => new
+                    {
+                        Field = x.Key,
+                        Errors = x.Value.Errors.Select(e => e.ErrorMessage).ToList()
+                    }).ToList();
 
                 return BadRequest(allErrors);
             }
 
+            // =========================================
+            // ✅ LICENSE CHECK RIGHT HERE
+            // =========================================
+            var dealerClaim = User.FindFirst("DealerId");
+
+            if (dealerClaim != null)
+            {
+                int dealerId = Convert.ToInt32(dealerClaim.Value);
+
+                int totalPurchased = await _context.TblDealerLicenseTransactions
+                    .Where(x => x.DealerId == dealerId)
+                    .SumAsync(x => (int?)x.PurchaseQty) ?? 0;
+
+                int usedLicenses = await _context.TblUserLicenses
+                    .Where(x => x.DealerId == dealerId)
+                    .CountAsync();
+
+                int remaining = totalPurchased - usedLicenses;
+
+                if (remaining <= 0)
+                {
+                    return BadRequest(new
+                    {
+                        message = "❌ Dealer license stock finished. Please purchase more licenses."
+                    });
+                }
+            }
+
+            // -----------------------------
+            // SAVE BUSINESS
+            // -----------------------------
             business.CreatedOn = DateTime.Now;
 
-            // Logo upload
             if (LogoFile != null)
             {
-                // 🔐 Size validation (100 KB)
                 if (LogoFile.Length > 100 * 1024)
                     return BadRequest("Logo size must be less than 100 KB");
 
-                // 🔐 Type validation
                 var allowedTypes = new[] { "image/jpeg", "image/png" };
                 if (!allowedTypes.Contains(LogoFile.ContentType))
                     return BadRequest("Only PNG or JPG images are allowed");
 
-                // Delete old logo (optional)
                 if (!string.IsNullOrEmpty(business.Logo))
                 {
                     var oldPath = Path.Combine(_env.WebRootPath, "Uploads", business.Logo);
@@ -93,20 +148,39 @@ namespace eOrderTouchApp.Controllers
                 }
 
                 business.Logo = await SaveCompressedLogo(LogoFile);
-
             }
-
 
             _context.TblBusinesses.Add(business);
             await _context.SaveChangesAsync();
 
-            return Ok();
+            // -----------------------------
+            // CREATE LICENSE
+            // -----------------------------
+            if (dealerClaim != null)
+            {
+                int dealerId = Convert.ToInt32(dealerClaim.Value);
+
+                var license = new TblUserLicense
+                {
+                    BusinessId = business.Id,
+                    DealerId = dealerId,
+                    StartDate = DateTime.Now,
+                    EndDate = DateTime.Now.AddYears(1),
+                    LicenseKey = Guid.NewGuid().ToString(),
+                    CreatedOn = DateTime.Now
+                };
+
+                _context.TblUserLicenses.Add(license);
+                await _context.SaveChangesAsync();
+            }
+
+            return Json(new { success = true, message = "Business saved successfully!" });
         }
 
         // ==========
         // EDIT (GET)
         // ==========
-        [AuthorizeToRoles("Admin")]
+        [AuthorizeToRoles("Admin", "Dealer")]
         public async Task<IActionResult> Edit(int id)
         {
             var b = await _context.TblBusinesses.FindAsync(id);
@@ -140,22 +214,18 @@ namespace eOrderTouchApp.Controllers
                 logo = b.Logo,
                 mobileNo = b.MobileNo,
                 qrCode = b.Qrcode,
-                discountType = b.DiscountType
+                discountType = b.DiscountType,
+                reportData = b.ReportData
             });
         }
-
-
 
         // =============
         // UPDATE (POST)
         // =============
         [HttpPost]
-        [AuthorizeToRoles("Admin")]
+        [AuthorizeToRoles("Admin","Dealer")]
         // public async Task<IActionResult> Update(TblBusiness business)//, IFormFile LogoFile, IFormFile QRCodeFile)
-        public async Task<IActionResult> Update(
-    TblBusiness business,
-    IFormFile? LogoFile
-)
+        public async Task<IActionResult> Update(TblBusiness business, IFormFile? LogoFile)
         {
             ModelState.Remove("Id");
             ModelState.Remove("IsActive");
@@ -233,6 +303,7 @@ namespace eOrderTouchApp.Controllers
             existing.IsTableNoRequired = business.IsTableNoRequired;
             existing.IsReceiptReprint = business.IsReceiptReprint;
             existing.Qrcode = business.Qrcode;
+            existing.ReportData = business.ReportData;
             //// Replace logo if file selected
             //if (LogoFile != null)
             //{

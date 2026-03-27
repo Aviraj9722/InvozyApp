@@ -27,27 +27,60 @@ namespace eOrderTouchApp.Controllers
             return View(users);
         }
 
-        [AuthorizeToRoles("Admin")]
+        [AuthorizeToRoles("Admin", "Dealer")]
         public async Task<IActionResult> Index(int OrgId = 0)
         {
-            if (User.FindFirst("OrgId") != null && OrgId == 0)
-            {
+            int businessId = 0;
 
-                OrgId = Convert.ToInt32(User.FindFirst("OrgId")?.Value);
+            // 👉 If Admin → use passed OrgId
+            if (User.IsInRole("Admin"))
+            {
+                businessId = OrgId == 0
+                    ? Convert.ToInt32(User.FindFirst("OrgId")?.Value)
+                    : OrgId;
             }
-            TempData["OrgId"] = OrgId;
-            var users = await _context.TblUsers.Where(w => w.BussinessId == OrgId).ToListAsync();
-            var org = await _context.TblBusinesses.Where(w => w.Id == OrgId).FirstOrDefaultAsync();
-            ViewBag.OrgName = org.BusinessName;
+
+            // 👉 If Dealer → always use their OrgId
+            if (User.IsInRole("Dealer"))
+            {
+                businessId = Convert.ToInt32(User.FindFirst("OrgId")?.Value);
+            }
+            if (OrgId>0)
+            {
+                businessId = OrgId;
+            }
+            TempData["OrgId"] = businessId;
+
+            var users = await _context.TblUsers
+                .Where(w => w.BussinessId == businessId)
+                .ToListAsync();
+
+            var org = await _context.TblBusinesses
+                .FirstOrDefaultAsync(w => w.Id == businessId);
+
+            ViewBag.OrgName = org?.BusinessName;
             ViewBag.Roles = Roles.GetRoles();
+
             return View(users);
         }
 
-        [AuthorizeToRoles("Admin")]
+        [AuthorizeToRoles("Admin","Dealer")]
         [HttpPost]
         public async Task<JsonResult> Create([FromBody] TblUser user)
         {
             int orgId = Convert.ToInt32(TempData.Peek("OrgId"));
+            // ✅ STEP 1: CHECK USER COUNT FOR THIS BUSINESS
+            int userCount = await _context.TblUsers
+                .CountAsync(u => u.BussinessId == orgId);
+
+            if (userCount >= 5)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "User limit reached (Max 5 users allowed per business)."
+                });
+            }
 
             // === DUPLICATE CHECK ===
             bool emailExists = await _context.TblUsers
@@ -83,7 +116,7 @@ namespace eOrderTouchApp.Controllers
             return Json(new { success = false, message = "Invalid data" });
         }
 
-        [AuthorizeToRoles("Admin")]
+        [AuthorizeToRoles("Admin","Dealer")]
         [HttpPost]
         public async Task<JsonResult> Edit([FromBody] TblUser user)
         {
@@ -128,7 +161,8 @@ namespace eOrderTouchApp.Controllers
             return Json(new { success = false, message = "Invalid data" });
 
         }
-        [AuthorizeToRoles("Admin")]
+
+        [AuthorizeToRoles("Admin","Dealer")]
         [HttpPost]
         public async Task<JsonResult> Delete(int id)
         {

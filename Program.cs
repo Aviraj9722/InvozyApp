@@ -25,6 +25,20 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.LoginPath = "/Account/Login";
         options.AccessDeniedPath = "/Account/AccessDenied";
         options.ExpireTimeSpan = TimeSpan.FromMinutes(120);
+
+        options.Events.OnRedirectToLogin = context =>
+        {
+            if (context.Request.Path.StartsWithSegments("/Dealer"))
+            {
+                context.Response.Redirect("/Dealer/Login");
+            }
+            else
+            {
+                context.Response.Redirect("/Account/Login");
+            }
+
+            return Task.CompletedTask;
+        };
     });
 
 // Email Services 

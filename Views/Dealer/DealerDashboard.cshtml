@@ -1,0 +1,339 @@
+﻿@model eOrderTouchApp.ViewModel.DealerDashboardVM
+
+@{
+    ViewData["Title"] = "Dealer Dashboard";
+}
+
+<style>
+    .stat-card {
+        background: #fff;
+        border-radius: 10px;
+        padding: 10px 5px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+        height: 80px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .stat-title {
+        font-size: 14px;
+        color: #555;
+    }
+
+    .stat-value {
+        font-size: 24px;
+        font-weight: 600;
+    }
+
+    .stat-card:hover {
+        transform: translateY(-2px);
+        transition: 0.2s;
+    }
+
+    #customerTable tbody tr {
+        border-bottom: 1px solid #e5e5e5;
+    }
+   
+</style>
+
+<div class="container mt-4">
+    <h2 class="mb-4">Dealer Dashboard</h2>
+
+    <div class="alert alert-success">
+        Welcome <strong>@User.Identity.Name</strong>
+    </div>
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["Error"]
+        </div>
+    }
+
+    <!-- DASHBOARD CARDS -->
+
+    <div class="row text-center mb-4">
+
+        <div class="col-md-2">
+            <div class="stat-card">
+                <div class="stat-title">Total Purchased</div>
+                <div class="stat-value text-primary">@Model.TotalPurchased</div>
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            <div class="stat-card">
+                <div class="stat-title">Sold Licenses</div>
+                <div class="stat-value text-success">@Model.SoldLicenses</div>
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            <div class="stat-card">
+                <div class="stat-title">Remaining</div>
+                <div class="stat-value text-warning">@Model.RemainingLicenses</div>
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            <div class="stat-card">
+                <div class="stat-title">Active</div>
+                <div class="stat-value text-success">@Model.ActiveLicenses</div>
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            <div class="stat-card">
+                <div class="stat-title">Expiring Soon</div>
+                <div class="stat-value text-warning">@Model.ExpiringSoon</div>
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            <div class="stat-card">
+                <div class="stat-title">Expired</div>
+                <div class="stat-value text-danger">@Model.ExpiredLicenses</div>
+            </div>
+        </div>
+
+    </div>
+    <!-- EXPIRING SOON PANEL -->
+    @if (Model.ExpiringSoonCustomers != null && Model.ExpiringSoonCustomers.Any())
+    {
+        <div class="card mt-3 border-warning">
+
+            <div class="card-header bg-warning text-dark">
+                ⚠ Licenses Expiring Soon (Next 15 Days)
+            </div>
+
+            <div class="card-body">
+
+                <table class="table table-sm table-bordered">
+
+                    <thead>
+                        <tr>
+                            <th>Business</th>
+                            <th>Owner</th>
+                            <th>Mobile</th>
+                            <th>Expiry Date</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        @foreach (var item in Model.ExpiringSoonCustomers)
+                        {
+                            <tr>
+                                <td>@item.CustomerName</td>
+                                <td>@item.OwnerName</td>
+                                <td>@item.Mobile</td>
+                                <td>@item.ExpiryDate?.ToString("dd-MM-yyyy")</td>
+                            </tr>
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+    }
+    <br />
+    <div class="mb-3 text-end">
+
+        @if (User.IsInRole("Dealer"))
+        {
+            <div class="mb-2 text-danger">
+                Remaining Licenses: <strong>@Model.RemainingLicenses</strong>
+            </div>
+
+            <button class="btn btn-success" onclick="openCreateBusiness()">
+                Create Customer Business
+            </button>
+        }
+        else
+        {
+            <a href="/Businesses/Create" class="btn btn-success">
+                Create Customer Business
+            </a>
+        }
+    </div>
+    <!-- CUSTOMER LIST -->
+
+    <div class="card mt-4 shadow">
+
+        <div class="card-header">
+            Customer List
+        </div>
+
+        <div class="card-body">
+
+            <table class="table table-bordered table-striped" id="customerTable">
+
+                <thead>
+                    <tr>
+                        <th>Business Name</th>
+                        <th>Owner</th>
+                        <th>Mobile</th>
+                        <th>City</th>
+                        <th>Address</th>
+                        <th>Expiry Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    @foreach (var item in Model.Customers)
+                    {
+                        <tr class="@(item.ExpiryDate >= DateTime.Now && item.ExpiryDate <= DateTime.Now.AddDays(15) ? "table-warning" : "")">
+
+                            <td>@item.CustomerName</td>
+                            <td>@item.OwnerName</td>
+                            <td>@item.Mobile</td>
+                            <td>@item.City</td>
+                            <td>@item.Address</td>
+                            <td>@item.ExpiryDate?.ToString("dd-MM-yyyy")</td>
+
+                            <td>
+                                @if (item.Status == "Active")
+                                {
+                                    <span class="badge bg-success">Active</span>
+                                }
+                                else if (item.Status == "Expired")
+                                {
+                                    <span class="badge bg-danger">Expired</span>
+
+                                    <br />
+
+                                    <button class="btn btn-sm btn-warning mt-1"
+                                            onclick="renewLicense(@item.BusinessId)">
+                                        Renew
+                                    </button>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-warning text-dark">No License</span>
+                                }
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="renewModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Renew License</h5>
+                <button type="button" class="btn-close"
+                        data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+
+                <input type="hidden" id="renewBusinessId" />
+
+                <div class="mb-3">
+                    <label>Start Date</label>
+                    <input type="text" id="startDate"
+                           class="form-control" readonly>
+                </div>
+
+                <div class="mb-3">
+                    <label>End Date</label>
+                    <input type="text" id="endDate"
+                           class="form-control" readonly>
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button class="btn btn-success"
+                        onclick="saveRenewLicense()">
+                    Renew License
+                </button>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+
+            $("#customerTable").DataTable({
+                pageLength: 10,
+                lengthMenu: [5, 10, 25, 50],
+                searching: true,
+                ordering: true,
+                responsive: true,
+
+                order: [[5, "desc"]] // 👈 Expiry Date column (index 5)
+            });
+
+    });
+
+    function renewLicense(businessId) {
+
+        $("#renewBusinessId").val(businessId);
+
+        var today = new Date();
+        var nextYear = new Date();
+        nextYear.setFullYear(today.getFullYear() + 1);
+
+        function formatDate(d) {
+            let day = String(d.getDate()).padStart(2, '0');
+            let month = String(d.getMonth() + 1).padStart(2, '0');
+            let year = d.getFullYear();
+            return day + "-" + month + "-" + year;
+        }
+
+        $("#startDate").val(formatDate(today));
+        $("#endDate").val(formatDate(nextYear));
+
+        var modal = new bootstrap.Modal(document.getElementById('renewModal'));
+        modal.show();
+    }
+
+    function saveRenewLicense() {
+
+        var businessId = $("#renewBusinessId").val();
+
+        $.post("/Dealer/RenewLicense", {
+            businessId: businessId
+        }, function () {
+
+            alert("License renewed successfully");
+            location.reload();
+
+        });
+    }
+
+    function openCreateBusiness() {
+
+        var remaining = @Model.RemainingLicenses;
+
+        if (remaining <= 0) {
+            alert("❌ License stock finished. Please purchase more licenses.");
+            return;
+        }
+
+        // 👉 Redirect to your existing page
+        window.location.href = "/Businesses/Index";
+    }
+</script>

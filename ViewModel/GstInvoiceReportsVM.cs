@@ -6,7 +6,7 @@
         public string BusinessAddress { get; set; }
         public string BusinessGSTIN { get; set; }
         public string BusinessMobNo { get; set; }
-
+        public string ReportData { get; set; } 
         public string OrderNo { get; set; }
         public DateTime OrderDate { get; set; }
         public string InvoiceNo { get; set; }

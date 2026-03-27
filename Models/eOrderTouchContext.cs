@@ -1,5 +1,4 @@
-﻿//using eOrderTouchApp.Models.ReportsModel;
-using eOrderTouchApp.Models.ReportsModel;
+﻿using eOrderTouchApp.Models.ReportsModel;
 using eOrderTouchApp.ViewModel;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
@@ -61,6 +60,8 @@ public partial class eOrderTouchContext : DbContext
     public DbSet<HOBranchDashboardVM> HOBranchDashboardVMs { get; set; }
     public DbSet<HOBranchSummaryVM> HOBranchSummary { get; set; }
 
+    public DbSet<TblDealerLicenseTransaction> TblDealerLicenseTransactions { get; set; }
+
     //    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
     //        => optionsBuilder.UseSqlServer("Server=DESKTOP-1TNHCLD\\SQLEXPRESS;Database=eOrderTouch;Trusted_Connection=True;TrustServerCertificate=True;");
@@ -110,6 +111,10 @@ public partial class eOrderTouchContext : DbContext
             entity.Property(e => e.DiscountType)
                 .HasMaxLength(10)
                 .IsUnicode(false);
+            entity.Property(e => e.ReportData)
+              .HasColumnName("ReportData")
+              .HasColumnType("nvarchar(max)")
+              .IsRequired(false);
         });
 
         modelBuilder.Entity<TblBusinessType>(entity =>
@@ -347,6 +352,8 @@ public partial class eOrderTouchContext : DbContext
                 .HasMaxLength(100)
                 .IsUnicode(false);
             entity.Property(e => e.Password).HasMaxLength(50);
+            entity.Property(e => e.IsActive).HasColumnName("IsActive");
+
         });
 
         modelBuilder.Entity<TblVendor>(entity =>
@@ -455,6 +462,30 @@ public partial class eOrderTouchContext : DbContext
 
         modelBuilder.Entity<HOProfitReportDto>().HasNoKey();
         modelBuilder.Entity<HOBranchSummaryVM>().HasNoKey();
+
+        modelBuilder.Entity<TblDealerLicenseTransaction>(entity =>
+        {
+            entity.ToTable("tblDealerLicenseTransaction");
+
+            entity.HasKey(e => e.Id);
+
+            entity.Property(e => e.DealerId)
+                .HasColumnName("DealerId");
+
+            entity.Property(e => e.PurchaseQty)
+                .HasColumnName("PurchaseQty");
+
+            entity.Property(e => e.TotalPrice)
+                .HasColumnType("decimal(18,2)")
+                .HasColumnName("TotalPrice");
+
+            entity.Property(e => e.PaymentReceived)
+                .HasColumnName("PaymentReceived");
+
+            entity.Property(e => e.CreatedOn)
+                .HasColumnType("datetime")
+                .HasColumnName("CreatedOn");
+        });
         OnModelCreatingPartial(modelBuilder);
     }
 

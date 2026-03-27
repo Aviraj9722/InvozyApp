@@ -87,7 +87,7 @@
 
         <!-- Right Side: Table (70%) -->
         <div class="col-md-8">
-            <div class="card shadow-sm p-3">
+            <div class="table-responsive">
                 <table id="userTable" class="table table-bordered table-striped w-100">
                     <thead class="table-dark">
                         <tr>
@@ -166,24 +166,17 @@
             if ($.fn.DataTable.isDataTable('#userTable')) {
                 $('#userTable').DataTable().destroy();
             }
-
-            $('#userTable').DataTable({
+            
+             // Initialize DataTable
+            let table = $("#userTable").DataTable({
                 pageLength: 10,
                 responsive: true,
-                order: [[1, "asc"]], // sort by Name column
                 columnDefs: [
                     {
                         targets: 0,
-                        orderable: false,
-                        searchable: false,
                         render: function (data, type, row, meta) {
-                            return meta.row + 1;
+                            return meta.row + 1; // Auto row number
                         }
-                    },
-                    {
-                        targets: -1, // Actions column
-                        orderable: false,
-                        searchable: false
                     }
                 ]
             });
@@ -276,9 +269,51 @@
                 type: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify(user),
-                success: function (res) {
-                    if (res.success) location.reload();
-                    else alert(res.message);
+              success: function (res) {
+                    if (res.success) {
+                        // 1. Reset form
+                        $('#userForm')[0].reset();
+                        $('#formTitle').text('Add User');
+                        $('#userId').val(0);
+
+                        // 2. Update DataTable dynamically
+                        let table = $('#userTable').DataTable();
+
+                        // If editing, remove the old row first
+                        if (user.Id > 0) {
+                            let row = table.row($(`button.editUser[data-id='${user.Id}']`).parents('tr'));
+                            row.remove().draw(false);
+                        }
+
+                        // Add new row to table
+                        table.row.add([
+                            user.Id,
+                            user.Name,
+                            user.EmailId,
+                            user.MobileNumber,
+                            user.Role,
+                            user.IsActive ? 'Yes' : 'No',
+                            user.UserName,
+                            user.Password,
+                            `<div class="d-grid gap-2">
+                                <button class="btn btn-sm btn-primary editUser"
+                                        data-id="${user.Id}"
+                                        data-name="${user.Name}"
+                                        data-email="${user.EmailId}"
+                                        data-mobile="${user.MobileNumber}"
+                                        data-role="${user.Role}"
+                                        data-active="${user.IsActive}"
+                                        data-username="${user.UserName}"
+                                        data-password="${user.Password}">
+                                    Edit
+                                </button>
+                                <button class="btn btn-sm btn-danger deleteUser" data-id="${user.Id}">Delete</button>
+                                </div>`
+                        ]).draw(false);
+
+                    } else {
+                        alert(res.message);
+                    }
                 }
             });
         });

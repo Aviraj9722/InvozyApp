@@ -1,0 +1,238 @@
+﻿@model List<eOrderTouchApp.Models.TblDealerLicenseTransaction>
+
+@{
+    ViewData["Title"] = "Add Dealer License";
+}
+<style>
+    .invalid-input {
+        border: 1px solid red !important;
+    }
+</style>
+
+<div class="container-fluid mt-3">
+
+    <h4 class="mb-3">
+        Add Dealer License -
+        <span class="text-primary fw-bold">@ViewBag.DealerName</span>
+    </h4>
+
+    <div class="row">
+        <!-- LEFT FORM -->
+        <div class="col-md-4">
+
+            <div class="card shadow">
+
+                <div class="card-header bg-primary text-white">
+                    Add Dealer License
+                </div>
+
+                <div class="card-body">
+
+                    <input type="hidden" id="Id" value="0" />
+                    <input type="hidden" id="DealerId" value="@ViewBag.DealerId" />
+
+                    <div class="mb-3">
+                        <label class="form-label">Purchase Qty</label>
+                        <input type="number" id="PurchaseQty" class="form-control">
+                        <span class="text-danger" id="err_PurchaseQty"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Total Price</label>
+                        <input type="number" id="TotalPrice" class="form-control">
+                        <span class="text-danger" id="err_TotalPrice"></span>
+                    </div>
+
+                    <div class="form-check mb-3">
+                        <input type="checkbox" id="PaymentReceived" class="form-check-input">
+                        <label class="form-check-label">Payment Received</label>
+                    </div>
+
+                    <button class="btn btn-success w-100" id="btnSave">
+                        Save
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+        <!-- RIGHT GRID -->
+        <div class="col-md-8">
+
+            <div class="card shadow">
+
+                <div class="card-header">
+                    License List
+                </div>
+
+                <div class="card-body">
+
+                    <table class="table table-bordered table-striped">
+
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Action</th>
+                                <th>Purchase Qty</th>
+                                <th>Total Price</th>
+                                <th>Payment</th>
+                                <th>Created On</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+
+                                    <td>
+
+                                        <button class="btn btn-sm btn-primary"
+                                                onclick="editRecord(@item.Id,@item.PurchaseQty,@item.TotalPrice,@(item.PaymentReceived == true ? "true" : "false"))">
+                                            Edit
+                                        </button>
+
+                                        <button class="btn btn-sm btn-danger"
+                                                onclick="deleteRecord(@item.Id)">
+                                            Delete
+                                        </button>
+
+                                    </td>
+
+                                    <td>@item.PurchaseQty</td>
+
+                                    <td>@item.TotalPrice</td>
+
+                                    <td>
+                                        @(item.PaymentReceived == true ? "Yes" : "No")
+                                    </td>
+
+                                    <td>
+                                        @item.CreatedOn?.ToString("dd-MM-yyyy HH:mm")
+                                    </td>
+
+                                </tr>
+                            }
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+
+    // REMOVE ERROR WHEN USER TYPES
+    $("input").on("input", function () {
+
+        $(this).removeClass("invalid-input");
+
+        let errSpan = "#err_" + $(this).attr("id");
+        $(errSpan).text("");
+
+    });
+    function validateLicenseForm() {
+
+        let isValid = true;
+        $(".text-danger").text("");
+
+        // Purchase Qty
+        if ($("#PurchaseQty").val().trim() === "" || $("#PurchaseQty").val() <= 0) {
+            $("#err_PurchaseQty").text("Purchase Quantity is required");
+            $("#PurchaseQty").addClass("invalid-input");
+            isValid = false;
+        }
+
+        // Total Price
+        if ($("#TotalPrice").val().trim() === "" || $("#TotalPrice").val() <= 0) {
+            $("#err_TotalPrice").text("Total Price is required");
+            $("#TotalPrice").addClass("invalid-input");
+            isValid = false;
+        }
+
+        return isValid;
+    }
+
+    $("#btnSave").click(function () {
+
+        if (!validateLicenseForm()) return;
+
+        var id = $("#Id").val();
+
+        var isUpdate = id && id != "0";
+
+        var url = isUpdate
+            ? "/DealerLicense/Update"
+            : "/DealerLicense/Create";
+
+        var data = {
+            Id: $("#Id").val(),
+            DealerId: $("#DealerId").val(),
+            PurchaseQty: $("#PurchaseQty").val(),
+            TotalPrice: $("#TotalPrice").val(),
+            PaymentReceived: $("#PaymentReceived").is(":checked")
+        };
+
+        $.post(url, data, function () {
+
+            if (isUpdate)
+                alert("Updated successfully");
+            else
+                alert("Saved successfully");
+
+            location.reload();
+
+        }).fail(function () {
+
+            alert("Something went wrong");
+
+        });
+
+    });
+    function editRecord(id) {
+
+        $.get("/DealerLicense/Edit/" + id, function (data) {
+
+            $("#Id").val(data.id);
+            $("#DealerId").val(data.dealerId);
+            $("#PurchaseQty").val(data.purchaseQty);
+            $("#TotalPrice").val(data.totalPrice);
+            $("#PaymentReceived").prop("checked", data.paymentReceived);
+
+            $("#btnSave").text("Update");
+
+        });
+
+    }
+    function deleteRecord(id) {
+
+        if (!confirm("Are you sure to delete?"))
+            return;
+
+        $.ajax({
+
+            url: "/DealerLicense/Delete/" + id,
+            type: "POST",
+
+            success: function () {
+
+                alert("Deleted Successfully");
+                location.reload();
+
+            }
+
+        });
+
+    }
+
+
+</script>

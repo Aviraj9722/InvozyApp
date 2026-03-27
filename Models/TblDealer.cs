@@ -14,5 +14,6 @@ namespace eOrderTouchApp.Models
         public string? Location { get; set; }
         public string? DealerCode { get; set; }
         public string? Password { get; set; }
+        public bool? IsActive { get; set; }  // ✅ ADD THIS
     }
 }

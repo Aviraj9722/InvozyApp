@@ -91,7 +91,20 @@
                                         </a>
                                     </li>
                                 }
+                                else if (User.IsInRole("Dealer"))
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-controller="Dealer" asp-action="DealerDashboard">
+                                            Dealer Dashboard
+                                        </a>
+                                    </li>
 
+                                    <li class="nav-item d-flex align-items-center bg-info text-dark px-3 rounded">
+                                        <span class="me-2">Hello, @(User.Identity?.Name)</span>
+                                        <span class="me-2">|</span>
+                                        <a class="nav-link p-0 text-dark" asp-controller="Dealer" asp-action="Logout">Logout</a>
+                                    </li>
+                                }
 
                                 else
                                 {
@@ -101,10 +114,10 @@
                                     <li class="nav-item">
                                         <a class="nav-link text-dark" asp-controller="Order" asp-action="Create">NewOrder</a>
                                     </li>
-                                @*     <li class="nav-item">
+                                @*  <li class="nav-item">
                                         <a class="nav-link text-dark" asp-controller="Order" asp-action="Report">Order Summary</a>
                                     </li> *@
-                                   @*  <li class="nav-item">
+                                 @* <li class="nav-item">
                                         <a class="nav-link text-dark" asp-controller="User" asp-action="Index">Users</a>
                                     </li> *@
                                     <li class="nav-item">

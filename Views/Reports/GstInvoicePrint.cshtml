@@ -86,11 +86,6 @@
             margin-top: 80px;
             text-align: right;
         }
-
-        /* .bold {
-            font-weight: bold;
-        } */
-
         @@media print {
             body {
                 -webkit-print-color-adjust: exact;
@@ -126,6 +121,49 @@
         .bold {
             font-weight: bold;
             background: #f5f5f5;
+        }
+
+        .bank-details {
+            width: 55%;
+            font-size: 13px;
+        }
+
+        .bank-box {
+            border: 1px solid black;
+            padding: 10px;
+            width: 350px; /* nice professional size */
+        }
+
+        .signature {
+            width: 250px;
+            margin-right: 40px;
+            text-align: right;
+        }
+
+        .bottom-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end; /* 👈 important */
+            margin-top: 60px;
+        }
+        .sign-space {
+            height: 60px;
+            border-bottom: 1px solid #000; /* 👈 signature line */
+            margin-bottom: 5px;
+        }
+
+        .bank-row {
+            display: flex;
+            margin-bottom: 4px;
+        }
+
+        .bank-label {
+            width: 140px; /* 👈 PERFECT ALIGNMENT */
+            font-weight: bold;
+        }
+
+        .bank-line {
+            margin-bottom: 4px;
         }
     </style>
 </head>
@@ -250,9 +288,54 @@
 
     <div style="clear: both;"></div>
 
-    <!-- Signature -->
-    <div class="footer">
-        Authorised Signatory
+    <hr />
+
+    <div class="bottom-section">
+
+        <!-- LEFT SIDE (Bank Details) -->
+        <div class="bank-box">
+            <b>Bank & Payment Details</b>
+            <hr style="margin:4px 0;" />
+
+            @{
+                var lines = Model.ReportData?
+                .Replace("\r", "")        // fix Windows newline
+                .Split('\n');
+
+                if (lines != null)
+                {
+                    foreach (var line in lines)
+                    {
+                        if (!string.IsNullOrWhiteSpace(line))
+                        {
+                            if (line.Contains(":"))
+                            {
+                                var parts = line.Split(':');
+                                var key = parts[0].Trim();
+                                var value = string.Join(":", parts.Skip(1)).Trim();
+
+                                <div class="bank-row">
+                                    <span class="bank-label">@key</span>
+                                    <span>: @value</span>
+                                </div>
+                            }
+                            else
+                            {
+                                // 👉 show normal text if no format
+                                <div class="bank-line">@line</div>
+                            }
+                        }
+                    }
+                }
+            }
+        </div>
+
+        <!-- RIGHT SIDE (Signature) -->
+        <div class="signature">
+            <div class="sign-space"></div>
+            <b>Authorised Signatory</b>
+        </div>
+
     </div>
     <script>
         window.onload = function () {

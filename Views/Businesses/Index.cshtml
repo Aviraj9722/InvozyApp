@@ -45,6 +45,12 @@
         font-size: 12px;
     }
 
+    .report-col {
+        max-width: 200px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
 
 </style>
 
@@ -241,13 +247,17 @@
                        
                     </div>
 
-
-
                     <!-- Active -->
                     <div class="form-check mb-3">
                         <input class="form-check-input" type="checkbox" id="IsActive" name="IsActive" />
                         <label class="form-check-label">Is Active</label>
+                    </div>
 
+                    <!-- Report Data (Bank & Payment Details) -->
+                    <div class="mb-3">
+                        <label>Report Data (Bank & Payment Details)</label>
+                        <textarea id="ReportData" name="ReportData" class="form-control" rows="3"
+                                  placeholder="Enter bank name, account no, IFSC, UPI etc..."></textarea>
                     </div>
 
                     <button type="button" class="btn btn-success w-100" id="btnSave">Save</button>
@@ -288,6 +298,7 @@
                         <th>TableNo Required?</th>
                         <th>Receipt Reprint</th>
                         <th>Active</th>
+                        <th>ReportData</th>
                     </tr>
                 </thead>
 
@@ -297,11 +308,35 @@
                     {
                         <tr>
                             <td>
-                                <div class="d-flex gap-2">
+                               @*  <div class="d-flex gap-2">
                                     <button class="btn btn-sm btn-primary" onclick="editRecord(@item.Id)">Edit</button>
                                     <button class="btn btn-sm btn-danger" onclick="deleteRecord(@item.Id)">Delete</button>
                                     @Html.ActionLink("Users", "Index", "user", new { OrgId = item.Id }, new { @class = "btn btn-sm btn-info" })
                                     @Html.ActionLink("Licenses", "Index", "UserLicense", new { OrgId = item.Id }, new { @class = "btn btn-sm btn-success" })
+                                </div> *@
+                                <div class="d-flex gap-2">
+
+                                    <button class="btn btn-sm btn-primary"
+                                            onclick="editRecord(@item.Id)">
+                                        Edit
+                                    </button>
+
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <button class="btn btn-sm btn-danger"
+                                                onclick="deleteRecord(@item.Id)">
+                                            Delete
+                                        </button>
+
+                                        @Html.ActionLink("Licenses", "Index", "UserLicense",
+                                        new { OrgId = item.Id },
+                                        new { @class = "btn btn-sm btn-info" })
+                                        }
+
+                                        @Html.ActionLink("Users", "Index", "User",
+                                        new { OrgId = item.Id },
+                                        new { @class = "btn btn-sm btn-success" })
+
                                 </div>
 
                             </td>
@@ -345,6 +380,10 @@
                             <td>@item.IsTableNoRequired</td>
                             <td>@item.IsReceiptReprint</td>
                             <td>@(item.IsActive == true ? "Yes" : "No")</td>
+                            @* <td>@item.ReportData</td> *@
+                            <td class="report-col" title="@item.ReportData">
+                                @item.ReportData
+                            </td>
                         </tr>
 
                     }
@@ -372,7 +411,7 @@
         }
     </script> *@
     <script>
-         $(document).ready(function () {
+        $(document).ready(function () {
 
             if (!$.fn.DataTable.isDataTable("#gridTable")) {
 
@@ -386,15 +425,7 @@
             }
         });
 
-        // FORM VALIDATION
-        // function validateForm() {
-        //     if ($("#BusinessName").val().trim() === "") { alert("Business Name required"); return false; }
-        //     if ($("#OwnerName").val().trim() === "") { alert("Owner Name required"); return false; }
-        //     if ($("#Email").val().trim() === "") { alert("Email required"); return false; }
-        //     return true;
-        // }
-
-         function loadGrid(page = 1) {
+        function loadGrid(page = 1) {
              $("#gridContainer").load("/Businesses/Index?page=" + page + " #gridTable");
         }
 
@@ -512,21 +543,21 @@
             if (!validateForm()) return;
 
             var formData = new FormData(document.getElementById("businessForm"));
+            var isEdit = $("#Id").val() != "" && $("#Id").val() != "0";
 
-            var url = ($("#Id").val() == "" || $("#Id").val() == "0")
-                ? "/Businesses/Create"
-                : "/Businesses/Update";
+            var url = isEdit
+                ? "/Businesses/Update"
+                : "/Businesses/Create";
                 debugger;
-            formData.set("IsActive", $("#IsActive").is(":checked"));
-            formData.set("HideCustomerField", $("#HideCustomerField").is(":checked"));
-            formData.set("HideTableDropDown", $("#HideTableDropDown").is(":checked"));
-             formData.set("IsKOTEnabled", $("#IsKOTEnabled").is(":checked"));
-
-              formData.set("IsCustomerMandetory", $("#IsCustomerMandetory").is(":checked"));
-               formData.set("BarcodeEnabled", $("#BarcodeEnabled").is(":checked"));
-                 formData.set("IsMultilengual", $("#IsMultilengual").is(":checked"));
-                   formData.set("IsTableNoRequired", $("#IsTableNoRequired").is(":checked"));
-              formData.set("IsReceiptReprint", $("#IsReceiptReprint").is(":checked"));
+                formData.set("IsActive", $("#IsActive").is(":checked"));
+                formData.set("HideCustomerField", $("#HideCustomerField").is(":checked"));
+                formData.set("HideTableDropDown", $("#HideTableDropDown").is(":checked"));
+                formData.set("IsKOTEnabled", $("#IsKOTEnabled").is(":checked"));
+                formData.set("IsCustomerMandetory", $("#IsCustomerMandetory").is(":checked"));
+                formData.set("BarcodeEnabled", $("#BarcodeEnabled").is(":checked"));
+                formData.set("IsMultilengual", $("#IsMultilengual").is(":checked"));
+                formData.set("IsTableNoRequired", $("#IsTableNoRequired").is(":checked"));
+                formData.set("IsReceiptReprint", $("#IsReceiptReprint").is(":checked"));
 
            // formData.set("IsGstapplicable", $("#IsGstapplicable").is(":checked"));
             $.ajax({
@@ -536,12 +567,15 @@
                 contentType: false,
                 processData: false,
                 success: function () {
+                if (isEdit)
+                    alert("Business updated successfully!");
+                else
+                    alert("Business saved successfully!");
                     loadGrid();
                     clearForm();
                 }
             });
         });
-
 
         // EDIT
         function editRecord(id) {
@@ -558,26 +592,22 @@
                 $("#IsActive").prop('checked', data.isActive);
                 $("#MobileNo").val(data.mobileNo);
                 $("#form-title").text("Edit Business");
-
                 $("#BusinessTypeId").val(data.businessTypeId);
                 $("#PrinterSizeId").val(data.printerSizeId);
                 $("#DiscountType").val(data.discountType);
                 $("#IsGSTApplicable").val(data.isGstApplicable?.toString());
-
                 $("#HideCustomerField").prop('checked', data.hideCustomerField);
                 $("#HideTableDropDown").prop('checked', data.hideTableDropDown);
-
                 $("#IsKOTEnabled").prop('checked', data.isKOTEnabled);
-
                 $("#IsCustomerMandetory").prop('checked', data.isCustomerMandetory);
                 $("#BarcodeEnabled").prop('checked', data.barcodeEnabled);
-                   $("#IsMultilengual").prop('checked', data.isMultilengual);
-                     $("#IsTableNoRequired").prop('checked', data.isTableNoRequired);
-                  $("#IsReceiptReprint").prop('checked', data.isReceiptReprint);
-
+                $("#IsMultilengual").prop('checked', data.isMultilengual);
+                $("#IsTableNoRequired").prop('checked', data.isTableNoRequired);
+                $("#IsReceiptReprint").prop('checked', data.isReceiptReprint);
                 $("#KichenPrinterName").val(data.kichenPrinterName);
                 $("#CounterPrinterName").val(data.counterPrinterName);
                 $("#QRCode").val(data.qrCode);
+                $("#ReportData").val(data.reportData);
                         
                 $("#btnSave").text("Update");
             });
@@ -608,23 +638,22 @@
         function clearForm() {
             $("#businessForm")[0].reset();
             $("#Id").val("");
-             $("#MobileNo").val("");
+            $("#MobileNo").val("");
             $("#form-title").text("Add Business");
             $("#btnSave").text("Save");
             $("#PreviewLogo").attr("src", "");
-          
-
             $("#IsActive").prop("checked",false);
             $("#HideCustomerField").prop("checked",false);
             $("#HideTableDropDown").prop("checked",false);
-              $("#IsMultilengual").prop("checked",false);
+            $("#IsMultilengual").prop("checked",false);
             $("#IsCustomerMandetory").prop("checked",false);
             $("#BarcodeEnabled").prop("checked",false);
             $("#KichenPrinterName").val("");
             $("#CounterPrinterName").val("");
-              $("#IsTableNoRequired").prop("checked",false);
+            $("#IsTableNoRequired").prop("checked",false);
             $("#IsReceiptReprint").prop("checked",false);
             $("#DiscountType").val("");
+            $("#ReportData").val("");
         }
 
     </script>
