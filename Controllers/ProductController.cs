@@ -94,10 +94,6 @@ namespace eOrderTouchApp.Controllers
             decimal price = product.Price ?? 0;
             decimal gstPercent = product.Gstpercentage ?? 0;
 
-            product.Gstamount = Math.Round(
-                (price * gstPercent) / 100,
-                2
-            );
             product.BusinessId = businessId;
             if (product.Id == 0)
             {
@@ -115,7 +111,7 @@ namespace eOrderTouchApp.Controllers
                 existing.Price = product.Price;
                 existing.CategoryId = product.CategoryId;
                 existing.Gstpercentage = product.Gstpercentage;
-                existing.Gstamount = product.Gstamount;
+                
                 existing.PurchasePrice = product.PurchasePrice;
                 existing.UoMid = product.UoMid;
                 existing.HSNCode = product.HSNCode;
