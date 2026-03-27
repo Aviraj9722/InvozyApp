@@ -2378,9 +2378,13 @@
                 let QtyLabel = '@Org.CounterPrinterName'.toLowerCase()  != 'marathi'? 'Qty': 'प्रमाण';
                 let RateLabel = '@Org.CounterPrinterName'.toLowerCase()  != 'marathi'? 'Price': 'दर';
                 let TotalLabel = '@Org.CounterPrinterName'.toLowerCase()  != 'marathi'? 'Total': 'एकूण';
+                let dscUom = '%';
+                let discountType = '@Org.DiscountType';
+                discountType = discountType ? discountType.trim().toLowerCase() : '';
 
-
-
+                if (discountType === "amount") {
+                    dscUom = '/-';
+                }
                 let html = `
                 <html>
                 <head>
@@ -2493,7 +2497,7 @@
                             <td></td>
 
                             <td colspan="2" style="font-weight:800">Disc.</td>
-                            <td class="total" style="font-weight:800">${discountPercent}/-</td>
+                            <td class="total" style="font-weight:800">${discountPercent} ${dscUom}  </td>
                             </tr>
                             `;
                 }
@@ -2669,7 +2673,7 @@
             }
 
 
-                    function printPlainReceipt58mm(orgTitle, address, invoiceNo, date, customerName, productList, grandTotal = 0, Contact, Mode, TableNo,discountPercent,discountedTotal) {
+                function printPlainReceipt58mm(orgTitle, address, invoiceNo, date, customerName, productList, grandTotal = 0, Contact, Mode, TableNo,discountPercent,discountedTotal) {
 
                     const ESC = "\x1B";
                     const DOUBLE = ESC + "!" + "\x38";        // Big font
@@ -2677,7 +2681,13 @@
                     const NORMAL = ESC + "!" + "\x00";        // Normal
                     const SMALL = ESC + "M" + "\x01";         // Small font
                     const NORMAL_FONT = ESC + "M" + "\x00";
+                    let dscUom = '%';
+                    let discountType = '@Org.DiscountType';
+                    discountType = discountType ? discountType.trim().toLowerCase() : '';
 
+                    if (discountType === "amount") {
+                            dscUom = '/-';
+                    }
                     // Split long text into lines of fixed width
                     function wrapText(text, max) {
                         let lines = [];

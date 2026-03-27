@@ -1,0 +1,188 @@
+﻿@model eOrderTouchApp.ViewModel.ForgetPasswordViewModel
+@{
+    ViewData["Title"] = "Dealer Login";
+}
+<style>
+
+    .login-page {
+        min-height: calc(100vh - 80px);
+        background-color: #f5f9ff;
+        background-image: linear-gradient(to bottom right,#f8fbff,#e9f2ff);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .login-container {
+        background: #ffffff;
+        padding: 40px 35px;
+        border-radius: 15px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        width: 100%;
+        max-width: 400px;
+    }
+
+    .btn-login {
+        background: #0078d7;
+        color: #fff;
+        border: none;
+        padding: 10px;
+        border-radius: 6px;
+        font-weight: 500;
+    }
+
+        .btn-login:hover {
+            background: #005fa3;
+        }
+
+    .form-control:focus {
+        border-color: #0078d7;
+        box-shadow: 0 0 5px rgba(0,120,215,0.4);
+    }
+
+    .text-primary {
+        color: #0078d7 !important;
+    }
+
+</style>
+<div class="login-page d-flex align-items-center justify-content-center">
+    <div class="login-container">
+        
+        <!-- HEADER -->
+        <div class="text-center mb-4">
+            <h2 class="fw-bold text-primary">Welcome to Invozy</h2>
+            <p class="text-muted">Simplify your billing with ease</p>
+            <span class="badge bg-primary px-3 py-2">
+                Dealer Login
+            </span>
+        </div>
+
+        @if (ViewBag.Error != null)
+        {
+            <div class="alert alert-danger text-center">@ViewBag.Error</div>
+        }
+
+        <form method="post" asp-controller="Dealer" asp-action="Login">
+
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Dealer Code</label>
+                <input type="text" name="dealerCode" class="form-control shadow-sm" placeholder="Enter Dealer Code" required />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Password</label>
+                <input type="password" name="password" class="form-control shadow-sm" placeholder="Enter Password" required />
+            </div>
+
+            <!-- FORGOT PASSWORD -->
+            <div class="text-end mb-3">
+                <a href="#" class="text-primary small fw-semibold"
+                   data-bs-toggle="modal"
+                   data-bs-target="#forgotPasswordModal">
+                    Forgot password?
+                </a>
+            </div>
+
+            <div class="d-grid">
+                <button type="submit" class="btn btn-login">Login</button>
+            </div>
+
+            <!-- FOOTER -->
+            <div class="login-footer text-center text-muted mt-3">
+                <small>Powered by <strong>Aviraj Innovations Pvt. Ltd.</strong></small>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+<!-- ====================== -->
+<!-- FORGOT PASSWORD MODAL -->
+<!-- ====================== -->
+
+<div class="modal fade" id="forgotPasswordModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content p-3">
+
+            <div class="modal-header">
+                <h5 class="modal-title fw-bold">Forgot Password</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+
+                <form id="forgotPasswordForm">
+
+                    <div class="mb-3">
+                        <label class="fw-semibold">Enter Email</label>
+
+                        <input asp-for="Email"
+                               id="forgotEmail"
+                               class="form-control"
+                               placeholder="Enter Email"
+                               required />
+
+                        <span asp-validation-for="Email"
+                              class="text-danger small"></span>
+                    </div>
+
+                    <div id="forgotSuccess"
+                         class="alert alert-success d-none text-center"></div>
+
+                    <button type="submit"
+                            id="forgotSubmit"
+                            class="btn btn-primary w-100">
+                        Send Reset Link
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+@section Scripts {
+
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+
+        $("#forgotPasswordForm").submit(function (e) {
+
+            e.preventDefault();
+
+            $("#forgotSubmit").prop("disabled", true);
+            $("#forgotSuccess").addClass("d-none").html("");
+
+            $.ajax({
+
+                url: '@Url.Action("ForgetPassword", "Dealer")',
+                type: 'POST',
+                data: $(this).serialize(),
+
+                success: function (res) {
+
+                    $("#forgotSuccess")
+                        .removeClass("d-none")
+                        .html(res.message);
+
+                    $("#forgotEmail").prop("readonly", true);
+                    $("#forgotSubmit").hide();
+                },
+
+                error: function (xhr) {
+
+                    let msg = xhr.responseJSON?.message || "Something went wrong";
+
+                    $("#forgotSubmit").prop("disabled", false);
+
+                    $("span[data-valmsg-for='Email']").text(msg);
+                }
+
+            });
+
+        });
+
+    </script>
+}

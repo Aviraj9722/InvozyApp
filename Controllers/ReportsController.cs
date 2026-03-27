@@ -116,6 +116,7 @@ namespace eOrderTouchApp.Controllers
                                 vm.BusinessAddress = reader["BusinessAddress"]?.ToString();
                                 vm.BusinessGSTIN = reader["BusinessGSTIN"]?.ToString();
                                 vm.BusinessMobNo = reader["BusinessMobNo"]?.ToString();
+                                vm.ReportData = reader["ReportData"]?.ToString();
                                 vm.InvoiceNo = reader["InvoiceNo"]?.ToString();
                                 vm.OrderDate = Convert.ToDateTime(reader["DateOfOrder"]);
                                 vm.CustomerName = reader["CustomerName"]?.ToString();
