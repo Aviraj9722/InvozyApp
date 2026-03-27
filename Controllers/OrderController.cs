@@ -1,7 +1,9 @@
 ﻿using eOrderTouchApp.Models;
+using eOrderTouchApp.Models.ReportsModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System.Runtime.CompilerServices;
 using System.Transactions;
@@ -536,7 +538,6 @@ public class OrderController : Controller
         }
 
 
-
         // ----------------------------------------------------------
         // UPDATE EXISTING ORDER
         // ----------------------------------------------------------
@@ -564,7 +565,8 @@ public class OrderController : Controller
                   
                    
                
-                    existingMaster.Gsttotal = 0;
+                    existingMaster.Gsttotal = existingMaster.TblOrderDetails
+                                                .Sum(x => x.Gstamount ?? 0);
                     existingMaster.DateOfOrder = istNow;
                     existingMaster.UserId = UserId;
                     existingMaster.CreatedOn = istNow;
@@ -573,13 +575,14 @@ public class OrderController : Controller
                     existingMaster.TotalAmount = grandTotal;      // ORIGINAL total
                     existingMaster.DiscountPercent = (float)discountPercent;
                     existingMaster.DiscountedPrice = (float)discountedPrice;
-                    existingMaster.GrandTotal = discountedPrice;   // PAYABLE amount
+                    existingMaster.GrandTotal = discountedPrice + existingMaster.Gsttotal;  // PAYABLE amount
 
                     // NEW KOT LIST (TblKOTDetails)
                     List<TblKOTDetail> kotList = new List<TblKOTDetail>();
 
                     foreach (var dtoItem in orderDto.items)
                     {
+
                         var existingItem = existingMaster.TblOrderDetails
                             .FirstOrDefault(d => d.ProductId == dtoItem.productId);
 
@@ -588,6 +591,27 @@ public class OrderController : Controller
                         // -----------------------------------
                         if (existingItem == null)
                         {
+                            #region GST calculation for item
+                            var prod =  _context.TblProducts.Find(existingItem.ProductId);
+                            var gst = (decimal)prod.Gstpercentage;
+                            decimal itemGstAmount = 0;
+                            decimal itemCGST = 0;
+                            decimal itemSGST = 0;
+
+                            if (gst>0)
+                            {
+                                decimal itemTotal = dtoItem.qty * dtoItem.price;
+
+                               
+                                if (business.IsGstapplicable == true && gst > 0)
+                                {
+                                    itemGstAmount = (itemTotal * gst) / 100;
+                                    itemCGST = itemGstAmount / 2;
+                                    itemSGST = itemGstAmount / 2;
+                                }
+
+                            }
+                            #endregion
                             var mainRow = new TblOrderDetail
                             {
                                 Oid = existingMaster.Id,
@@ -595,10 +619,14 @@ public class OrderController : Controller
                                 Qty = dtoItem.qty,
                                 Price = dtoItem.price,
                                 Total = dtoItem.qty * dtoItem.price,
-                                Gstpercentage = 0,
-                                Gstamount = 0,
+                                Gstpercentage = gst,
+                                Gstamount = itemGstAmount,
+                                CGST = itemCGST,
+                                SGST = itemSGST,
                                 IsKOTPrinted = false
                             };
+
+                           
 
                             existingMaster.TblOrderDetails.Add(mainRow);
 
@@ -716,17 +744,50 @@ public class OrderController : Controller
         // ----------------------------------------------------------
         // INSERT NEW ORDER
         // ----------------------------------------------------------
+        var orderDetails = new List<TblOrderDetail>();
+        decimal totalGst = 0;
+
+        foreach (var x in orderDto.items)
+        {
+            var prod = _context.TblProducts.Find(x.productId);
+            decimal gst = prod?.Gstpercentage ?? 0;
+
+            decimal itemTotal = x.qty * x.price;
+            decimal itemGstAmount = 0;
+            decimal itemCGST = 0;
+            decimal itemSGST = 0;
+
+            if (business.IsGstapplicable == true && gst > 0)
+            {
+                itemGstAmount = (itemTotal * gst) / 100;
+                itemCGST = itemGstAmount / 2;
+                itemSGST = itemGstAmount / 2;
+            }
+
+            totalGst += itemGstAmount;
+
+            orderDetails.Add(new TblOrderDetail
+            {
+                ProductId = x.productId,
+                Qty = x.qty,
+                Price = x.price,
+                Total = itemTotal,
+                Gstpercentage = gst,
+                Gstamount = itemGstAmount,
+                CGST = itemCGST,
+                SGST = itemSGST,
+                IsKOTPrinted = false
+            });
+        }
         var master = new TblOrderMaster
         {
             CustomerName = orderDto.customerName,
             DateOfOrder = istNow,
-
-            TotalAmount = grandTotal,        // BEFORE discount
+            TotalAmount = grandTotal,
             DiscountPercent = (float)discountPercent,
             DiscountedPrice = (float)discountedPrice,
-            GrandTotal = discountedPrice,     // AFTER discount
-
-            Gsttotal = 0,
+            GrandTotal = discountedPrice + totalGst,   // IMPORTANT
+            Gsttotal = totalGst,                       // IMPORTANT
             PaymentStatus = orderDto.isPaymentDone,
             Printed = orderDto.isPrinted,
             UserId = UserId,
@@ -735,17 +796,39 @@ public class OrderController : Controller
             TableDetails = orderDto.tableDetail,
             IsCanceled = false,
             CreatedOn = istNow,
-            TblOrderDetails = orderDto.items.Select(x => new TblOrderDetail
-            {
-                ProductId = x.productId,
-                Qty = x.qty,
-                Price = x.price,
-                Total = x.qty * x.price,
-                Gstpercentage = 0,
-                Gstamount = 0,
-                IsKOTPrinted = false
-            }).ToList()
+            TblOrderDetails = orderDetails
         };
+        //var master = new TblOrderMaster
+        //{
+        //    CustomerName = orderDto.customerName,
+        //    DateOfOrder = istNow,
+
+        //    TotalAmount = grandTotal,        // BEFORE discount
+        //    DiscountPercent = (float)discountPercent,
+        //    DiscountedPrice = (float)discountedPrice,
+        //    GrandTotal = discountedPrice,     // AFTER discount
+
+        //    Gsttotal = 0,
+        //    PaymentStatus = orderDto.isPaymentDone,
+        //    Printed = orderDto.isPrinted,
+        //    UserId = UserId,
+        //    BuisnessId = businessId,
+        //    PaymentMode = orderDto.paymentMode,
+        //    TableDetails = orderDto.tableDetail,
+        //    IsCanceled = false,
+        //    CreatedOn = istNow,
+        //    //TblOrderDetails = orderDto.items.Select(x => new TblOrderDetail
+        //    //{
+        //    //    ProductId = x.productId,
+        //    //    Qty = x.qty,
+        //    //    Price = x.price,
+        //    //    Total = x.qty * x.price,
+        //    //    Gstpercentage = 0,
+        //    //    Gstamount = 0,
+        //    //    IsKOTPrinted = false
+        //    //}).ToList()
+
+        //};
 
         _context.TblOrderMasters.Add(master);
         await _context.SaveChangesAsync();
@@ -756,8 +839,41 @@ public class OrderController : Controller
             orderId = master.Id,
             kotItems = (bool)business.IsKOTEnabled
                 ? master.TblOrderDetails.Select(k => new { k.ProductId, k.Qty, k.Price })
-                : null
+                : null,
+            grandtotal = master.GrandTotal
         });
+    }
+
+    //[HttpGet]
+    //public async Task<IActionResult> GetOrderGstSummary(int orderId)
+    //{
+    //    var gstSummary = _context.Database.SqlQueryRaw<GSTSummary>($"Select GSTPercentage, Sum( Price) as Price, Sum (CGST) as CGST, Sum(SGST) as SGST from tblOrderDetails Where GSTAmount > 0 AND OID = {orderId} Group by GSTPercentage").ToListAsync();
+
+    //    return Ok(gstSummary);
+    //}
+
+    [HttpGet]
+    public async Task<IActionResult> GetOrderGstSummary(int orderId)
+    {
+        try
+        {
+            var gstSummary = _context.Database.SqlQueryRaw<GSTSummary>($"Select GSTPercentage, Sum( Price) as Price, Sum (CGST) as CGST, Sum(SGST) as SGST from tblOrderDetails Where GSTAmount > 0 AND OID = {orderId} Group by GSTPercentage").ToListAsync();
+
+
+            return Ok(new
+            {
+                success = true,
+                data = gstSummary
+            });
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new
+            {
+                success = false,
+                message = ex.Message
+            });
+        }
     }
 
 
