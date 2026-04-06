@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 using System.Linq;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -101,7 +102,7 @@ namespace eOrderTouchApp.Controllers
                     using (var cmd = conn.CreateCommand())
                     {
                         cmd.CommandText = "sp_GetGstTaxInvoice";
-                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.CommandType = CommandType.StoredProcedure;
 
                         cmd.Parameters.Add(new SqlParameter("@OrderId", orderId));
                         cmd.Parameters.Add(new SqlParameter("@BusinessId", businessId));
@@ -116,15 +117,12 @@ namespace eOrderTouchApp.Controllers
                                 vm.BusinessGSTIN = reader["BusinessGSTIN"]?.ToString();
                                 vm.BusinessMobNo = reader["BusinessMobNo"]?.ToString();
                                 vm.ReportData = reader["ReportData"]?.ToString();
+
                                 vm.InvoiceNo = reader["InvoiceNo"]?.ToString();
                                 vm.OrderDate = Convert.ToDateTime(reader["DateOfOrder"]);
+
                                 vm.CustomerName = reader["CustomerName"]?.ToString();
                                 vm.CustomerMobNo = reader["CustomerMobNo"]?.ToString();
-
-                                // ✅ NEW
-                                vm.TotalAmount = Convert.ToDecimal(reader["TotalAmount"]);
-                                vm.Discount = Convert.ToDecimal(reader["Discount"]);
-                                vm.NetAmount = Convert.ToDecimal(reader["TaxableAfterDiscount"]);
                             }
 
                             // 2️⃣ ITEMS
@@ -139,9 +137,7 @@ namespace eOrderTouchApp.Controllers
                                         UOM = reader["UOM"]?.ToString(),
                                         Price = Convert.ToDecimal(reader["Price"]),
                                         GstPercent = Convert.ToDecimal(reader["GstPercent"]),
-
-                                        // ✅ USE DISCOUNTED TOTAL
-                                        TotalAmount = Convert.ToDecimal(reader["DiscountedTotal"])
+                                        TotalAmount = Convert.ToDecimal(reader["TotalAmount"]) // ✅ FIXED
                                     });
                                 }
                             }
@@ -151,24 +147,18 @@ namespace eOrderTouchApp.Controllers
                             {
                                 while (await reader.ReadAsync())
                                 {
-                                    var tax = new GstTaxGroupingVM
+                                    vm.GstGrouping.Add(new GstTaxGroupingVM
                                     {
                                         GstPercentage = Convert.ToDecimal(reader["GstPercentage"]),
                                         TaxableAmount = Convert.ToDecimal(reader["TaxableAmount"]),
                                         CGST = Convert.ToDecimal(reader["CGST"]),
                                         SGST = Convert.ToDecimal(reader["SGST"]),
                                         TotalTax = Convert.ToDecimal(reader["TotalTax"])
-                                    };
-
-                                    vm.GstGrouping.Add(tax);
-
-                                    vm.TotalTaxable += tax.TaxableAmount;
-                                    vm.TotalCGST += tax.CGST;
-                                    vm.TotalSGST += tax.SGST;
-                                    vm.GrandTax += tax.TotalTax;
+                                    });
                                 }
                             }
-                            // FINAL TOTALS
+
+                            // 4️⃣ FINAL TOTALS ✅ (USE ONLY THIS)
                             if (await reader.NextResultAsync())
                             {
                                 if (await reader.ReadAsync())

@@ -323,7 +323,35 @@
 
     <div style="clear: both;"></div>
 
+    <!-- ✅ FINAL TOTALS (RIGHT SIDE) -->
+    <table class="total-box">
+        <tr>
+            <td class="label">Taxable Amount</td>
+            <td class="value">₹ @Model.TotalTaxable.ToString("N2")</td>
+        </tr>
+        <tr>
+            <td class="label">Total CGST</td>
+            <td class="value">₹ @Model.TotalCGST.ToString("N2")</td>
+        </tr>
+        <tr>
+            <td class="label">Total SGST</td>
+            <td class="value">₹ @Model.TotalSGST.ToString("N2")</td>
+        </tr>
+        <tr>
+            <td class="label">Total GST</td>
+            <td class="value">₹ @Model.TotalGST.ToString("N2")</td>
+        </tr>
+        <tr class="grand">
+            <td class="label">Grand Total</td>
+            <td class="value">₹ @Model.GrandTotal.ToString("N2")</td>
+        </tr>
+    </table>
+
+    <div style="clear: both;"></div>
+
     <hr />
+    
+   
 
     <div class="bottom-section">
 
