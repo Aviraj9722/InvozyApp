@@ -99,92 +99,117 @@
 <!-- TABLE -->
 <table id="orderTable" class="table table-striped table-bordered w-100">
     <thead class="table-dark">
-        <tr>
-            <th>Order ID</th>
-            <th>Customer</th>
-            <th>Ordered Items</th>
-            <th>Grand Total</th>
-            <th>Order Date</th>
-            <th>Table</th>
-            <th>User</th>
-            <th>Payment Mode</th>
-            <th>Discount(Rs)</th>
-            <th>Canceled?</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
+    <tr>
+        <th>Order ID</th>
+        <th>Customer</th>
+        <th>Ordered Items</th>
+
+        @if (showGstButton)
+        {
+            <th>GST Amount</th>   <!-- ✅ NEW -->
+        }
+
+        <th>Grand Total</th>
+        <th>Order Date</th>
+        <th>Table</th>
+        <th>User</th>
+        <th>Payment Mode</th>
+
+        @if (!showGstButton)
+        {
+            <th>Discount(Rs)</th>  <!-- ✅ Only when GST = NO -->
+        }
+
+        <th>Canceled?</th>
+        <th>Actions</th>
+    </tr>
+</thead>
 
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>@item.Id</td>
+           <tr>
+    <td>@item.Id</td>
+    <td>@item.CustomerName</td>
 
-                <td>@item.CustomerName</td>
+    <td class="order-items">
+        @{
+            var details = item.TblOrderDetails.ToList();
+            string data = "";
+            foreach (var prod in details)
+            {
+                var material = ((List<TblProduct>)ViewBag.Materials)
+                .Where(w => w.Id == prod.ProductId)
+                .FirstOrDefault();
 
-                <td class="order-items">
-                    @{
-                        var details = item.TblOrderDetails.ToList();
-                        string data = "";
-                        foreach (var prod in details)
-                        {
-                            var material = ((List<TblProduct>)ViewBag.Materials)
-                            .Where(w => w.Id == prod.ProductId)
-                            .FirstOrDefault();
+                data += $"{material?.Name} <b>₹</b>{prod.Price} <b>Qty:</b> {prod.Qty} <b>₹</b>{prod.Total}<br>";
+            }
+        }
+        @Html.Raw(data)
+    </td>
 
-                            data += $"{material?.Name} <b>₹</b>{prod.Price} <b>Qty:</b> {prod.Qty} <b>₹</b>{prod.Total}<br>";
-                        }
-                    }
-                    @Html.Raw(data)
-                </td>
+    @* ✅ GST COLUMN *@
+    @if (showGstButton)
+    {
+        <td>
+            @{
+                decimal gstAmount = (item.GrandTotal ?? 0) - (item.TotalAmount ?? 0);
+            }
+            ₹ @gstAmount.ToString("N2")
+        </td>
+    }
 
-                <td>@item.GrandTotal</td>
-                <td>@item.DateOfOrder</td>
-                <td>@item.TableDetails</td>
-                <td>@item.User?.UserName</td>
-                <td>@item.PaymentMode</td>
-                @{
-                    decimal finalDiscount = Math.Round(
-                    (item.TotalAmount ?? 0m) -
-                    Convert.ToDecimal(item.DiscountedPrice ?? 0),
-                    2
-                    );
-                }
-                <td>@finalDiscount</td>
-                @if (item.IsCanceled == true)
-                {
-                    <td>@item.CancelNote</td>
-                               
-                }else
-                {
-                    <td></td>
-                }
+    <td>@item.GrandTotal</td>
+    <td>@item.DateOfOrder</td>
+    <td>@item.TableDetails</td>
+    <td>@item.User?.UserName</td>
+    <td>@item.PaymentMode</td>
 
-                <td>
-                    <div class="d-grid gap-2">
+    @* ✅ DISCOUNT COLUMN ONLY IF GST = NO *@
+    @if (!showGstButton)
+    {
+        decimal finalDiscount = Math.Round(
+            (item.TotalAmount ?? 0m) -
+            Convert.ToDecimal(item.DiscountedPrice ?? 0),
+            2
+        );
 
-                        @if (showGstButton)
-                        {
-                            <a asp-controller="Reports"
-                               asp-action="PrintGstInvoice"
-                               asp-route-orderId="@item.Id"
-                               class="btn btn-primary">
-                               GST Print 
-                            </a>
-                        }
+        <td>@finalDiscount</td>
+    }
 
-                        @if (item.IsCanceled != true)
-                        {
-                            <button type="button"
-                                    onclick="CancelOrder(@item.Id)"
-                                    class="btn btn-danger">
-                                Cancel
-                            </button>
-                        }
-                    </div>
-                </td>
+    @if (item.IsCanceled == true)
+    {
+        <td>@item.CancelNote</td>
+    }
+    else
+    {
+        <td></td>
+    }
 
-            </tr>
+    <td>
+        <div class="d-grid gap-2">
+
+            @if (showGstButton)
+            {
+                <a asp-controller="Reports"
+                   asp-action="PrintGstInvoice"
+                   asp-route-orderId="@item.Id"
+                   class="btn btn-primary">
+                    Tax Invoice
+                </a>
+            }
+
+            @if (item.IsCanceled != true)
+            {
+                <button type="button"
+                        onclick="CancelOrder(@item.Id)"
+                        class="btn btn-danger">
+                    Cancel
+                </button>
+            }
+        </div>
+    </td>
+</tr>
         }
     </tbody>
 </table>

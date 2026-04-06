@@ -162,6 +162,18 @@ namespace eOrderTouchApp.Controllers
                                     vm.GrandTax += tax.TotalTax;
                                 }
                             }
+                            // FINAL TOTALS
+                            if (await reader.NextResultAsync())
+                            {
+                                if (await reader.ReadAsync())
+                                {
+                                    vm.TotalTaxable = Convert.ToDecimal(reader["TotalTaxable"]);
+                                    vm.TotalCGST = Convert.ToDecimal(reader["TotalCGST"]);
+                                    vm.TotalSGST = Convert.ToDecimal(reader["TotalSGST"]);
+                                    vm.TotalGST = Convert.ToDecimal(reader["TotalGST"]);
+                                    vm.GrandTotal = Convert.ToDecimal(reader["GrandTotal"]);
+                                }
+                            }
                         }
                     }
                 }

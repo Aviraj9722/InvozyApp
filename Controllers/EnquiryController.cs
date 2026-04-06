@@ -26,6 +26,7 @@ namespace eOrderTouchApp.Controllers
                     return BadRequest(ModelState);
 
                 model.Status = "Pending";
+                model.CreatedDate = DateTime.Now;
 
                 _context.TblEnquiries.Add(model);
                 _context.SaveChanges();

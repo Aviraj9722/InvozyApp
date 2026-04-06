@@ -52,6 +52,60 @@
         text-overflow: ellipsis;
     }
 
+    .action-box {
+        min-width: 110px;
+    }
+
+    .table td {
+        vertical-align: middle;
+        font-size: 13px;
+    }
+
+    .badge {
+        margin: 2px;
+        font-size: 11px;
+    }
+
+    .report-col {
+        max-width: 180px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        cursor: pointer;
+    }
+
+    .action-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 32px);
+        gap: 6px;
+        justify-content: center;
+    }
+
+    .action-grid .btn {
+        width: 32px;
+        height: 32px;
+        padding: 0;
+    }
+
+    .upi-box {
+        font-size: 12px;
+        background: #f1fdf5;
+        border: 1px dashed #28a745;
+        padding: 2px 6px;
+        border-radius: 6px;
+        display: inline-block;
+    }
+
+        .upi-box .label {
+            font-weight: 600;
+            color: #28a745;
+            margin-left: 4px;
+        }
+
+        .upi-box .value {
+            color: #155724;
+            margin-left: 3px;
+        }
 </style>
 
 <div class="row mt-4">
@@ -271,81 +325,76 @@
     <div class="col-md-8">
         <div class="card-body" id="gridContainer" style="overflow-x:auto;">
             <table class="table table-bordered datatable" id="gridTable">
-                <thead class="table-dark">
+                <thead class="table-dark text-center">
                     <tr>
-                        <th width="140">Action</th>
+                        <th style="width:90px;">Actions</th>
                         <th>Logo</th>
-                        <th>QR</th>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Business Type</th>
-                        <th>Owner</th>
-                        <th>City</th>
-                        <th>Email</th>
-                        <th>Mobile No</th>
-                        <th>GSTN</th>
-                        <th>Printer</th>
-                        <th>DiscountType</th>
-                        <th>Is GST?</th>
-                        <th>KOT Enabled?</th>
-                        <th>Customer Field</th>
-                        <th>Hide Table LOV</th>
-                         <th>Barcode?</th>
-                        <th>Multilanguage?</th>
-                        <th>Customer?</th>
-                        <th>Counter Printer</th>
-                        <th>Kichen Printer</th>
-                        <th>TableNo Required?</th>
-                        <th>Receipt Reprint</th>
-                        <th>Active</th>
-                        <th>ReportData</th>
+                        <th>Basic Info</th>
+                        <th>Contact</th>
+                        <th>Location</th>
+                        <th>Configuration</th>
+                        <th>Enabled Settings</th>
+                        <th>Status</th>
+                        <th>Report</th>
                     </tr>
                 </thead>
 
                 <tbody>
-
                     @foreach (var item in Model)
                     {
                         <tr>
-                            <td>
-                               @*  <div class="d-flex gap-2">
-                                    <button class="btn btn-sm btn-primary" onclick="editRecord(@item.Id)">Edit</button>
-                                    <button class="btn btn-sm btn-danger" onclick="deleteRecord(@item.Id)">Delete</button>
-                                    @Html.ActionLink("Users", "Index", "user", new { OrgId = item.Id }, new { @class = "btn btn-sm btn-info" })
-                                    @Html.ActionLink("Licenses", "Index", "UserLicense", new { OrgId = item.Id }, new { @class = "btn btn-sm btn-success" })
-                                </div> *@
-                                <div class="d-flex gap-2">
 
-                                    <button class="btn btn-sm btn-primary"
+                            <!-- ACTION ICONS -->
+                            <td class="text-center">
+                                <div class="action-grid">
+
+                                    <button class="btn btn-sm btn-light border"
+                                            title="Edit"
                                             onclick="editRecord(@item.Id)">
-                                        Edit
+                                        <i class="bi bi-pencil text-primary"></i>
                                     </button>
 
                                     @if (User.IsInRole("Admin"))
                                     {
-                                        <button class="btn btn-sm btn-danger"
+                                        <button class="btn btn-sm btn-light border"
+                                                title="Delete"
                                                 onclick="deleteRecord(@item.Id)">
-                                            Delete
+                                            <i class="bi bi-trash text-danger"></i>
                                         </button>
+                                    }
 
-                                        @Html.ActionLink("Licenses", "Index", "UserLicense",
-                                        new { OrgId = item.Id },
-                                        new { @class = "btn btn-sm btn-info" })
-                                        }
+                                    <a href="/User/Index?OrgId=@item.Id"
+                                       class="btn btn-sm btn-light border"
+                                       title="Users">
+                                        <i class="bi bi-people text-success"></i>
+                                    </a>
 
-                                        @Html.ActionLink("Users", "Index", "User",
-                                        new { OrgId = item.Id },
-                                        new { @class = "btn btn-sm btn-success" })
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <a href="/UserLicense/Index?OrgId=@item.Id"
+                                           class="btn btn-sm btn-light border"
+                                           title="Licenses">
+                                            <i class="bi bi-key text-info"></i>
+                                        </a>
+                                    }
 
                                 </div>
-
                             </td>
+
+                            <!-- LOGO -->
                             <td>
                                 @if (!string.IsNullOrEmpty(item.Logo))
                                 {
-                                    <div class="logo-wrapper" style="position:relative; display:inline-block;">
-                                        <img src="~/Uploads/@item.Logo" width="50" height="50" style="object-fit:cover;">
-                                        <span class="logo-delete" onclick="deleteLogo(@item.Id)">×</span>
+                                    <div style="position:relative; display:inline-block;">
+                                        <img src="~/Uploads/@item.Logo"
+                                             width="50"
+                                             height="50"
+                                             style="object-fit:cover; border-radius:6px;">
+
+                                        <span class="logo-delete"
+                                              onclick="deleteLogo(@item.Id)">
+                                            ×
+                                        </span>
                                     </div>
                                 }
                                 else
@@ -353,40 +402,120 @@
                                     <span class="text-muted small">No Logo</span>
                                 }
                             </td>
-                            <td>@item.Qrcode</td>
-                            <td>@item.Id</td>
-                            <td>@item.BusinessName</td>
-                            <td>@item.BusinessType?.BusinessTypeName</td>
-                            <td>@item.OwnerName</td>
-                            <td>@item.City</td>
-                            <td>@item.Email</td>
-                            <td>@item.MobileNo</td>
-                            <td>@item.Gstin</td>
-                            <td>@item.PrinterSize?.PrinterSize</td>
-                            <td>
-                                @(item.DiscountType == "Amount" ? "Amount" :
-                                  item.DiscountType == "Percentage" ? "Percentage" : "")
-                            </td>
-                            <td>@item.IsGstapplicable</td>
-                            <td>@item.IsKOTEnabled</td>
-                            <td>@item.HideCustomerField</td>
-                            <td>@item.HideTableDropDown</td>
-                          
-                            <td>@item.BarcodeEnabled</td>
-                            <td>@item.IsMultilengual</td>
-                            <td>@item.IsCustomerMandetory</td>
-                            <td>@item.CounterPrinterName</td>
-                            <td>@item.KichenPrinterName</td>
-                            <td>@item.IsTableNoRequired</td>
-                            <td>@item.IsReceiptReprint</td>
-                            <td>@(item.IsActive == true ? "Yes" : "No")</td>
-                            @* <td>@item.ReportData</td> *@
-                            <td class="report-col" title="@item.ReportData">
-                                @item.ReportData
-                            </td>
-                        </tr>
 
-                    }
+                            <!-- BASIC INFO -->
+                            <td>
+                                <b>@item.BusinessName</b><br />
+                                <small class="text-muted">@item.BusinessType?.BusinessTypeName</small><br />
+                                <small>@item.OwnerName</small>
+                            </td>
+
+                            <!-- CONTACT -->
+                            <td>
+                                <div>
+                                    <i class="bi bi-envelope-fill text-primary"></i>
+                                    <span class="ms-1">@item.Email</span>
+                                </div>
+
+                                <div>📞 @item.MobileNo</div>
+
+                                @if (!string.IsNullOrEmpty(item.Qrcode))
+                                {
+                                    <div class="upi-box mt-1">
+                                        <i class="bi bi-qr-code"></i>
+                                        <span class="label">UPI:</span>
+                                        <span class="value">@item.Qrcode</span>
+                                    </div>
+                                }
+                            </td>
+
+                            <!-- LOCATION -->
+                            <td>
+                                <div>@item.City</div>
+                                <small class="text-muted">@item.Address</small>
+                            </td>
+
+                            <!-- CONFIG -->
+                            <td>
+                                <span class="badge bg-secondary">
+                                    Printer: @item.PrinterSize?.PrinterSize
+                                </span>
+
+                                <span class="badge bg-info text-dark">
+                                    Discount: @item.DiscountType
+                                </span>
+
+                                @if (item.IsGstapplicable == true)
+                                {
+                                    <span class="badge bg-success">GST</span>
+                                }
+                            </td>
+
+                            <!-- SETTINGS -->
+                            <td class="settings-col">
+
+                                @if (item.HideCustomerField == true)
+                                {
+                                    <span class="badge bg-secondary">Hide Customer</span>
+                                }
+
+                                @if (item.HideTableDropDown == true)
+                                {
+                                    <span class="badge bg-secondary">Hide Table</span>
+                                }
+
+                                @if (item.IsCustomerMandetory == true)
+                                {
+                                    <span class="badge bg-info">Customer Required</span>
+                                }
+
+                                @if (item.IsTableNoRequired == true)
+                                {
+                                    <span class="badge bg-dark">Table Required</span>
+                                }
+
+                                @if (item.IsReceiptReprint == true)
+                                {
+                                    <span class="badge bg-warning text-dark">Reprint</span>
+                                }
+
+                                @if (item.IsKOTEnabled == true)
+                                {
+                                    <span class="badge bg-success">KOT</span>
+                                }
+
+                                @if (item.BarcodeEnabled == true)
+                                {
+                                    <span class="badge bg-warning text-dark">Barcode</span>
+                                }
+
+                                @if (item.IsMultilengual == true)
+                                {
+                                    <span class="badge bg-primary">MultiLang</span>
+                                }
+
+                            </td>
+
+                            <!-- STATUS -->
+                            <td class="text-center">
+                                <span class="badge @(item.IsActive == true ? "bg-success" : "bg-danger")">
+                                    @(item.IsActive == true ? "Active" : "Inactive")
+                                </span>
+                            </td>
+
+                            <!-- REPORT -->
+                            <td class="report-col" title="@item.ReportData">
+                                @(
+                                    string.IsNullOrEmpty(item.ReportData)
+                                    ? "-"
+                                    : (item.ReportData.Length > 30
+                                    ? item.ReportData.Substring(0, 30) + "..."
+                                    : item.ReportData)
+                                    )
+                            </td>
+
+                        </tr>
+                                        }
                 </tbody>
             </table>
         </div>
@@ -396,20 +525,6 @@
 
 
 @section Scripts {
-
-   @*  <script>
-        function validateLogoSize(input) {
-            if (input.files.length === 0) return;
-
-            const file = input.files[0];
-            const maxSize = 100 * 1024; // 100 KB
-
-            if (file.size > maxSize) {
-                alert("Logo size must be less than 100 KB");
-                input.value = ""; // reset
-            }
-        }
-    </script> *@
     <script>
         $(document).ready(function () {
 

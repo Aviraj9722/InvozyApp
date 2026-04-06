@@ -177,26 +177,46 @@
             </div>
 
             <ul class="mobile-menu">
-                <li><a asp-controller="Home" asp-action="Dashboard">Home</a></li>
-                <li><a asp-controller="Order" asp-action="Create">New Order</a></li>
-                <li><a asp-controller="Home" asp-action="Graph">Graphs</a></li>
-                <li><a asp-controller="Category" asp-action="Index">Categories</a></li>
-                <li><a asp-controller="Product" asp-action="Index">Products</a></li>
-                <li><a asp-controller="Vendor" asp-action="Index">Vendors</a></li>
-                <li><a asp-controller="Customer" asp-action="Index">Customers</a></li>
-                <li><a asp-controller="GST" asp-action="Index">GSTs</a></li>
-                <li><a asp-controller="Table" asp-action="Index">Tables</a></li>
-                <li><a asp-controller="Reports" asp-action="Index">Reports</a></li>
-                <li><a asp-controller="Feedback" asp-action="List">Feedback</a></li>
-                <li><a asp-controller="KitchenCounter" asp-action="Index">KitchenCounter</a></li>
-                <li><a asp-controller="ProductLedger" asp-action="Index">ProductLedger</a></li>
-                <li><a asp-controller="Businesses" asp-action="Setting">Settings</a></li>
 
+                @if (User.IsInRole("Admin"))
+                {
+                    <li><a asp-controller="Businesses" asp-action="Index">Businesses</a></li>
+                    <li><a asp-controller="Dealer" asp-action="Index">Dealers</a></li>
+                    <li><a asp-controller="Enquiry" asp-action="AdminList">Enquiries</a></li>
+                    <li><a asp-controller="HeadOffice" asp-action="Index">HO Users</a></li>
+                    <li><a asp-controller="UserLicense" asp-action="LicenseStatus">LicenseStatus</a></li>
+                }
+                else if (User.IsInRole("HeadOfficer"))
+                {
+                    <li><a asp-controller="HOActivity" asp-action="Dashboard">Dashboard</a></li>
+                }
+                else if (User.IsInRole("Dealer"))
+                {
+                    <li><a asp-controller="Dealer" asp-action="DealerDashboard">Dealer Dashboard</a></li>
+                }
+                else
+                {
+                    <li><a asp-controller="Home" asp-action="Dashboard">Home</a></li>
+                    <li><a asp-controller="Order" asp-action="Create">New Order</a></li>
+                    <li><a asp-controller="Home" asp-action="Graph">Graphs</a></li>
+                    <li><a asp-controller="Category" asp-action="Index">Categories</a></li>
+                    <li><a asp-controller="Product" asp-action="Index">Products</a></li>
+                    <li><a asp-controller="Vendor" asp-action="Index">Vendors</a></li>
+                    <li><a asp-controller="Customer" asp-action="Index">Customers</a></li>
+                    <li><a asp-controller="GST" asp-action="Index">GSTs</a></li>
+                    <li><a asp-controller="Table" asp-action="Index">Tables</a></li>
+                    <li><a asp-controller="Reports" asp-action="Index">Reports</a></li>
+                    <li><a asp-controller="Feedback" asp-action="List">Feedback</a></li>
+                    <li><a asp-controller="KitchenCounter" asp-action="Index">KitchenCounter</a></li>
+                    <li><a asp-controller="ProductLedger" asp-action="Index">ProductLedger</a></li>
+                    <li><a asp-controller="Businesses" asp-action="Setting">Settings</a></li>
+                }
                 <li class="logout">
                     <a asp-controller="Account" asp-action="Logout">
                         Hello, @User.Identity.Name | Logout
                     </a>
                 </li>
+
             </ul>
         </div>
 

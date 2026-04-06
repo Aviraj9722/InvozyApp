@@ -178,6 +178,9 @@ public partial class eOrderTouchContext : DbContext
             entity.Property(e => e.MobileNo).HasMaxLength(15);
             entity.Property(e => e.Name).HasMaxLength(50);
             entity.Property(e => e.Status).HasMaxLength(50);
+            entity.Property(e => e.CreatedDate)
+              .HasColumnType("datetime")
+              .HasDefaultValueSql("GETDATE()");
         });
 
         modelBuilder.Entity<TblFeedback>(entity =>

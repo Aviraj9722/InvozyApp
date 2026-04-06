@@ -14,6 +14,7 @@
             <tr>
                 <th>#</th>
                 <th>Name</th>
+                <th>Enquiry Date</th>
                 <th>Email</th>
                 <th>Mobile</th>
                 <th>Business Type</th>
@@ -32,6 +33,9 @@
                 <tr>
                     <td>@e.Id</td>
                     <td>@e.Name</td>
+                    <td>
+                        @e.CreatedDate?.ToString("dd-MMM-yyyy")
+                    </td>
                     <td>@e.EmailId</td>
                     <td>@e.MobileNo</td>
                     <td>@e.BusinessType</td>

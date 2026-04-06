@@ -142,6 +142,10 @@ namespace eOrderTouchApp.Controllers
                 {
                     BusinessId = b.Id,
                     BusinessName = b.BusinessName,
+                    DealerName = _context.TblUsers
+                    .Where(u => u.BussinessId == b.Id)
+                    .Select(u => u.Name)
+                    .FirstOrDefault(),
 
                     LicenseKey = _context.TblUserLicenses
                         .Where(l => l.BusinessId == b.Id)
@@ -174,7 +178,7 @@ namespace eOrderTouchApp.Controllers
                 {
                     item.Status = "Expired";
                 }
-                else if (item.LicenseEndDate <= today.AddDays(7))
+                else if (item.LicenseEndDate <= today.AddDays(15))
                 {
                     item.Status = "Expiring Soon";
                 }

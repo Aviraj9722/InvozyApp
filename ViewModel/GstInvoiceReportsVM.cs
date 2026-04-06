@@ -21,6 +21,9 @@
         public decimal TotalCGST { get; set; }
         public decimal TotalSGST { get; set; }
         public decimal GrandTax { get; set; }
+
+        public decimal TotalGST { get; set; }
+        public decimal GrandTotal { get; set; }
     }
 
     public class GstItemVM

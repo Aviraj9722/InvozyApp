@@ -188,6 +188,22 @@ namespace eOrderTouchApp.Controllers
             if (b == null)
                 return NotFound();
 
+            // 🔒 Restrict Dealer to only their own businesses
+            var role = User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value;
+
+            if (role == "Dealer")
+            {
+                int dealerId = Convert.ToInt32(User.FindFirst("DealerId")?.Value);
+
+                bool isAllowed = await _context.TblUserLicenses
+                    .AnyAsync(x => x.BusinessId == id && x.DealerId == dealerId);
+
+                if (!isAllowed)
+                {
+                    return Unauthorized("❌ You are not allowed to view/edit this business");
+                }
+            }
+
             return Json(new
             {
                 id = b.Id,
@@ -256,6 +272,20 @@ namespace eOrderTouchApp.Controllers
             if (existing == null)
                 return NotFound();
 
+            var role = User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value;
+
+            if (role == "Dealer")
+            {
+                int dealerId = Convert.ToInt32(User.FindFirst("DealerId")?.Value);
+
+                bool isAllowed = await _context.TblUserLicenses
+                    .AnyAsync(x => x.BusinessId == business.Id && x.DealerId == dealerId);
+
+                if (!isAllowed)
+                {
+                    return Unauthorized("❌ You are not allowed to edit this business");
+                }
+            }
             // Logo upload
             if (LogoFile != null)
             {

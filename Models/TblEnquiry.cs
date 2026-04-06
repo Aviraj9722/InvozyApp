@@ -29,4 +29,5 @@ public partial class TblEnquiry
     public string? BusinessType { get; set; }
 
     public int? NoOfTables { get; set; }
+    public DateTime? CreatedDate { get; set; }
 }

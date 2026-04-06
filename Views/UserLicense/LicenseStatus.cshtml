@@ -3,11 +3,77 @@
 
 <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
 
+<!-- ⚠ Expiring Soon Licenses -->
+@if (Model.Any(x => x.Status == "Expiring Soon"))
+{
+    <div class="card mt-3 border-warning">
+        <div class="card-header bg-warning text-dark">
+            ⚠ Licenses Expiring Soon (Next 15 Days)
+        </div>
+        <div class="card-body">
+            <table class="table table-sm table-bordered">
+                <thead>
+                    <tr>
+                        <th>Business</th>
+                        <th>Dealer / Owner</th>
+                        <th>Mobile</th>
+                        <th>Expiry Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Where(x => x.Status == "Expiring Soon"))
+                    {
+                        <tr>
+                            <td>@item.BusinessName</td>
+                            <td>@item.DealerName</td>
+                            <td>@item.DealerMobNo ?? "N/A"</td>
+                            <td>@item.LicenseEndDate?.ToString("dd-MMMM-yyyy")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+
+<!-- ❌ Expired Licenses -->
+@if (Model.Any(x => x.Status == "Expired"))
+{
+    <div class="card mt-3 border-danger">
+        <div class="card-header bg-danger text-white">
+            ❌ Expired Licenses
+        </div>
+        <div class="card-body">
+            <table class="table table-sm table-bordered">
+                <thead>
+                    <tr>
+                        <th>Business</th>
+                        <th>Dealer / Owner</th>
+                        <th>Mobile</th>
+                        <th>Expiry Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Where(x => x.Status == "Expired"))
+                    {
+                        <tr>
+                            <td>@item.BusinessName</td>
+                            <td>@item.DealerName</td>
+                            <td>@item.DealerMobNo ?? "N/A"</td>
+                            <td>@item.LicenseEndDate?.ToString("dd-MMMM-yyyy")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
 <table id="licenseTable" class="table table-bordered">
     <thead class="table-dark">
         <tr>
             <th>Business ID</th>
             <th>Business Name</th>
+            <th>Dealer Name</th>
             <th>License Key</th>
             <th>License Start Date</th>
             <th>License End Date</th>
@@ -17,14 +83,22 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>@item.BusinessId</td>
-                <td>@item.BusinessName</td>
-                <td>@item.LicenseKey</td>
-                <td>@item.LicenseStartDate?.ToString("dd-MM-yyyy")</td>
-                <td>@item.LicenseEndDate?.ToString("dd-MM-yyyy")</td>
-                <td>
-                    @if (item.Status == "Expired")
+            <tr class="@(item.Status == "Expiring Soon" ? "table-warning"
+                                : item.Status == "Expired" ? "table-danger" : "")">
+
+            <td>
+                <a asp-controller="Businesses" asp-action="Index" asp-route-id="@item.BusinessId">
+                    @item.BusinessId
+                </a>
+            </td>
+            <td>@item.BusinessName</td>
+            <td>@item.DealerName</td>
+            <td>@item.LicenseKey</td>
+            <td>@item.LicenseStartDate?.ToString("dd-MMMM-yyyy")</td>
+            <td>@item.LicenseEndDate?.ToString("dd-MMMM-yyyy")</td>
+
+            <td>
+                @if (item.Status == "Expired")
                     {
                         <span class="badge bg-danger">Expired</span>
                     }
@@ -40,7 +114,9 @@
                     {
                         <span class="badge bg-secondary">No License</span>
                     }
-                </td>
+                
+            </td>
+
             </tr>
         }
     </tbody>
@@ -51,7 +127,7 @@
 <script>
     $(document).ready(function () {
         $('#licenseTable').DataTable({
-            "order": [[3, "desc"]] // Sort by License End Date descending
+            "order": [[5, "desc"]] // Sort by License End Date descending
         });
     });
 </script>

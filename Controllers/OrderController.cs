@@ -158,10 +158,7 @@ public class OrderController : Controller
 
 
     [HttpPost]
-    public async Task<IActionResult> Report2(
-    DateTime fromDT,
-    DateTime toDT,
-    int selectedbusinessId = 0)
+    public async Task<IActionResult> Report2(DateTime fromDT,DateTime toDT,int selectedbusinessId = 0)
     {
         int userId = Convert.ToInt32(User.FindFirst("UserId")?.Value);
 
