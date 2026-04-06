@@ -87,7 +87,7 @@
                                 : item.Status == "Expired" ? "table-danger" : "")">
 
             <td>
-                <a asp-controller="Businesses" asp-action="Index" asp-route-id="@item.BusinessId">
+                <a asp-controller="Businesses" asp-action="Index" asp-route-id="@item.BusinessId" style="text-decoration:none; font-weight:bold; color:inherit;">
                     @item.BusinessId
                 </a>
             </td>

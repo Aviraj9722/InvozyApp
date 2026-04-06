@@ -142,9 +142,14 @@ namespace eOrderTouchApp.Controllers
                 {
                     BusinessId = b.Id,
                     BusinessName = b.BusinessName,
-                    DealerName = _context.TblUsers
-                    .Where(u => u.BussinessId == b.Id)
-                    .Select(u => u.Name)
+                    
+                    DealerName = _context.TblUserLicenses
+                    .Where(l => l.BusinessId == b.Id)
+                    .OrderByDescending(l => l.EndDate)
+                    .Join(_context.TblDealer,
+                          l => l.DealerId,
+                          u => u.Id,
+                          (l, u) => u.Name) 
                     .FirstOrDefault(),
 
                     LicenseKey = _context.TblUserLicenses

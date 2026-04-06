@@ -438,16 +438,37 @@
                             <!-- CONFIG -->
                             <td>
                                 <span class="badge bg-secondary">
+                                    <i class="bi bi-printer"></i>
                                     Printer: @item.PrinterSize?.PrinterSize
                                 </span>
 
                                 <span class="badge bg-info text-dark">
+                                    <i class="bi bi-percent"></i>
                                     Discount: @item.DiscountType
                                 </span>
 
                                 @if (item.IsGstapplicable == true)
                                 {
-                                    <span class="badge bg-success">GST</span>
+                                    <span class="badge bg-success">
+                                        <i class="bi bi-receipt"></i>
+                                        GST
+                                    </span>
+                                }
+
+                                @if (!string.IsNullOrEmpty(item.KichenPrinterName))
+                                {
+                                    <span class="badge bg-primary">
+                                        <i class="bi bi-egg-fried"></i>
+                                        KichenPrinter: @item.KichenPrinterName
+                                    </span>
+                                }
+
+                                @if (!string.IsNullOrEmpty(item.CounterPrinterName))
+                                {
+                                    <span class="badge bg-dark">
+                                        <i class="bi bi-printer-fill"></i>
+                                        CounterPrinter: @item.CounterPrinterName
+                                    </span>
                                 }
                             </td>
 
