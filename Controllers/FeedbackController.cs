@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace eOrderTouchApp.Controllers
 {
-    [AuthorizeToRoles("Owner", "HeadOfficer")]
+    
     public class FeedbackController : Controller
     {
         private readonly eOrderTouchContext _context;
@@ -15,8 +15,7 @@ namespace eOrderTouchApp.Controllers
             _context = context;
         }
 
-        // CUSTOMER VIEW (NO GRID)
-        [AllowAnonymous] // customers don't need login
+        [AllowAnonymous]
         public IActionResult Create(int BID = 0)
         {
             ViewBag.BusinessId = BID;
@@ -32,7 +31,7 @@ namespace eOrderTouchApp.Controllers
             return View();
         }
 
-
+        [AuthorizeToRoles("Owner", "HeadOfficer")]
         public IActionResult List(int selectedbusinessId = 0)
         {
             int userId = Convert.ToInt32(User.FindFirst("UserId")?.Value);
