@@ -730,6 +730,8 @@ public class OrderController : Controller
                         success = true,
                         orderId = existingMaster.Id,
                         kotItems = returnKotItems,
+                        totalAmount = existingMaster.TotalAmount,
+                        grandtotal = existingMaster.GrandTotal,
                         message = "Order updated successfully"
                     });
                 }
@@ -840,17 +842,11 @@ public class OrderController : Controller
             kotItems = (bool)business.IsKOTEnabled
                 ? master.TblOrderDetails.Select(k => new { k.ProductId, k.Qty, k.Price })
                 : null,
+            totalAmount = master.TotalAmount,
             grandtotal = master.GrandTotal
         });
     }
 
-    //[HttpGet]
-    //public async Task<IActionResult> GetOrderGstSummary(int orderId)
-    //{
-    //    var gstSummary = _context.Database.SqlQueryRaw<GSTSummary>($"Select GSTPercentage, Sum( Price) as Price, Sum (CGST) as CGST, Sum(SGST) as SGST from tblOrderDetails Where GSTAmount > 0 AND OID = {orderId} Group by GSTPercentage").ToListAsync();
-
-    //    return Ok(gstSummary);
-    //}
 
     [HttpGet]
     public async Task<IActionResult> GetOrderGstSummary(int orderId)

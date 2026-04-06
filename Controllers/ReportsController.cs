@@ -108,8 +108,7 @@ namespace eOrderTouchApp.Controllers
 
                         using (var reader = await cmd.ExecuteReaderAsync())
                         {
-
-                            // HEADER
+                            // 1️⃣ HEADER
                             if (await reader.ReadAsync())
                             {
                                 vm.BusinessName = reader["BusinessName"]?.ToString();
@@ -121,9 +120,14 @@ namespace eOrderTouchApp.Controllers
                                 vm.OrderDate = Convert.ToDateTime(reader["DateOfOrder"]);
                                 vm.CustomerName = reader["CustomerName"]?.ToString();
                                 vm.CustomerMobNo = reader["CustomerMobNo"]?.ToString();
+
+                                // ✅ NEW
+                                vm.TotalAmount = Convert.ToDecimal(reader["TotalAmount"]);
+                                vm.Discount = Convert.ToDecimal(reader["Discount"]);
+                                vm.NetAmount = Convert.ToDecimal(reader["TaxableAfterDiscount"]);
                             }
 
-                            // ITEMS
+                            // 2️⃣ ITEMS
                             if (await reader.NextResultAsync())
                             {
                                 while (await reader.ReadAsync())
@@ -135,12 +139,14 @@ namespace eOrderTouchApp.Controllers
                                         UOM = reader["UOM"]?.ToString(),
                                         Price = Convert.ToDecimal(reader["Price"]),
                                         GstPercent = Convert.ToDecimal(reader["GstPercent"]),
-                                        TotalAmount = Convert.ToDecimal(reader["TotalAmount"])
+
+                                        // ✅ USE DISCOUNTED TOTAL
+                                        TotalAmount = Convert.ToDecimal(reader["DiscountedTotal"])
                                     });
                                 }
                             }
 
-                            // GST SUMMARY
+                            // 3️⃣ GST GROUPING
                             if (await reader.NextResultAsync())
                             {
                                 while (await reader.ReadAsync())
@@ -160,6 +166,16 @@ namespace eOrderTouchApp.Controllers
                                     vm.TotalCGST += tax.CGST;
                                     vm.TotalSGST += tax.SGST;
                                     vm.GrandTax += tax.TotalTax;
+                                }
+                            }
+
+                            // 4️⃣ FINAL SUMMARY
+                            if (await reader.NextResultAsync())
+                            {
+                                if (await reader.ReadAsync())
+                                {
+                                    vm.GSTAmount = Convert.ToDecimal(reader["GSTAmount"]);
+                                    vm.GrandTotal = Convert.ToDecimal(reader["GrandTotal"]);
                                 }
                             }
                         }

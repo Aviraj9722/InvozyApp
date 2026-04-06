@@ -21,6 +21,13 @@
         public decimal TotalCGST { get; set; }
         public decimal TotalSGST { get; set; }
         public decimal GrandTax { get; set; }
+
+        // ✅ NEW FIELDS
+        public decimal TotalAmount { get; set; }
+        public decimal Discount { get; set; }
+        public decimal NetAmount { get; set; }
+        public decimal GSTAmount { get; set; }
+        public decimal GrandTotal { get; set; }
     }
 
     public class GstItemVM

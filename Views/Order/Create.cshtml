@@ -503,13 +503,13 @@
             <div class="row mb-2 align-items-center">
                 <div class="col-12 text-end">
                     <div class="fw-bold fs-6">
-                        Grand Total: ₹ <span id="desktopCartTotal">0.00</span>
+                         Total: ₹ <span id="desktopCartTotal">0.00</span>
                     </div>
 
-                    @if (User.IsInRole("Owner"))
+                    @if (User.IsInRole("Owner") && Org.IsGstapplicable != true)
                     {
                         <div class="fw-bold text-warning">
-                            Payable: ₹ <span id="discountedTotalDesktop">0.00</span>
+                           Grand Total: ₹ <span id="discountedTotalDesktop">0.00</span>
                         </div>
                     }
                 </div>
@@ -543,31 +543,31 @@
                     </select>
                 </div>
 
-                    @if (User.IsInRole("Owner"))
+                    @if (User.IsInRole("Owner") && Org.IsGstapplicable != true)
                     {
                             <!-- Discount -->
-                            <div class="col-12">
-                            @if (Org.DiscountType?.Trim().ToLower()== "amount")
-                            {
-                            <input type="text" id="discountPercentDesktop" class="form-control" value="0" />
-                            }else
-                            {
+                        <div class="col-12">
+                                @if (Org.DiscountType?.Trim().ToLower()== "amount")
+                                {
+                                    <input type="text" id="discountPercentDesktop" class="form-control" value="0" />
+                                }else
+                                {
                         
-                            <select id="discountPercentDesktop" class="form-select form-select-sm">
-                            <option value="0" selected>Discount 0%</option>
-                            <option value="1">Discount 1%</option>
-                            <option value="2">Discount 2%</option>
-                            <option value="3">Discount 3%</option>
-                            <option value="4">Discount 4%</option>
-                            <option value="5">Discount 5%</option>
-                            <option value="10">Discount 10%</option>
-                            <option value="15">Discount 15%</option>
-                            <option value="20">Discount 20%</option>
-                            <option value="25">Discount 25%</option>
-                            </select>
-                            }
-                    </div>
-                }
+                                    <select id="discountPercentDesktop" class="form-select form-select-sm">
+                                    <option value="0" selected>Discount 0%</option>
+                                    <option value="1">Discount 1%</option>
+                                    <option value="2">Discount 2%</option>
+                                    <option value="3">Discount 3%</option>
+                                    <option value="4">Discount 4%</option>
+                                    <option value="5">Discount 5%</option>
+                                    <option value="10">Discount 10%</option>
+                                    <option value="15">Discount 15%</option>
+                                    <option value="20">Discount 20%</option>
+                                    <option value="25">Discount 25%</option>
+                                    </select>
+                                }
+                        </div>
+                    }
 
             </div>
 
@@ -585,12 +585,15 @@
                         <label class="mb-0">
                             <input type="radio" name="paymentDesktop" value="Online"> Online
                         </label>
-                        <label class="mb-0">
-                            <input type="radio" name="paymentDesktop" value="Credit"> Credit
-                        </label>
-                        <label class="mb-0">
-                            <input type="radio" name="paymentDesktop" value="Free"> Free
-                        </label>
+                        @if (Org.IsGstapplicable != true)
+                        {
+                            <label class="mb-0">
+                                <input type="radio" name="paymentDesktop" value="Credit"> Credit
+                            </label>
+                            <label class="mb-0">
+                                <input type="radio" name="paymentDesktop" value="Free"> Free
+                            </label>
+                        }
                     </div>
                 </div>
 
@@ -1317,12 +1320,12 @@
     `;
 
             openPrintPreviewFromHtml(content);
-    // Open isolated print window
-   // let printWin = window.open("", "_blank");
-   // printWin.document.write(content);
-   // printWin.document.close();
+            // Open isolated print window
+           // let printWin = window.open("", "_blank");
+           // printWin.document.write(content);
+           // printWin.document.close();
 
-   // setTimeout(() => { printWin.print(); }, 300);
+           // setTimeout(() => { printWin.print(); }, 300);
     
 }
 
@@ -1386,7 +1389,7 @@
         /* -------------------------
            Cart logic & rendering (both desktop & modal)
            ------------------------*/
-        function updateCart(id, name, price, qty) {
+           function updateCart(id, name, price, qty) {
             const index = cart.findIndex(x => x.id === id);
             if (index > -1) {
                 if (qty === 0) {
@@ -1410,7 +1413,7 @@
         }
 
         function renderCart() {
-        //    debugger;
+        
             // mobile modal table
             const mobileTable = $('#cartItems');
             mobileTable.empty();
@@ -1658,7 +1661,7 @@
         });
 
         function doCheckout(customerName, tableDetail, paymentMode, IsPaymentDone, IsPrinted,discountPercent,discountedTotal) {
-            debugger;
+            
             if('@Org.IsTableNoRequired'.toLowerCase()=='true')// && IsPrinted==true)
             {
                 if(tableDetail.trim() =="")
@@ -1797,7 +1800,7 @@
                                                         res.grandtotal,
                                                         '@Org.MobileNo',
                                                         paymentMode,
-                                                                tableNo,discountPercent,discountedTotal, GSTSummary
+                                                                tableNo,discountPercent,discountedTotal, res.totalAmount, GSTSummary
                                                              
                                                     );
                                                  }else
@@ -1897,6 +1900,7 @@
       
 
         $('#checkoutBtn').click(function () {
+            debugger;
             const customerName = $("#txtCustNameMobile").val();
             const tableDetail = $("#ddlTableMobile option:selected").val();
             const paymentMode = $('[name="paymentMobile"]:checked').val();
@@ -1908,6 +1912,7 @@
         });
 
         $('#checkoutBtnDesktop').click(function () {
+            debugger;
             const customerName = $("#txtCustNameDesktop").val();
             const tableDetail = $("#ddlTableDesktop option:selected").val();
             const paymentMode = $('[name="paymentDesktop"]:checked').val();
@@ -1966,7 +1971,7 @@
                         $('#PendingOrders').html('');
                         return;
                     }
-                  //  debugger;
+                   debugger;
             const rows = res.data.map(o => `
             <div class="order-card shadow-sm mb-2 p-2">
                 <div class="d-flex justify-content-between align-items-center mb-1">
@@ -1997,6 +2002,7 @@
 
         // Click edit to load order into cart
         $(document).on('click', '.edit-order-btn', function () {
+            debugger;
             const id = $(this).data('id');
             if (!id) return;
             // fetch order
@@ -2023,6 +2029,7 @@
         });
 
         function repopulateCartFromOrder(order) {
+            
             // Clear existing cart
             cart = [];
             //debugger;
@@ -2122,7 +2129,7 @@
 
     function printReceipt80mm_Regional(
         orgTitle, address, invoiceNo, date, customerName,
-                        productList, grandTotal, Contact, Mode, TableNo,discountPercent,discountedTotal,GSTSummury
+                        productList, grandTotal, Contact, Mode, TableNo,discountPercent,discountedTotal, totalAmount, GSTSummury
         ) {
         debugger;
             const cleanDate = date.split(":").slice(0, 2).join(":");
@@ -2196,6 +2203,17 @@
 
 
                 <div id="receipt">`;
+
+                // ✅ TAX INVOICE Heading
+                if('@Org.IsGstapplicable'.toLowerCase()=='true')
+                {
+                    html += `
+                        <div style="text-align:center;font-size:20px;font-weight:bold;">
+                            TAX INVOICE
+                        </div>
+                    `;
+                }
+
                 if('@Org.Logo'.trim()!="")
                 {
                     html += ` <div text-align: center;><img src='/uploads/@Org.Logo' Width="150px" style="display:block; margin:0 auto;"/></div>`;
@@ -2232,7 +2250,7 @@
                     </thead>
                     <tbody>
         `;
-        debugger;
+        
         productList.forEach(p => {
             const prod = allProducts.find(x => x.Id === p.productId);
             const name = prod?.Name || "";
@@ -2251,26 +2269,53 @@
             `;
         });
 
-     
-
-        if(discountPercent>0){
-
-        html += `
-                    <tr>
+        // ✅ TOTAL BEFORE GST
+        if('@Org.IsGstapplicable'.toLowerCase()=='true')
+        {
+                html += `
+                <tr>
                     <td></td>
-                    
-                    <td colspan="2" style="font-weight:800">${GrandTotalLabel}</td>
-                    <td class="total" style="font-weight:800">${grandTotal}</td>
-                    </tr>
-                    <tr>
-                    <td></td>
-
-                    <td colspan="2" style="font-weight:800">Disc.</td>
-                    <td class="total" style="font-weight:800">${discountPercent} ${dscUom}  </td>
-                    </tr>
-                    `;
+                <tr>
+                    <td colspan="4">
+                        <hr style="margin:6px 0;border-top:1px dashed #000;">
+                    </td>
+                </tr>
+                    <td colspan="3" style=" text-align:right;font-weight:800">Total:</td>
+                    <td class="total" style="text-align:right; font-weight:800">${totalAmount}/-</td>
+                </tr>
+                `;
         }
-        debugger;
+
+
+
+        if (discountPercent > 0) {
+
+            
+            html += `
+            <tr>
+                <td colspan="4">
+                    <hr style="margin:6px 0;border-top:1px dashed #000;">
+                </td>
+            </tr>
+            `;
+
+            
+            html += `
+            <tr>
+                <td colspan="3" style="text-align:right;font-weight:800">${GrandTotalLabel}</td>
+                <td class="total" style="text-align:right; font-weight:800">${totalAmount} /-</td>
+            </tr>
+            `;
+
+            
+            html += `
+            <tr>
+                <td colspan="3" style="text-align:right; font-weight:800">Disc.</td>
+                <td class="total" style="font-weight:800">${discountPercent} ${dscUom}</td>
+            </tr>
+            `;
+        }
+        
 
         if('@Org.IsGstapplicable'.toLowerCase()=='true')
         {
@@ -2310,9 +2355,10 @@
         }
        
         html += `<tr>
+                
                 <td colspan="4" style="text-align: center;font-size: 20px;"><strong>
                 ${GrandTotalLabel}
-                        ${Math.round(grandTotal)}/-</strong></td>
+                ${Math.round(grandTotal)}/-</strong></td>
 
                 </tr>
                 </tbody>
@@ -2597,6 +2643,11 @@
 
             let receipt = "";
             receipt += "------------------------------------------------\n";
+
+            if ('@Org.IsGstapplicable'.toLowerCase() === 'true') 
+            {
+                receipt += DOUBLE + center24("TAX INVOICE") + NORMAL + "\n";
+            }
 
             // ---- Title (Medium Font + Auto Wrap) ----
             let titleLines = wrapText(orgTitle, 24).slice(0, 2);

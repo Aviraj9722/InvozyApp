@@ -165,6 +165,48 @@
         .bank-line {
             margin-bottom: 4px;
         }
+
+        .totals-wrapper {
+            width: fit-content; /* 🔥 auto size */
+            float: right;
+            margin-top: 2px; /* small gap from GST */
+            padding: 0;
+        }
+
+        .totals-table {
+            border-collapse: collapse;
+            margin: 0; /* 🔥 small box */
+        }
+
+        .totals-table td {
+            padding: 4px 10px;
+            font-size: 13px;
+            margin: 0; /* 🔥 remove hidden spacing */
+        }
+        .totals-table td {
+            padding: 5px 10px; /* compact spacing */
+            font-size: 13px;
+        }
+
+        .totals-table td:first-child {
+            text-align: left;
+            width: 150px;
+        }
+
+        .totals-table td:last-child {
+            text-align: right;
+            width: 100px;
+        }
+
+        .totals-table tr {
+            border-bottom: 1px solid #ddd;
+        }
+
+        .grand-total {
+            font-weight: bold;
+            font-size: 14px;
+            background-color: #f2f2f2;
+        }
     </style>
 </head>
 
@@ -285,7 +327,35 @@
             </tr>
         </tbody>
     </table>
+    <div style="clear: both;"></div>
+    <div class="totals-wrapper" style="margin-top: 10px;">
+        <table class="totals-table">
+            <tr>
+                <td>Total Amount</td>
+                <td>₹ @Model.TotalAmount.ToString("N2")</td>
+            </tr>
 
+            <tr>
+                <td>Discount</td>
+                <td>(-) ₹ @Model.Discount.ToString("N2")</td>
+            </tr>
+
+            <tr>
+                <td>Net Amount</td>
+                <td>₹ @Model.NetAmount.ToString("N2")</td>
+            </tr>
+
+            <tr>
+                <td>GST</td>
+                <td>₹ @Model.GSTAmount.ToString("N2")</td>
+            </tr>
+
+            <tr class="grand-total">
+                <td>Grand Total</td>
+                <td>₹ @Model.GrandTotal.ToString("N2")</td>
+            </tr>
+        </table>
+    </div>
     <div style="clear: both;"></div>
 
     <hr />
