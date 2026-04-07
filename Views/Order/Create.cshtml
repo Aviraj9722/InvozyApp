@@ -2507,10 +2507,10 @@
     });
 
     receipt += "------------------------------------------------\n";
-
+     receipt += rightAlign("Subtotal: ", totalAmount + "/-") + "\n";
     // ✅ TOTAL BEFORE GST
     if ('@Org.IsGstapplicable'.toLowerCase() === 'true') {
-        receipt += rightAlign("Subtotal: ", totalAmount + "/-") + "\n";
+       
         receipt += "------------------------------------------------\n";
 
         // ✅ GST SUMMARY HEADER
