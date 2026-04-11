@@ -1,0 +1,178 @@
+﻿
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<h2>Transactions 💰</h2>
+
+<div style="display:flex; gap:20px;">
+
+    <!-- ✅ LEFT SIDE FORM -->
+    <div style="width:30%; border:1px solid #ddd; padding:15px; border-radius:8px; height:fit-content;">
+
+        <h4>Add Transaction</h4>
+
+        <form id="txnForm">
+            <input type="hidden" id="Id" />
+
+            <label>Account</label>
+            <select id="AccountId" style="width:100%; margin-bottom:10px;"></select>
+
+            <label>Amount</label>
+            <input type="number" id="Amount" placeholder="Amount" required style="width:100%; margin-bottom:10px;" />
+
+            <label>Payment Mode</label>
+            <select id="PaymentMode" style="width:100%; margin-bottom:10px;">
+                <option value="Cash">Cash</option>
+                <option value="Bank">Bank</option>
+            </select>
+
+            <label>Type</label>
+            <select id="TypeOfTransaction" style="width:100%; margin-bottom:10px;">
+                <option value="D">Debit</option>
+                <option value="C">Credit</option>
+            </select>
+
+            <label>Date</label>
+            <input type="date" id="TransactionDate" style="width:100%; margin-bottom:10px;" />
+
+            <label>Narration</label>
+            <input type="text" id="Narration" placeholder="Narration" style="width:100%; margin-bottom:10px;" />
+
+            
+
+            <br /><br />
+
+            <button type="submit">Save</button>
+            <button type="button" onclick="resetForm()">Clear</button>
+        </form>
+    </div>
+
+    <!-- ✅ RIGHT SIDE GRID -->
+    <div style="width:70%; border:1px solid #ddd; padding:15px; border-radius:8px;">
+
+        <h4>Transaction List</h4>
+
+        <!-- 🔍 SEARCH -->
+        <input type="text" id="searchBox" placeholder="Search..." style="margin-bottom:10px; width:50%;" />
+
+        <div style="max-height:400px; overflow-y:auto;">
+            <table border="1" width="100%">
+                <thead style="position:sticky; top:0; background:#f5f5f5;">
+                    <tr>
+                        <th>Date</th>
+                        <th>Account</th>
+                        <th>Amount</th>
+                        <th>Mode</th>
+                        <th>Type</th>
+                        
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="txnTable"></tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        
+        // 🔹 LOAD ACCOUNTS
+        function loadAccounts() {
+            $.get('/Transactions/GetAccounts', function (data) {
+                let html = '';
+                data.forEach(a => {
+                    html += `<option value="${a.id}">${a.name}</option>`;
+                });
+                $('#AccountId').html(html);
+
+                $('#AccountId').select2({
+                    placeholder: "Search Account...",
+                    allowClear: true,
+                    width: '100%'
+                });
+            });
+        }
+
+        // 🔹 LOAD TRANSACTIONS
+        function loadTransactions() {
+            $.get('/Transactions/GetTransactions', function (data) {
+                transactions = data;
+                renderTable(data);
+            });
+        }
+
+        function renderTable(data) {
+                let html = '';
+
+                data.forEach(t => {
+                    html += `
+                    <tr>
+                        <td>${t.transactionDate.split('T')[0]}</td>
+                        <td>${t.accountName}</td>
+                        <td>₹ ${t.amount}</td>
+                        <td>${t.paymentMode}</td>
+                        <td>${t.typeOfTransaction === 'D' ? 'Debit' : 'Credit'}</td>
+                        
+                    </tr>`;
+                });
+
+                $('#txnTable').html(html);
+        }
+
+        // 🔍 SEARCH
+        $('#searchBox').on('keyup', function () {
+            let val = $(this).val().toLowerCase();
+
+            let filtered = transactions.filter(t =>
+                t.accountName.toLowerCase().includes(val) ||
+                t.paymentMode.toLowerCase().includes(val) ||
+                (t.narration ?? '').toLowerCase().includes(val)
+            );
+
+            renderTable(filtered);
+        });
+
+        // 🔹 SAVE
+        $('#txnForm').submit(function (e) {
+            e.preventDefault();
+
+            let model = {
+                Id: $('#Id').val(),
+                AccountId: $('#AccountId').val(),
+                Amount: $('#Amount').val(),
+                PaymentMode: $('#PaymentMode').val(),
+                TypeOfTransaction: $('#TypeOfTransaction').val(),
+                TransactionDate: $('#TransactionDate').val(),
+                Narration: $('#Narration').val(),
+                IsRefund: $('#IsRefund').is(':checked')
+            };
+
+            let url = model.Id == 0 ? '/Transactions/Save' : '/Transactions/Edit';
+
+            $.post(url, model, function (res) {
+                if (res.success) {
+                    loadTransactions();
+                    resetForm();
+                } else {
+                    alert(res.message);
+                }
+            });
+        });
+
+       
+        // 🔹 RESET
+        function resetForm() {
+            $('#Id').val(0);
+            $('#Amount').val('');
+            $('#Narration').val('');
+            $('#IsRefund').prop('checked', false);
+        }
+
+        // INIT
+        loadAccounts();
+        loadTransactions();
+    </script>
