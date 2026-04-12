@@ -1,0 +1,146 @@
+﻿@model List<TblLedgerAccount>
+
+<h2>Expense Accounts 🧾</h2>
+
+<!-- ✅ SEARCH -->
+<input type="text" id="searchBox" placeholder="Search accounts..." />
+
+<!-- ✅ FORM -->
+<form id="accountForm">
+    <input type="hidden" id="Id" />
+
+    <input type="text" id="Name" placeholder="Account Name" required />
+    <input type="text" id="Description" placeholder="Description" />
+
+    <select id="Status">
+        <option value="Active">Active</option>
+        <option value="Inactive">Inactive</option>
+    </select>
+
+    <button type="submit">Save</button>
+    <button type="button" onclick="resetForm()">Clear</button>
+</form>
+
+<hr />
+
+<!-- ✅ TABLE -->
+<table border="1" width="100%">
+    <thead>
+        <tr>
+            <th>🧾</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody id="accountTable"></tbody>
+</table>
+
+<!-- ✅ JAVASCRIPT -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    let accounts = [];
+
+    // 🔹 LOAD DATA
+    function loadAccounts() {
+        $.get('/LedgerAccount/GetAccounts', function (data) {
+            accounts = data;
+            renderTable(data);
+        });
+    }
+
+    // 🔹 RENDER TABLE
+    function renderTable(data) {
+        let html = '';
+
+        data.forEach(a => {
+            let icon = getIcon(a.Name);
+
+            html += `
+            <tr>
+                <td>${icon}</td>
+                <td>${a.name}</td>
+                <td>${a.description ?? ''}</td>
+                <td>${a.status}</td>
+                <td>
+                    <button onclick="edit(${a.id}, '${a.name}', '${a.description}', '${a.status}')">Edit</button>
+                    <button onclick="remove(${a.id})">Delete</button>
+                </td>
+            </tr>`;
+        });
+
+        $('#accountTable').html(html);
+    }
+
+    // 🔹 ICON LOGIC
+    function getIcon(name) {
+        name = name.toLowerCase();
+
+        if (name.includes("rent")) return "🏠";
+        if (name.includes("food")) return "🍔";
+        if (name.includes("electric")) return "💡";
+        if (name.includes("salary")) return "👨‍💼";
+        if (name.includes("travel")) return "🚗";
+
+        return "🧾";
+    }
+
+    // 🔹 SAVE
+    $('#accountForm').submit(function (e) {
+        e.preventDefault();
+
+        let model = {
+            Id: $('#Id').val(),
+            Name: $('#Name').val(),
+            Description: $('#Description').val(),
+            Status: $('#Status').val()
+        };
+
+        $.post('/LedgerAccount/Save', model, function () {
+            loadAccounts();
+            resetForm();
+        });
+    });
+
+    // 🔹 EDIT
+    function edit(id, name, desc, status) {
+        $('#Id').val(id);
+        $('#Name').val(name);
+        $('#Description').val(desc);
+        $('#Status').val(status);
+    }
+
+    // 🔹 DELETE
+    function remove(id) {
+        if (!confirm("Delete this account?")) return;
+
+        $.get('/LedgerAccount/Delete/' + id, function () {
+            loadAccounts();
+        });
+    }
+
+    // 🔹 SEARCH
+    $('#searchBox').on('keyup', function () {
+        let val = $(this).val().toLowerCase();
+
+        let filtered = accounts.filter(a =>
+            a.name.toLowerCase().includes(val) ||
+            (a.description ?? '').toLowerCase().includes(val)
+        );
+
+        renderTable(filtered);
+    });
+
+    // 🔹 RESET
+    function resetForm() {
+        $('#Id').val(0);
+        $('#Name').val('');
+        $('#Description').val('');
+        $('#Status').val('Active');
+    }
+
+    // INIT
+    loadAccounts();
+</script>

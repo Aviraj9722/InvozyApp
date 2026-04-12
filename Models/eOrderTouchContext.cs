@@ -56,11 +56,11 @@ public partial class eOrderTouchContext : DbContext
     public DbSet<TblHOUnit> TblHOUnits { get; set; }
     public DbSet<TblKitchenCounter> TblKitchenCounters { get; set; }
     public DbSet<ProductLedgerVM> ProductLedgerVM { get; set; }
-
     public DbSet<HOBranchDashboardVM> HOBranchDashboardVMs { get; set; }
     public DbSet<HOBranchSummaryVM> HOBranchSummary { get; set; }
-
     public DbSet<TblDealerLicenseTransaction> TblDealerLicenseTransactions { get; set; }
+    public DbSet<TblLedgerAccount> TblLedgerAccounts { get; set; }
+    public DbSet<TblTransaction> TblTransactions { get; set; }
 
     //    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
@@ -489,6 +489,70 @@ public partial class eOrderTouchContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("CreatedOn");
         });
+
+        modelBuilder.Entity<TblLedgerAccount>(entity =>
+        {
+            entity.ToTable("TblLedgerAccounts");
+
+            entity.HasKey(e => e.Id);
+
+            entity.Property(e => e.Name)
+                .IsRequired()
+                .HasMaxLength(100);
+
+            entity.Property(e => e.Description)
+                .HasMaxLength(255);
+
+            entity.Property(e => e.Type)
+                .IsRequired()
+                .HasMaxLength(50); // Expense, Cash, Bank
+
+            entity.Property(e => e.Status)
+                .HasMaxLength(20)
+                .HasDefaultValue("Active");
+
+            entity.Property(e => e.CreatedOn)
+                .HasDefaultValueSql("GETDATE()");
+        });
+
+        modelBuilder.Entity<TblTransaction>(entity =>
+        {
+            entity.ToTable("TblTransactions");
+
+            entity.HasKey(e => e.Id);
+
+            entity.Property(e => e.Amount)
+                .HasColumnType("decimal(10,2)")
+                .IsRequired();
+
+            entity.Property(e => e.PaymentMode)
+                .HasMaxLength(50);
+
+            entity.Property(e => e.Narration)
+                .HasMaxLength(255);
+
+            entity.Property(e => e.TypeOfTransaction)
+                .IsRequired()
+                .HasColumnType("char(1)");
+
+            entity.Property(e => e.CreatedOn)
+                .HasDefaultValueSql("GETDATE()");
+
+            entity.Property(e => e.TransactionDate)
+                .IsRequired();
+
+            entity.Property(e => e.BillNo)
+                .HasMaxLength(50);
+
+            entity.Property(e => e.IsRefund)
+                .HasDefaultValue(false);
+
+            entity.HasOne(t => t.Account)
+                      .WithMany(a => a.Transactions)
+                      .HasForeignKey(t => t.AccountId)
+                      .OnDelete(DeleteBehavior.Restrict);
+        });
+
         OnModelCreatingPartial(modelBuilder);
     }
 
