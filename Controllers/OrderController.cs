@@ -589,8 +589,8 @@ public class OrderController : Controller
                         if (existingItem == null)
                         {
                             #region GST calculation for item
-                            var prod =  _context.TblProducts.Find(existingItem.ProductId);
-                            var gst = (decimal)prod.Gstpercentage;
+                            var prod =  _context.TblProducts.Find(dtoItem.productId);
+                            var gst = prod.Gstpercentage== null? 0: (decimal)prod?.Gstpercentage;
                             decimal itemGstAmount = 0;
                             decimal itemCGST = 0;
                             decimal itemSGST = 0;
