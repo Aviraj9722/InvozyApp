@@ -35,9 +35,7 @@ namespace eOrderTouchApp.Controllers
                             t.PaymentMode,
                             t.Narration,
                             t.TypeOfTransaction,
-                            t.TransactionDate,
-                            t.IsRefund
-                        }).ToList();
+                            t.TransactionDate}).ToList();
 
             return Json(data);
         }
@@ -84,7 +82,7 @@ namespace eOrderTouchApp.Controllers
                 Amount = model.Amount,
                 PaymentMode = model.PaymentMode,
                 Narration = "Auto Entry",
-                TypeOfTransaction = 'D', // money going out
+                TypeOfTransaction = 'D', 
                 TransactionDate = model.TransactionDate,
                 CreatedOn = DateTime.Now
             });
