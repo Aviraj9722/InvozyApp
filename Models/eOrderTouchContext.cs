@@ -115,6 +115,9 @@ public partial class eOrderTouchContext : DbContext
               .HasColumnName("ReportData")
               .HasColumnType("nvarchar(max)")
               .IsRequired(false);
+            entity.Property(e => e.EnableFinance)
+              .HasColumnName("EnableFinance")
+              .HasDefaultValue(false);
         });
 
         modelBuilder.Entity<TblBusinessType>(entity =>

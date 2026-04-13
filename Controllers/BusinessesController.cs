@@ -231,7 +231,8 @@ namespace eOrderTouchApp.Controllers
                 mobileNo = b.MobileNo,
                 qrCode = b.Qrcode,
                 discountType = b.DiscountType,
-                reportData = b.ReportData
+                reportData = b.ReportData,
+                enableFinance = b.EnableFinance,
             });
         }
 
@@ -334,6 +335,7 @@ namespace eOrderTouchApp.Controllers
             existing.IsReceiptReprint = business.IsReceiptReprint;
             existing.Qrcode = business.Qrcode;
             existing.ReportData = business.ReportData;
+            existing.EnableFinance = business.EnableFinance;
             //// Replace logo if file selected
             //if (LogoFile != null)
             //{

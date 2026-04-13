@@ -1,146 +1,320 @@
-﻿@model List<TblLedgerAccount>
+﻿@model IEnumerable<eOrderTouchApp.Models.TblLedgerAccount>
 
-<h2>Expense Accounts 🧾</h2>
+@{
+    ViewData["Title"] = "Ledger Accounts";
+}
 
-<!-- ✅ SEARCH -->
-<input type="text" id="searchBox" placeholder="Search accounts..." />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
+<style>
+    .card {
+        border: 0;
+        border-radius: 12px;
+    }
 
-<!-- ✅ FORM -->
-<form id="accountForm">
-    <input type="hidden" id="Id" />
+    .card-header {
+        background: linear-gradient(90deg,#1e66dc,#4c8bf5);
+        border-radius: 12px 12px 0 0 !important;
+        font-weight: 600;
+        letter-spacing: .3px;
+    }
 
-    <input type="text" id="Name" placeholder="Account Name" required />
-    <input type="text" id="Description" placeholder="Description" />
+    .form-control, .form-select {
+        border-radius: 8px;
+        height: 38px;
+    }
 
-    <select id="Status">
-        <option value="Active">Active</option>
-        <option value="Inactive">Inactive</option>
-    </select>
+    .btn-success {
+        border-radius: 8px;
+        font-weight: 600;
+    }
 
-    <button type="submit">Save</button>
-    <button type="button" onclick="resetForm()">Clear</button>
-</form>
+    #tblAccounts {
+        font-size: 14px;
+    }
 
-<hr />
+    .dataTables_wrapper .dataTables_filter input {
+        border-radius: 8px;
+        padding: 4px 8px;
+    }
 
-<!-- ✅ TABLE -->
-<table border="1" width="100%">
-    <thead>
-        <tr>
-            <th>🧾</th>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Status</th>
-            <th>Action</th>
-        </tr>
-    </thead>
-    <tbody id="accountTable"></tbody>
-</table>
+    .badge {
+        padding: 6px 10px;
+        font-weight: 500;
+    }
 
-<!-- ✅ JAVASCRIPT -->
+    .table thead th {
+        vertical-align: middle;
+    }
+
+    .action-btn {
+        padding: 3px 8px;
+        font-size: 12px;
+    }
+
+    .icon-col {
+        font-size: 18px;
+    }
+
+    .toolbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .title-small {
+        font-size: 13px;
+        color: #666;
+    }
+
+    .dataTables_wrapper .top {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+    }
+
+    .dataTables_filter {
+        float: right !important;
+    }
+
+    .dataTables_length {
+        float: left !important;
+    }
+</style>
+
+<div class="container-fluid mt-3">
+
+    <div class="card shadow">
+        @* <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">General Ledger Accounts</h5>
+        </div> *@
+        <div class="card-header text-white d-flex justify-content-between">
+            <div>
+                <h5 class="mb-0">General Ledger Accounts</h5>
+                <div class="title-small text-white-50">
+                    Manage income, expense, cash & bank ledgers
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+
+            <!-- FORM -->
+            <div class="row g-2 mb-3">
+
+                <input type="hidden" id="Id" value="0" />
+
+                <div class="col-md-3">
+                    <label class="form-label">Account Name</label>
+                    <input type="text" id="Name" class="form-control" />
+                </div>
+
+                <div class="col-md-2">
+                    <label class="form-label">Type</label>
+                    <select id="Type" class="form-select">
+                        <option value="Expense">Expense</option>
+                        <option value="Income">Income</option>
+                    </select>
+                </div>
+
+                <div class="col-md-3">
+                    <label class="form-label">Description</label>
+                    <input type="text" id="Description" class="form-control" />
+                </div>
+
+                <div class="col-md-2">
+                    <label class="form-label">Status</label>
+                    <select id="Status" class="form-select">
+                        <option>Active</option>
+                        <option>Inactive</option>
+                    </select>
+                </div>
+
+                <div class="col-md-2 d-flex align-items-end">
+                    <button type="button" class="btn btn-success w-100" onclick="save()">
+                        Save Account
+                    </button>
+                </div>
+
+            </div>
+
+            <!-- TABLE -->
+            @* <table id="tblAccounts" class="table table-bordered table-hover"> *@
+            <table id="tblAccounts" class="table table-hover align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th width="50">Icon</th>
+                        <th>Name</th>
+                        <th width="120">Type</th>
+                        <th>Description</th>
+                        <th width="100">Status</th>
+                        <th width="140">Action</th>
+                    </tr>
+                </thead>
+
+                <tbody></tbody>
+
+            </table>
+
+        </div>
+    </div>
+
+</div>
+
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 
 <script>
-    let accounts = [];
 
-    // 🔹 LOAD DATA
+    let table;
+
+    $(document).ready(function () {
+        loadAccounts();
+    });
+
     function loadAccounts() {
+
         $.get('/LedgerAccount/GetAccounts', function (data) {
-            accounts = data;
-            renderTable(data);
+
+            if ($.fn.DataTable.isDataTable('#tblAccounts')) {
+                $('#tblAccounts').DataTable().destroy();
+            }
+
+            let html = '';
+
+               data.forEach(a => {
+
+        let icon = getIcon(a.name, a.type);
+
+        let disable =
+            a.name === "Cash In Hand" ||
+            a.name === "Cash In Bank"
+            ? "disabled" : "";
+
+        html += `
+        <tr>
+            <td>${icon}</td>
+            <td>${a.name}</td>
+            <td>
+                <span class="badge bg-secondary">${a.type}</span>
+            </td>
+            <td>${a.description ?? ''}</td>
+             <td>
+                <span class="badge bg-${a.status == 'Active' ? 'success':'secondary'}">
+                    ${a.status ?? 'Active'}
+                </span>
+            </td>
+            <td>
+                <button class="btn btn-sm btn-primary action-btn"
+                onclick="edit(${a.id},'${a.name}','${a.type}','${a.description}','${a.status}')">
+                Edit
+                </button>
+
+                <button class="btn btn-sm btn-danger action-btn"
+                ${disable}
+                onclick="remove(${a.id})">
+                Delete
+                </button>
+             </td>
+        </tr>`;
+    });
+
+            $('#tblAccounts tbody').html(html);
+
+            $('#tblAccounts').DataTable({
+                paging: true,
+                searching: true,
+                ordering: true,
+                info: true,
+                lengthChange: true,
+                pageLength: 10,
+                dom: '<"top"lf>rt<"bottom"ip><"clear">'
+            });
         });
     }
 
-    // 🔹 RENDER TABLE
-    function renderTable(data) {
-        let html = '';
+        function save() {
 
-        data.forEach(a => {
-            let icon = getIcon(a.Name);
-
-            html += `
-            <tr>
-                <td>${icon}</td>
-                <td>${a.name}</td>
-                <td>${a.description ?? ''}</td>
-                <td>${a.status}</td>
-                <td>
-                    <button onclick="edit(${a.id}, '${a.name}', '${a.description}', '${a.status}')">Edit</button>
-                    <button onclick="remove(${a.id})">Delete</button>
-                </td>
-            </tr>`;
-        });
-
-        $('#accountTable').html(html);
-    }
-
-    // 🔹 ICON LOGIC
-    function getIcon(name) {
-        name = name.toLowerCase();
-
-        if (name.includes("rent")) return "🏠";
-        if (name.includes("food")) return "🍔";
-        if (name.includes("electric")) return "💡";
-        if (name.includes("salary")) return "👨‍💼";
-        if (name.includes("travel")) return "🚗";
-
-        return "🧾";
-    }
-
-    // 🔹 SAVE
-    $('#accountForm').submit(function (e) {
-        e.preventDefault();
+        if ($('#Name').val() == '') {
+            alert("Enter account name");
+            return;
+        }
 
         let model = {
             Id: $('#Id').val(),
             Name: $('#Name').val(),
+            Type: $('#Type').val(),
             Description: $('#Description').val(),
             Status: $('#Status').val()
         };
 
-        $.post('/LedgerAccount/Save', model, function () {
-            loadAccounts();
-            resetForm();
-        });
-    });
+        $.ajax({
+            url: '/LedgerAccount/Save',
+            type: 'POST',
+            data: model,
+            success: function (res) {
 
-    // 🔹 EDIT
-    function edit(id, name, desc, status) {
+                if (!res.success) {
+                    alert(res.message);
+                    return;
+                }
+
+                loadAccounts();
+                clearForm();
+            }
+        });
+    }
+
+    function edit(id, name, type, desc, status) {
+
         $('#Id').val(id);
         $('#Name').val(name);
+        $('#Type').val(type);
         $('#Description').val(desc);
         $('#Status').val(status);
     }
 
-    // 🔹 DELETE
     function remove(id) {
-        if (!confirm("Delete this account?")) return;
 
-        $.get('/LedgerAccount/Delete/' + id, function () {
+        if (!confirm("Delete account?")) return;
+
+        $.get('/LedgerAccount/Delete/' + id, function (res) {
+
+            if (!res.success) {
+                alert(res.message);
+                return;
+            }
+
             loadAccounts();
         });
     }
 
-    // 🔹 SEARCH
-    $('#searchBox').on('keyup', function () {
-        let val = $(this).val().toLowerCase();
-
-        let filtered = accounts.filter(a =>
-            a.name.toLowerCase().includes(val) ||
-            (a.description ?? '').toLowerCase().includes(val)
-        );
-
-        renderTable(filtered);
-    });
-
-    // 🔹 RESET
-    function resetForm() {
+    function clearForm() {
         $('#Id').val(0);
         $('#Name').val('');
         $('#Description').val('');
         $('#Status').val('Active');
     }
 
-    // INIT
-    loadAccounts();
+    function getIcon(name,type) {
+
+        if (type === "Cash") return "💰";
+        if (type === "Bank") return "🏦";
+        if (type === "Income") return "📈";
+        if (type === "Expense") return "💸";
+
+       if (!name) return "🧾";
+
+        if (name.includes("salary")) return "👨‍💼";
+        if (name.includes("rent")) return "🏠";
+        if (name.includes("electric")) return "💡";
+        if (name.includes("food")) return "🍔";
+        if (name.includes("travel")) return "🚗";
+        if (name.includes("purchase")) return "🛒";
+        if (name.includes("sales")) return "📊";
+
+        return "🧾";
+    }
+
 </script>

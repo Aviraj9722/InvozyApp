@@ -263,6 +263,10 @@ public class HomeController : Controller
             .AsNoTracking()
             .ToListAsync();
 
+        // ✅ ADD THIS LINE HERE
+        var business = _context.TblBusinesses
+            .FirstOrDefault(x => x.Id == orgId);
+
         var dashboard = new TodayDashboardVM
         {
             TotalOrders = saleList.Sum(x => (int?)x.TotalOrders) ?? 0,
@@ -270,7 +274,10 @@ public class HomeController : Controller
             Cash = saleList.Sum(x => (decimal?)x.Cash) ?? 0,
             Online = saleList.Sum(x => (decimal?)x.Online) ?? 0,
             Credit = saleList.Sum(x => (decimal?)x.Credit) ?? 0,
-            Profit = profitList.Sum(x => (decimal?)x.Profit) ?? 0
+            Profit = profitList.Sum(x => (decimal?)x.Profit) ?? 0,
+
+            // finance enable flag
+            FinanceEnabled = business?.EnableFinance ?? false
         };
 
         return View(dashboard);

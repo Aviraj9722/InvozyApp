@@ -11,6 +11,9 @@ namespace eOrderTouchApp.Models.ReportsModel
         public decimal Online { get; set; }
         public decimal Credit { get; set; }
         public decimal Profit { get; set; }
+
+        // Finance dashboard buttons
+        public bool FinanceEnabled { get; set; }
     }
 
 }

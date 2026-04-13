@@ -266,6 +266,11 @@
                         <label class="form-check-label">Is Receipt Reprint Required?</label>
                     </div>
 
+                    <!-- Enable Finance -->
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="EnableFinance" name="EnableFinance" />
+                        <label class="form-check-label">EnableFinance</label>
+                    </div>
 
                     <!-- Kichen Printer Name  -->
                     <div class="b-3">
@@ -514,7 +519,10 @@
                                 {
                                     <span class="badge bg-primary">MultiLang</span>
                                 }
-
+                                @if (item.EnableFinance == true)
+                                {
+                                    <span class="badge bg-success">Finance</span>
+                                }
                             </td>
 
                             <!-- STATUS -->
@@ -694,6 +702,7 @@
                 formData.set("IsMultilengual", $("#IsMultilengual").is(":checked"));
                 formData.set("IsTableNoRequired", $("#IsTableNoRequired").is(":checked"));
                 formData.set("IsReceiptReprint", $("#IsReceiptReprint").is(":checked"));
+                formData.set("EnableFinance", $("#EnableFinance").is(":checked"));
 
            // formData.set("IsGstapplicable", $("#IsGstapplicable").is(":checked"));
             $.ajax({
@@ -744,6 +753,7 @@
                 $("#CounterPrinterName").val(data.counterPrinterName);
                 $("#QRCode").val(data.qrCode);
                 $("#ReportData").val(data.reportData);
+                $("#EnableFinance").prop('checked', data.enableFinance);
                         
                 $("#btnSave").text("Update");
             });
@@ -790,6 +800,7 @@
             $("#IsReceiptReprint").prop("checked",false);
             $("#DiscountType").val("");
             $("#ReportData").val("");
+            $("#EnableFinance").prop("checked", false);
         }
 
     </script>
