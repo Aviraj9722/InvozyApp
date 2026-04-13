@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace eOrderTouchApp.Controllers
 {
+    [AuthorizeToRoles("Owner")]
     public class TransactionController : Controller
     {
         private readonly eOrderTouchContext _context;

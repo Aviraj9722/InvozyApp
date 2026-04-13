@@ -778,6 +778,8 @@ public class OrderController : Controller
                 IsKOTPrinted = false
             });
         }
+
+
         var master = new TblOrderMaster
         {
             CustomerName = orderDto.customerName,
@@ -831,6 +833,38 @@ public class OrderController : Controller
 
         _context.TblOrderMasters.Add(master);
         await _context.SaveChangesAsync();
+
+        #region For Payment received in Cash and Bank
+        if (orderDto.isPaymentDone)
+        {
+            decimal amountReceived = (decimal)master.GrandTotal;
+
+            string accountName = orderDto.paymentMode == "Cash"
+                ? "Cash in Hand"
+                : "Cash at Bank";
+
+            var account = await _context.TblLedgerAccounts
+                .FirstOrDefaultAsync(a => a.Name == accountName && a.BusinessId == businessId);
+
+            if (account != null)
+            {
+                var txn = new TblTransaction
+                {
+                    AccountId = 1,
+                    Amount = amountReceived,
+                    PaymentMode = orderDto.paymentMode,
+                    TypeOfTransaction = 'D', // Receipt (Money Coming IN)
+                    TransactionDate = istNow,
+                    Narration = $"Order #{master.Id} Payment Received",
+                    BusinessId = businessId
+                };
+
+                _context.TblTransactions.Add(txn);
+                await _context.SaveChangesAsync();
+            }
+        }
+
+        #endregion
 
         return Json(new
         {

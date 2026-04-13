@@ -12,7 +12,7 @@
         public DateTime CreatedOn { get; set; }
         public DateTime TransactionDate { get; set; }
         public string BillNo { get; set; }
-        public bool IsRefund { get; set; }
+        
 
         public TblLedgerAccount Account { get; set; }
     }

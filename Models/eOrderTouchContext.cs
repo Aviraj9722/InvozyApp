@@ -544,9 +544,6 @@ public partial class eOrderTouchContext : DbContext
             entity.Property(e => e.BillNo)
                 .HasMaxLength(50);
 
-            entity.Property(e => e.IsRefund)
-                .HasDefaultValue(false);
-
             entity.HasOne(t => t.Account)
                       .WithMany(a => a.Transactions)
                       .HasForeignKey(t => t.AccountId)
