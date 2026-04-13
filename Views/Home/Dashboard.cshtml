@@ -453,7 +453,32 @@
                 </div>
             </a>
         </div>
+        @if (Model.FinanceEnabled)
+        {
+            <!-- Ledger -->
+            <div class="dash-col mobile-col">
+                <a asp-controller="LedgerAccount" asp-action="Index" class="text-decoration-none">
+                    <div class="dashboard-card text-center shadow-sm border-0">
+                        <div class="card-body p-3" style="background:#4e73df">
+                            <i class="fas fa-book fa-2x text-white mb-2"></i>
+                            <h6 class="fw-semibold text-white mb-0">Ledger Accounts</h6>
+                        </div>
+                    </div>
+                </a>
+            </div>
 
+            <!-- Transaction -->
+            <div class="dash-col mobile-col">
+                <a asp-controller="Transaction" asp-action="Index" class="text-decoration-none">
+                    <div class="dashboard-card text-center shadow-sm border-0">
+                        <div class="card-body p-3" style="background:#1cc88a">
+                            <i class="fas fa-money-bill-transfer fa-2x text-white mb-2"></i>
+                            <h6 class="fw-semibold text-white mb-0">Transactions</h6>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
 
         <!-- Logout -->
         <div class="dash-col mobile-col mb-5">
