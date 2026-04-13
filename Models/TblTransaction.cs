@@ -8,7 +8,7 @@
         public decimal Amount { get; set; }
         public string PaymentMode { get; set; }
         public string Narration { get; set; }
-        public char TypeOfTransaction { get; set; } // C / D
+        public char TypeOfTransaction { get; set; } 
         public DateTime CreatedOn { get; set; }
         public DateTime TransactionDate { get; set; }
         public string BillNo { get; set; }
