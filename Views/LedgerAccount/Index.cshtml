@@ -81,6 +81,100 @@
     .dataTables_length {
         float: left !important;
     }
+    /* =========================
+       MOBILE RESPONSIVE TABLE
+       =========================*/
+    @@media (max-width: 768px) {
+        #tblAccounts thead
+
+    {
+        display: none;
+    }
+
+    #tblAccounts,
+    #tblAccounts tbody,
+    #tblAccounts tr,
+    #tblAccounts td {
+        display: block;
+        width: 100%;
+    }
+
+        #tblAccounts tr {
+            background: #fff;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            padding: 10px;
+            box-shadow: 0 2px 6px rgba(0,0,0,.08);
+        }
+
+        #tblAccounts td {
+            border: none;
+            padding: 6px 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+            #tblAccounts td:nth-child(1)::before {
+                content: "Icon";
+                font-weight: 600;
+            }
+
+            #tblAccounts td:nth-child(2)::before {
+                content: "Name";
+                font-weight: 600;
+            }
+
+            #tblAccounts td:nth-child(3)::before {
+                content: "Type";
+                font-weight: 600;
+            }
+
+            #tblAccounts td:nth-child(4)::before {
+                content: "Description";
+                font-weight: 600;
+            }
+
+            #tblAccounts td:nth-child(5)::before {
+                content: "Status";
+                font-weight: 600;
+            }
+
+            #tblAccounts td:nth-child(6)::before {
+                content: "Action";
+                font-weight: 600;
+            }
+
+    .action-btn {
+        margin-left: 4px;
+    }
+
+    .card-body {
+        padding: 10px;
+    }
+
+    .row.g-2 > div {
+        margin-bottom: 6px;
+    }
+
+    .btn-success {
+        height: 38px;
+    }
+
+    }
+    /* Fix action buttons alignment */
+    #tblAccounts td:nth-child(6) {
+        justify-content: flex-end !important;
+        gap: 6px;
+    }
+
+        #tblAccounts td:nth-child(6)::before {
+            margin-right: auto;
+        }
+
+        #tblAccounts td:nth-child(6) .action-btn {
+            margin-left: 0;
+        }
 </style>
 
 <div class="container-fluid mt-3">
@@ -122,14 +216,6 @@
                     <input type="text" id="Description" class="form-control" />
                 </div>
 
-                <div class="col-md-2">
-                    <label class="form-label">Status</label>
-                    <select id="Status" class="form-select">
-                        <option>Active</option>
-                        <option>Inactive</option>
-                    </select>
-                </div>
-
                 <div class="col-md-2 d-flex align-items-end">
                     <button type="button" class="btn btn-success w-100" onclick="save()">
                         Save Account
@@ -147,7 +233,7 @@
                         <th>Name</th>
                         <th width="120">Type</th>
                         <th>Description</th>
-                        <th width="100">Status</th>
+                        <th width="120">Status</th>
                         <th width="140">Action</th>
                     </tr>
                 </thead>
@@ -192,6 +278,11 @@
             a.name === "Cash In Bank"
             ? "disabled" : "";
 
+            let statusBadge =
+            a.status === "IsDeleted"
+            ? `<span class="badge bg-danger">Deleted</span>`
+            : `<span class="badge bg-success">Active</span>`;
+
         html += `
         <tr>
             <td>${icon}</td>
@@ -200,14 +291,12 @@
                 <span class="badge bg-secondary">${a.type}</span>
             </td>
             <td>${a.description ?? ''}</td>
+            
+            <td>${statusBadge}</td>
+
              <td>
-                <span class="badge bg-${a.status == 'Active' ? 'success':'secondary'}">
-                    ${a.status ?? 'Active'}
-                </span>
-            </td>
-            <td>
-                <button class="btn btn-sm btn-primary action-btn"
-                onclick="edit(${a.id},'${a.name}','${a.type}','${a.description}','${a.status}')">
+                 <button class="btn btn-sm btn-primary action-btn"
+                onclick="edit(${a.id},'${a.name}','${a.type}',\`${a.description ?? ''}\`)">
                 Edit
                 </button>
 
@@ -216,7 +305,7 @@
                 onclick="remove(${a.id})">
                 Delete
                 </button>
-             </td>
+           </td>
         </tr>`;
     });
 
@@ -246,7 +335,7 @@
             Name: $('#Name').val(),
             Type: $('#Type').val(),
             Description: $('#Description').val(),
-            Status: $('#Status').val()
+            
         };
 
         $.ajax({
@@ -266,13 +355,13 @@
         });
     }
 
-    function edit(id, name, type, desc, status) {
+    function edit(id, name, type, desc) {
 
         $('#Id').val(id);
         $('#Name').val(name);
         $('#Type').val(type);
         $('#Description').val(desc);
-        $('#Status').val(status);
+        
     }
 
     function remove(id) {
@@ -294,7 +383,7 @@
         $('#Id').val(0);
         $('#Name').val('');
         $('#Description').val('');
-        $('#Status').val('Active');
+        
     }
 
     function getIcon(name,type) {

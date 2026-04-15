@@ -153,6 +153,43 @@ namespace eOrderTouchApp.Controllers
             _context.TblBusinesses.Add(business);
             await _context.SaveChangesAsync();
 
+            // ✅ CREATE DEFAULT LEDGER IF FINANCE ENABLED
+            if (business.EnableFinance == true)
+            {
+                bool cashExists = _context.TblLedgerAccounts
+                    .Any(x => x.BusinessId == business.Id && x.Name == "Cash In Hand");
+
+                if (!cashExists)
+                {
+                    _context.TblLedgerAccounts.Add(new TblLedgerAccount
+                    {
+                        BusinessId = business.Id,
+                        Name = "Cash In Hand",
+                        Type = "Cash",
+                        Description = "Cash Account",
+                        CreatedOn = DateTime.Now
+                    });
+                }
+
+                bool bankExists = _context.TblLedgerAccounts
+                    .Any(x => x.BusinessId == business.Id && x.Name == "Cash In Bank");
+
+                if (!bankExists)
+                {
+                    _context.TblLedgerAccounts.Add(new TblLedgerAccount
+                    {
+                        BusinessId = business.Id,
+                        Name = "Cash In Bank",
+                        Type = "Bank",
+                        Description = "Bank Account",
+                        CreatedOn = DateTime.Now
+                    });
+                }
+
+                await _context.SaveChangesAsync();
+            }
+
+
             // -----------------------------
             // CREATE LICENSE
             // -----------------------------
@@ -254,7 +291,7 @@ namespace eOrderTouchApp.Controllers
             ModelState.Remove("IsMultilengual");
             ModelState.Remove("IsTableNoRequired");
             ModelState.Remove("IsReceiptReprint");
-            
+
             if (!ModelState.IsValid)
             {
                 var allErrors = ModelState
@@ -335,7 +372,6 @@ namespace eOrderTouchApp.Controllers
             existing.IsReceiptReprint = business.IsReceiptReprint;
             existing.Qrcode = business.Qrcode;
             existing.ReportData = business.ReportData;
-            existing.EnableFinance = business.EnableFinance;
             //// Replace logo if file selected
             //if (LogoFile != null)
             //{
@@ -348,9 +384,50 @@ namespace eOrderTouchApp.Controllers
             //    existing.Qrcode = await SaveFile(QRCodeFile);
             //}
 
+            // ✅ CHECK IF JUST ENABLED
+            bool financeJustEnabled =
+                 existing.EnableFinance.GetValueOrDefault()
+                 && business.EnableFinance.GetValueOrDefault();
+
+            existing.EnableFinance = business.EnableFinance;
+
+            if (financeJustEnabled)
+            {
+                bool cashExists = _context.TblLedgerAccounts
+                    .Any(x => x.BusinessId == existing.Id && x.Name == "Cash In Hand");
+
+                if (!cashExists)
+                {
+                    _context.TblLedgerAccounts.Add(new TblLedgerAccount
+                    {
+                        BusinessId = existing.Id,
+                        Name = "Cash In Hand",
+                        Type = "Cash",
+                        Description = "Cash Account",
+                        CreatedOn = DateTime.Now
+                    });
+                }
+
+                bool bankExists = _context.TblLedgerAccounts
+                    .Any(x => x.BusinessId == existing.Id && x.Name == "Cash In Bank");
+
+                if (!bankExists)
+                {
+                    _context.TblLedgerAccounts.Add(new TblLedgerAccount
+                    {
+                        BusinessId = existing.Id,
+                        Name = "Cash In Bank",
+                        Type = "Bank",
+                        Description = "Bank Account",
+                        CreatedOn = DateTime.Now
+                    });
+                }
+            }
+
             await _context.SaveChangesAsync();
             return Ok();
         }
+
         [AuthorizeToRoles("Owner")]
         public async Task<IActionResult> Setting()
         {

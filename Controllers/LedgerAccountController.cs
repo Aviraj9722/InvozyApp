@@ -14,48 +14,7 @@ namespace eOrderTouchApp.Controllers
 
         public IActionResult Index()
         {
-            EnsureDefaultAccounts();
             return View();
-        }
-
-        // AUTO CREATE DEFAULT ACCOUNTS
-        private void EnsureDefaultAccounts()
-        {
-            int businessId = Convert.ToInt32(User.FindFirst("OrgId")?.Value);
-
-            bool cashExists = _context.TblLedgerAccounts
-                .Any(x => x.BusinessId == businessId && x.Name == "Cash In Hand");
-
-            if (!cashExists)
-            {
-                _context.TblLedgerAccounts.Add(new TblLedgerAccount
-                {
-                    BusinessId = businessId,
-                    Name = "Cash In Hand",
-                    Type = "Cash",
-                    Description = "Cash Account",
-                    Status = "Active",
-                    CreatedOn = DateTime.Now
-                });
-            }
-
-            bool bankExists = _context.TblLedgerAccounts
-                .Any(x => x.BusinessId == businessId && x.Name == "Cash In Bank");
-
-            if (!bankExists)
-            {
-                _context.TblLedgerAccounts.Add(new TblLedgerAccount
-                {
-                    BusinessId = businessId,
-                    Name = "Cash In Bank",
-                    Type = "Bank",
-                    Description = "Bank Account",
-                    Status = "Active",
-                    CreatedOn = DateTime.Now
-                });
-            }
-
-            _context.SaveChanges();
         }
 
         // GET ALL
@@ -64,7 +23,7 @@ namespace eOrderTouchApp.Controllers
             int businessId = Convert.ToInt32(User.FindFirst("OrgId")?.Value);
 
             var data = _context.TblLedgerAccounts
-                .Where(a => a.BusinessId == businessId && a.Status != "Deleted")
+                .Where(a => a.BusinessId == businessId)
                 .OrderBy(a => a.Name)
                 .Select(a => new
                 {
@@ -87,7 +46,8 @@ namespace eOrderTouchApp.Controllers
             bool exists = _context.TblLedgerAccounts.Any(x =>
                 x.BusinessId == businessId &&
                 x.Name == model.Name &&
-                x.Id != model.Id);
+                x.Id != model.Id &&
+                x.Status != "IsDeleted");
 
             if (exists)
             {
@@ -123,18 +83,19 @@ namespace eOrderTouchApp.Controllers
                 if (acc == null)
                     return Json(new { success = false });
 
+                // ✅ restore if deleted
+                acc.Status = "Active";
+
                 // 🔒 Prevent editing system accounts
                 if (acc.Name == "Cash In Hand" || acc.Name == "Cash In Bank")
                 {
                     acc.Description = model.Description;
-                    acc.Status = model.Status;
                 }
                 else
                 {
                     acc.Name = model.Name;
                     acc.Description = model.Description;
                     acc.Type = model.Type;
-                    acc.Status = model.Status;
                 }
             }
 
@@ -162,7 +123,8 @@ namespace eOrderTouchApp.Controllers
                 });
             }
 
-            acc.Status = "Inactive";
+            // ✅ Soft delete
+            acc.Status = "IsDeleted";
 
             _context.SaveChanges();
 

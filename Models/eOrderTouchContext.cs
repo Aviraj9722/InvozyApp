@@ -510,12 +510,12 @@ public partial class eOrderTouchContext : DbContext
                 .IsRequired()
                 .HasMaxLength(50); // Expense, Cash, Bank
 
-            entity.Property(e => e.Status)
-                .HasMaxLength(20)
-                .HasDefaultValue("Active");
-
             entity.Property(e => e.CreatedOn)
                 .HasDefaultValueSql("GETDATE()");
+
+            entity.Property(e => e.Status)
+                .HasMaxLength(15)
+                .HasDefaultValue("Active");
         });
 
         modelBuilder.Entity<TblTransaction>(entity =>

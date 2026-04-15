@@ -47,7 +47,7 @@ namespace eOrderTouchApp.Controllers
             int businessId = Convert.ToInt32(User.FindFirst("OrgId")?.Value);
 
             var data = _context.TblLedgerAccounts
-                .Where(a => a.BusinessId == businessId && a.Type == "Expense" && a.Status == "Active")
+                .Where(a => a.BusinessId == businessId && a.Type == "Expense")
                 .Select(a => new { a.Id, a.Name })
                 .ToList();
 
