@@ -16,15 +16,23 @@
     /* 🔹 Top Balance */
     .top-bar {
         display: flex;
-        gap: 10px;
-        margin-bottom: 10px;
+        gap: 15px;
+        margin-bottom: 15px;
     }
 
     .balance {
-        padding: 6px 12px;
-        font-size: 13px;
-        border-radius: 6px;
+        padding: 10px 18px;
+        font-size: 18px;
+        border-radius: 8px;
         color: white;
+        min-width: 100px; 
+        box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+
+    .balance span {
+        font-size: 18px;
+        font-weight: 500;
+        margin-left: 3px;
     }
 
     .cash {
@@ -109,16 +117,101 @@
         }
 
     /* 🔹 Table */
-    #txnTable thead {
+    #txnTable thead 
+    {
         background: #007bff;
         color: white;
     }
+
+    /* 📱 MOBILE VIEW */
+    @@media (max-width: 768px) 
+    {
+        .top-bar {
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+        .balance {
+            flex: 1;
+            text-align: center;
+            font-size: 20px; /* increase this */
+            font-weight: 600;
+        }
+
+        .balance span {
+            font-size: 20px;
+            font-weight: bold;
+            display: block;
+        }
+    /* Form becomes grid instead of single row */
+    .single-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+
+    }
+
+    /* Full width fields */
+    .account,
+    #Narration 
+    {
+        grid-column: span 2;
+        box-shadow : 1px;
+    }
+
+    /* Buttons full width */
+    .btn-save,
+    .btn-clear {
+        width: 100%;
+    }
+
+    /* Filter section */
+    .filter-bar {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+    }
+
+    .filter-bar input,
+    .filter-bar select {
+        width: 100%;
+    }
+
+    /* Table scroll (important) */
+    #txnTable {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    button 
+    {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .select2-container 
+    {
+        width: 100% !important;
+    }
+
+    .card-box 
+    {
+        padding: 12px;
+    }
+ }
+
 </style>
 
 <!-- ✅ BALANCE -->
 <div class="top-bar">
-    <div class="balance cash">Cash: ₹ <span id="cashInHand">0</span></div>
-    <div class="balance bank">Bank: ₹ <span id="cashAtBank">0</span></div>
+    <div class="balance cash">
+        Cash: ₹ <span id="cashInHand">@ViewBag.CashInHand</span>
+    </div>
+
+    <div class="balance bank">
+        Bank: ₹ <span id="cashAtBank">@ViewBag.BankBalance</span>
+    </div>
 </div>
 
 <!-- ✅ ADD TRANSACTION -->
@@ -127,7 +220,7 @@
 
         <select id="AccountId" class="account"></select>
 
-        <input type="number" id="Amount" placeholder="Amount" />
+        <input type="number" id="Amount" placeholder="Amount" min="1" />
 
         <select id="PaymentMode" class="small-field">
             <option value="Cash">Cash</option>
@@ -135,7 +228,7 @@
         </select>
 
         <select id="TypeOfTransaction" class="small-field">
-            <option value="">Type</option>
+            
             <option value="C">Payment</option>
             <option value="D">Receipt</option>
         </select>
@@ -143,9 +236,11 @@
         <input type="date" id="TransactionDate" />
 
         <input type="text" id="Narration" placeholder="Narration *" required />
-
-        <button type="submit" class="btn-save">💾</button>
-        <button type="button" class="btn-clear" onclick="resetForm()">✖</button>
+        
+        <div style="display:flex; gap:5px;">
+            <button type="submit" class="btn-save">💾</button>
+            <button type="button" class="btn-clear" onclick="resetForm()">✖</button>
+        </div>
 
     </form>
 </div>
@@ -192,10 +287,18 @@
         let table;
         let cashInHand = 0;
         let cashAtBank = 0;
-
+        
         $(document).ready(function () {
             loadAccounts();
             loadTransactions();
+
+            $('#Amount').on('keypress', function (e) 
+            {
+                if (e.which === 45) { // '-' character
+                    return false;
+                }
+            });
+
         });
 
         function loadAccounts() {
@@ -216,8 +319,7 @@
         function loadTransactions() {
             $.get('/Transaction/GetTransactions', function (data) {
                 transactions = data;
-                calculateBalances();
-
+               
                 if ($.fn.DataTable.isDataTable('#txnTable')) {
                     table.destroy();
                 }
@@ -248,23 +350,7 @@
             });
         }
 
-        function calculateBalances() {
-            cashInHand = 0;
-            cashAtBank = 0;
-
-            transactions.forEach(t => {
-                let amt = t.amount;
-                if (t.paymentMode === 'Cash') {
-                    cashInHand += (t.typeOfTransaction === 'D' ? amt : -amt);
-                } else {
-                    cashAtBank += (t.typeOfTransaction === 'D' ? amt : -amt);
-                }
-            });
-
-            $('#cashInHand').text(cashInHand);
-            $('#cashAtBank').text(cashAtBank);
-        }
-
+        
         function applyFilters() {
             let from = $('#fromDate').val();
             let to = $('#toDate').val();
@@ -272,7 +358,7 @@
             let type = $('#filterType').val();
 
             let filtered = transactions.filter(t => {
-                let d = t.transactionDate.split('T')[0];
+            let d = t.transactionDate.split('T')[0];
 
                 return (!from || d >= from)
                     && (!to || d <= to)
@@ -294,10 +380,27 @@
 
             let narration = $('#Narration').val().trim();
             let amount = parseFloat($('#Amount').val());
+            let accountId = $('#AccountId').val();
+            
+            if (!accountId) {
+                alert("Please select account");
+                return;
+            }
 
+            if (!amount || amount <= 0) 
+            {
+                alert("Amount must be greater than 0");
+                return;
+            }
             if (!narration) {
                 alert("Narration required");
                 return;
+            }
+
+            let confirmSave = confirm("Are you sure you want to proceed with this transaction?");
+
+            if (!confirmSave) {
+                return; // ❌ user clicked Cancel
             }
 
             let model = {
@@ -310,10 +413,12 @@
             };
 
             $.post('/Transaction/Save', model, function (res) {
-                if (res.success) {
-                    loadTransactions();
-                    resetForm();
+                if (!res.success) {
+                    alert(res.message);   
+                    return;
                 }
+                    location.reload();
+                    
             });
         });
 

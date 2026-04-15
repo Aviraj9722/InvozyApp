@@ -841,7 +841,7 @@ public class OrderController : Controller
 
             string accountName = orderDto.paymentMode == "Cash"
                 ? "Cash in Hand"
-                : "Cash at Bank";
+                : "Cash in Bank";
 
             var account = await _context.TblLedgerAccounts
                 .FirstOrDefaultAsync(a => a.Name == accountName && a.BusinessId == businessId);
@@ -850,10 +850,10 @@ public class OrderController : Controller
             {
                 var txn = new TblTransaction
                 {
-                    AccountId = 1,
+                    AccountId = account.Id,
                     Amount = amountReceived,
                     PaymentMode = orderDto.paymentMode,
-                    TypeOfTransaction = 'D', // Receipt (Money Coming IN)
+                    TypeOfTransaction = 'C', // Receipt (Money Coming IN)
                     TransactionDate = istNow,
                     Narration = $"Order #{master.Id} Payment Received",
                     BusinessId = businessId
