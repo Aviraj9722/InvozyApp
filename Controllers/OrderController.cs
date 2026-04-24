@@ -279,8 +279,10 @@ public class OrderController : Controller
                 CategoryId = p.CategoryId,
                 Photo = string.IsNullOrEmpty(p.Photo) ? "" : p.Photo,
                 businessId,
-                p.Code
-               
+                p.Code,
+                KitchenCounterName = p.KitchenCounter.Name,
+                FoodType = p.FoodType
+
             })
             .ToListAsync();
 

@@ -116,6 +116,7 @@ namespace eOrderTouchApp.Controllers
                 existing.UoMid = product.UoMid;
                 existing.HSNCode = product.HSNCode;
                 existing.KitchenCounterId = product.KitchenCounterId;
+                existing.FoodType = product.FoodType;
                 //if (product.Photo != null) existing.Photo = product.Photo;
                 if (product.Photo != null)
                 {

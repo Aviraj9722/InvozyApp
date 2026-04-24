@@ -91,9 +91,6 @@
         object-fit: cover;
         border-radius: 6px;
     }
-
-
-
     /* ---------------------- */
     /* MOBILE VIEW */
     /* ---------------------- */
@@ -189,8 +186,40 @@
         cursor: pointer;
     }
 
+    .food-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 600;
+        white-space: nowrap;
+    }
 
+        .food-pill .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
 
+        .food-pill.veg {
+            background: #e7f6ec;
+            color: #198754;
+        }
+
+        .food-pill.nonveg {
+            background: #fde8ea;
+            color: #dc3545;
+        }
+
+        .food-pill.veg .dot {
+            background: #198754;
+        }
+
+        .food-pill.nonveg .dot {
+            background: #dc3545;
+        }
 </style>
 
 
@@ -225,7 +254,14 @@
                         <input type="text" class="form-control" id="Name" name="Name" required />
                         <span class="text-danger small" id="errName"></span>
                     </div>
-
+                    <div class="mb-2">
+                        <label>Food Type</label>
+                        <select id="FoodType" name="FoodType" class="form-select">
+                            <option value="">Select</option>
+                            <option value="Veg">🟢 Veg</option>
+                            <option value="NonVeg">🔴 Non-Veg</option>
+                        </select>
+                    </div>
                     <div class="mb-2">
                         <label>Bar Code</label>
                         <input type="text" class="form-control" id="Code" name="Code" />
@@ -323,6 +359,7 @@
                                 <th>Action</th>
                                 <th>Photo</th>
                                 <th>Name</th>
+                                <th>Food Type</th>
                                 <th>BarCode</th>
                                 <th>Price</th>
                                 <th>Purchase Price</th>
@@ -331,9 +368,7 @@
                                 <th>Category</th>
                                 <th>Kitchen Counter</th>
                                 <th>GST Percentage</th>
-                               
-                              
-
+                          
                             </tr>
                         </thead>
                         <tbody>
@@ -354,7 +389,8 @@
                                                 data-kitchen="@p.KitchenCounterId"
                                                 data-gst="@p.Gstpercentage"
                                                 data-regional="@p.RegionalName"
-                                                data-code="@p.Code">
+                                                data-code="@p.Code"
+                                                data-foodtype="@p.FoodType">
                                             Edit
                                         </button>
                                         <button type="button" class="btn btn-danger btn-sm"
@@ -380,6 +416,21 @@
                                     <!-- 2. NAME -->
                                     <td data-title="Name">
                                         @p.Name
+                                    </td>
+
+                                    <td data-title="Food Type">
+                                        @if (p.FoodType == "Veg")
+                                        {
+                                            <span class="food-pill veg">
+                                                <span class="dot"></span> Veg
+                                            </span>
+                                        }
+                                        else if (p.FoodType == "NonVeg")
+                                        {
+                                            <span class="food-pill nonveg">
+                                                <span class="dot"></span> Non-Veg
+                                            </span>
+                                        }
                                     </td>
 
                                     <td data-title="Code">
@@ -627,6 +678,7 @@
             CategoryId.value = btn.dataset.category;
             Code.value = btn.dataset.code;
             KitchenCounterId.value = btn.dataset.kitchen || "";
+            FoodType.value = btn.dataset.foodtype || "";
 
             let gstVal = btn.dataset.gst;
 
