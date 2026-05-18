@@ -488,23 +488,41 @@
         position: relative;
     }
 
-    .food-dot {
-        position: absolute;
-        top: 6px;
-        right: 6px;
-        width: 14px;
-        height: 14px;
-        border-radius: 50%;
-        border: 2px solid white;
-        z-index: 2;
+        .food-box{
+        position:absolute;
+        top:6px;
+        right:6px;
+        width:14px;
+        height:14px;
+        border:2px solid;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        background:#fff;
+        border-radius:2px;
+        z-index:2;
     }
 
-    .veg {
-        background: #28a745;
+    .food-dot-inner{
+        width:6px;
+        height:6px;
+        border-radius:50%;
     }
 
-    .nonveg {
-        background: #dc3545;
+    .food-box.veg{
+        border-color:#28a745;
+    }
+
+    .food-box.veg .food-dot-inner{
+        background:#28a745;
+    }
+
+    .food-box.nonveg{
+        border-color:#dc3545;
+    }
+
+    .food-box.nonveg .food-dot-inner{
+        background:#dc3545;
     }
 </style>
 
@@ -662,6 +680,21 @@
             <span id="editingBadge" class="badge bg-warning text-dark mb-2" style="display:none;font-size: 14px;">
                 Editing Order: <span id="editingOrderId"></span>
             </span>
+
+            <!-- ⭐ Filter veg-nonveg -->
+            <div class="d-flex align-items-center gap-3 mb-2" id="foodFilter">
+
+                <label class="form-check-label">
+                    <input type="radio" name="foodTypeFilter" value="Veg">
+                    🟢 Veg
+                </label>
+
+                <label class="form-check-label">
+                    <input type="radio" name="foodTypeFilter" value="NonVeg">
+                    🔴 NonVeg
+                </label>
+
+            </div>
 
             <div class="category-scroll">
                 <div class="d-flex flex-nowrap gap-1">
@@ -1002,7 +1035,7 @@
 
 <!-- Bottom Mobile Bar -->
 <div class="mobile-bottom-bar d-md-none">
-    @*   <a href="@Url.Action("Dashboard", "Home")"><<</a> *@
+    @*   <a href="@Url.Action("Dashboard", "Home")"><<</a>
     <!-- Pending Orders -->
     <button class="openHistoryBtn btn btn-primary">
         <i class="bi bi-clock-history me-1"></i> Orders
@@ -1185,8 +1218,29 @@
         let filteredProducts = [...allProducts];
         let cart = [];
 
+        let selectedFoodType = null;
+        let selectedCategory = "all";
 
-                // SEARCH FILTER
+        // ⭐ FOOD FILTER
+        $('input[name="foodTypeFilter"]').on('change', function () {
+            selectedFoodType = this.value;
+            currentPage = 1;
+            renderProducts();
+        });
+
+        // ⭐ CATEGORY FILTER (PASTE HERE)
+        $('.category-btn').on('click', function () {
+
+            $('.category-btn').removeClass('active');
+            $(this).addClass('active');
+
+            selectedCategory = $(this).data('id');
+            currentPage = 1;
+
+            renderProducts();
+        });
+
+        // SEARCH FILTER
         document.getElementById("txtSearchItem").addEventListener("keyup", function () {
             debugger;
             const query = this.value.toLowerCase();
@@ -1367,6 +1421,24 @@
            // debugger;
             const container = $('#productContainer');
             container.empty();
+
+                 // ✅ NEW FILTER (category + veg/nonveg)
+                filteredProducts = allProducts.filter(p => {
+
+                    // category filter
+                    const categoryMatch =
+                        selectedCategory === "all" ||
+                        p.CategoryId == selectedCategory;
+
+                    // ⭐ food filter (IMPORTANT FIX)
+                    const foodMatch =
+                        !selectedFoodType ||           // no radio selected
+                        !p.FoodType ||                 // no food type → always show
+                        p.FoodType.toLowerCase() === selectedFoodType.toLowerCase();
+
+                    return categoryMatch && foodMatch;
+
+                });
             const start = (currentPage - 1) * productsPerPage;
             const paginated = filteredProducts.slice(start, start + productsPerPage);
 
@@ -1374,21 +1446,29 @@
                 container.append('<p>No products found.</p>');
                 return;
             }
-                            console.log(paginated);
+           console.log(paginated);
             paginated.forEach(p => {
                 const img = p.Photo
                     ? `<img src="${p.Photo}" alt="${htmlEscape(p.Name)}" />`
                     :`<h4>${p.Name}</h4>`;
                     //: `<div style="height:100px;background:#eee;display:flex;align-items:center;justify-content:center;border-radius:6px;">No Image</div>`;
 
-                            // veg / nonveg dot
-                         let dotHtml = "";
+                        // veg / nonveg dot
+                        let dotHtml = "";
 
                         if (p.FoodType && p.FoodType.toLowerCase() === "veg")
-                            dotHtml = '<span class="food-dot veg"></span>';
+                            dotHtml = `
+                                <span class="food-box veg">
+                                    <span class="food-dot-inner"></span>
+                                </span>
+                            `;
 
                         else if (p.FoodType && p.FoodType.toLowerCase() === "nonveg")
-                            dotHtml = '<span class="food-dot nonveg"></span>';
+                            dotHtml = `
+                                <span class="food-box nonveg">
+                                    <span class="food-dot-inner"></span>
+                                </span>
+                            `;
 
                 // find current qty in cart (if any) so product card can show the qty
                 const existing = cart.find(x => x.id === p.Id);

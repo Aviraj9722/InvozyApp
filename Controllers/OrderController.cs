@@ -206,7 +206,7 @@ public class OrderController : Controller
             .OrderByDescending(o => o.Id)
             .ToListAsync();
         var business = _context.TblBusinesses
-   .FirstOrDefault(x => x.Id == businessId);
+        .FirstOrDefault(x => x.Id == businessId);
 
         ViewBag.GstApplicable = business?.IsGstapplicable ?? false;
         ViewBag.TotalCash = Orders
@@ -473,7 +473,6 @@ public class OrderController : Controller
 
         return Json(customers);
     }
-
 
     [HttpPost]
     public async Task<IActionResult> SaveOrder([FromBody] OrderDto orderDto)

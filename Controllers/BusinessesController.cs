@@ -386,7 +386,7 @@ namespace eOrderTouchApp.Controllers
 
             // ✅ CHECK IF JUST ENABLED
             bool financeJustEnabled =
-                 existing.EnableFinance.GetValueOrDefault()
+                 !existing.EnableFinance.GetValueOrDefault()
                  && business.EnableFinance.GetValueOrDefault();
 
             existing.EnableFinance = business.EnableFinance;
