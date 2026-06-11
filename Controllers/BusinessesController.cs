@@ -391,7 +391,7 @@ namespace eOrderTouchApp.Controllers
 
             existing.EnableFinance = business.EnableFinance;
 
-            if (financeJustEnabled)
+            if (existing.EnableFinance.GetValueOrDefault())
             {
                 bool cashExists = _context.TblLedgerAccounts
                     .Any(x => x.BusinessId == existing.Id && x.Name == "Cash In Hand");
