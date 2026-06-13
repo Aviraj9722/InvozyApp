@@ -143,57 +143,8 @@ public class HomeController : Controller
         return Json(result);
     }
 
-    //public async Task<IActionResult> Dashboard()
-    //{
-    //    var claimValue = User.FindFirstValue("OrgId");
-
-    //    if (!int.TryParse(claimValue, out int orgId))
-    //    {
-    //        return RedirectToAction("Login", "Account");
-    //    }
-
-    //    //int orgId = int.Parse(User.FindFirst("OrgId")!.Value);
-    //    DateTime today = DateTime.Today;
-
-    //    // 1️⃣ Get today's sale (Date-Wise Sale Reports)
-    //    var saleList = await _context.DateWiseSaleReportModels
-    //        .FromSqlRaw(
-    //            "EXEC Pro_GenerateReport @ReportName, @BusinessId, @FromDate, @ToDate",
-    //            new SqlParameter("@ReportName", "Date-Wise Sale Reports"),
-    //            new SqlParameter("@BusinessId", orgId),
-    //            new SqlParameter("@FromDate", today),
-    //            new SqlParameter("@ToDate", today)
-    //        )
-    //        .AsNoTracking()
-    //        .ToListAsync();
-
-    //    // 2️⃣ Get today's profit (Date-Wise Sale Profit Reports)
-    //    var profitList = await _context.DateWiseSaleProfitReports
-    //        .FromSqlRaw(
-    //            "EXEC Pro_GenerateReport @ReportName, @BusinessId, @FromDate, @ToDate",
-    //            new SqlParameter("@ReportName", "Date-Wise Sale Profit Reports"),
-    //            new SqlParameter("@BusinessId", orgId),
-    //            new SqlParameter("@FromDate", today),
-    //            new SqlParameter("@ToDate", today)
-    //        )
-    //        .AsNoTracking()
-    //        .ToListAsync();
-
-    //    // 3️⃣ Merge into a single KPI object
-    //    var dashboard = new TodayDashboardVM
-    //    {
-    //        TotalOrders = saleList.Sum(x => (int?)x.TotalOrders) ?? 0,
-    //        TotalSale = saleList.Sum(x => (decimal?)x.TotalSale) ?? 0,
-    //        Cash = saleList.Sum(x => (decimal?)x.Cash) ?? 0,
-    //        Online = saleList.Sum(x => (decimal?)x.Online) ?? 0,
-    //        Credit = saleList.Sum(x => (decimal?)x.Credit) ?? 0,
-    //        Profit = profitList.Sum(x => (decimal?)x.Profit) ?? 0
-    //    };
-
-    //    return View(dashboard);
-    //}
     public async Task<IActionResult> Dashboard()
-    {
+    { 
         var claimValue = User.FindFirstValue("OrgId");
 
         if (!int.TryParse(claimValue, out int orgId))

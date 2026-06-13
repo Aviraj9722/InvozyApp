@@ -287,6 +287,10 @@ public partial class eOrderTouchContext : DbContext
             entity.Property(e => e.HSNCode).HasMaxLength(50);
             entity.Property(e => e.PurchasePrice).HasColumnType("decimal(18, 2)");
 
+            entity.Property(e => e.FoodType)
+            .HasMaxLength(10)
+            .IsUnicode(false);
+
             entity.HasOne(d => d.Business).WithMany(p => p.TblProducts)
                 .HasForeignKey(d => d.BusinessId)
                 .HasConstraintName("FK_tblProduct_tblBusinesses");

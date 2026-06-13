@@ -386,12 +386,12 @@ namespace eOrderTouchApp.Controllers
 
             // ✅ CHECK IF JUST ENABLED
             bool financeJustEnabled =
-                 existing.EnableFinance.GetValueOrDefault()
+                 !existing.EnableFinance.GetValueOrDefault()
                  && business.EnableFinance.GetValueOrDefault();
 
             existing.EnableFinance = business.EnableFinance;
 
-            if (financeJustEnabled)
+            if (existing.EnableFinance.GetValueOrDefault())
             {
                 bool cashExists = _context.TblLedgerAccounts
                     .Any(x => x.BusinessId == existing.Id && x.Name == "Cash In Hand");
@@ -461,12 +461,12 @@ namespace eOrderTouchApp.Controllers
             if (!ModelState.IsValid)
             {
                 var allErrors = ModelState
-          .Where(x => x.Value.Errors.Count > 0)
-          .Select(x => new
-          {
-              Field = x.Key,
-              Errors = x.Value.Errors.Select(e => e.ErrorMessage).ToList()
-          }).ToList();
+              .Where(x => x.Value.Errors.Count > 0)
+              .Select(x => new
+              {
+                  Field = x.Key,
+                  Errors = x.Value.Errors.Select(e => e.ErrorMessage).ToList()
+              }).ToList();
 
                 return BadRequest(allErrors);
             }
@@ -489,7 +489,9 @@ namespace eOrderTouchApp.Controllers
             existing.IsGstapplicable = business.IsGstapplicable;
             existing.HideCustomerField = business.HideCustomerField;
             existing.HideTableDropDown = business.HideTableDropDown;
-           
+            existing.Qrcode = business.Qrcode;
+            existing.ReportData = business.ReportData;
+
             await _context.SaveChangesAsync();
             return RedirectToAction("Setting");
         }

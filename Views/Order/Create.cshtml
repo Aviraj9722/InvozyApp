@@ -483,6 +483,47 @@
         color: #fff !important;
         transition: background-color 0.8s ease;
     }
+
+    .product-card {
+        position: relative;
+    }
+
+        .food-box{
+        position:absolute;
+        top:6px;
+        right:6px;
+        width:14px;
+        height:14px;
+        border:2px solid;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        background:#fff;
+        border-radius:2px;
+        z-index:2;
+    }
+
+    .food-dot-inner{
+        width:6px;
+        height:6px;
+        border-radius:50%;
+    }
+
+    .food-box.veg{
+        border-color:#28a745;
+    }
+
+    .food-box.veg .food-dot-inner{
+        background:#28a745;
+    }
+
+    .food-box.nonveg{
+        border-color:#dc3545;
+    }
+
+    .food-box.nonveg .food-dot-inner{
+        background:#dc3545;
+    }
 </style>
 
 
@@ -639,6 +680,21 @@
             <span id="editingBadge" class="badge bg-warning text-dark mb-2" style="display:none;font-size: 14px;">
                 Editing Order: <span id="editingOrderId"></span>
             </span>
+
+            <!-- ⭐ Filter veg-nonveg -->
+            <div class="d-flex align-items-center gap-3 mb-2" id="foodFilter">
+
+                <label class="form-check-label">
+                    <input type="radio" name="foodTypeFilter" value="Veg">
+                    🟢 Veg
+                </label>
+
+                <label class="form-check-label">
+                    <input type="radio" name="foodTypeFilter" value="NonVeg">
+                    🔴 NonVeg
+                </label>
+
+            </div>
 
             <div class="category-scroll">
                 <div class="d-flex flex-nowrap gap-1">
@@ -979,7 +1035,7 @@
 
 <!-- Bottom Mobile Bar -->
 <div class="mobile-bottom-bar d-md-none">
-    @*   <a href="@Url.Action("Dashboard", "Home")"><<</a> *@
+    @*   <a href="@Url.Action("Dashboard", "Home")"><<</a>
     <!-- Pending Orders -->
     <button class="openHistoryBtn btn btn-primary">
         <i class="bi bi-clock-history me-1"></i> Orders
@@ -1162,8 +1218,29 @@
         let filteredProducts = [...allProducts];
         let cart = [];
 
+        let selectedFoodType = null;
+        let selectedCategory = "all";
 
-                // SEARCH FILTER
+        // ⭐ FOOD FILTER
+        $('input[name="foodTypeFilter"]').on('change', function () {
+            selectedFoodType = this.value;
+            currentPage = 1;
+            renderProducts();
+        });
+
+        // ⭐ CATEGORY FILTER (PASTE HERE)
+        $('.category-btn').on('click', function () {
+
+            $('.category-btn').removeClass('active');
+            $(this).addClass('active');
+
+            selectedCategory = $(this).data('id');
+            currentPage = 1;
+
+            renderProducts();
+        });
+
+        // SEARCH FILTER
         document.getElementById("txtSearchItem").addEventListener("keyup", function () {
             debugger;
             const query = this.value.toLowerCase();
@@ -1344,6 +1421,24 @@
            // debugger;
             const container = $('#productContainer');
             container.empty();
+
+                 // ✅ NEW FILTER (category + veg/nonveg)
+                filteredProducts = allProducts.filter(p => {
+
+                    // category filter
+                    const categoryMatch =
+                        selectedCategory === "all" ||
+                        p.CategoryId == selectedCategory;
+
+                    // ⭐ food filter (IMPORTANT FIX)
+                    const foodMatch =
+                        !selectedFoodType ||           // no radio selected
+                        !p.FoodType ||                 // no food type → always show
+                        p.FoodType.toLowerCase() === selectedFoodType.toLowerCase();
+
+                    return categoryMatch && foodMatch;
+
+                });
             const start = (currentPage - 1) * productsPerPage;
             const paginated = filteredProducts.slice(start, start + productsPerPage);
 
@@ -1351,12 +1446,29 @@
                 container.append('<p>No products found.</p>');
                 return;
             }
-                            console.log(paginated);
+           console.log(paginated);
             paginated.forEach(p => {
                 const img = p.Photo
                     ? `<img src="${p.Photo}" alt="${htmlEscape(p.Name)}" />`
                     :`<h4>${p.Name}</h4>`;
                     //: `<div style="height:100px;background:#eee;display:flex;align-items:center;justify-content:center;border-radius:6px;">No Image</div>`;
+
+                        // veg / nonveg dot
+                        let dotHtml = "";
+
+                        if (p.FoodType && p.FoodType.toLowerCase() === "veg")
+                            dotHtml = `
+                                <span class="food-box veg">
+                                    <span class="food-dot-inner"></span>
+                                </span>
+                            `;
+
+                        else if (p.FoodType && p.FoodType.toLowerCase() === "nonveg")
+                            dotHtml = `
+                                <span class="food-box nonveg">
+                                    <span class="food-dot-inner"></span>
+                                </span>
+                            `;
 
                 // find current qty in cart (if any) so product card can show the qty
                 const existing = cart.find(x => x.id === p.Id);
@@ -1364,6 +1476,8 @@
 
                 container.append(`
                     <div class="product-card ${p.Photo?'':'product-card-WithoutImage'}" data-id="${p.Id}">
+
+                         ${dotHtml}
                         ${img}
                         <h6  title="${htmlEscape(p.Name)}" code="${p.Code}">${htmlEscape(p.Photo?p.Name:'')}</h6>
                         <p class="price">₹${p.Price}</p>
@@ -1793,24 +1907,67 @@
 
                                     if ('@Org.PrinterSizeId' == '2') {
                                         debugger;
-                                                if('@Org.IsMultilengual'.toLowerCase()=='true')
-                                                 {
-                                                    
-                                                    printReceipt80mm_Regional(
-                                                        '@Org.BusinessName',
-                                                        '@Org.Address',
-                                                        res.orderId,
-                                                        new Date().toLocaleString(),
-                                                        order.customerName,
-                                                        order.items,
-                                                        res.grandtotal,
-                                                        '@Org.MobileNo',
-                                                        paymentMode,
-                                                                tableNo,discountPercent,discountedTotal, res.totalAmount, GSTSummary
-                                                             
-                                                    );
-                                                 }else
-                                                 {
+                                                    if('@Org.IsMultilengual'.toLowerCase()=='true')
+                                                                {
+                                                        // ✅ if KOT disabled → normal print (NO CHANGE)
+                                                        if('@Org.IsKOTEnabled'.toLowerCase()!='true')
+                                                        {
+                                                            printReceipt80mm_Regional(
+                                                                '@Org.BusinessName',
+                                                                '@Org.Address',
+                                                                res.orderId,
+                                                                new Date().toLocaleString(),
+                                                                order.customerName,
+                                                                order.items,
+                                                                res.grandtotal,
+                                                                '@Org.MobileNo',
+                                                                paymentMode,
+                                                                tableNo,
+                                                                discountPercent,
+                                                                discountedTotal,
+                                                                res.totalAmount,
+                                                                GSTSummary
+                                                            );
+                                                        }
+                                                        else
+                                                        {
+                                                            // ✅ counter wise print
+                                                            const grouped = groupByCounter(order.items);
+                                                            const counters = Object.keys(grouped);
+
+                                                            counters.forEach((counterName, index) => {
+
+                                                                const counterProducts = grouped[counterName];
+
+                                                                const counterTotal = counterProducts.reduce((sum, p) => {
+                                                                    return sum + (p.qty * p.price);
+                                                                }, 0);
+
+                                                                // ✅ only last counter show GST + final total
+                                                                const isLast = index === counters.length - 1;
+
+                                                                printReceipt80mm_Regional(
+                                                                    '@Org.BusinessName',
+                                                                    '@Org.Address',
+                                                                    res.orderId,
+                                                                    new Date().toLocaleString(),
+                                                                    order.customerName,
+                                                                    counterProducts,
+                                                                    isLast ? res.grandtotal : counterTotal,   // grand total only last
+                                                                    '@Org.MobileNo',
+                                                                    paymentMode,
+                                                                    tableNo,
+                                                                    isLast ? discountPercent : 0,
+                                                                    isLast ? discountedTotal : 0,
+                                                                    isLast ? res.totalAmount : counterTotal,
+                                                                    isLast ? GSTSummary : []
+                                                                );
+
+                                                            });
+                                                        }
+                                                    }
+                                                    else
+                                                    {
                                                         printPlainReceipt80mm(
                                                                '@Org.BusinessName',
                                                                 '@Org.Address',
@@ -1823,42 +1980,41 @@
                                                                 paymentMode,
                                                                         tableNo,discountPercent,discountedTotal, res.totalAmount, GSTSummary
                                                         );
-                                                 }
-                                     
-
-                                      
-
-                                    } else {
+                                                    }
+                                                    } 
+                                                    else 
+                                                    {
                                                     if('@Org.IsMultilengual'.toLowerCase()=='true')
-                                                                 {
-                                                                            printPlainReceipt58mm_Regional(
-                                                                                '@Org.BusinessName',
-                                                                                '@Org.Address',
-                                                                                res.orderId,
-                                                                                new Date().toLocaleString(),
-                                                                                order.customerName,
-                                                                                order.items,
-                                                                                0,
-                                                                                '@Org.MobileNo',
-                                                                                paymentMode,
-                                                                               tableNo,discountPercent,discountedTotal, GSTSummary
-                                                                            );
-                                                                 }else
-                                                                 {
+                                                        {
+                                                        printPlainReceipt58mm_Regional(
+                                                            '@Org.BusinessName',
+                                                            '@Org.Address',
+                                                            res.orderId,
+                                                            new Date().toLocaleString(),
+                                                            order.customerName,
+                                                            order.items,
+                                                                    res.grandtotal,
+                                                            '@Org.MobileNo',
+                                                            paymentMode,
+                                                            tableNo,discountPercent,discountedTotal, GSTSummary
+                                                        );
+                                                    }
+                                                    else
+                                                    {
 
-                                                                    printPlainReceipt58mm(
-                                                                        '@Org.BusinessName',
-                                                                        '@Org.Address',
-                                                                        res.orderId,
-                                                                        new Date().toLocaleString(),
-                                                                        order.customerName,
-                                                                        order.items,
-                                                                        0,
-                                                                        '@Org.MobileNo',
-                                                                        paymentMode,
-                                                                      tableNo,discountPercent,discountedTotal, GSTSummary
-                                                                    );
-                                                                 }
+                                                    printPlainReceipt58mm(
+                                                        '@Org.BusinessName',
+                                                        '@Org.Address',
+                                                        res.orderId,
+                                                        new Date().toLocaleString(),
+                                                        order.customerName,
+                                                        order.items,
+                                                                res.grandtotal,
+                                                        '@Org.MobileNo',
+                                                        paymentMode,
+                                                        tableNo,discountPercent,discountedTotal, GSTSummary
+                                                    );
+                                                    }
                                     }
                                
 
@@ -1901,9 +2057,6 @@
                 }
             });
         }
-
-
-      
 
         $('#checkoutBtn').click(function () {
             debugger;
@@ -2133,11 +2286,12 @@
             });
         });
 
-    function printReceipt80mm_Regional(
+      function printReceipt80mm_Regional(
         orgTitle, address, invoiceNo, date, customerName,
                         productList, grandTotal, Contact, Mode, TableNo,discountPercent,discountedTotal, totalAmount, GSTSummury
         ) {
-        debugger;
+                    
+                    debugger;
             const cleanDate = date.split(":").slice(0, 2).join(":");
 
             let GrandTotalLabel = '@Org.CounterPrinterName'.toLowerCase()  != 'marathi'? 'Total:': 'एकूण:';
@@ -2256,8 +2410,17 @@
                     </thead>
                     <tbody>
         `;
-        
-        productList.forEach(p => {
+        if('@Org.IsKOTEnabled'.toLowerCase()=='true')
+        {
+            html += printReceipt80mm_MultiCounter(
+                orgTitle, address, invoiceNo, date, customerName,
+                productList, grandTotal, Contact, Mode, TableNo,
+                discountPercent, discountedTotal, totalAmount, GSTSummury
+            );
+        }
+        else
+        {
+            productList.forEach(p => {
             const prod = allProducts.find(x => x.Id === p.productId);
             const name = prod?.Name || "";
             const qty = p.qty;
@@ -2274,10 +2437,10 @@
                 </tr>
             `;
         });
-
+        }
         // ✅ TOTAL BEFORE GST
         if('@Org.IsGstapplicable'.toLowerCase()=='true')
-        {
+        {   debugger;
                 html += `
                 <tr>
                     <td></td>
@@ -2292,8 +2455,6 @@
                 `;
         }
 
-
-
         if (discountPercent > 0) {
 
             
@@ -2304,7 +2465,7 @@
                 </td>
             </tr>
             `;
-
+                  
             
             html += `
             <tr>
@@ -2406,8 +2567,7 @@
             // printWin.document.close();
             //  printWin.focus();
             // printWin.print();
-        }
-
+      }
 
     function printPlainReceipt80mm(orgTitle, address, invoiceNo, date, customerName, productList, grandTotal,Contact,Mode,TableNo,discountPercent,discountedTotal, totalAmount, GSTSummury)
         {
@@ -2558,7 +2718,7 @@
 }
             
 
-                       function printPlainReceipt58mm_Regional(
+            function printPlainReceipt58mm_Regional(
                         orgTitle, address, invoiceNo, date, customerName,
                                 productList, grandTotal = 0, Contact, Mode, TableNo,discountPercent,discountedTotal
                     ) {
@@ -2684,7 +2844,7 @@
                             `;
                         });
 
-
+                        debugger;
                         if(discountPercent>0){
 
                         html += `
@@ -2745,7 +2905,7 @@
                                 openPrintPreviewFromHtml(html,grandTotal);
 
                     }
-                function printPlainReceipt58mm(orgTitle, address, invoiceNo, date, customerName, productList, grandTotal = 0, Contact, Mode, TableNo,discountPercent,discountedTotal) {
+            function printPlainReceipt58mm(orgTitle, address, invoiceNo, date, customerName, productList, grandTotal = 0, Contact, Mode, TableNo,discountPercent,discountedTotal) {
 
                     const ESC = "\x1B";
                     const DOUBLE = ESC + "!" + "\x38";        // Big font
@@ -2869,7 +3029,127 @@
                     }
                 }
 
+        function printReceipt80mm_MultiCounter(
+            orgTitle, address, invoiceNo, date, customerName,
+            productList, grandTotal, Contact, Mode, TableNo,
+            discountPercent, discountedTotal, totalAmount, GSTSummury
+        ) {
+            let html = "";
+            let currentCounter = "";
+            let counterTotal = 0;   // ✅ ADD
 
+            // ✅ SORT BY COUNTER NAME FIRST
+            const sortedList = [...productList].sort((a, b) => {
+                const prodA = allProducts.find(x => x.Id === a.productId);
+                const prodB = allProducts.find(x => x.Id === b.productId);
+
+                const counterA = prodA?.KitchenCounterName || "Main";
+                const counterB = prodB?.KitchenCounterName || "Main";
+
+                return counterA.localeCompare(counterB);
+            });
+
+            // ✅ LOOP SORTED LIST
+            sortedList.forEach((p, index) => {
+
+                const prod = allProducts.find(x => x.Id === p.productId);
+                const counterName = prod?.KitchenCounterName || "Main";
+
+                // ✅ counter changed
+                if (currentCounter !== counterName) {
+
+                    // print previous counter total
+                        if (currentCounter !== "") {
+                            html += `
+                            <tr>
+                                <td colspan="4" style="text-align:right;font-weight:bold">
+                                    ${currentCounter} Total : ${counterTotal}/-
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="4">
+                                    <hr style="border-top:1px dashed #000;">
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="4" style="height:15px"></td>
+                            </tr>
+                            `;
+                            counterTotal = 0;
+                        }
+
+                    currentCounter = counterName;
+                    // ✅ Indian date dd-mm-yyyy + 12hr time
+                    const now = new Date();
+
+                    const day = String(now.getDate()).padStart(2, '0');
+                    const month = String(now.getMonth() + 1).padStart(2, '0');
+                    const year = now.getFullYear();
+
+                    let hours = now.getHours();
+                    const minutes = String(now.getMinutes()).padStart(2, '0');
+
+                    const ampm = hours >= 12 ? 'PM' : 'AM';
+                    hours = hours % 12;
+                    hours = hours ? hours : 12;
+
+                    const counterDate = `${day}-${month}-${year} ${hours}:${minutes} ${ampm}`;
+                        html += `
+                        <tr>
+                            <td colspan="4">
+                                <hr>
+                                <div style="display:flex;justify-content:space-between;font-weight:bold">
+                                    <span>Counter : ${counterName}</span>
+                                    <span style="font-size:12px">${counterDate}</span>
+                                </div>
+                                <hr>
+                            </td>
+                        </tr>`;
+                }
+
+                const name = prod?.Name || "";
+                const qty = p.qty;
+                const rate = p.price;
+                const total = qty * rate;
+
+                counterTotal += total;   // ✅ ADD
+
+                html += `
+                <tr>
+                    <td>${name}</td>
+                    <td class="qty">${qty}</td>
+                    <td class="rate">${rate}</td>
+                    <td class="total">${total}</td>
+                </tr>`;
+
+                // ✅ LAST COUNTER TOTAL
+                    if (index === sortedList.length - 1) {
+                        html += `
+                        <tr>
+                            <td colspan="4" style="text-align:right;font-weight:bold">
+                                ${counterName} Total : ${counterTotal}/-
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="4">
+                                <hr style="border-top:1px dashed #000;">
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="4" style="height:15px"></td>
+                        </tr>
+                        `;
+                    }
+
+            });
+
+            return html;
+        }
+        
         // Open Cart Modal
         $("#btnMobileViewCart").click(function () {
             $("#cartModal").modal("show");
@@ -2921,6 +3201,23 @@
             } else {
                 card.removeClass("product-added");
             }
+        }
+
+        function groupByCounter(productList) {
+
+            const groups = {};
+
+            productList.forEach(p => {
+                const prod = allProducts.find(x => x.Id === p.productId);
+                const counter = prod?.KitchenCounter?.Name || "Main";
+
+                if (!groups[counter])
+                    groups[counter] = [];
+
+                groups[counter].push(p);
+            });
+
+            return groups;
         }
     </script>
 

@@ -49,5 +49,6 @@ public partial class TblProduct
 
     public decimal? PurchasePrice { get; set; }
     public int? KitchenCounterId { get; set; }   
+    public string? FoodType { get; set; }
     public virtual TblKitchenCounter? KitchenCounter { get; set; }
 }

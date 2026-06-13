@@ -28,6 +28,12 @@ namespace eOrderTouchApp.Models
         public DbSet<OrderDiscountReportModel> OrderDiscountReportModels { get; set; }
         public DbSet<TodayDashboardVM> TodayDashboardVM { get; set; }
         public DbSet<DateWiseSaleDiscountModel> DateWiseSaleDiscountModels { get; set; }
+        public DbSet<TransactionReportModel> TransactionReports { get; set; }
+        public DbSet<AccountWiseBalanceReportModel> AccountWiseBalanceReports { get; set; }
+        public DbSet<CashFlowReportModel> CashFlowReports { get; set; }
+        public DbSet<BankFlowReportModel> BankFlowReports { get; set; }
+        public DbSet<CounterWiseSaleReportModel> CounterWiseSaleReports { get; set; }
+        public DbSet<CounterItemSaleReportModel> CounterItemSaleReports { get; set; }
 
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder)
@@ -57,6 +63,12 @@ namespace eOrderTouchApp.Models
             modelBuilder.Entity<OrderDiscountReportModel>().HasNoKey();
             modelBuilder.Entity<TodayDashboardVM>().HasNoKey();
             modelBuilder.Entity<DateWiseSaleDiscountModel>().HasNoKey();
+            modelBuilder.Entity<TransactionReportModel>().HasNoKey();
+            modelBuilder.Entity<AccountWiseBalanceReportModel>().HasNoKey();
+            modelBuilder.Entity<CashFlowReportModel>().HasNoKey();
+            modelBuilder.Entity<BankFlowReportModel>().HasNoKey();
+            modelBuilder.Entity<CounterWiseSaleReportModel>().HasNoKey();
+            modelBuilder.Entity<CounterItemSaleReportModel>().HasNoKey();
 
         }
         private static readonly Dictionary<string, Type> ReportsModel = new()
@@ -81,7 +93,12 @@ namespace eOrderTouchApp.Models
             { "Stock Reports", typeof(StockReportModel) },
             { "Order Discount Reports", typeof(OrderDiscountReportModel) },
             { "Date-Wise Discount Reports", typeof(DateWiseSaleDiscountModel) },
-
+            { "Transaction Reports", typeof(TransactionReportModel) },
+            { "Account Wise Balance Reports", typeof(AccountWiseBalanceReportModel) },
+            { "Cash Flow Reports", typeof(CashFlowReportModel) },
+            { "Bank Flow Reports", typeof(BankFlowReportModel) },
+            { "Counter-Wise Sale Reports", typeof(CounterWiseSaleReportModel) },
+            { "Counter Item Sale Reports", typeof(CounterItemSaleReportModel) },
         };
 
         public async Task<object> ExecuteReport(

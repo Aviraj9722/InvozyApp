@@ -206,7 +206,7 @@ public class OrderController : Controller
             .OrderByDescending(o => o.Id)
             .ToListAsync();
         var business = _context.TblBusinesses
-   .FirstOrDefault(x => x.Id == businessId);
+        .FirstOrDefault(x => x.Id == businessId);
 
         ViewBag.GstApplicable = business?.IsGstapplicable ?? false;
         ViewBag.TotalCash = Orders
@@ -279,8 +279,10 @@ public class OrderController : Controller
                 CategoryId = p.CategoryId,
                 Photo = string.IsNullOrEmpty(p.Photo) ? "" : p.Photo,
                 businessId,
-                p.Code
-               
+                p.Code,
+                KitchenCounterName = p.KitchenCounter.Name,
+                FoodType = p.FoodType
+
             })
             .ToListAsync();
 
@@ -471,7 +473,6 @@ public class OrderController : Controller
 
         return Json(customers);
     }
-
 
     [HttpPost]
     public async Task<IActionResult> SaveOrder([FromBody] OrderDto orderDto)

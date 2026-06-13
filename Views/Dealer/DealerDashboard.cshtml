@@ -35,6 +35,78 @@
         border-bottom: 1px solid #e5e5e5;
     }
    
+    @@media (max-width: 768px) {
+        h2
+
+    {
+        font-size: 18px;
+    }
+
+    /* DASHBOARD CARDS */
+    .stat-card {
+        height: auto;
+        padding: 12px;
+        margin-bottom: 10px;
+    }
+
+    .stat-title {
+        font-size: 12px;
+    }
+
+    .stat-value {
+        font-size: 18px;
+    }
+
+    /* make cards 3 per row */
+    .col-md-2 {
+        width: 33.33%;
+        flex: 0 0 33.33%;
+    }
+
+    /* table responsive */
+    #customerTable {
+        font-size: 12px;
+    }
+
+        #customerTable td,
+        #customerTable th {
+            padding: 6px 4px;
+        }
+
+    /* expiring table scroll */
+    .card-body {
+        overflow-x: auto;
+    }
+
+    table {
+        min-width: 650px;
+    }
+
+    /* buttons full width */
+    .btn {
+        width: 100%;
+    }
+
+    /* alert spacing */
+    .alert {
+        font-size: 13px;
+        padding: 8px;
+    }
+
+        .mobile-scroll {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        #customerTable {
+            min-width: 900px;
+        }
+
+            #customerTable th,
+            #customerTable td {
+                white-space: nowrap;
+            }
+    }
 </style>
 
 <div class="container mt-4">
@@ -276,14 +348,19 @@
 
     $(document).ready(function () {
 
+            var isMobile = window.innerWidth < 768;
+
             $("#customerTable").DataTable({
                 pageLength: 10,
                 lengthMenu: [5, 10, 25, 50],
                 searching: true,
                 ordering: true,
-                responsive: true,
 
-                order: [[5, "desc"]] // 👈 Expiry Date column (index 5)
+                responsive: !isMobile,  // desktop responsive
+                scrollX: isMobile,      // mobile scroll
+
+                autoWidth: false,
+                order: [[5, "desc"]]
             });
 
     });
