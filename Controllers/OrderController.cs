@@ -553,6 +553,7 @@ public class OrderController : Controller
             {
                 try
                 {
+                    bool wasPending = !(existingMaster.PaymentStatus ?? false);
                     // -------- Update master ----------
                     existingMaster.CustomerName = orderDto.customerName;
                     existingMaster.TableDetails = orderDto.tableDetail;
@@ -709,6 +710,43 @@ public class OrderController : Controller
                     }
 
                     await _context.SaveChangesAsync();
+
+                    // Payment received now (Pending -> Paid)
+                    bool transactionExists = await _context.TblTransactions.AnyAsync(t =>
+                            t.BusinessId == businessId &&
+                            t.Narration == $"Order #{existingMaster.Id} Payment Received");
+
+                    if (wasPending && orderDto.isPaymentDone && !transactionExists)
+                    {
+                        decimal amountReceived = Convert.ToDecimal(existingMaster.GrandTotal);
+
+                        string accountName = orderDto.paymentMode == "Cash"
+                            ? "Cash in Hand"
+                            : "Cash in Bank";
+
+                        var account = await _context.TblLedgerAccounts
+                            .FirstOrDefaultAsync(a =>
+                                a.Name == accountName &&
+                                a.BusinessId == businessId);
+
+                        if (account != null)
+                        {
+                            var txn = new TblTransaction
+                            {
+                                AccountId = account.Id,
+                                Amount = amountReceived,
+                                PaymentMode = orderDto.paymentMode,
+                                TypeOfTransaction = 'C',
+                                TransactionDate = istNow,
+                                Narration = $"Order #{existingMaster.Id} Payment Received",
+                                BusinessId = businessId
+                            };
+
+                            _context.TblTransactions.Add(txn);
+                            await _context.SaveChangesAsync();
+                        }
+                    }
+
 
                     // ---------------- Insert KOT rows ----------------
                     if (business.IsKOTEnabled == true && kotList.Count > 0)
