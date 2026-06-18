@@ -228,18 +228,19 @@ namespace eOrderTouchApp.Controllers
 
             try
             {
-                var tokenBytes = Convert.FromBase64String(token);
-                var tokenData = System.Text.Encoding.UTF8.GetString(tokenBytes);
+                var tokenData = _protector.Unprotect(token);
 
                 var parts = tokenData.Split('|');
-                var email = parts[0];
-                var expiryTicks = long.Parse(parts[1]);
 
-                var expiryTime = new DateTime(expiryTicks, DateTimeKind.Utc);
+                if (parts.Length != 2)
+                    throw new Exception("Invalid token");
 
-                if (DateTime.UtcNow > expiryTime)
+                string email = parts[0];
+                DateTime generatedTime = DateTime.Parse(parts[1]);
+
+                if (DateTime.UtcNow > generatedTime.AddMinutes(30))
                 {
-                    TempData["Error"] = "This reset password link has been expired.";
+                    TempData["Error"] = "This reset password link has expired.";
                     return RedirectToAction("Login");
                 }
 
@@ -251,7 +252,7 @@ namespace eOrderTouchApp.Controllers
             }
             catch
             {
-                TempData["Error"] = "This reset password link has been expired or is invalid.";
+                TempData["Error"] = "This reset password link has expired or is invalid.";
                 return RedirectToAction("Login");
             }
         }
@@ -264,27 +265,33 @@ namespace eOrderTouchApp.Controllers
 
             try
             {
-                var tokenBytes = Convert.FromBase64String(model.Token);
-                var tokenData = System.Text.Encoding.UTF8.GetString(tokenBytes);
+                var tokenData = _protector.Unprotect(model.Token);
 
                 var parts = tokenData.Split('|');
-                var email = parts[0];
-                var expiryTicks = long.Parse(parts[1]);
 
-                if (DateTime.UtcNow > new DateTime(expiryTicks, DateTimeKind.Utc))
+                if (parts.Length != 2)
+                    throw new Exception("Invalid token");
+
+                string email = parts[0];
+                DateTime generatedTime = DateTime.Parse(parts[1]);
+
+                if (DateTime.UtcNow > generatedTime.AddMinutes(30))
                 {
                     ModelState.AddModelError("", "Reset link has expired.");
                     return View(model);
                 }
 
-                var user = _context.TblUsers.FirstOrDefault(x => x.EmailId == email);
+                var user = _context.TblUsers
+                    .FirstOrDefault(x => x.EmailId == email);
+
                 if (user == null)
                 {
                     ModelState.AddModelError("", "User not found.");
                     return View(model);
                 }
 
-                user.Password = model.Password; // hash later
+                user.Password = model.Password;
+
                 _context.SaveChanges();
 
                 ViewBag.Success = "Password reset successfully.";
