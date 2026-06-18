@@ -272,6 +272,14 @@
                         <label class="form-check-label">EnableFinance</label>
                     </div>
 
+                    <div class="form-check mb-3">
+                        <input class="form-check-input"
+                               type="checkbox"
+                               id="EnableCounterBill"
+                               name="EnableCounterBill" />
+                        <label class="form-check-label"> EnableCounterBill </label>
+                    </div>
+
                     <!-- Kichen Printer Name  -->
                     <div class="b-3">
                         <label class="form-label">Kichen Printer Name</label>
@@ -523,6 +531,10 @@
                                 {
                                     <span class="badge bg-success">Finance</span>
                                 }
+                                @if (item.EnableCounterBill == true)
+                                {
+                                    <span class="badge bg-info">Counter Bill</span>
+                                }
                             </td>
 
                             <!-- STATUS -->
@@ -703,8 +715,9 @@
                 formData.set("IsTableNoRequired", $("#IsTableNoRequired").is(":checked"));
                 formData.set("IsReceiptReprint", $("#IsReceiptReprint").is(":checked"));
                 formData.set("EnableFinance", $("#EnableFinance").is(":checked"));
-
-           // formData.set("IsGstapplicable", $("#IsGstapplicable").is(":checked"));
+                formData.set("EnableCounterBill", $("#EnableCounterBill").is(":checked"));
+       
+                // formData.set("IsGstapplicable", $("#IsGstapplicable").is(":checked"));
             $.ajax({
                 url: url,
                 type: "POST",
@@ -754,7 +767,8 @@
                 $("#QRCode").val(data.qrCode);
                 $("#ReportData").val(data.reportData);
                 $("#EnableFinance").prop('checked', data.enableFinance);
-                        
+                $("#EnableCounterBill").prop('checked', data.enableCounterBill);
+                
                 $("#btnSave").text("Update");
             });
         }
@@ -801,6 +815,7 @@
             $("#DiscountType").val("");
             $("#ReportData").val("");
             $("#EnableFinance").prop("checked", false);
+            $("#EnableCounterBill").prop("checked", false);
         }
 
     </script>

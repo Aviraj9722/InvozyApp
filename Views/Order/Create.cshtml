@@ -1911,8 +1911,8 @@
                                         debugger;
                                                     if('@Org.IsMultilengual'.toLowerCase()=='true')
                                                                 {
-                                                        // ✅ if KOT disabled → normal print (NO CHANGE)
-                                                        if('@Org.IsKOTEnabled'.toLowerCase()!='true')
+                                                        // ✅ if EnableCounterBill disabled → normal print (NO CHANGE)
+                                                        if('@Org.EnableCounterBill'.toLowerCase()!='true')
                                                         {
                                                             printReceipt80mm_Regional(
                                                                 '@Org.BusinessName',
@@ -2412,7 +2412,7 @@
                     </thead>
                     <tbody>
         `;
-        if('@Org.IsKOTEnabled'.toLowerCase()=='true')
+        if('@Org.EnableCounterBill'.toLowerCase()=='true')
         {
             html += printReceipt80mm_MultiCounter(
                 orgTitle, address, invoiceNo, date, customerName,

@@ -84,6 +84,7 @@ namespace eOrderTouchApp.Controllers
             ModelState.Remove("IsMultilengual");
             ModelState.Remove("IsTableNoRequired");
             ModelState.Remove("IsReceiptReprint");
+            ModelState.Remove("EnableCounterBill");
 
             if (!ModelState.IsValid)
             {
@@ -270,6 +271,8 @@ namespace eOrderTouchApp.Controllers
                 discountType = b.DiscountType,
                 reportData = b.ReportData,
                 enableFinance = b.EnableFinance,
+                enableCounterBill = b.EnableCounterBill,
+
             });
         }
 
@@ -291,6 +294,7 @@ namespace eOrderTouchApp.Controllers
             ModelState.Remove("IsMultilengual");
             ModelState.Remove("IsTableNoRequired");
             ModelState.Remove("IsReceiptReprint");
+            ModelState.Remove("EnableCounterBill");
 
             if (!ModelState.IsValid)
             {
@@ -372,6 +376,7 @@ namespace eOrderTouchApp.Controllers
             existing.IsReceiptReprint = business.IsReceiptReprint;
             existing.Qrcode = business.Qrcode;
             existing.ReportData = business.ReportData;
+            existing.EnableCounterBill = business.EnableCounterBill;
             //// Replace logo if file selected
             //if (LogoFile != null)
             //{

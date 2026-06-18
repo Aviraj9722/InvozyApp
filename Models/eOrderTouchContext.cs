@@ -118,6 +118,9 @@ public partial class eOrderTouchContext : DbContext
             entity.Property(e => e.EnableFinance)
               .HasColumnName("EnableFinance")
               .HasDefaultValue(false);
+            entity.Property(e => e.EnableCounterBill)
+                .HasColumnName("EnableCounterBill")
+                .HasDefaultValue(false);
         });
 
         modelBuilder.Entity<TblBusinessType>(entity =>
